@@ -18,3 +18,40 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/events/{event_id}/{event_slug?}', [
+	'as' => 'showEventPage',
+	'uses' => 'EventsController@show'
+]);
+
+Route::post('/events/{event_id}/checkout', [
+	'as' => 'postCreateOrder',
+	'uses' => 'CheckoutsController@store',
+]);
+
+/*
+ * Admin dashboard routes
+ */
+Route::group(['prefix' => 'admin'], function() {
+	// Events dashboard
+	Route::group(['prefix' => 'events'], function() {
+		Route::get('create', 'AdminEventsController@create');
+		Route::post('store', [
+			'as' => 'postCreateEvent',
+			'uses' => 'AdminEventsController@store'
+		]);
+	});
+
+	// Event Packages dashboard
+	Route::group(['prefix' => 'events/{event_id}/packages'], function() {
+		Route::get('/', [
+			'as' => 'showEventPackages',
+			'uses' => 'AdminPackagesController@index'
+		]);
+		Route::get('create', 'AdminPackagesController@create');
+		Route::post('/', [
+			'as' => 'postCreateEventPackage',
+			'uses' => 'AdminPackagesController@store'
+		]);
+	});
+});
