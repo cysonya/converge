@@ -16,7 +16,16 @@ class Attendant extends Model
 	protected $guarded = ['is_refunded', 'is_cancelled'];
 
   /**
-   * The package associated with the attendee.
+   * Cast custom property attribute
+   * @var array
+   */
+  protected $casts = [
+    'custom_properties' => 'string',
+    'roomates' => 'string'
+  ]
+
+  /**
+   * The package associated with the attendant.
    *
    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
    */
@@ -26,7 +35,17 @@ class Attendant extends Model
   }
 
   /**
-   * The event associated with the attendee.
+   * The group associated with the attendant.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+   */
+  public function group()
+  {
+      return $this->belongsTo(\App\EventGroup::class);
+  }
+
+  /**
+   * The event associated with the attendant.
    *
    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
    */
