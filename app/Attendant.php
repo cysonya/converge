@@ -16,13 +16,12 @@ class Attendant extends Model
 	protected $guarded = ['is_refunded', 'is_cancelled'];
 
   /**
-   * Cast custom property attribute
+   * Cast attributes to native types
    * @var array
    */
   protected $casts = [
-    'custom_properties' => 'string',
-    'roomates' => 'string'
-  ]
+    'custom_properties' => 'array',
+  ];
 
   /**
    * The package associated with the attendant.

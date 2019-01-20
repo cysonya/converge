@@ -14,6 +14,16 @@ class Event extends Model
   protected $guarded = [];
 
   /**
+   * The groups associated with the event.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function groups()
+  {
+      return $this->hasMany(\App\EventGroup::class);
+  }
+
+  /**
    * The attendants associated with the event.
    *
    * @return \Illuminate\Database\Eloquent\Relations\HasMany

@@ -20,16 +20,24 @@ class CheckoutsController extends Controller
   public function store(Request $request, $event_id)
   {
   	$event = Event::findOrFail($event_id);
-  	$package = Package::findOrFail($request->package);
 
   	// Create the attendant
-  	$attendant = new Attendant();
-  	$attendant->event_id = $event->id;
-  	$attendant->package_id = $package->id;
-  	$attendant->first_name = $request->first_name;
-  	$attendant->last_name = $request->last_name;
-  	$attendant->email = $request->email;
-  	$attendant->save();
+  	foreach($request->registrants as $registrant) {
+	  	$attendant = new Attendant();
+	  	$attendant->event_id = $event->id;
+	  	$attendant->group_id = (int)$registrant['group'];
+	  	$attendant->package_id = (int)$registrant['package'];
+
+	  	$attendant->first_name = $registrant['first_name'];
+	  	$attendant->last_name = $registrant['last_name'];
+	  	$attendant->email = $registrant['email'];
+
+	  	$attendant->custom_properties = [
+	  		'roomates' => $registrant['roomates'],
+	  		'dietary' => $registrant['dietary'],
+	  	];
+	  	$attendant->save();
+  	}
 
   	return $attendant;
   }
