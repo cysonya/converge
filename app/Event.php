@@ -34,6 +34,16 @@ class Event extends Model
   }
 
   /**
+   * The orders associated with the event.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function orders()
+  {
+      return $this->hasMany(\App\Models\Order::class);
+  }
+
+  /**
    * The packages associated with the event.
    *
    * @return \Illuminate\Database\Eloquent\Relations\HasMany

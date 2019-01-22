@@ -24,6 +24,16 @@ class Attendant extends Model
   ];
 
   /**
+   * The order associated with the attendant.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+   */
+  public function order()
+  {
+      return $this->belongsTo(\App\Order::class);
+  }
+
+  /**
    * The package associated with the attendant.
    *
    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

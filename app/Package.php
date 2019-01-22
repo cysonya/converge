@@ -25,4 +25,14 @@ class Package extends Model
   {
       return $this->belongsTo(\App\Event::class);
   }
+
+  /**
+   * The order associated with the Package.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+   */
+  public function order()
+  {
+      return $this->belongsToMany(\App\Order::class);
+  }
 }
