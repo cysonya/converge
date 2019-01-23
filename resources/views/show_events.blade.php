@@ -91,6 +91,19 @@
 		    <label>Dietary:</label>
 		    <input type="text" name="registrants[1][dietary]" value="" />
 			</div>
+			<br />
+			<div>
+				<label>Your first name:</label>
+				<input type="text" name="customer_first_name" />
+			</div>
+			<div>
+				<label>Your last name:</label>
+				<input type="text" name="customer_first_name" />
+			</div>
+			<div>
+				<label>Your email:</label>
+				<input type="text" name="customer_email" />
+			</div>
     <br />
     <button type="submit">Create</button>
 	</form>

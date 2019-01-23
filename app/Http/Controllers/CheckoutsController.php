@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Attendant;
 use App\Event;
+use App\Order;
 use App\Package;
 
 class CheckoutsController extends Controller
@@ -20,11 +21,23 @@ class CheckoutsController extends Controller
   public function store(Request $request, $event_id)
   {
   	$event = Event::findOrFail($event_id);
+  	$order = new Order();
+  	$packages = array_pluck($request->registrants, 'package');
+  	$order_total = Package::find($packages);
+  	return $order_total;
+  	// Create the order
+  	$order->first_name = $request->customer_first_name;
+  	$order->last_name = $request->customer_last_name;
+  	$order->email = $request->customer_email;
+  	$order->order_total = Package::find($packages)->sum('price');
+  	$order->save();
+  	return $order;
 
   	// Create the attendant
   	foreach($request->registrants as $registrant) {
 	  	$attendant = new Attendant();
 	  	$attendant->event_id = $event->id;
+	  	$attendant->order_id = 1;
 	  	$attendant->group_id = (int)$registrant['group'];
 	  	$attendant->package_id = (int)$registrant['package'];
 
@@ -38,6 +51,10 @@ class CheckoutsController extends Controller
 	  	];
 	  	$attendant->save();
   	}
+
+  	return $attendant;
+
+
 
   	return $attendant;
   }
