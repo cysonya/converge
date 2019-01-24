@@ -54,7 +54,7 @@ class CreateAttendantsEventsPackagesTable extends Migration
       $table->string('last_name');
       $table->string('email');
 
-      $table->decimal('order_total', 13, 2);
+      $table->decimal('order_total', 13, 2)->default(0.00);
 
       $table->text('notes')->nullable();
       $table->timestamps();

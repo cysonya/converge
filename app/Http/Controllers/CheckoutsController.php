@@ -21,23 +21,21 @@ class CheckoutsController extends Controller
   public function store(Request $request, $event_id)
   {
   	$event = Event::findOrFail($event_id);
+
+  	// Create order
   	$order = new Order();
-  	$packages = array_pluck($request->registrants, 'package');
-  	$order_total = Package::find($packages);
-  	return $order_total;
-  	// Create the order
+  	$order->event_id = $event->id;
   	$order->first_name = $request->customer_first_name;
   	$order->last_name = $request->customer_last_name;
   	$order->email = $request->customer_email;
-  	$order->order_total = Package::find($packages)->sum('price');
   	$order->save();
-  	return $order;
 
   	// Create the attendant
+  	$order_total = 0;
   	foreach($request->registrants as $registrant) {
 	  	$attendant = new Attendant();
 	  	$attendant->event_id = $event->id;
-	  	$attendant->order_id = 1;
+	  	$attendant->order_id = $order->id;
 	  	$attendant->group_id = (int)$registrant['group'];
 	  	$attendant->package_id = (int)$registrant['package'];
 
@@ -50,12 +48,10 @@ class CheckoutsController extends Controller
 	  		'dietary' => $registrant['dietary'],
 	  	];
 	  	$attendant->save();
+	  	$order_total += Package::find($registrant['package'])->price;
   	}
-
-  	return $attendant;
-
-
-
+  	$order->order_total = $order_total;
+  	$order->save();
   	return $attendant;
   }
 }

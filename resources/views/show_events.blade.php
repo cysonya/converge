@@ -98,7 +98,7 @@
 			</div>
 			<div>
 				<label>Your last name:</label>
-				<input type="text" name="customer_first_name" />
+				<input type="text" name="customer_last_name" />
 			</div>
 			<div>
 				<label>Your email:</label>
