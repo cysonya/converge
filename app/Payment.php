@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
 
+	protected $guarded = [];
+
   /**
    * The attendants associated with the order.
    *

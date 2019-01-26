@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Attendant;
+use Carbon\Carbon;
 use App\Event;
 use App\Order;
 use App\Package;
@@ -52,6 +52,15 @@ class CheckoutsController extends Controller
   	}
   	$order->order_total = $order_total;
   	$order->save();
+
+
+  	// Create payment
+  	$payment = $order->payments()->create([
+  		'payment_type' => 'order',
+  		'amount' => $order_total,
+  		'transaction_id' => "test",
+  		'transaction_date' => Carbon::now()
+  	]);
   	return $attendant;
   }
 }

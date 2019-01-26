@@ -22,6 +22,7 @@ import App from "./app/index"
 
 window.appStore = store
 
+
 document.addEventListener("DOMContentLoaded", () => {
 	const appPage = document.getElementById("example")
 	if (appPage) {
@@ -32,4 +33,32 @@ document.addEventListener("DOMContentLoaded", () => {
 			appPage
 		)
 	}
+
+	console.log("Blssseh")
+	// TEMPORARY checkout
+	var form = document.getElementById("order_form")
+	form.addEventListener("submit", function(e) {
+		e.preventDefault();
+		console.log("SUBMITTED")
+		Stripe.setPublishableKey("pk_test_s3Zd0EtHGeCQ3SOAyMtyGDGQ")
+
+		Stripe.card.createToken({
+			name: "John Doe",
+			number: document.getElementsByClassName("card-number")[0].value,
+			cvc: document.getElementsByClassName("card-cvc")[0].value,
+			exp_month: document.getElementsByClassName("card-expiry-month")[0].value,
+			exp_year: document.getElementsByClassName("card-expiry-year")[0].value,
+		}, function(status, response) {
+			console.log("STATUS: ", status)
+			console.log("RESPONSE: ", response)
+			var stripeInput ='<input type="hidden" name="stripeToken" value="' + response.id + '"" />'
+			var stripeInput = document.createElement("input")
+			stripeInput.type = "hidden"
+			stripeInput.name="stripeToken"
+			stripeInput.value = response.id
+			form.appendChild(stripeInput)
+			form.submit();
+		})
+	})
 })
+

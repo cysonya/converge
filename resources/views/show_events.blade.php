@@ -2,7 +2,7 @@
 @section('content')
 	<h2>CREATE EVENT</h2>
 
-	<form class="" action={{ route('postCreateOrder', ['event' => $event_id]) }} method="post">
+	<form id="order_form" action={{ route('postCreateOrder', ['event' => $event_id]) }} method="post">
 		@csrf
 		<div>
 	    <label>First Name</label>
@@ -105,6 +105,22 @@
 				<input type="text" name="customer_email" />
 			</div>
     <br />
+		<div>
+			<label>Card number:</label>
+	    <input class="card-number" maxlength="16" data-stripe="number">
+		</div>
+		<div>
+			<label>Month:</label>
+	    <input class="card-expiry-month" data-stripe="exp_month">
+		</div>
+		<div>
+			<label>Year:</label>
+	    <input class="card-expiry-year" data-stripe="exp_year">
+		</div>
+		<div>
+			<label>CVC:</label>
+	    <input class="card-cvc" data-stripe="cvc">
+		</div>
     <button type="submit">Create</button>
 	</form>
 @endsection
