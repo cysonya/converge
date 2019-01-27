@@ -12,7 +12,6 @@ const InternalApp = ({ history, match }) => {
   return (
     <ConnectedRouter history={history}>
       <div>
-        <Navigation />
         <Route exact path="/events/:id" component={Event} />
       </div>
     </ConnectedRouter>

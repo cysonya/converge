@@ -26,6 +26,7 @@ import theme from "./styles/theme"
 window.appStore = store
 document.addEventListener("DOMContentLoaded", () => {
 	const appPage = document.getElementById("app")
+	console.log(theme.breakpoints)
 	if (appPage) {
 		ReactDOM.render(
 			<Provider store={store}>
