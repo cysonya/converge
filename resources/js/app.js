@@ -12,23 +12,26 @@ require("./bootstrap")
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-import { history, store } from "@/app-store/index"
+import { MuiThemeProvider } from '@material-ui/core/styles';
 
 import React from "react"
 import ReactDOM from "react-dom"
 import { Provider } from "react-redux"
 
+import { history, store } from "./app-store/index"
 import App from "./app/index"
+import theme from "./styles/theme"
+
 
 window.appStore = store
-
-
 document.addEventListener("DOMContentLoaded", () => {
-	const appPage = document.getElementById("example")
+	const appPage = document.getElementById("app")
 	if (appPage) {
 		ReactDOM.render(
 			<Provider store={store}>
-				<App history={history} />
+				<MuiThemeProvider theme={theme}>
+					<App history={history} />
+				</MuiThemeProvider>
 			</Provider>,
 			appPage
 		)
@@ -37,28 +40,30 @@ document.addEventListener("DOMContentLoaded", () => {
 	console.log("Blssseh")
 	// TEMPORARY checkout
 	var form = document.getElementById("order_form")
-	form.addEventListener("submit", function(e) {
-		e.preventDefault();
-		console.log("SUBMITTED")
-		Stripe.setPublishableKey("pk_test_s3Zd0EtHGeCQ3SOAyMtyGDGQ")
+	if (form !== null) {
+		form.addEventListener("submit", function(e) {
+			e.preventDefault();
+			console.log("SUBMITTED")
+			Stripe.setPublishableKey("pk_test_s3Zd0EtHGeCQ3SOAyMtyGDGQ")
 
-		Stripe.card.createToken({
-			name: "John Doe",
-			number: document.getElementsByClassName("card-number")[0].value,
-			cvc: document.getElementsByClassName("card-cvc")[0].value,
-			exp_month: document.getElementsByClassName("card-expiry-month")[0].value,
-			exp_year: document.getElementsByClassName("card-expiry-year")[0].value,
-		}, function(status, response) {
-			console.log("STATUS: ", status)
-			console.log("RESPONSE: ", response)
-			var stripeInput ='<input type="hidden" name="stripeToken" value="' + response.id + '"" />'
-			var stripeInput = document.createElement("input")
-			stripeInput.type = "hidden"
-			stripeInput.name="stripeToken"
-			stripeInput.value = response.id
-			form.appendChild(stripeInput)
-			form.submit();
+			Stripe.card.createToken({
+				name: "John Doe",
+				number: document.getElementsByClassName("card-number")[0].value,
+				cvc: document.getElementsByClassName("card-cvc")[0].value,
+				exp_month: document.getElementsByClassName("card-expiry-month")[0].value,
+				exp_year: document.getElementsByClassName("card-expiry-year")[0].value,
+			}, function(status, response) {
+				console.log("STATUS: ", status)
+				console.log("RESPONSE: ", response)
+				var stripeInput ='<input type="hidden" name="stripeToken" value="' + response.id + '"" />'
+				var stripeInput = document.createElement("input")
+				stripeInput.type = "hidden"
+				stripeInput.name="stripeToken"
+				stripeInput.value = response.id
+				form.appendChild(stripeInput)
+				form.submit();
+			})
 		})
-	})
+	}
 })
 

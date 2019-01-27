@@ -24,11 +24,14 @@
         "sass-loader": "^7.1.0"
     },
     "dependencies": {
+        "@material-ui/core": "^3.9.1",
         "connected-react-router": "^6.1.0",
+        "formik": "^1.4.2",
         "react-redux": "^6.0.0",
         "react-router": "^4.3.1",
         "react-router-dom": "^4.3.1",
         "redux": "^4.0.1",
-        "redux-saga": "^0.16.2"
+        "redux-saga": "^0.16.2",
+        "styled-components": "^4.1.3"
     }
 }
