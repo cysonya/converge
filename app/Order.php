@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+	/**
+	 * Allow mass assignment
+	 *
+	 * @var array
+	*/
 	protected $guarded = [];
 
   /**
@@ -47,7 +52,7 @@ class Order extends Model
    */
   public function packages()
   {
-      return $this->hasMany(\App\Package::class);
+      return $this->belongsToMany(\App\Package::class);
   }
 
   /**

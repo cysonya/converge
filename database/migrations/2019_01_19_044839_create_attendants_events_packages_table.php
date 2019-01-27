@@ -68,13 +68,12 @@ class CreateAttendantsEventsPackagesTable extends Migration
     /*
      * Packages / Orders pivot table
      */
-    Schema::create('package_order', function ($t) {
-        $t->increments('id');
-        $t->integer('order_id')->unsigned()->index();
-        $t->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-
-        $t->integer('package_id')->unsigned()->index();
-        $t->foreign('package_id')->references('id')->on('users')->onDelete('cascade');
+    Schema::create('order_package', function ($table) {
+      $table->increments('id');
+      $table->integer('order_id')->unsigned()->index();
+      $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+      $table->integer('package_id')->unsigned()->index();
+      $table->foreign('package_id')->references('id')->on('packages')->onDelete('cascade');
     });
 
     Schema::create('payments', function (Blueprint $table) {

@@ -31,7 +31,7 @@ class Package extends Model
    *
    * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
    */
-  public function order()
+  public function orders()
   {
       return $this->belongsToMany(\App\Order::class);
   }

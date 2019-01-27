@@ -88,6 +88,9 @@ class CheckoutsController extends Controller
   				'dietary' => strip_tags($registrant['dietary'])
   			]
   		]);
+
+  		// Associate order with package
+  		$order->packages()->attach((int)$registrant['package']);
   	}
 
   	return $event->attendants;
