@@ -53,8 +53,10 @@ class CreateAttendantsEventsPackagesTable extends Migration
       $table->string('first_name');
       $table->string('last_name');
       $table->string('email');
-
+      $table->string('stripe_customer_id')->nullable();
       $table->decimal('order_total', 13, 2)->default(0.00);
+
+      $table->enum('status', ['completed', 'refunded', 'partially refunded'])->nullable();
 
       $table->text('notes')->nullable();
       $table->timestamps();

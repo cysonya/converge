@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Stripe\Charge;
+use Stripe\Customer;
+use Stripe\Stripe;
+
 use App\Attendant;
 use Carbon\Carbon;
 use App\Event;
 use App\Order;
 use App\Package;
+
 
 class CheckoutsController extends Controller
 {
@@ -22,45 +27,69 @@ class CheckoutsController extends Controller
   {
   	$event = Event::findOrFail($event_id);
 
+  	// Get order total
+  	$packages = array_pluck($request->registrants, 'package');
+  	$order_total = collect($packages)
+  		->sum(function($package) {
+  			return Package::find($package)->price;
+  		}
+  	);
+
+  	// Charge with Stripe
+  	Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+
+  	$customer = Customer::create(array(
+  		'email' => strip_tags($request->customer_email),
+  		'source' => strip_tags($request->stripeToken),
+  		'metadata' => [
+  			'first_name' => strip_tags($request->customer_first_name),
+  			'last_name' => strip_tags($request->customer_last_name)
+  		]
+  	));
+
+  	$charge = Charge::create(array(
+  		'customer' => $customer->id,
+  		'amount' => $order_total * 100,
+  		'currency' => 'usd',
+  		'description' => "Payment for {$event->title}"
+  	));
+
   	// Create order
-  	$order = new Order();
-  	$order->event_id = $event->id;
-  	$order->first_name = $request->customer_first_name;
-  	$order->last_name = $request->customer_last_name;
-  	$order->email = $request->customer_email;
-  	$order->save();
-
-  	// Create the attendant
-  	$order_total = 0;
-  	foreach($request->registrants as $registrant) {
-	  	$attendant = new Attendant();
-	  	$attendant->event_id = $event->id;
-	  	$attendant->order_id = $order->id;
-	  	$attendant->group_id = (int)$registrant['group'];
-	  	$attendant->package_id = (int)$registrant['package'];
-
-	  	$attendant->first_name = $registrant['first_name'];
-	  	$attendant->last_name = $registrant['last_name'];
-	  	$attendant->email = $registrant['email'];
-
-	  	$attendant->custom_properties = [
-	  		'roomates' => $registrant['roomates'],
-	  		'dietary' => $registrant['dietary'],
-	  	];
-	  	$attendant->save();
-	  	$order_total += Package::find($registrant['package'])->price;
-  	}
-  	$order->order_total = $order_total;
-  	$order->save();
-
+  	$order = Order::create([
+  		'event_id' => $event->id,
+  		'first_name' => strip_tags($request->customer_first_name),
+  		'last_name' => strip_tags($request->customer_last_name),
+  		'email' => strip_tags($request->customer_email),
+  		'order_total' => $order_total,
+  		'stripe_customer_id' => $customer->id,
+  		'status' => 'completed'
+  	]);
 
   	// Create payment
   	$payment = $order->payments()->create([
   		'payment_type' => 'order',
   		'amount' => $order_total,
-  		'transaction_id' => "test",
+  		'transaction_id' => $charge->id,
   		'transaction_date' => Carbon::now()
   	]);
-  	return $attendant;
+
+  	// Create the attendants
+  	foreach($request->registrants as $registrant) {
+  		Attendant::create([
+  			'event_id' => $event->id,
+  			'order_id' => $order->id,
+  			'group_id' => (int)$registrant['group'],
+  			'package_id' => (int)$registrant['package'],
+  			'first_name' => strip_tags($registrant['first_name']),
+  			'last_name' => strip_tags($registrant['last_name']),
+  			'email' => strip_tags($registrant['email']),
+  			'custom_properties' => [
+  				'roomates' => strip_tags($registrant['roomates']),
+  				'dietary' => strip_tags($registrant['dietary'])
+  			]
+  		]);
+  	}
+
+  	return $event->attendants;
   }
 }

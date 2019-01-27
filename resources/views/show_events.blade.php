@@ -49,6 +49,7 @@
 		<br />
 		<br />
 
+		@if (true)
 			<div>
 		    <label>First Name</label>
 		    <input type="text" name="registrants[1][first_name]" value="" />
@@ -92,6 +93,8 @@
 		    <input type="text" name="registrants[1][dietary]" value="" />
 			</div>
 			<br />
+		@endif
+
 			<div>
 				<label>Your first name:</label>
 				<input type="text" name="customer_first_name" />

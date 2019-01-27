@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+	protected $guarded = [];
+
   /**
    * Boot all of the bootable traits on the model.
    */
