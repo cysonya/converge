@@ -1,8 +1,17 @@
 import { combineReducers } from "redux"
 import { connectRouter } from "connected-react-router"
 
-function app(state = { test: "" }, action) {
+import { SET_EVENT_DATA } from './actions'
+
+function event(state = {}, action) {
+	let newState = Object.assign({}, state)
+
   switch (action.type) {
+  	case SET_EVENT_DATA:
+			Object.keys(action.data).map((key) => {
+				newState[key] = action.data[key]
+			})
+  	  return newState
     default:
       return state
   }
@@ -11,5 +20,5 @@ function app(state = { test: "" }, action) {
 export default history =>
   combineReducers({
     router: connectRouter(history),
-    app
+    event
   })

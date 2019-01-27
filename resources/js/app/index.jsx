@@ -6,18 +6,14 @@ import { connect } from "react-redux"
 import { Route } from "react-router-dom"
 
 import Navigation from "./components/navigation"
-const Dashboard = () => <div>Dashboard</div>
-const SignIn = () => <div>SignIn</div>
-const SignUp = () => <div>Register!</div>
+import Event from "./event/index"
 
 const InternalApp = ({ history, match }) => {
   return (
     <ConnectedRouter history={history}>
       <div>
         <Navigation />
-        <Route exact path="/" component={Dashboard} />
-        <Route exact path="/login" component={SignIn} />
-        <Route exact path="/register" component={SignUp} />
+        <Route exact path="/events/:id" component={Event} />
       </div>
     </ConnectedRouter>
   )

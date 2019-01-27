@@ -19,9 +19,6 @@ class EventsController extends Controller
    {
    	$event = Event::findOrFail($event_id);
 
-   	return view('show_events')
-   		->withGroups($event->groups)
-   		->withPackages($event->packages)
-   		->with('event_id', $event_id);
+   	return view('application');
    }
 }

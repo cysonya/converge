@@ -37,7 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		)
 	}
 
-	console.log("Blssseh")
 	// TEMPORARY checkout
 	var form = document.getElementById("order_form")
 	if (form !== null) {
