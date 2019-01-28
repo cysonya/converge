@@ -1,7 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
 
-
+export const styles = theme => ({
+	inputLabel: {
+		fontSize: "14px",
+		[theme.breakpoints.up('md')]: {
+			fontSize: "16px"
+		}
+	},
+	input: {
+		borderRadius: "4px",
+		backgroundColor: theme.palette.grey[200]
+	}
+})
 
 export const Divider = props => {
 	const Line = styled.div`

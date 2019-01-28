@@ -1,8 +1,9 @@
 import AddCircleIcon from '@material-ui/icons/AddCircle'
 import Button from '@material-ui/core/Button'
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid'
+import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
+import { withStyles } from "@material-ui/core/styles"
 import withWidth from '@material-ui/core/withWidth'
 
 import React from "react"
@@ -10,9 +11,9 @@ import ReactDOM from "react-dom"
 import { connect } from "react-redux"
 import PropTypes from "prop-types"
 
-import { Divider } from "./components"
+import { Divider, styles } from "./components"
 
-const InternalAttendantForm = ({ event, width}) => {
+const InternalAttendantForm = ({ classes, width}) => {
 	const isMobile = /xs|sm/.test(width)
 
   return (
@@ -21,36 +22,56 @@ const InternalAttendantForm = ({ event, width}) => {
 	    <Grid container spacing={8} style={{marginBottom: "20px"}}>
 	    	<Grid item xs={6}>
 					<TextField
-						variant={isMobile ? "standard" : "outlined"}
 						label="First name"
-						placeholder="First name"
+						variant={isMobile ? "standard" : "filled"}
+						InputLabelProps={{
+							className: classes.inputLabel
+						}}
+						InputProps={{
+						  className: isMobile ? "" : classes.input
+						}}
 						margin="dense"
 						fullWidth
 					/>
 	    	</Grid>
 	    	<Grid item xs={6}>
 		    	<TextField
-						variant={isMobile ? "standard" : "outlined"}
 		    		label="Last name"
-		    		placeholder="Last name"
+						variant={isMobile ? "standard" : "filled"}
+						InputLabelProps={{
+							className: classes.inputLabel
+						}}
+						InputProps={{
+						  className: isMobile ? "" : classes.input
+						}}
 		    		margin="dense"
 		    		fullWidth
 		    	/>
 	    	</Grid>
 	    	<Grid item xs={6}>
 					<TextField
-						variant={isMobile ? "standard" : "outlined"}
 						label="Your Email"
-						placeholder="Your Email"
+						variant={isMobile ? "standard" : "filled"}
+						InputLabelProps={{
+							className: classes.inputLabel
+						}}
+						InputProps={{
+						  className: isMobile ? "" : classes.input
+						}}
 						margin="dense"
 						fullWidth
 					/>
 	    	</Grid>
 	    	<Grid item xs={6}>
 		    	<TextField
-		    		variant={isMobile ? "standard" : "outlined"}
 		    		label="Your age group"
-		    		placeholder="Your age group"
+		    		variant={isMobile ? "standard" : "filled"}
+		    		InputLabelProps={{
+							className: classes.inputLabel
+						}}
+		    		InputProps={{
+		    		  className: isMobile ? "" : classes.input
+		    		}}
 		    		margin="dense"
 		    		fullWidth
 		    		value="1"
@@ -71,14 +92,11 @@ const InternalAttendantForm = ({ event, width}) => {
 }
 
 InternalAttendantForm.propTypes = {
-	event: PropTypes.object
 }
 
 
 const mapStateToProps = (state, ownProps) => {
-  return {
-  	event: state.event,
-  }
+  return {}
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -88,6 +106,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const AttendantForm = connect(
   mapStateToProps,
   mapDispatchToProps
-)(withWidth()(InternalAttendantForm))
+)(withStyles(styles)(withWidth()(InternalAttendantForm)))
 
 export default AttendantForm

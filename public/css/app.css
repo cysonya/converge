@@ -6,6 +6,14 @@
   padding-right: 10px !important;
 }
 
+.mr-5 {
+  margin-right: 5px !important;
+}
+
+.mr-10 {
+  margin-right: 10px !important;
+}
+
 html,
 body {
   width: 100%;
@@ -16,6 +24,7 @@ body {
 
 body {
   font-family: "Roboto", Helvetica, sans-serif;
+  background-image: url(/images/event_bg.jpg?accc4352a36b502db17d3d1c1f87d318);
 }
 
 @media (min-width: 600px) {

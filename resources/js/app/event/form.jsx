@@ -1,18 +1,24 @@
 
+import Button from '@material-ui/core/Button'
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import styled from "styled-components"
 
+import theme from "@/styles/theme"
 import { media } from "@/styles/utils"
 import AttendantForm from "./attendant-form"
+import HousingForm from "./housing-form"
 
 const FormWrapper = styled.div`
 	width: 100%;
+	background-color: #fdfdfd;
+	box-shadow: ${theme.shadows[3]};
+
 	${media.md`
 		width: 650px;
-		background-color: #fff;
 	`}
 `
 const FormHeading = styled.h4`
@@ -27,6 +33,13 @@ const FormHeading = styled.h4`
 const FormContent = styled.div`
 	padding: 20px;
 `
+
+const FormFooter = styled.div`
+	padding: 10px 20px;
+	text-align: right;
+	border-top: 1px solid ${props => props.theme.primary.main}
+	background-color: ${props => props.theme.grey[200]}
+`
 const InternalForm = ({ event, step }) => {
 	if (Object.keys(event).length < 1) {
 		return null
@@ -34,11 +47,13 @@ const InternalForm = ({ event, step }) => {
 
 	let form = <AttendantForm />
 	let title = "Step 1: Register attendants"
-	// switch(step) {
-	// 	case 1:
-	// 	default:
 
-	// }
+	switch(step) {
+		case 2:
+			form = <HousingForm />
+			title = "Step 2: Choose housing"
+			break;
+	}
 
 	return (
 		<FormWrapper>
@@ -46,6 +61,11 @@ const InternalForm = ({ event, step }) => {
 			<FormContent>
 				{form}
 			</FormContent>
+
+			<FormFooter>
+			  <Button className="mr-10">Back</Button>
+			  <Button variant="contained" color="primary">Next</Button>
+			</FormFooter>
 		</FormWrapper>
 	)
 }
@@ -57,7 +77,7 @@ InternalForm.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   return {
     event: state.event,
-    step: 1
+    step: 2
   }
 }
 

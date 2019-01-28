@@ -78306,10 +78306,10 @@ var Navigation = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(map
 
 /***/ }),
 
-/***/ "./resources/js/app/event/attendant-form.js":
-/*!**************************************************!*\
-  !*** ./resources/js/app/event/attendant-form.js ***!
-  \**************************************************/
+/***/ "./resources/js/app/event/attendant-form.jsx":
+/*!***************************************************!*\
+  !*** ./resources/js/app/event/attendant-form.jsx ***!
+  \***************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -78325,16 +78325,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/Typography */ "./node_modules/@material-ui/core/Typography/index.js");
 /* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/withWidth */ "./node_modules/@material-ui/core/withWidth/index.js");
-/* harmony import */ var _material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components */ "./resources/js/app/event/components.jsx");
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/styles/index.js");
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/core/withWidth */ "./node_modules/@material-ui/core/withWidth/index.js");
+/* harmony import */ var _material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components */ "./resources/js/app/event/components.jsx");
+
 
 
 
@@ -78348,84 +78351,100 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var InternalAttendantForm = function InternalAttendantForm(_ref) {
-  var event = _ref.event,
+  var classes = _ref.classes,
       width = _ref.width;
   var isMobile = /xs|sm/.test(width);
-  return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_10__["Divider"], {
+  return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_11__["Divider"], {
     text: "Your information"
-  }), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_2___default.a, {
+  }), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_2___default.a, {
     container: true,
     spacing: 8,
     style: {
       marginBottom: "20px"
     }
-  }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_2___default.a, {
+  }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_2___default.a, {
     item: true,
     xs: 6
-  }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_3___default.a, {
-    variant: isMobile ? "standard" : "outlined",
+  }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_3___default.a, {
     label: "First name",
-    placeholder: "First name",
+    variant: isMobile ? "standard" : "filled",
+    InputLabelProps: {
+      className: classes.inputLabel
+    },
+    InputProps: {
+      className: isMobile ? "" : classes.input
+    },
     margin: "dense",
     fullWidth: true
-  })), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_2___default.a, {
+  })), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_2___default.a, {
     item: true,
     xs: 6
-  }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_3___default.a, {
-    variant: isMobile ? "standard" : "outlined",
+  }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_3___default.a, {
     label: "Last name",
-    placeholder: "Last name",
+    variant: isMobile ? "standard" : "filled",
+    InputLabelProps: {
+      className: classes.inputLabel
+    },
+    InputProps: {
+      className: isMobile ? "" : classes.input
+    },
     margin: "dense",
     fullWidth: true
-  })), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_2___default.a, {
+  })), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_2___default.a, {
     item: true,
     xs: 6
-  }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_3___default.a, {
-    variant: isMobile ? "standard" : "outlined",
+  }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_3___default.a, {
     label: "Your Email",
-    placeholder: "Your Email",
+    variant: isMobile ? "standard" : "filled",
+    InputLabelProps: {
+      className: classes.inputLabel
+    },
+    InputProps: {
+      className: isMobile ? "" : classes.input
+    },
     margin: "dense",
     fullWidth: true
-  })), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_2___default.a, {
+  })), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_2___default.a, {
     item: true,
     xs: 6
-  }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_3___default.a, {
-    variant: isMobile ? "standard" : "outlined",
+  }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_3___default.a, {
     label: "Your age group",
-    placeholder: "Your age group",
+    variant: isMobile ? "standard" : "filled",
+    InputLabelProps: {
+      className: classes.inputLabel
+    },
+    InputProps: {
+      className: isMobile ? "" : classes.input
+    },
     margin: "dense",
     fullWidth: true,
     value: "1",
     select: true
-  }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("option", {
+  }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("option", {
     value: "1"
-  }, "Adult 18+"), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("option", {
+  }, "Adult 18+"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("option", {
     value: "2"
-  }, "Teen (13 - 17)")))), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_1___default.a, {
+  }, "Teen (13 - 17)")))), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_1___default.a, {
     variant: "outlined",
     color: "primary",
     size: "small"
-  }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_icons_AddCircle__WEBPACK_IMPORTED_MODULE_0___default.a, {
+  }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_material_ui_icons_AddCircle__WEBPACK_IMPORTED_MODULE_0___default.a, {
     className: "pr-5",
     fontSize: "small"
   }, "Add"), " ADD MEMBER"));
 };
 
-InternalAttendantForm.propTypes = {
-  event: prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.object
-};
+InternalAttendantForm.propTypes = {};
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
-  return {
-    event: state.event
-  };
+  return {};
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
   return {};
 };
 
-var AttendantForm = Object(react_redux__WEBPACK_IMPORTED_MODULE_8__["connect"])(mapStateToProps, mapDispatchToProps)(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_5___default()()(InternalAttendantForm));
+var AttendantForm = Object(react_redux__WEBPACK_IMPORTED_MODULE_9__["connect"])(mapStateToProps, mapDispatchToProps)(Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_5__["withStyles"])(_components__WEBPACK_IMPORTED_MODULE_11__["styles"])(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_6___default()()(InternalAttendantForm)));
 /* harmony default export */ __webpack_exports__["default"] = (AttendantForm);
 
 /***/ }),
@@ -78434,11 +78453,12 @@ var AttendantForm = Object(react_redux__WEBPACK_IMPORTED_MODULE_8__["connect"])(
 /*!***********************************************!*\
   !*** ./resources/js/app/event/components.jsx ***!
   \***********************************************/
-/*! exports provided: Divider */
+/*! exports provided: styles, Divider */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "styles", function() { return styles; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Divider", function() { return Divider; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
@@ -78465,8 +78485,23 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
+
+var styles = function styles(theme) {
+  return {
+    inputLabel: _defineProperty({
+      fontSize: "14px"
+    }, theme.breakpoints.up('md'), {
+      fontSize: "16px"
+    }),
+    input: {
+      borderRadius: "4px",
+      backgroundColor: theme.palette.grey[200]
+    }
+  };
+};
 var Divider = function Divider(props) {
   var Line = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject(), function (props) {
     return props.margin || "20px 0 30px;";
@@ -78479,25 +78514,39 @@ var Divider = function Divider(props) {
 
 /***/ }),
 
-/***/ "./resources/js/app/event/form.js":
-/*!****************************************!*\
-  !*** ./resources/js/app/event/form.js ***!
-  \****************************************/
+/***/ "./resources/js/app/event/form.jsx":
+/*!*****************************************!*\
+  !*** ./resources/js/app/event/form.jsx ***!
+  \*****************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _styles_utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/styles/utils */ "./resources/js/styles/utils.js");
-/* harmony import */ var _attendant_form__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./attendant-form */ "./resources/js/app/event/attendant-form.js");
+/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @material-ui/core/Button */ "./node_modules/@material-ui/core/Button/index.js");
+/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _styles_theme__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/styles/theme */ "./resources/js/styles/theme.js");
+/* harmony import */ var _styles_utils__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/styles/utils */ "./resources/js/styles/utils.js");
+/* harmony import */ var _attendant_form__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./attendant-form */ "./resources/js/app/event/attendant-form.jsx");
+/* harmony import */ var _housing_form__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./housing-form */ "./resources/js/app/event/housing-form.jsx");
+function _templateObject5() {
+  var data = _taggedTemplateLiteral(["\n\tpadding: 10px 20px;\n\ttext-align: right;\n\tborder-top: 1px solid ", "\n\tbackground-color: ", "\n"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject4() {
   var data = _taggedTemplateLiteral(["\n\tpadding: 20px;\n"]);
 
@@ -78519,7 +78568,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n\t\twidth: 650px;\n\t\tbackground-color: #fff;\n\t"]);
+  var data = _taggedTemplateLiteral(["\n\t\twidth: 650px;\n\t"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -78529,7 +78578,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n\twidth: 100%;\n\t", "\n"]);
+  var data = _taggedTemplateLiteral(["\n\twidth: 100%;\n\tbackground-color: #fdfdfd;\n\tbox-shadow: ", ";\n\n\t", "\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -78547,11 +78596,19 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 
-var FormWrapper = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject(), _styles_utils__WEBPACK_IMPORTED_MODULE_5__["media"].md(_templateObject2()));
-var FormHeading = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].h4(_templateObject3(), function (props) {
+
+
+
+var FormWrapper = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject(), _styles_theme__WEBPACK_IMPORTED_MODULE_6__["default"].shadows[3], _styles_utils__WEBPACK_IMPORTED_MODULE_7__["media"].md(_templateObject2()));
+var FormHeading = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].h4(_templateObject3(), function (props) {
   return props.theme.grey[900];
 });
-var FormContent = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject4());
+var FormContent = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject4());
+var FormFooter = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject5(), function (props) {
+  return props.theme.primary.main;
+}, function (props) {
+  return props.theme.grey[200];
+});
 
 var InternalForm = function InternalForm(_ref) {
   var event = _ref.event,
@@ -78561,23 +78618,32 @@ var InternalForm = function InternalForm(_ref) {
     return null;
   }
 
-  var form = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_attendant_form__WEBPACK_IMPORTED_MODULE_6__["default"], null);
-  var title = "Step 1: Register attendants"; // switch(step) {
-  // 	case 1:
-  // 	default:
-  // }
+  var form = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_attendant_form__WEBPACK_IMPORTED_MODULE_8__["default"], null);
+  var title = "Step 1: Register attendants";
 
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(FormWrapper, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(FormHeading, null, title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(FormContent, null, form));
+  switch (step) {
+    case 2:
+      form = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_housing_form__WEBPACK_IMPORTED_MODULE_9__["default"], null);
+      title = "Step 2: Choose housing";
+      break;
+  }
+
+  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FormWrapper, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FormHeading, null, title), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FormContent, null, form), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FormFooter, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0___default.a, {
+    className: "mr-10"
+  }, "Back"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0___default.a, {
+    variant: "contained",
+    color: "primary"
+  }, "Next")));
 };
 
 InternalForm.propTypes = {
-  event: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object
+  event: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object
 };
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     event: state.event,
-    step: 1
+    step: 2
   };
 };
 
@@ -78585,8 +78651,109 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownPros) {
   return {};
 };
 
-var Form = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(mapStateToProps, mapDispatchToProps)(InternalForm);
+var Form = Object(react_redux__WEBPACK_IMPORTED_MODULE_4__["connect"])(mapStateToProps, mapDispatchToProps)(InternalForm);
 /* harmony default export */ __webpack_exports__["default"] = (Form);
+
+/***/ }),
+
+/***/ "./resources/js/app/event/housing-form.jsx":
+/*!*************************************************!*\
+  !*** ./resources/js/app/event/housing-form.jsx ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @material-ui/core/Grid */ "./node_modules/@material-ui/core/Grid/index.js");
+/* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material-ui/core/TextField */ "./node_modules/@material-ui/core/TextField/index.js");
+/* harmony import */ var _material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/styles/index.js");
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/withWidth */ "./node_modules/@material-ui/core/withWidth/index.js");
+/* harmony import */ var _material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components */ "./resources/js/app/event/components.jsx");
+
+
+
+
+
+
+
+
+
+
+var InternalHousingForm = function InternalHousingForm(_ref) {
+  var classes = _ref.classes,
+      width = _ref.width;
+  var isMobile = /xs|sm/.test(width);
+  return react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_8__["Divider"], {
+    text: "Your information"
+  }), react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_0___default.a, {
+    container: true,
+    spacing: 8,
+    style: {
+      marginBottom: "20px"
+    }
+  }, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_0___default.a, {
+    item: true,
+    xs: 12,
+    md: 6
+  }, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    label: "Roommate preference",
+    variant: isMobile ? "standard" : "filled",
+    InputLabelProps: {
+      className: classes.inputLabel
+    },
+    InputProps: {
+      className: isMobile ? "" : classes.input
+    },
+    margin: "dense",
+    fullWidth: true
+  })), react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_0___default.a, {
+    item: true,
+    xs: 12,
+    md: 6
+  }, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    label: "Dietary restrictions",
+    variant: isMobile ? "standard" : "filled",
+    InputLabelProps: {
+      className: classes.inputLabel
+    },
+    InputProps: {
+      className: isMobile ? "" : classes.input
+    },
+    margin: "dense",
+    fullWidth: true
+  }))), react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_0___default.a, {
+    container: true,
+    spacing: 8,
+    style: {
+      marginBottom: "20px"
+    }
+  }));
+};
+
+InternalHousingForm.propTypes = {};
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {};
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+  return {};
+};
+
+var HousingForm = Object(react_redux__WEBPACK_IMPORTED_MODULE_7__["connect"])(mapStateToProps, mapDispatchToProps)(Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_2__["withStyles"])(_components__WEBPACK_IMPORTED_MODULE_8__["styles"])(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_3___default()()(InternalHousingForm)));
+/* harmony default export */ __webpack_exports__["default"] = (HousingForm);
 
 /***/ }),
 
@@ -78604,7 +78771,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 /* harmony import */ var _app_store_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/app-store/actions */ "./resources/js/app-store/actions.js");
 /* harmony import */ var _styles_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/styles/utils */ "./resources/js/styles/utils.js");
-/* harmony import */ var _form__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./form */ "./resources/js/app/event/form.js");
+/* harmony import */ var _form__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./form */ "./resources/js/app/event/form.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _templateObject2() {
