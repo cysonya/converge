@@ -17,6 +17,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import React from "react"
 import ReactDOM from "react-dom"
 import { Provider } from "react-redux"
+import { ThemeProvider } from "styled-components"
 
 import { history, store } from "./app-store/index"
 import App from "./app/index"
@@ -26,13 +27,15 @@ import theme from "./styles/theme"
 window.appStore = store
 document.addEventListener("DOMContentLoaded", () => {
 	const appPage = document.getElementById("app")
-	console.log(theme.breakpoints)
+	console.log(theme)
 	if (appPage) {
 		ReactDOM.render(
 			<Provider store={store}>
-				<MuiThemeProvider theme={theme}>
-					<App history={history} />
-				</MuiThemeProvider>
+				<ThemeProvider theme={theme.palette}>
+					<MuiThemeProvider theme={theme}>
+						<App history={history} />
+					</MuiThemeProvider>
+				</ThemeProvider>
 			</Provider>,
 			appPage
 		)
