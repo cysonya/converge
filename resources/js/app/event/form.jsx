@@ -77,7 +77,7 @@ InternalForm.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   return {
     event: state.event,
-    step: 2
+    step: 1
   }
 }
 
