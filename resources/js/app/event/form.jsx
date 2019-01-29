@@ -1,15 +1,15 @@
+import Button from "@material-ui/core/Button"
 
-import Button from '@material-ui/core/Button'
-
-import React from 'react'
-import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import React from "react"
+import ReactDOM from "react-dom"
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
 import styled from "styled-components"
 
 import theme from "@/styles/theme"
 import { media } from "@/styles/utils"
 import AttendantForm from "./attendant-form"
+import BillingForm from "./billing-form"
 import HousingForm from "./housing-form"
 
 const FormWrapper = styled.div`
@@ -57,23 +57,27 @@ const InternalForm = ({ event, step }) => {
 	let form = <AttendantForm />
 	let title = "Step 1: Register attendants"
 
-	switch(step) {
+	switch (step) {
 		case 2:
 			form = <HousingForm />
 			title = "Step 2: Choose housing"
-			break;
+			break
+		case 3:
+			form = <BillingForm />
+			title = "Step 3: Billing information"
+			break
 	}
 
 	return (
 		<FormWrapper>
 			<FormHeading>{title}</FormHeading>
-			<FormContent>
-				{form}
-			</FormContent>
+			<FormContent>{form}</FormContent>
 
 			<FormFooter>
-			  <Button className="mr-10">Back</Button>
-			  <Button variant="contained" color="primary">Next</Button>
+				<Button className="mr-10">Back</Button>
+				<Button variant="contained" color="primary">
+					Next
+				</Button>
 			</FormFooter>
 		</FormWrapper>
 	)
@@ -84,10 +88,10 @@ InternalForm.propTypes = {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return {
-    event: state.event,
-    step: 2
-  }
+	return {
+		event: state.event,
+		step: 3
+	}
 }
 
 const mapDispatchToProps = (dispatch, ownPros) => {
@@ -95,8 +99,8 @@ const mapDispatchToProps = (dispatch, ownPros) => {
 }
 
 const Form = connect(
-  mapStateToProps,
-  mapDispatchToProps
+	mapStateToProps,
+	mapDispatchToProps
 )(InternalForm)
 
 export default Form

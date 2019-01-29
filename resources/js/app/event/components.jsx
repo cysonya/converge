@@ -1,10 +1,10 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react"
+import styled from "styled-components"
 
 export const styles = theme => ({
 	inputLabel: {
 		fontSize: "14px",
-		[theme.breakpoints.up('md')]: {
+		[theme.breakpoints.up("md")]: {
 			fontSize: "16px"
 		}
 	},
@@ -25,11 +25,6 @@ export const styles = theme => ({
 	}
 })
 
-export const getRandomColor = () => {
-	const colors = ["#F3A712", "#29335C", "#E4572E", "#669BBC", "#6F1D1B", "#A0CCDA"]
-	return colors[Math.floor(Math.random() * 6)]
-}
-
 export const Divider = props => {
 	const Line = styled.div`
 		margin: ${props => props.margin || "20px 0 30px;"}
@@ -45,7 +40,7 @@ export const Divider = props => {
 		font-size: 16px;
 		color: ${props => props.theme.primary.main};
 		background-color: white;
-		border: 1px solid rgba(0,0,0,.12);
+		border: 1px solid rgba(0, 0, 0, 0.12);
 		border-radius: 3px;
 	`
 	return (
