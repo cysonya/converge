@@ -1,1 +1,41 @@
-.pr-5{padding-right:5px!important}.pr-10{padding-right:10px!important}.mr-5{margin-right:5px!important}.mr-10{margin-right:10px!important}body,html{width:100%;height:100%;padding:0;margin:0}body{font-family:Roboto,Helvetica,sans-serif;background-image:url(/images/event_bg.jpg?accc4352a36b502db17d3d1c1f87d318)}@media (min-width:600px){body{background-color:#eee}}
+.pr-5 {
+  padding-right: 5px !important;
+}
+
+.pr-10 {
+  padding-right: 10px !important;
+}
+
+.mr-5 {
+  margin-right: 5px !important;
+}
+
+.mr-10 {
+  margin-right: 10px !important;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: "Roboto", Helvetica, sans-serif;
+  background-image: url(/images/event_bg.jpg?accc4352a36b502db17d3d1c1f87d318);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@media (min-width: 600px) {
+  body {
+    background-color: #eee;
+  }
+}
+

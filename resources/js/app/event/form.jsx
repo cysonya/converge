@@ -14,7 +14,7 @@ import HousingForm from "./housing-form"
 
 const FormWrapper = styled.div`
 	width: 100%;
-	background-color: #fdfdfd;
+	background-color: #f9fafd;
 	box-shadow: ${theme.shadows[3]};
 
 	${media.md`
@@ -23,22 +23,31 @@ const FormWrapper = styled.div`
 `
 const FormHeading = styled.h4`
 	margin: 0;
-	padding: 10px 20px;
+	padding: 10px;
 	font-size: 20px;
 	font-weight: normal;
 	color: white;
 	background-color: ${props => props.theme.grey[900]};
+	${media.md`
+		padding: 10px 20px;
+	`}
 `
 
 const FormContent = styled.div`
-	padding: 20px;
+	padding: 20px 10px;
+	${media.md`
+		padding: 20px;
+	`}
 `
 
 const FormFooter = styled.div`
-	padding: 10px 20px;
+	padding: 10px;
 	text-align: right;
 	border-top: 1px solid ${props => props.theme.primary.main}
 	background-color: ${props => props.theme.grey[200]}
+	${media.md`
+		padding: 10px 20px;
+	`}
 `
 const InternalForm = ({ event, step }) => {
 	if (Object.keys(event).length < 1) {
@@ -77,7 +86,7 @@ InternalForm.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   return {
     event: state.event,
-    step: 1
+    step: 2
   }
 }
 

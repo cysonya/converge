@@ -2,6 +2,9 @@
 @import "variables";
 @import "helpers";
 
+* {
+	box-sizing: border-box;
+}
 html,
 body {
 	width: 100%;
@@ -12,6 +15,8 @@ body {
 body {
 	font-family: "Roboto", Helvetica, sans-serif;
 	background-image: url("../images/layout/event_bg.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
 	@media (min-width: 600px) {
 		background-color: #eee;
 	}

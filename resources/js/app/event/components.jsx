@@ -10,9 +10,25 @@ export const styles = theme => ({
 	},
 	input: {
 		borderRadius: "4px",
-		backgroundColor: theme.palette.grey[200]
+		backgroundColor: "#fff"
+	},
+	card: {
+		marginBottom: "20px",
+		padding: "10px 15px 15px",
+		borderLeft: "5px solid "
+	},
+	cardName: {
+		fontSize: "1rem"
+	},
+	lineHeight: {
+		lineHeight: "1.5"
 	}
 })
+
+export const getRandomColor = () => {
+	const colors = ["#F3A712", "#29335C", "#E4572E", "#669BBC", "#6F1D1B", "#A0CCDA"]
+	return colors[Math.floor(Math.random() * 6)]
+}
 
 export const Divider = props => {
 	const Line = styled.div`
