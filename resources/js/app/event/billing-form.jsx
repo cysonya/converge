@@ -34,15 +34,9 @@ const TableWrapper = styled.div`
 	overflow-x: auto;
 `
 const TotalContainer = styled.div`
-	display: flex;
-	justify-content: space-between;
 	padding: 10px;
 	background-color: ${props => props.theme.grey[200]};
 	border-radius: 4px;
-	${media.md`
-	width: 45%;
-	margin-left: auto;
-`}
 `
 const TotalAmount = styled.div`
 	display: flex;
@@ -121,48 +115,69 @@ const InternalBillingForm = ({ classes, width }) => {
 						</TableBody>
 					</Table>
 				</TableWrapper>
+				<Grid
+					container
+					spacing={16}
+					alignItems="flex-end"
+					justify="space-between"
+				>
+					<Grid
+						item
+						xs={12}
+						md={6}
+						style={{ marginBottom: isMobile(width) ? "10px" : "" }}
+					>
+						<Typography style={{ lineHeight: "1.3", marginBottom: "10px" }}>
+							Donate to help people come who otherwise cannot afford it:
+						</Typography>
 
-				<TotalContainer>
-					<strong>Total</strong>
-					<strong>$150 USD</strong>
-				</TotalContainer>
+						<ButtonGroup>
+							<DonateButton variant="outlined" size="small">
+								$5
+							</DonateButton>
+							<DonateButton variant="outlined" size="small">
+								$10
+							</DonateButton>
+							<DonateButton variant="contained" size="small" color="primary">
+								$20
+							</DonateButton>
+							<DonateButton variant="outlined" size="small">
+								$50
+							</DonateButton>
+							<DonateButton variant="outlined" size="small">
+								$100
+							</DonateButton>
+
+							<FormControl className={classes.donateInput}>
+								<Input
+									id="adornment-amount"
+									placeholder="Other"
+									value=""
+									startAdornment={
+										<InputAdornment position="start">$</InputAdornment>
+									}
+								/>
+							</FormControl>
+						</ButtonGroup>
+					</Grid>
+					<Grid item xs={12} md={5}>
+						<TotalContainer>
+							<TotalAmount>
+								<Typography variant="body2">Donation</Typography>
+								<Typography variant="body2">$10</Typography>
+							</TotalAmount>
+							<Divider className={classes.divider} />
+							<TotalAmount>
+								<strong>Total</strong>
+								<strong>$150 USD</strong>
+							</TotalAmount>
+						</TotalContainer>
+					</Grid>
+				</Grid>
 			</Paper>
 
-			<Grid container spacing={16} alignContent="flex-end">
+			<Grid container spacing={40}>
 				<Grid item xs={12} md={6}>
-					<Typography style={{ lineHeight: "1.3", marginBottom: "10px" }}>
-						Donate to help people come who otherwise cannot afford it:
-					</Typography>
-
-					<ButtonGroup>
-						<DonateButton variant="outlined" size="small">
-							$5
-						</DonateButton>
-						<DonateButton variant="outlined" size="small">
-							$10
-						</DonateButton>
-						<DonateButton variant="contained" size="small" color="primary">
-							$20
-						</DonateButton>
-						<DonateButton variant="outlined" size="small">
-							$50
-						</DonateButton>
-						<DonateButton variant="outlined" size="small">
-							$100
-						</DonateButton>
-
-						<FormControl className={classes.donateInput}>
-							<Input
-								id="adornment-amount"
-								placeholder="Other"
-								value=""
-								startAdornment={
-									<InputAdornment position="start">$</InputAdornment>
-								}
-							/>
-						</FormControl>
-					</ButtonGroup>
-					<Divider className={classes.divider} />
 					<Typography className={classes.cardName}>Billing Details</Typography>
 
 					<TextField

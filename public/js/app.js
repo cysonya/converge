@@ -81290,18 +81290,8 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
-function _templateObject8() {
-  var data = _taggedTemplateLiteral(["\n\t\tpadding: 20px;\n\t"]);
-
-  _templateObject8 = function _templateObject8() {
-    return data;
-  };
-
-  return data;
-}
-
 function _templateObject7() {
-  var data = _taggedTemplateLiteral(["\n\tpadding: 10px;\n\tbackground-color: ", ";\n\tborder: 1px solid ", ";\n\t", "\n"]);
+  var data = _taggedTemplateLiteral(["\n\t\tpadding: 20px;\n\t"]);
 
   _templateObject7 = function _templateObject7() {
     return data;
@@ -81311,7 +81301,7 @@ function _templateObject7() {
 }
 
 function _templateObject6() {
-  var data = _taggedTemplateLiteral(["\n\t&& {\n\t\tmargin-right: 6px;\n\t\tmargin-bottom: 6px;\n\t}\n"]);
+  var data = _taggedTemplateLiteral(["\n\tpadding: 10px;\n\tbackground-color: ", ";\n\tborder: 1px solid ", ";\n\t", "\n"]);
 
   _templateObject6 = function _templateObject6() {
     return data;
@@ -81321,7 +81311,7 @@ function _templateObject6() {
 }
 
 function _templateObject5() {
-  var data = _taggedTemplateLiteral(["\n\tdisplay: flex;\n\tflex-wrap: wrap;\n"]);
+  var data = _taggedTemplateLiteral(["\n\t&& {\n\t\tmargin-right: 6px;\n\t\tmargin-bottom: 6px;\n\t}\n"]);
 
   _templateObject5 = function _templateObject5() {
     return data;
@@ -81331,7 +81321,7 @@ function _templateObject5() {
 }
 
 function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n\tdisplay: flex;\n\tjustify-content: space-between;\n"]);
+  var data = _taggedTemplateLiteral(["\n\tdisplay: flex;\n\tflex-wrap: wrap;\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -81341,7 +81331,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n\twidth: 45%;\n\tmargin-left: auto;\n"]);
+  var data = _taggedTemplateLiteral(["\n\tdisplay: flex;\n\tjustify-content: space-between;\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -81351,7 +81341,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n\tdisplay: flex;\n\tjustify-content: space-between;\n\tpadding: 10px;\n\tbackground-color: ", ";\n\tborder-radius: 4px;\n\t", "\n"]);
+  var data = _taggedTemplateLiteral(["\n\tpadding: 10px;\n\tbackground-color: ", ";\n\tborder-radius: 4px;\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -81401,15 +81391,15 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 var TableWrapper = styled_components__WEBPACK_IMPORTED_MODULE_22__["default"].div(_templateObject());
 var TotalContainer = styled_components__WEBPACK_IMPORTED_MODULE_22__["default"].div(_templateObject2(), function (props) {
   return props.theme.grey[200];
-}, _styles_utils__WEBPACK_IMPORTED_MODULE_24__["media"].md(_templateObject3()));
-var TotalAmount = styled_components__WEBPACK_IMPORTED_MODULE_22__["default"].div(_templateObject4());
-var ButtonGroup = styled_components__WEBPACK_IMPORTED_MODULE_22__["default"].div(_templateObject5());
-var DonateButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_22__["default"])(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0___default.a)(_templateObject6());
-var PaymentContainer = styled_components__WEBPACK_IMPORTED_MODULE_22__["default"].div(_templateObject7(), function (props) {
+});
+var TotalAmount = styled_components__WEBPACK_IMPORTED_MODULE_22__["default"].div(_templateObject3());
+var ButtonGroup = styled_components__WEBPACK_IMPORTED_MODULE_22__["default"].div(_templateObject4());
+var DonateButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_22__["default"])(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0___default.a)(_templateObject5());
+var PaymentContainer = styled_components__WEBPACK_IMPORTED_MODULE_22__["default"].div(_templateObject6(), function (props) {
   return props.theme.grey[200];
 }, function (props) {
   return props.theme.grey[300];
-}, _styles_utils__WEBPACK_IMPORTED_MODULE_24__["media"].md(_templateObject8()));
+}, _styles_utils__WEBPACK_IMPORTED_MODULE_24__["media"].md(_templateObject7()));
 
 var InternalBillingForm = function InternalBillingForm(_ref) {
   var classes = _ref.classes,
@@ -81451,14 +81441,18 @@ var InternalBillingForm = function InternalBillingForm(_ref) {
     className: classes.alignLeft
   }, react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement("strong", null, "John Doe")), react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_10___default.a, null, "Bowler Hall"), react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_10___default.a, null, "Adult (18+)"), react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_10___default.a, {
     className: classes.alignRight
-  }, "$150"))))), react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement(TotalContainer, null, react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement("strong", null, "Total"), react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement("strong", null, "$150 USD"))), react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+  }, "$150"))))), react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
     container: true,
     spacing: 16,
-    alignContent: "flex-end"
+    alignItems: "flex-end",
+    justify: "space-between"
   }, react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
     item: true,
     xs: 12,
-    md: 6
+    md: 6,
+    style: {
+      marginBottom: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_23__["isMobile"])(width) ? "10px" : ""
+    }
   }, react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_14___default.a, {
     style: {
       lineHeight: "1.3",
@@ -81489,9 +81483,24 @@ var InternalBillingForm = function InternalBillingForm(_ref) {
     startAdornment: react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement(_material_ui_core_InputAdornment__WEBPACK_IMPORTED_MODULE_5___default.a, {
       position: "start"
     }, "$")
-  }))), react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement(_material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_1___default.a, {
+  })))), react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+    item: true,
+    xs: 12,
+    md: 5
+  }, react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement(TotalContainer, null, react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement(TotalAmount, null, react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_14___default.a, {
+    variant: "body2"
+  }, "Donation"), react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_14___default.a, {
+    variant: "body2"
+  }, "$10")), react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement(_material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_1___default.a, {
     className: classes.divider
-  }), react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_14___default.a, {
+  }), react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement(TotalAmount, null, react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement("strong", null, "Total"), react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement("strong", null, "$150 USD")))))), react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+    container: true,
+    spacing: 40
+  }, react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+    item: true,
+    xs: 12,
+    md: 6
+  }, react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_14___default.a, {
     className: classes.cardName
   }, "Billing Details"), react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_13___default.a, {
     label: "Address",
