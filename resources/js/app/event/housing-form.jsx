@@ -15,6 +15,7 @@ import styled from "styled-components"
 import { getRandomColor, isMobile } from "@/helpers/application"
 import { Divider, styles } from "./components"
 
+
 const EventPackage = styled(Grid)`
 	background-color: ${props => props.theme.grey[100]};
 	border: 2px solid

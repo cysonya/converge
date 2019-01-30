@@ -77,9 +77,9 @@ const InternalAttendantForm = ({ classes, width }) => {
 							}}
 							margin="dense"
 							fullWidth
-							value="1"
 							select
 						>
+							<option value=""></option>
 							<option value="1">Adult 18+</option>
 							<option value="2">Teen (13 - 17)</option>
 						</TextField>

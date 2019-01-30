@@ -22,6 +22,23 @@ export const styles = theme => ({
 	},
 	lineHeight: {
 		lineHeight: "1.5"
+	},
+	summaryWrapper: {
+		marginBottom: "20px",
+		padding: "0 10px 10px"
+	},
+	alignRight: {
+		paddingRight: "10px !important",
+		textAlign: "right"
+	},
+	alignLeft: {
+		paddingLeft: "10px"
+	},
+	divider: {
+		margin: "10px 0"
+	},
+	donateInput: {
+		width: "130px"
 	}
 })
 
