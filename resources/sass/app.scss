@@ -15,9 +15,8 @@ body {
 }
 body {
 	font-family: "Roboto", Helvetica, sans-serif;
-	background-image: url("../images/layout/event_bg.jpg");
+	background: url("../images/layout/event_bg.jpg") no-repeat center center fixed;
 	background-size: cover;
-	background-repeat: no-repeat;
 	@media (min-width: 600px) {
 		background-color: #eee;
 	}
