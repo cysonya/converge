@@ -12,6 +12,7 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import styled from "styled-components"
 
+import { setStep } from "@/app-store/actions"
 import { isMobile } from "@/helpers/application"
 import theme from "@/styles/theme"
 import { media } from "@/styles/utils"
@@ -25,9 +26,11 @@ const FormWrapper = styled.div`
 	width: 100%;
 	background-color: #f9fafd;
 	box-shadow: ${theme.shadows[3]};
+	padding-bottom: 80px;
 
 	${media.md`
 		width: 650px;
+		padding-bottom: 0;
 	`}
 `
 const FormHeading = styled.h4`
@@ -50,14 +53,13 @@ const FormContent = styled.div`
 	`}
 `
 
-const FormFooter = styled.div`
-	padding: 10px;
-	text-align: right;
-	border-top: 1px solid ${props => props.theme.primary.main}
-	background-color: ${props => props.theme.grey[200]}
-	${media.md`
+const FormActions = styled.div`
+	padding-top: 8px;
+	border-top: 1px solid ${props => props.theme.primary.main} ${media.md`
 		padding: 10px 20px;
-	`}
+		text-align: right;
+		background-color: ${props => props.theme.grey[200]}
+	`};
 `
 
 const EventTitle = styled.h1`
@@ -78,28 +80,10 @@ const EventTitle = styled.h1`
 
 	`}
 `
-const InternalForm = ({ classes, event, step, width }) => {
+const InternalForm = ({ classes, event, nextStep, prevStep, step, width }) => {
+	console.log(event)
 	if (Object.keys(event).length < 1) {
 		return null
-	}
-
-	const Steps = () => {
-		const steps = ["Attendants", "Housing", "Review", "Payment"]
-		return (
-			<Stepper
-				activeStep={step - 1}
-				alternativeLabel={isMobile(width) ? false : true}
-				className={classes.stepWrapper}
-				orientation={isMobile(width) ? "vertical" : "horizontal"}
-			>
-				{steps.map(label => (
-					<Step key={label}>
-						<StepLabel>{label}</StepLabel>
-						{isMobile(width) && <StepContent>{content}</StepContent>}
-					</Step>
-				))}
-			</Stepper>
-		)
 	}
 
 	let content = <AttendantForm />
@@ -119,19 +103,50 @@ const InternalForm = ({ classes, event, step, width }) => {
 			title = "Step 4: Billing information"
 			break
 	}
+	const FormNav = () => (
+		<FormActions>
+			<Button className="mr-10" onClick={e => prevStep(e)}>
+				Back
+			</Button>
+			{step !== 4 && (
+				<Button variant="contained" color="primary" onClick={e => nextStep(e)}>
+					Next
+				</Button>
+			)}
+		</FormActions>
+	)
+
+	const Steps = () => {
+		const steps = ["Attendants", "Housing", "Review", "Payment"]
+		return (
+			<Stepper
+				activeStep={step - 1}
+				alternativeLabel={isMobile(width) ? false : true}
+				className={classes.stepper}
+				orientation={isMobile(width) ? "vertical" : "horizontal"}
+			>
+				{steps.map(label => (
+					<Step key={label}>
+						<StepLabel>{label}</StepLabel>
+						{isMobile(width) && (
+							<StepContent className={classes.stepContent}>
+								{content}
+								<FormNav />
+							</StepContent>
+						)}
+					</Step>
+				))}
+			</Stepper>
+		)
+	}
 
 	return (
 		<FormWrapper>
 			<EventTitle>{event.title} Registration</EventTitle>
-			<Steps />
 
+			<Steps />
 			<FormContent>{content}</FormContent>
-			<FormFooter>
-				<Button className="mr-10">Back</Button>
-				<Button variant="contained" color="primary">
-					Next
-				</Button>
-			</FormFooter>
+			{!isMobile(width) && <FormNav />}
 		</FormWrapper>
 	)
 }
@@ -143,17 +158,43 @@ InternalForm.propTypes = {
 const mapStateToProps = (state, ownProps) => {
 	return {
 		event: state.event,
-		step: 1
+		step: state.event.step
 	}
 }
 
-const mapDispatchToProps = (dispatch, ownPros) => {
-	return {}
+const mapDispatchToProps = (dispatch, ownProps) => {
+	return {
+		dispatch: dispatch
+	}
 }
+const mergeProps = (stateProps, dispatchProps, ownProps) => {
+	const { step } = stateProps
+	const { dispatch } = dispatchProps
 
+	return {
+		...ownProps,
+		...stateProps,
+		...dispatchProps,
+		prevStep: e => {
+			e.preventDefault()
+			if (step - 1 < 1) {
+				return false
+			}
+			dispatch(setStep(step - 1))
+		},
+		nextStep: e => {
+			e.preventDefault()
+			if (step + 1 > 4) {
+				return false
+			}
+			dispatch(setStep(step + 1))
+		}
+	}
+}
 const Form = connect(
 	mapStateToProps,
-	mapDispatchToProps
+	mapDispatchToProps,
+	mergeProps
 )(withStyles(styles)(withWidth()(InternalForm)))
 
 export default Form

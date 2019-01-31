@@ -14,11 +14,18 @@ export const styles = theme => ({
 	},
 	card: {
 		marginBottom: "20px",
-		padding: "10px 15px 15px",
-		borderLeft: "5px solid "
+		padding: "10px 10px 15px",
+		borderLeft: "4px solid",
+		[theme.breakpoints.up("md")]: {
+			padding: "10px 15px 15px",
+			borderWidth: "5px"
+		}
 	},
 	cardName: {
-		fontSize: "1rem"
+		fontSize: "14px",
+		[theme.breakpoints.up("md")]: {
+			fontSize: "16px"
+		}
 	},
 	lineHeight: {
 		lineHeight: "1.5"
@@ -40,8 +47,16 @@ export const styles = theme => ({
 	donateInput: {
 		width: "130px"
 	},
-	stepWrapper: {
-		backgroundColor: "transparent"
+	stepper: {
+		padding: "24px 10px",
+		backgroundColor: "transparent",
+		[theme.breakpoints.up("md")]: {
+			padding: "24px"
+		}
+	},
+	stepContent: {
+		paddingLeft: "10px",
+		paddingRight: "0"
 	}
 })
 

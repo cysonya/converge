@@ -196,7 +196,7 @@ const InternalBillingForm = ({ classes, width }) => {
 							margin="dense"
 							fullWidth
 						/>
-						<Grid container spacing={8}>
+						<Grid container spacing={8} style={{ marginBottom: "10px" }}>
 							<Grid item xs={6}>
 								<TextField
 									label="Expiry"
@@ -228,10 +228,13 @@ const InternalBillingForm = ({ classes, width }) => {
 								/>
 							</Grid>
 						</Grid>
+						<Button variant="contained" color="primary" fullWidth>
+							PLACE ORDER
+						</Button>
 					</PaymentContainer>
 				</Grid>
 
-				<Grid item xs={12} md={5}>
+				<Grid item xs={12} md={5} style={{ marginBottom: "20px" }}>
 					<SectionTitle divider>
 						<LockIcon className="pr-5" /> Order Summary
 					</SectionTitle>

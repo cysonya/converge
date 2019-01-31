@@ -19,6 +19,14 @@ class EventsController extends Controller
   {
       $event = Event::findOrFail($event_id);
 
-      return $event;
+
+      return response()->json([
+        'title' => $event->title,
+        'description' => $event->description,
+        'start_date' => $event->start_date,
+        'end_date' => $event->end_date,
+        'step' => 1,
+        'packages' => $event->packages,
+      ]);
   }
 }

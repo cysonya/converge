@@ -19,6 +19,7 @@ class Event extends Component {
 			width: 100%;
 			${media.md`
 				margin-top: 80px;
+				margin-bottom: 50px;
 			`}
 		`
 		return (

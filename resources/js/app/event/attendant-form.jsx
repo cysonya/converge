@@ -53,7 +53,7 @@ const InternalAttendantForm = ({ classes, width }) => {
 					</Grid>
 					<Grid item xs={6}>
 						<TextField
-							label="Your Email"
+							label="Email"
 							variant={isMobile(width) ? "standard" : "outlined"}
 							InputLabelProps={{
 								className: classes.inputLabel
@@ -67,7 +67,7 @@ const InternalAttendantForm = ({ classes, width }) => {
 					</Grid>
 					<Grid item xs={6}>
 						<TextField
-							label="Your age group"
+							label="Age group"
 							variant={isMobile(width) ? "standard" : "outlined"}
 							InputLabelProps={{
 								className: classes.inputLabel
@@ -76,6 +76,7 @@ const InternalAttendantForm = ({ classes, width }) => {
 								className: isMobile(width) ? "" : classes.input
 							}}
 							margin="dense"
+							value=""
 							fullWidth
 							select
 						>
@@ -87,7 +88,12 @@ const InternalAttendantForm = ({ classes, width }) => {
 				</Grid>
 			</Card>
 
-			<Button variant="outlined" color="primary" size="small">
+			<Button
+				variant="outlined"
+				color="primary"
+				size="small"
+				style={{ marginBottom: "20px" }}
+			>
 				<AddCircleIcon className="pr-5" fontSize="small">
 					Add
 				</AddCircleIcon>{" "}

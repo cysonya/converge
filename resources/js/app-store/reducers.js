@@ -1,17 +1,22 @@
 import { combineReducers } from "redux"
 import { connectRouter } from "connected-react-router"
 
-import { SET_EVENT_DATA } from './actions'
+import { SET_EVENT_DATA, SET_STEP } from "./actions"
 
 function event(state = {}, action) {
-	let newState = Object.assign({}, state)
+  let newState = Object.assign({}, state)
 
   switch (action.type) {
-  	case SET_EVENT_DATA:
-			Object.keys(action.data).map((key) => {
-				newState[key] = action.data[key]
-			})
-  	  return newState
+    case SET_EVENT_DATA:
+      Object.keys(action.data).map(key => {
+        newState[key] = action.data[key]
+      })
+      return newState
+      break
+    case SET_STEP:
+      newState.step = action.index
+      return newState
+      break
     default:
       return state
   }
