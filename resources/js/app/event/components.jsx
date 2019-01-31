@@ -42,6 +42,17 @@ export const styles = theme => ({
 	}
 })
 
+export const TotalContainer = styled.div`
+	padding: 10px;
+	background-color: ${props => props.theme.grey[200]};
+	border-radius: 4px;
+`
+export const TotalAmount = styled.div`
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 5px;
+`
+
 export const Divider = props => {
 	const Line = styled.div`
 		margin: ${props => props.margin || "20px 0 30px;"}

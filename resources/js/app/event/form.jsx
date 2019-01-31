@@ -11,6 +11,7 @@ import { media } from "@/styles/utils"
 import AttendantForm from "./attendant-form"
 import BillingForm from "./billing-form"
 import HousingForm from "./housing-form"
+import ReviewOrder from "./review-order"
 
 const FormWrapper = styled.div`
 	width: 100%;
@@ -63,8 +64,12 @@ const InternalForm = ({ event, step }) => {
 			title = "Step 2: Choose housing"
 			break
 		case 3:
+			form = <ReviewOrder />
+			title = "Step 3: Review"
+			break
+		case 4:
 			form = <BillingForm />
-			title = "Step 3: Billing information"
+			title = "Step 4: Billing information"
 			break
 	}
 
@@ -90,7 +95,7 @@ InternalForm.propTypes = {
 const mapStateToProps = (state, ownProps) => {
 	return {
 		event: state.event,
-		step: 3
+		step: 4
 	}
 }
 
