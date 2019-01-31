@@ -1,26 +1,26 @@
-import Button from "@material-ui/core/Button"
-import Step from "@material-ui/core/Step"
-import Stepper from "@material-ui/core/Stepper"
-import StepContent from "@material-ui/core/StepContent"
-import StepLabel from "@material-ui/core/StepLabel"
-import { withStyles } from "@material-ui/core/styles"
-import withWidth from "@material-ui/core/withWidth"
+import Button from "@material-ui/core/Button";
+import Step from "@material-ui/core/Step";
+import Stepper from "@material-ui/core/Stepper";
+import StepContent from "@material-ui/core/StepContent";
+import StepLabel from "@material-ui/core/StepLabel";
+import { withStyles } from "@material-ui/core/styles";
+import withWidth from "@material-ui/core/withWidth";
 
-import React from "react"
-import ReactDOM from "react-dom"
-import PropTypes from "prop-types"
-import { connect } from "react-redux"
-import styled from "styled-components"
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import styled from "styled-components";
 
-import { setStep } from "@/app-store/actions"
-import { isMobile } from "@/helpers/application"
-import theme from "@/styles/theme"
-import { media } from "@/styles/utils"
-import AttendantForm from "./attendant-form"
-import BillingForm from "./billing-form"
-import HousingForm from "./housing-form"
-import ReviewOrder from "./review-order"
-import { styles } from "./components"
+import { setStep } from "@/app-store/actions";
+import { isMobile } from "@/helpers/application";
+import theme from "@/styles/theme";
+import { media } from "@/styles/utils";
+import AttendantForm from "./attendant-form";
+import BillingForm from "./billing-form";
+import HousingForm from "./housing-form";
+import ReviewOrder from "./review-order";
+import { styles } from "./components";
 
 const FormWrapper = styled.div`
 	width: 100%;
@@ -32,7 +32,7 @@ const FormWrapper = styled.div`
 		width: 650px;
 		padding-bottom: 0;
 	`}
-`
+`;
 const FormHeading = styled.h4`
 	margin: 0;
 	padding: 10px;
@@ -45,7 +45,7 @@ const FormHeading = styled.h4`
 		font-size: 22px;
 		padding: 12px 20px;
 	`}
-`
+`;
 
 const FormContent = styled.div`
 	display: none;
@@ -53,7 +53,7 @@ const FormContent = styled.div`
 		display: block;
 		padding: 20px;
 	`}
-`
+`;
 
 const FormActions = styled.div`
 	padding-top: 8px;
@@ -62,46 +62,48 @@ const FormActions = styled.div`
 		text-align: right;
 		background-color: ${props => props.theme.grey[200]}
 	`};
-`
+`;
 
 const InternalForm = ({ classes, event, nextStep, prevStep, step, width }) => {
-	console.log(event)
+	console.log(event);
 	if (Object.keys(event).length < 1) {
-		return null
+		return null;
 	}
 
-	let content = <AttendantForm />
-	let title = "Step 1: Register attendants"
+	let content = <AttendantForm />;
+	let title = "Step 1: Register attendants";
 
 	switch (step) {
 		case 2:
-			content = <HousingForm />
-			title = "Step 2: Choose housing"
-			break
+			content = <HousingForm />;
+			title = "Step 2: Choose housing";
+			break;
 		case 3:
-			content = <ReviewOrder />
-			title = "Step 3: Review"
-			break
+			content = <ReviewOrder />;
+			title = "Step 3: Review";
+			break;
 		case 4:
-			content = <BillingForm />
-			title = "Step 4: Billing information"
-			break
+			content = <BillingForm />;
+			title = "Step 4: Billing information";
+			break;
 	}
 	const FormNav = () => (
 		<FormActions>
-			<Button className="mr-10" onClick={e => prevStep(e)}>
-				Back
-			</Button>
-			{step !== 4 && (
+			{step > 1 && (
+				<Button className="mr-10" onClick={e => prevStep(e)}>
+					Back
+				</Button>
+			)}
+			{step < 4 && (
 				<Button variant="contained" color="primary" onClick={e => nextStep(e)}>
 					Next
 				</Button>
 			)}
 		</FormActions>
-	)
+	);
 
 	const Steps = () => {
-		const steps = ["Attendants", "Housing", "Review", "Payment"]
+		const steps = ["Attendants", "Housing", "Review", "Payment"];
 		return (
 			<Stepper
 				activeStep={step - 1}
@@ -121,8 +123,8 @@ const InternalForm = ({ classes, event, nextStep, prevStep, step, width }) => {
 					</Step>
 				))}
 			</Stepper>
-		)
-	}
+		);
+	};
 
 	return (
 		<FormWrapper>
@@ -132,53 +134,53 @@ const InternalForm = ({ classes, event, nextStep, prevStep, step, width }) => {
 			<FormContent>{content}</FormContent>
 			{!isMobile(width) && <FormNav />}
 		</FormWrapper>
-	)
-}
+	);
+};
 
 InternalForm.propTypes = {
 	event: PropTypes.object
-}
+};
 
 const mapStateToProps = (state, ownProps) => {
 	return {
 		event: state.event,
 		step: state.event.step
-	}
-}
+	};
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		dispatch: dispatch
-	}
-}
+	};
+};
 const mergeProps = (stateProps, dispatchProps, ownProps) => {
-	const { step } = stateProps
-	const { dispatch } = dispatchProps
+	const { step } = stateProps;
+	const { dispatch } = dispatchProps;
 
 	return {
 		...ownProps,
 		...stateProps,
 		...dispatchProps,
 		prevStep: e => {
-			e.preventDefault()
+			e.preventDefault();
 			if (step - 1 < 1) {
-				return false
+				return false;
 			}
-			dispatch(setStep(step - 1))
+			dispatch(setStep(step - 1));
 		},
 		nextStep: e => {
-			e.preventDefault()
+			e.preventDefault();
 			if (step + 1 > 4) {
-				return false
+				return false;
 			}
-			dispatch(setStep(step + 1))
+			dispatch(setStep(step + 1));
 		}
-	}
-}
+	};
+};
 const Form = connect(
 	mapStateToProps,
 	mapDispatchToProps,
 	mergeProps
-)(withStyles(styles)(withWidth()(InternalForm)))
+)(withStyles(styles)(withWidth()(InternalForm)));
 
-export default Form
+export default Form;
