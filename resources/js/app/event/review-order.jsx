@@ -1,47 +1,55 @@
-import Button from "@material-ui/core/Button";
-import Divider from "@material-ui/core/Divider";
-import FormControl from "@material-ui/core/FormControl";
-import Grid from "@material-ui/core/Grid";
-import Input from "@material-ui/core/Input";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import InputLabel from "@material-ui/core/InputLabel";
-import Paper from "@material-ui/core/Paper";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
-import withWidth from "@material-ui/core/withWidth";
+import Button from "@material-ui/core/Button"
+import Divider from "@material-ui/core/Divider"
+import FormControl from "@material-ui/core/FormControl"
+import Grid from "@material-ui/core/Grid"
+import Input from "@material-ui/core/Input"
+import InputAdornment from "@material-ui/core/InputAdornment"
+import InputLabel from "@material-ui/core/InputLabel"
+import Paper from "@material-ui/core/Paper"
+import Table from "@material-ui/core/Table"
+import TableBody from "@material-ui/core/TableBody"
+import TableCell from "@material-ui/core/TableCell"
+import TableHead from "@material-ui/core/TableHead"
+import TableRow from "@material-ui/core/TableRow"
+import Typography from "@material-ui/core/Typography"
+import { withStyles } from "@material-ui/core/styles"
+import withWidth from "@material-ui/core/withWidth"
 
-import React from "react";
-import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import styled from "styled-components";
+import React from "react"
+import ReactDOM from "react-dom"
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
+import styled from "styled-components"
 
-import { isMobile } from "@/helpers/application";
-import { media } from "@/styles/utils";
+import { isMobile } from "@/helpers/application"
+import { media } from "@/styles/utils"
 
-import { styles, TotalAmount, TotalContainer } from "./components";
+import { styles, TotalAmount } from "./components"
 
 const TableWrapper = styled.div`
 	margin-bottom: 10px;
 	width: 100%;
 	overflow-x: auto;
-`;
-
+`
+const TotalContainer = styled.div`
+	padding: 10px;
+	background-color: ${props => props.theme.grey[200]};
+	border-radius: 4px;
+	${media.md`
+		width: 45%;
+		margin-left: auto;
+	`}
+`
 const ButtonGroup = styled.div`
 	display: flex;
 	flex-wrap: wrap;
-`;
+`
 const DonateButton = styled(Button)`
 	&& {
 		margin-right: 6px;
 		margin-bottom: 6px;
 	}
-`;
+`
 const InternalReviewOrder = ({ classes, width }) => {
 	return (
 		<div>
@@ -68,86 +76,88 @@ const InternalReviewOrder = ({ classes, width }) => {
 								<TableCell>Adult (18+)</TableCell>
 								<TableCell className={classes.alignRight}>$150</TableCell>
 							</TableRow>
+							<TableRow>
+								<TableCell className={classes.alignLeft}>
+									<strong>John Doe</strong>
+								</TableCell>
+								<TableCell>Bowler Hall</TableCell>
+								<TableCell>Adult (18+)</TableCell>
+								<TableCell className={classes.alignRight}>$150</TableCell>
+							</TableRow>
 						</TableBody>
 					</Table>
 				</TableWrapper>
-				<Grid
-					container
-					spacing={16}
-					alignItems="flex-end"
-					justify="space-between"
-				>
-					<Grid
-						item
-						xs={12}
-						md={6}
-						style={{ marginBottom: isMobile(width) ? "10px" : "" }}
-					>
-						<Typography style={{ lineHeight: "1.3", marginBottom: "10px" }}>
-							Donate to help people come who otherwise cannot afford it:
-						</Typography>
-
-						<ButtonGroup>
-							<DonateButton variant="outlined" size="small">
-								$5
-							</DonateButton>
-							<DonateButton variant="outlined" size="small">
-								$10
-							</DonateButton>
-							<DonateButton variant="contained" size="small" color="primary">
-								$20
-							</DonateButton>
-							<DonateButton variant="outlined" size="small">
-								$50
-							</DonateButton>
-							<DonateButton variant="outlined" size="small">
-								$100
-							</DonateButton>
-
-							<FormControl className={classes.donateInput}>
-								<Input
-									id="adornment-amount"
-									placeholder="Other"
-									value=""
-									startAdornment={
-										<InputAdornment position="start">$</InputAdornment>
-									}
-								/>
-							</FormControl>
-						</ButtonGroup>
-					</Grid>
-					<Grid item xs={12} md={5}>
-						<TotalContainer>
-							<TotalAmount>
-								<Typography variant="body2">Donation</Typography>
-								<Typography variant="body2">$10</Typography>
-							</TotalAmount>
-							<Divider className={classes.divider} />
-							<TotalAmount>
-								<strong>Total</strong>
-								<strong>$150 USD</strong>
-							</TotalAmount>
-						</TotalContainer>
-					</Grid>
-				</Grid>
+				<TotalContainer>
+					<TotalAmount>
+						<strong>Total</strong>
+						<strong>$300 USD</strong>
+					</TotalAmount>
+				</TotalContainer>
 			</Paper>
-		</div>
-	);
-};
 
-InternalReviewOrder.propTypes = {};
+			<Grid
+				container
+				spacing={16}
+				alignItems="flex-end"
+				justify="space-between"
+			>
+				<Grid
+					item
+					xs={12}
+					md={6}
+					style={{ marginBottom: isMobile(width) ? "10px" : "" }}
+				>
+					<Typography style={{ lineHeight: "1.3", marginBottom: "10px" }}>
+						Donate to help people come who otherwise cannot afford it:
+					</Typography>
+
+					<ButtonGroup>
+						<DonateButton variant="outlined" size="small">
+							$5
+						</DonateButton>
+						<DonateButton variant="outlined" size="small">
+							$10
+						</DonateButton>
+						<DonateButton variant="contained" size="small" color="primary">
+							$20
+						</DonateButton>
+						<DonateButton variant="outlined" size="small">
+							$50
+						</DonateButton>
+						<DonateButton variant="outlined" size="small">
+							$100
+						</DonateButton>
+
+						<FormControl className={classes.donateInput}>
+							<Input
+								id="adornment-amount"
+								placeholder="Other"
+								value=""
+								startAdornment={
+									<InputAdornment position="start">$</InputAdornment>
+								}
+							/>
+						</FormControl>
+					</ButtonGroup>
+				</Grid>
+			</Grid>
+		</div>
+	)
+}
+
+InternalReviewOrder.propTypes = {}
 
 const mapStateToProps = (state, ownProps) => {
-	return {};
-};
+	return {}
+}
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-	return {};
-};
+	return {}
+}
 
 const ReviewOrder = connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(withStyles(styles)(withWidth()(InternalReviewOrder)));
+)(withStyles(styles)(withWidth()(InternalReviewOrder)))
 
-export default ReviewOrder;
+export default ReviewOrder

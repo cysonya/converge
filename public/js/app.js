@@ -81399,7 +81399,8 @@ var InternalBillingForm = function InternalBillingForm(_ref) {
   }, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
     item: true,
     xs: 12,
-    md: 7
+    md: 7,
+    className: "pb-rm"
   }, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(PaymentContainer, null, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(SectionTitle, null, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Step, null, "1"), " Billing Information"), react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_4___default.a, {
     label: "Address",
     variant: "outlined",
@@ -81584,30 +81585,19 @@ var BillingForm = Object(react_redux__WEBPACK_IMPORTED_MODULE_12__["connect"])(m
 /*!***********************************************!*\
   !*** ./resources/js/app/event/components.jsx ***!
   \***********************************************/
-/*! exports provided: styles, TotalContainer, TotalAmount, Divider */
+/*! exports provided: styles, TotalAmount, Divider */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "styles", function() { return styles; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TotalContainer", function() { return TotalContainer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TotalAmount", function() { return TotalAmount; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Divider", function() { return Divider; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n\t\tposition: relative;\n\t\ttop: -9px;\n\t\tpadding: 2px 15px;\n\t\tfont-size: 16px;\n\t\tcolor: ", ";\n\t\tbackground-color: white;\n\t\tborder: 1px solid rgba(0, 0, 0, 0.12);\n\t\tborder-radius: 3px;\n\t"]);
-
-  _templateObject4 = function _templateObject4() {
-    return data;
-  };
-
-  return data;
-}
-
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n\t\tmargin: ", "\n\t\theight: 0;\n\t\ttext-align: center;\n\t\tborder-top: 1px solid rgba(0,0,0,.12);\n\t"]);
+  var data = _taggedTemplateLiteral(["\n\t\tposition: relative;\n\t\ttop: -9px;\n\t\tpadding: 2px 15px;\n\t\tfont-size: 16px;\n\t\tcolor: ", ";\n\t\tbackground-color: white;\n\t\tborder: 1px solid rgba(0, 0, 0, 0.12);\n\t\tborder-radius: 3px;\n\t"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -81617,7 +81607,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n\tdisplay: flex;\n\tjustify-content: space-between;\n\tmargin-bottom: 5px;\n"]);
+  var data = _taggedTemplateLiteral(["\n\t\tmargin: ", "\n\t\theight: 0;\n\t\ttext-align: center;\n\t\tborder-top: 1px solid rgba(0,0,0,.12);\n\t"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -81627,7 +81617,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n\tpadding: 10px;\n\tbackground-color: ", ";\n\tborder-radius: 4px;\n"]);
+  var data = _taggedTemplateLiteral(["\n\tdisplay: flex;\n\tjustify-content: space-between;\n\tmargin-bottom: 5px;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -81683,15 +81673,12 @@ var styles = function styles(theme) {
     }
   };
 };
-var TotalContainer = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject(), function (props) {
-  return props.theme.grey[200];
-});
-var TotalAmount = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject2());
+var TotalAmount = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject());
 var Divider = function Divider(props) {
-  var Line = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject3(), function (props) {
+  var Line = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject2(), function (props) {
     return props.margin || "20px 0 30px;";
   });
-  var Text = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].span(_templateObject4(), function (props) {
+  var Text = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].span(_templateObject3(), function (props) {
     return props.theme.primary.main;
   });
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Line, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Text, null, props.text));
@@ -82206,8 +82193,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers_application__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @/helpers/application */ "./resources/js/helpers/application.js");
 /* harmony import */ var _styles_utils__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @/styles/utils */ "./resources/js/styles/utils.js");
 /* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components */ "./resources/js/app/event/components.jsx");
-function _templateObject3() {
+function _templateObject5() {
   var data = _taggedTemplateLiteral(["\n\t&& {\n\t\tmargin-right: 6px;\n\t\tmargin-bottom: 6px;\n\t}\n"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\n\tdisplay: flex;\n\tflex-wrap: wrap;\n"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["\n\t\twidth: 45%;\n\t\tmargin-left: auto;\n\t"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -82217,7 +82224,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n\tdisplay: flex;\n\tflex-wrap: wrap;\n"]);
+  var data = _taggedTemplateLiteral(["\n\tpadding: 10px;\n\tbackground-color: ", ";\n\tborder-radius: 4px;\n\t", "\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -82263,8 +82270,11 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 var TableWrapper = styled_components__WEBPACK_IMPORTED_MODULE_20__["default"].div(_templateObject());
-var ButtonGroup = styled_components__WEBPACK_IMPORTED_MODULE_20__["default"].div(_templateObject2());
-var DonateButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_20__["default"])(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0___default.a)(_templateObject3());
+var TotalContainer = styled_components__WEBPACK_IMPORTED_MODULE_20__["default"].div(_templateObject2(), function (props) {
+  return props.theme.grey[200];
+}, _styles_utils__WEBPACK_IMPORTED_MODULE_22__["media"].md(_templateObject3()));
+var ButtonGroup = styled_components__WEBPACK_IMPORTED_MODULE_20__["default"].div(_templateObject4());
+var DonateButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_20__["default"])(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0___default.a)(_templateObject5());
 
 var InternalReviewOrder = function InternalReviewOrder(_ref) {
   var classes = _ref.classes,
@@ -82282,7 +82292,11 @@ var InternalReviewOrder = function InternalReviewOrder(_ref) {
     className: classes.alignLeft
   }, react__WEBPACK_IMPORTED_MODULE_16___default.a.createElement("strong", null, "John Doe")), react__WEBPACK_IMPORTED_MODULE_16___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_10___default.a, null, "Bowler Hall"), react__WEBPACK_IMPORTED_MODULE_16___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_10___default.a, null, "Adult (18+)"), react__WEBPACK_IMPORTED_MODULE_16___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_10___default.a, {
     className: classes.alignRight
-  }, "$150"))))), react__WEBPACK_IMPORTED_MODULE_16___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+  }, "$150")), react__WEBPACK_IMPORTED_MODULE_16___default.a.createElement(_material_ui_core_TableRow__WEBPACK_IMPORTED_MODULE_12___default.a, null, react__WEBPACK_IMPORTED_MODULE_16___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_10___default.a, {
+    className: classes.alignLeft
+  }, react__WEBPACK_IMPORTED_MODULE_16___default.a.createElement("strong", null, "John Doe")), react__WEBPACK_IMPORTED_MODULE_16___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_10___default.a, null, "Bowler Hall"), react__WEBPACK_IMPORTED_MODULE_16___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_10___default.a, null, "Adult (18+)"), react__WEBPACK_IMPORTED_MODULE_16___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_10___default.a, {
+    className: classes.alignRight
+  }, "$150"))))), react__WEBPACK_IMPORTED_MODULE_16___default.a.createElement(TotalContainer, null, react__WEBPACK_IMPORTED_MODULE_16___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_23__["TotalAmount"], null, react__WEBPACK_IMPORTED_MODULE_16___default.a.createElement("strong", null, "Total"), react__WEBPACK_IMPORTED_MODULE_16___default.a.createElement("strong", null, "$300 USD")))), react__WEBPACK_IMPORTED_MODULE_16___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
     container: true,
     spacing: 16,
     alignItems: "flex-end",
@@ -82324,17 +82338,7 @@ var InternalReviewOrder = function InternalReviewOrder(_ref) {
     startAdornment: react__WEBPACK_IMPORTED_MODULE_16___default.a.createElement(_material_ui_core_InputAdornment__WEBPACK_IMPORTED_MODULE_5___default.a, {
       position: "start"
     }, "$")
-  })))), react__WEBPACK_IMPORTED_MODULE_16___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
-    item: true,
-    xs: 12,
-    md: 5
-  }, react__WEBPACK_IMPORTED_MODULE_16___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_23__["TotalContainer"], null, react__WEBPACK_IMPORTED_MODULE_16___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_23__["TotalAmount"], null, react__WEBPACK_IMPORTED_MODULE_16___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_13___default.a, {
-    variant: "body2"
-  }, "Donation"), react__WEBPACK_IMPORTED_MODULE_16___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_13___default.a, {
-    variant: "body2"
-  }, "$10")), react__WEBPACK_IMPORTED_MODULE_16___default.a.createElement(_material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_1___default.a, {
-    className: classes.divider
-  }), react__WEBPACK_IMPORTED_MODULE_16___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_23__["TotalAmount"], null, react__WEBPACK_IMPORTED_MODULE_16___default.a.createElement("strong", null, "Total"), react__WEBPACK_IMPORTED_MODULE_16___default.a.createElement("strong", null, "$150 USD")))))));
+  }))))));
 };
 
 InternalReviewOrder.propTypes = {};

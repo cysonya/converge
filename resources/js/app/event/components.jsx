@@ -42,11 +42,6 @@ export const styles = theme => ({
 	}
 })
 
-export const TotalContainer = styled.div`
-	padding: 10px;
-	background-color: ${props => props.theme.grey[200]};
-	border-radius: 4px;
-`
 export const TotalAmount = styled.div`
 	display: flex;
 	justify-content: space-between;
