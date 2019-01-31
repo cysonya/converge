@@ -65,7 +65,6 @@ const FormActions = styled.div`
 `;
 
 const InternalForm = ({ classes, event, nextStep, prevStep, step, width }) => {
-	console.log(event);
 	if (Object.keys(event).length < 1) {
 		return null;
 	}
