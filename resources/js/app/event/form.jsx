@@ -39,9 +39,11 @@ const FormHeading = styled.h4`
 	font-size: 18px;
 	font-weight: normal;
 	color: white;
+	text-align: center;
 	background-color: ${props => props.theme.grey[900]};
 	${media.md`
-		padding: 10px 20px;
+		font-size: 22px;
+		padding: 12px 20px;
 	`}
 `
 
@@ -62,24 +64,6 @@ const FormActions = styled.div`
 	`};
 `
 
-const EventTitle = styled.h1`
-	margin: 0;
-	padding: 10px;
-	font-weight: 500;
-	text-align: center;
-	font-size: 18px;
-	font-weight: normal;
-	color: white;
-	background-color: ${props => props.theme.grey[900]};
-
-	${media.md`
-		padding: 20px;
-		font-size: 24px;
-		color: #212121;
-		background-color: transparent;
-
-	`}
-`
 const InternalForm = ({ classes, event, nextStep, prevStep, step, width }) => {
 	console.log(event)
 	if (Object.keys(event).length < 1) {
@@ -142,7 +126,7 @@ const InternalForm = ({ classes, event, nextStep, prevStep, step, width }) => {
 
 	return (
 		<FormWrapper>
-			<EventTitle>{event.title} Registration</EventTitle>
+			<FormHeading>{event.title} Registration</FormHeading>
 
 			<Steps />
 			<FormContent>{content}</FormContent>
