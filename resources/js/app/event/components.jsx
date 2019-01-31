@@ -39,6 +39,9 @@ export const styles = theme => ({
 	},
 	donateInput: {
 		width: "130px"
+	},
+	stepWrapper: {
+		backgroundColor: "transparent"
 	}
 })
 

@@ -79,7 +79,7 @@ const InternalAttendantForm = ({ classes, width }) => {
 							fullWidth
 							select
 						>
-							<option value=""></option>
+							<option value="" />
 							<option value="1">Adult 18+</option>
 							<option value="2">Teen (13 - 17)</option>
 						</TextField>
@@ -91,7 +91,7 @@ const InternalAttendantForm = ({ classes, width }) => {
 				<AddCircleIcon className="pr-5" fontSize="small">
 					Add
 				</AddCircleIcon>{" "}
-				ADD MEMBER
+				ADD ATTENDANT
 			</Button>
 		</div>
 	)

@@ -77,7 +77,7 @@ const InternalBillingForm = ({ classes, width }) => {
 	return (
 		<div>
 			<Grid container spacing={40} justify="space-between">
-				<Grid item xs={12} md={7} className="pb-rm">
+				<Grid item xs={12} md={7} className={isMobile(width) ? "pb-rm" : ""}>
 					<PaymentContainer>
 						<SectionTitle>
 							<Step>1</Step> Billing Information

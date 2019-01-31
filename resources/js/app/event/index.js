@@ -7,7 +7,7 @@ import Form from "./form"
 
 class Event extends Component {
 	componentWillMount() {
-		appStore.dispatch({type: "FETCH_EVENT", id: this.props.match.params.id})
+		appStore.dispatch({ type: "FETCH_EVENT", id: this.props.match.params.id })
 	}
 
 	render() {
@@ -18,7 +18,7 @@ class Event extends Component {
 			height: 100%;
 			width: 100%;
 			${media.md`
-				margin-top: 50px;
+				margin-top: 80px;
 			`}
 		`
 		return (
