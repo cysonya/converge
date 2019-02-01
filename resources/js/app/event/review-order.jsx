@@ -134,7 +134,7 @@ const InternalReviewOrder = ({ classes, width }) => {
 						<DonateButton variant="outlined" size="small">
 							$10
 						</DonateButton>
-						<DonateButton variant="contained" size="small" color="primary">
+						<DonateButton variant="contained" size="small" color="secondary">
 							$20
 						</DonateButton>
 						<DonateButton variant="outlined" size="small">

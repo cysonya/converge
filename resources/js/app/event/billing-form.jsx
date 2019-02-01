@@ -45,7 +45,7 @@ const Step = styled.span`
 	width: 24px;
 	font-size: 14px;
 	color: #fff;
-	background-color: ${props => props.theme.primary.light};
+	background-color: ${props => props.theme.secondary.light};
 	border-radius: 50%;
 `
 
