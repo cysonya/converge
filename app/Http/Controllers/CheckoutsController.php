@@ -78,13 +78,13 @@ class CheckoutsController extends Controller
   		Attendant::create([
   			'event_id' => $event->id,
   			'order_id' => $order->id,
-  			'group_id' => (int)$registrant['group'],
-  			'package_id' => (int)$registrant['package'],
+        'group_id' => (int)$registrant['group'],
+        'package_id' => (int)$registrant['package'],
   			'first_name' => strip_tags($registrant['first_name']),
   			'last_name' => strip_tags($registrant['last_name']),
   			'email' => strip_tags($registrant['email']),
   			'custom_properties' => [
-  				'roomates' => strip_tags($registrant['roomates']),
+  				'roommates' => strip_tags($registrant['roommates']),
   				'dietary' => strip_tags($registrant['dietary'])
   			]
   		]);

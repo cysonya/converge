@@ -2,20 +2,30 @@ import AddCircleIcon from "@material-ui/icons/AddCircle"
 import Button from "@material-ui/core/Button"
 import Card from "@material-ui/core/Card"
 import Grid from "@material-ui/core/Grid"
+import MenuItem from "@material-ui/core/MenuItem"
 import TextField from "@material-ui/core/TextField"
 import Typography from "@material-ui/core/Typography"
 import { withStyles } from "@material-ui/core/styles"
 import withWidth from "@material-ui/core/withWidth"
 
+import { Field } from "formik"
 import React from "react"
 import ReactDOM from "react-dom"
 import { connect } from "react-redux"
 import PropTypes from "prop-types"
 
 import { getRandomColor, isMobile } from "@/helpers/application"
+import Input from "@/app/components/form/input"
 import { Divider, styles } from "./components"
 
-const InternalAttendantForm = ({ classes, width }) => {
+const InternalAttendantForm = ({
+	errors,
+	classes,
+	groups,
+	touched,
+	values,
+	width
+}) => {
 	return (
 		<div>
 			<Card className={classes.card} style={{ borderColor: getRandomColor() }}>
@@ -24,66 +34,93 @@ const InternalAttendantForm = ({ classes, width }) => {
 				</Typography>
 				<Grid container spacing={8}>
 					<Grid item xs={6}>
-						<TextField
-							label="First name"
-							variant={isMobile(width) ? "standard" : "outlined"}
-							InputLabelProps={{
-								className: classes.inputLabel
-							}}
-							InputProps={{
-								className: isMobile(width) ? "" : classes.input
-							}}
-							margin="dense"
-							fullWidth
+						<Field
+							name="customer_first_name"
+							render={({ field }) => (
+								<Input
+									label="First name"
+									error={
+										touched.customer_first_name
+											? errors.customer_first_name
+											: false
+									}
+									valid={
+										!!(
+											touched.customer_first_name && !errors.customer_first_name
+										)
+											? 1
+											: 0
+									}
+									{...field}
+									autoFocus
+								/>
+							)}
 						/>
 					</Grid>
 					<Grid item xs={6}>
-						<TextField
-							label="Last name"
-							variant={isMobile(width) ? "standard" : "outlined"}
-							InputLabelProps={{
-								className: classes.inputLabel
-							}}
-							InputProps={{
-								className: isMobile(width) ? "" : classes.input
-							}}
-							margin="dense"
-							fullWidth
+						<Field
+							name="customer_last_name"
+							render={({ field }) => (
+								<Input
+									label="Last name"
+									error={
+										touched.customer_last_name
+											? errors.customer_last_name
+											: false
+									}
+									valid={
+										!!(touched.customer_last_name && !errors.customer_last_name)
+											? 1
+											: 0
+									}
+									{...field}
+								/>
+							)}
 						/>
 					</Grid>
 					<Grid item xs={6}>
-						<TextField
-							label="Email"
-							variant={isMobile(width) ? "standard" : "outlined"}
-							InputLabelProps={{
-								className: classes.inputLabel
-							}}
-							InputProps={{
-								className: isMobile(width) ? "" : classes.input
-							}}
-							margin="dense"
-							fullWidth
+						<Field
+							name="customer_email"
+							render={({ field }) => (
+								<Input
+									label="Email"
+									error={touched.customer_email ? errors.customer_email : false}
+									valid={
+										!!(touched.customer_email && !errors.customer_email) ? 1 : 0
+									}
+									{...field}
+								/>
+							)}
 						/>
 					</Grid>
 					<Grid item xs={6}>
-						<TextField
-							label="Age group"
-							variant={isMobile(width) ? "standard" : "outlined"}
-							InputLabelProps={{
-								className: classes.inputLabel
+						<Field
+							name="registrants[0][group]"
+							render={({ field }) => {
+								return (
+									<Input
+										select
+										label="Age Group"
+										error={
+											touched.registrants &&
+											touched.registrants[0]["group"] &&
+											errors.registrants &&
+											errors.registrants[0]["group"]
+												? errors.registrants[0]["group"]
+												: false
+										}
+										{...field}
+									>
+										<MenuItem value="" />
+										{groups.map((group, i) => (
+											<MenuItem key={i} value={group.id}>
+												{group.description}
+											</MenuItem>
+										))}
+									</Input>
+								)
 							}}
-							InputProps={{
-								className: isMobile(width) ? "" : classes.input
-							}}
-							margin="dense"
-							value=""
-							fullWidth
-							select
-						>
-							<option value="" />
-							<option value="1">Adult 18+</option>
-							<option value="2">Teen (13 - 17)</option>
-						</TextField>
+						/>
 					</Grid>
 				</Grid>
 			</Card>
@@ -106,7 +143,9 @@ const InternalAttendantForm = ({ classes, width }) => {
 InternalAttendantForm.propTypes = {}
 
 const mapStateToProps = (state, ownProps) => {
-	return {}
+	return {
+		groups: state.event.groups
+	}
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {

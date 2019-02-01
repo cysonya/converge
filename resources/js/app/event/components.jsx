@@ -27,36 +27,12 @@ export const styles = theme => ({
 			fontSize: "16px"
 		}
 	},
-	lineHeight: {
-		lineHeight: "1.5"
-	},
-	summaryWrapper: {
-		marginBottom: "20px",
-		padding: "0 10px 10px"
-	},
-	alignRight: {
-		paddingRight: "10px !important",
-		textAlign: "right"
-	},
-	alignLeft: {
-		paddingLeft: "10px"
-	},
+	// lineHeight: {
+	// 	lineHeight: "1.5"
+	// },
+
 	divider: {
 		margin: "10px 0"
-	},
-	donateInput: {
-		width: "130px"
-	},
-	stepper: {
-		padding: "24px 10px",
-		backgroundColor: "transparent",
-		[theme.breakpoints.up("md")]: {
-			padding: "24px"
-		}
-	},
-	stepContent: {
-		paddingLeft: "10px",
-		paddingRight: "0"
 	}
 })
 

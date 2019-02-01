@@ -19,6 +19,12 @@ class EventsController extends Controller
   {
       $event = Event::findOrFail($event_id);
 
+      $packages = $event->packages->map(function($package) {
+        return $package->only(['id', 'title', 'description', 'price', 'quantity_available']);
+      });
+      $groups = $event->groups->map(function($group) {
+        return $group->only(['id', 'description']);
+      });
 
       return response()->json([
         'title' => $event->title,
@@ -26,7 +32,8 @@ class EventsController extends Controller
         'start_date' => $event->start_date,
         'end_date' => $event->end_date,
         'step' => 1,
-        'packages' => $event->packages,
+        'packages' => $packages,
+        'groups' => $groups
       ]);
   }
 }

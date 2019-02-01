@@ -24,8 +24,24 @@ import styled from "styled-components"
 import { isMobile } from "@/helpers/application"
 import { media } from "@/styles/utils"
 
-import { styles, TotalAmount } from "./components"
+import { TotalAmount } from "./components"
 
+const styles = theme => ({
+	summaryWrapper: {
+		marginBottom: "20px",
+		padding: "0 10px 10px"
+	},
+	alignRight: {
+		paddingRight: "10px !important",
+		textAlign: "right"
+	},
+	alignLeft: {
+		paddingLeft: "10px"
+	},
+	donateInput: {
+		width: "130px"
+	}
+})
 const TableWrapper = styled.div`
 	margin-bottom: 10px;
 	width: 100%;
