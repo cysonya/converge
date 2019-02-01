@@ -12,13 +12,13 @@ class EventGroup extends Model
 	 */
 	protected $guarded = [];
 
-  /**
-   * The attendants associated with the group.
-   *
-   * @return \Illuminate\Database\Eloquent\Relations\HasMany
-   */
-  public function attendants()
-  {
-      return $this->hasMany(\App\Attendant::class);
-  }
+    /**
+    * The attendants associated with the group.
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\HasMany
+    */
+    public function attendants()
+    {
+        return $this->hasMany(\App\Attendant::class);
+    }
 }

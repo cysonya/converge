@@ -18,16 +18,16 @@ class AdminEventsController extends Controller
 
 	public function create()
 	{
-	  return view('admin.create_events');
+        return view('admin.create_events');
 	}
 
 
-/**
- * Create an event
- *
- * @param  Request $request
- * @return json
- */
+    /**
+     * Create an event
+     *
+     * @param  Request $request
+     * @return json
+     */
 	public function store(Request $request)
 	{
 		$event = Event::create(request(['title', 'description', 'start_date', 'end_date']));

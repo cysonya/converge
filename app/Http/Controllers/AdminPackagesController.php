@@ -16,29 +16,29 @@ class AdminPackagesController extends Controller
 	 * @param $event_id
 	 * @return view
 	 */
-  public function index(Request $request, $event_id)
-  {
-  	$event = Event::findOrFail($event_id);
-  	return $event->packages;
-  }
+    public function index(Request $request, $event_id)
+    {
+    	$event = Event::findOrFail($event_id);
+    	return $event->packages;
+    }
 
-  /**
-   * Show the create package form
-   *
-   * @return \Illuminate\View\View
-   */
+    /**
+    * Show the create package form
+    *
+    * @return \Illuminate\View\View
+    */
 
-  public function create($event_id)
-  {
-    return view('admin.create_packages')->with('event_id', $event_id);
-  }
+    public function create($event_id)
+    {
+        return view('admin.create_packages')->with('event_id', $event_id);
+    }
 
-  /**
-   * Create a package
-   *
-   * @param  Request $request
-   * @return json
-   */
+    /**
+    * Create a package
+    *
+    * @param  Request $request
+    * @return json
+    */
   	public function store(Request $request, $event_id)
   	{
   		$event = Event::findOrFail($event_id);

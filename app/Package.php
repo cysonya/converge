@@ -7,32 +7,32 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Package extends Model
 {
-  use SoftDeletes;
+    use SoftDeletes;
 
-  /**
-   * Allow mass assignment
-   *
-   * @var array
-  */
-  protected $guarded = [];
+    /**
+    * Allow mass assignment
+    *
+    * @var array
+    */
+    protected $guarded = [];
 
-  /**
-   * The event associated with the package.
-   *
-   * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-   */
-  public function event()
-  {
-      return $this->belongsTo(\App\Event::class);
-  }
+    /**
+    * The event associated with the package.
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+    */
+    public function event()
+    {
+        return $this->belongsTo(\App\Event::class);
+    }
 
-  /**
-   * The order associated with the Package.
-   *
-   * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-   */
-  public function orders()
-  {
-      return $this->belongsToMany(\App\Order::class);
-  }
+    /**
+    * The order associated with the Package.
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    */
+    public function orders()
+    {
+        return $this->belongsToMany(\App\Order::class);
+    }
 }
