@@ -2,19 +2,22 @@ import Card from "@material-ui/core/Card"
 import CardContent from "@material-ui/core/CardContent"
 import CheckCircleIcon from "@material-ui/icons/CheckCircle"
 import Grid from "@material-ui/core/Grid"
+import MenuItem from "@material-ui/core/MenuItem"
 import TextField from "@material-ui/core/TextField"
 import Typography from "@material-ui/core/Typography"
 import { withStyles } from "@material-ui/core/styles"
 import withWidth from "@material-ui/core/withWidth"
 
+import { Field, FieldArray, getIn } from "formik"
 import React from "react"
 import ReactDOM from "react-dom"
 import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import styled from "styled-components"
 
-import { getRandomColor, isMobile } from "@/helpers/application"
-import { media } from "@/styles/utils"
+import { isMobile } from "@/helpers/application"
+import { Input, inputError } from "@/app/components/form/index"
+// import { media } from "@/styles/utils"
 import { Divider, styles } from "./components"
 
 // const Packages = styled.div`
@@ -46,114 +49,125 @@ import { Divider, styles } from "./components"
 // 	background-color: white;
 // 	border-radius: 50%;
 // `
-const InternalHousingForm = ({ classes, width }) => {
+const InternalHousingForm = ({
+	errors,
+	classes,
+	packages,
+	touched,
+	width,
+	values
+}) => {
 	return (
-		<div>
-			<Card className={classes.card} style={{ borderColor: getRandomColor() }}>
-				<Typography variant="h6" className={classes.cardName}>
-					Your Information
-				</Typography>
+		<FieldArray
+			name="registrants"
+			render={arrayHelpers => {
+				return values.registrants.map((registrant, index) => (
+					<Card
+						key={index}
+						className={classes.card}
+						style={{ borderColor: registrant.color }}
+					>
+						<Typography variant="h6" className={classes.cardName}>
+							{index === 0 ? "Your Details" : `Attendant #${index + 1} Details`}
+						</Typography>
 
-				<Grid container spacing={8} style={{ marginBottom: "10px" }}>
-					<Grid item xs={12} md={6}>
-						<TextField
-							label="Roommate preference"
-							variant={isMobile(width) ? "standard" : "outlined"}
-							InputLabelProps={{
-								className: classes.inputLabel
-							}}
-							InputProps={{
-								className: isMobile(width) ? "" : classes.input
-							}}
-							margin="dense"
-							fullWidth
-						/>
-					</Grid>
-					<Grid item xs={12} md={6}>
-						<TextField
-							label="Dietary restrictions"
-							variant={isMobile(width) ? "standard" : "outlined"}
-							InputLabelProps={{
-								className: classes.inputLabel
-							}}
-							InputProps={{
-								className: isMobile(width) ? "" : classes.input
-							}}
-							margin="dense"
-							fullWidth
-						/>
-					</Grid>
-					<Grid item xs={12} md={6}>
-						<TextField
-							label="Housing option"
-							variant={isMobile(width) ? "standard" : "outlined"}
-							InputLabelProps={{
-								className: classes.inputLabel
-							}}
-							InputProps={{
-								className: isMobile(width) ? "" : classes.input
-							}}
-							margin="dense"
-							value=""
-							fullWidth
-							select
-						>
-							<option value="" />
-							<option value="1">Bowler Hall - $150</option>
-							<option value="2">East Hall - $120</option>
-							<option value="3">Dorm (no AC) - $80</option>
-						</TextField>
-					</Grid>
-				</Grid>
-				{/* TODO: delete if not going to use */}
-				{false && (
-					<Packages>
-						<Packagewrapper>
-							<Package selected>
-								{true && <Check />}
-								<Grid item xs>
-									<Typography
-										variant="subtitle2"
-										className={classes.lineHeight}
-									>
-										Bowler Hall
-									</Typography>
-								</Grid>
-								<Grid item>
-									<Typography variant="subtitle1" color="primary">
-										$19.00
-									</Typography>
-								</Grid>
-							</Package>
-						</Packagewrapper>
+						<Grid container spacing={8} style={{ marginBottom: "10px" }}>
+							<Grid item xs={12} md={6}>
+								<Field
+									name={`registrants[${index}].package`}
+									render={({ field, form }) => {
+										return (
+											<Input
+												select
+												label="Housing option"
+												error={inputError(
+													form,
+													`registrants[${index}].package`
+												)}
+												{...field}
+											>
+												<MenuItem value="" />
+												{packages.map((p, i) => (
+													<MenuItem key={i} value={p.id}>
+														{p.title} - ${p.price}
+													</MenuItem>
+												))}
+											</Input>
+										)
+									}}
+								/>
+							</Grid>
+							<Grid item xs={12} md={6} />
+							<Grid item xs={12} md={6}>
+								<Field
+									name={`registrants[${index}].roommates`}
+									render={({ field, form }) => {
+										return <Input label="Roommate preference" {...field} />
+									}}
+								/>
+							</Grid>
+							<Grid item xs={12} md={6}>
+								<Field
+									name={`registrants[${index}].dietary`}
+									render={({ field, form }) => {
+										return <Input label="Dietary restrictions" {...field} />
+									}}
+								/>
+							</Grid>
+						</Grid>
+						{/* TODO: delete if not going to use */}
+						{false && (
+							<Packages>
+								<Packagewrapper>
+									<Package selected>
+										{true && <Check />}
+										<Grid item xs>
+											<Typography
+												variant="subtitle2"
+												className={classes.lineHeight}
+											>
+												Bowler Hall
+											</Typography>
+										</Grid>
+										<Grid item>
+											<Typography variant="subtitle1" color="primary">
+												$19.00
+											</Typography>
+										</Grid>
+									</Package>
+								</Packagewrapper>
 
-						<Packagewrapper>
-							<Package>
-								<Grid item xs>
-									<Typography variant="subtitle2">East Hall</Typography>
-								</Grid>
-								<Grid item>
-									<Typography
-										variant="subtitle1"
-										className={classes.lineHeight}
-										color="primary"
-									>
-										$19.00
-									</Typography>
-								</Grid>
-							</Package>
-						</Packagewrapper>
-					</Packages>
-				)}
-			</Card>
-		</div>
+								<Packagewrapper>
+									<Package>
+										<Grid item xs>
+											<Typography variant="subtitle2">East Hall</Typography>
+										</Grid>
+										<Grid item>
+											<Typography
+												variant="subtitle1"
+												className={classes.lineHeight}
+												color="primary"
+											>
+												$19.00
+											</Typography>
+										</Grid>
+									</Package>
+								</Packagewrapper>
+							</Packages>
+						)}
+					</Card>
+				))
+			}}
+		/>
 	)
 }
 
 InternalHousingForm.propTypes = {}
 
 const mapStateToProps = (state, ownProps) => {
-	return {}
+	return {
+		packages: state.event.packages
+	}
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {

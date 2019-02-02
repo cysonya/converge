@@ -157,8 +157,8 @@ const InternalAttendantForm = ({
 							</Card>
 						))}
 						<Button
-							variant="outlined"
-							color="primary"
+							variant="contained"
+							color="secondary"
 							size="small"
 							style={{ marginBottom: "20px" }}
 							onClick={() =>

@@ -91,17 +91,39 @@ const InternalEventForm = ({
 	}
 
 	const FormNav = ({ errors, touched, values }) => {
-		let disableNext = true
-		if (typeof errors.registrants !== "undefined") {
-			if (step === 1) {
-				errors.registrants.forEach((registrant, i) => {
-					disableNext =
-						Object.keys(registrant).length !== 1 &&
+		let showNext = true
+
+		// Show next btn if all inputs in current step are valid
+		if (step === 1) {
+			showNext = false
+			if (errors.registrants) {
+				for (let registrant of errors.registrants) {
+					showNext =
+						Object.keys(registrant).length <= 1 &&
 						Object.keys(registrant).includes("package")
-					console.log("REG: ", registrant)
-				})
+
+					// Prevents next valid case from overriding error check
+					if (!showNext) {
+						break
+					}
+				}
+			} else {
+				// Set showNext to true on 'back' if no errors. Checking if registrants fields have been touched also prevents showNext to be true on initial load when there's no errors
+				showNext = !!touched.registrants
 			}
 		}
+		if (step === 2) {
+			showNext = false
+			for (let registrant of touched.registrants) {
+				showNext = !!registrant.package
+				if (!showNext) {
+					break
+				}
+			}
+
+			showNext = !!!errors.registrants
+		}
+
 		return (
 			<FormActions>
 				{step > 1 && (
@@ -114,7 +136,7 @@ const InternalEventForm = ({
 						variant="contained"
 						color="primary"
 						onClick={e => nextStep(e)}
-						disabled={disableNext}
+						disabled={!showNext}
 					>
 						Next
 					</Button>
@@ -221,7 +243,7 @@ const InternalEventForm = ({
 				onSubmit={(values, { setSubmitting }) => {
 					return true
 				}}
-				render={({ errors, touched, values }) => {
+				render={({ errors, setFieldValue, touched, values }) => {
 					let content = <AttendantForm {...{ errors, touched, values }} />
 					let title = "Step 1: Register attendants"
 
@@ -231,7 +253,9 @@ const InternalEventForm = ({
 							title = "Step 2: Choose housing"
 							break
 						case 3:
-							content = <ReviewOrder {...{ errors, touched, values }} />
+							content = (
+								<ReviewOrder {...{ errors, setFieldValue, touched, values }} />
+							)
 							title = "Step 3: Review"
 							break
 						case 4:

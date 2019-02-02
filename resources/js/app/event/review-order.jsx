@@ -15,6 +15,7 @@ import Typography from "@material-ui/core/Typography"
 import { withStyles } from "@material-ui/core/styles"
 import withWidth from "@material-ui/core/withWidth"
 
+import { Field } from "formik"
 import React from "react"
 import ReactDOM from "react-dom"
 import PropTypes from "prop-types"
@@ -66,7 +67,18 @@ const DonateButton = styled(Button)`
 		margin-bottom: 6px;
 	}
 `
-const InternalReviewOrder = ({ classes, width }) => {
+const InternalReviewOrder = ({
+	classes,
+	donationSelect,
+	errors,
+	groups,
+	orderTotal,
+	packages,
+	setFieldValue,
+	touched,
+	values,
+	width
+}) => {
 	return (
 		<div>
 			<Typography variant="h6" gutterBottom>
@@ -78,35 +90,39 @@ const InternalReviewOrder = ({ classes, width }) => {
 						<TableHead>
 							<TableRow>
 								<TableCell className={classes.alignLeft}>Name</TableCell>
-								<TableCell>Housing</TableCell>
 								<TableCell>Group</TableCell>
+								<TableCell>Housing</TableCell>
 								<TableCell className={classes.alignRight}>Amount</TableCell>
 							</TableRow>
 						</TableHead>
+
 						<TableBody>
-							<TableRow>
-								<TableCell className={classes.alignLeft}>
-									<strong>John Doe</strong>
-								</TableCell>
-								<TableCell>Bowler Hall</TableCell>
-								<TableCell>Adult (18+)</TableCell>
-								<TableCell className={classes.alignRight}>$150</TableCell>
-							</TableRow>
-							<TableRow>
-								<TableCell className={classes.alignLeft}>
-									<strong>John Doe</strong>
-								</TableCell>
-								<TableCell>Bowler Hall</TableCell>
-								<TableCell>Adult (18+)</TableCell>
-								<TableCell className={classes.alignRight}>$150</TableCell>
-							</TableRow>
+							{values.registrants.map((registrant, index) => {
+								let group = groups.find(g => g.id === registrant.group)
+								let pkg = packages.find(g => g.id === registrant.package)
+								return (
+									<TableRow key={index}>
+										<TableCell className={classes.alignLeft}>
+											<strong>
+												{registrant.first_name} {registrant.last_name}
+											</strong>
+										</TableCell>
+										<TableCell>{group.description}</TableCell>
+										<TableCell>{pkg.title}</TableCell>
+										<TableCell className={classes.alignRight}>
+											${Math.round(pkg.price)}
+										</TableCell>
+									</TableRow>
+								)
+							})}
 						</TableBody>
 					</Table>
 				</TableWrapper>
+
 				<TotalContainer>
 					<TotalAmount>
 						<strong>Total</strong>
-						<strong>$300 USD</strong>
+						<strong>${orderTotal} USD</strong>
 					</TotalAmount>
 				</TotalContainer>
 			</Paper>
@@ -128,30 +144,41 @@ const InternalReviewOrder = ({ classes, width }) => {
 					</Typography>
 
 					<ButtonGroup>
-						<DonateButton variant="outlined" size="small">
-							$5
-						</DonateButton>
-						<DonateButton variant="outlined" size="small">
-							$10
-						</DonateButton>
-						<DonateButton variant="contained" size="small" color="secondary">
-							$20
-						</DonateButton>
-						<DonateButton variant="outlined" size="small">
-							$50
-						</DonateButton>
-						<DonateButton variant="outlined" size="small">
-							$100
-						</DonateButton>
+						{donationSelect.map((donation, i) =>
+							donation === values.donation ? (
+								<DonateButton
+									key={i}
+									variant="contained"
+									size="small"
+									color="secondary"
+								>
+									${donation}
+								</DonateButton>
+							) : (
+								<DonateButton
+									key={i}
+									variant="outlined"
+									size="small"
+									onClick={() => setFieldValue("donation", donation)}
+								>
+									${donation}
+								</DonateButton>
+							)
+						)}
 
 						<FormControl className={classes.donateInput}>
-							<Input
-								id="adornment-amount"
-								placeholder="Other"
-								value=""
-								startAdornment={
-									<InputAdornment position="start">$</InputAdornment>
-								}
+							<Field
+								name="donation"
+								render={({ field }) => (
+									<Input
+										id="adornment-amount"
+										placeholder="Other"
+										{...field}
+										startAdornment={
+											<InputAdornment position="start">$</InputAdornment>
+										}
+									/>
+								)}
 							/>
 						</FormControl>
 					</ButtonGroup>
@@ -163,8 +190,20 @@ const InternalReviewOrder = ({ classes, width }) => {
 
 InternalReviewOrder.propTypes = {}
 
+const getTotal = (state, ownProps) => {
+	return ownProps.values.registrants.reduce((acc, registrant) => {
+		let pkg = state.event.packages.find(p => p.id === registrant.package)
+		return acc + Math.round(pkg.price)
+	}, 0)
+}
+
 const mapStateToProps = (state, ownProps) => {
-	return {}
+	return {
+		groups: state.event.groups,
+		packages: state.event.packages,
+		orderTotal: getTotal(state, ownProps),
+		donationSelect: [5, 10, 20, 50, 100]
+	}
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
