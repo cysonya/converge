@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 import { fetchEvent } from "@/app-store/actions"
 import { media } from "@/styles/utils"
-import Form from "./form"
+import EventForm from "./form"
 
 class Event extends Component {
 	componentWillMount() {
@@ -24,7 +24,7 @@ class Event extends Component {
 		`
 		return (
 			<Container>
-				<Form />
+				<EventForm />
 			</Container>
 		)
 	}

@@ -6,7 +6,7 @@ import StepLabel from "@material-ui/core/StepLabel"
 import { withStyles } from "@material-ui/core/styles"
 import withWidth from "@material-ui/core/withWidth"
 
-import { Formik } from "formik"
+import { Form, Formik } from "formik"
 import React from "react"
 import ReactDOM from "react-dom"
 import PropTypes from "prop-types"
@@ -61,7 +61,7 @@ const FormHeading = styled.h4`
 	`}
 `
 
-const FormContent = styled.div`
+const FormContent = styled(Form)`
 	display: none;
 	${media.md`
 		display: block;
@@ -78,7 +78,14 @@ const FormActions = styled.div`
 	`};
 `
 
-const InternalForm = ({ classes, event, nextStep, prevStep, step, width }) => {
+const InternalEventForm = ({
+	classes,
+	event,
+	nextStep,
+	prevStep,
+	step,
+	width
+}) => {
 	if (Object.keys(event).length < 1) {
 		return null
 	}
@@ -103,6 +110,18 @@ const InternalForm = ({ classes, event, nextStep, prevStep, step, width }) => {
 		customer_first_name: "",
 		customer_last_name: "",
 		customer_email: "",
+		donation: 0,
+		payment: {
+			address: "",
+			city: "",
+			state: "",
+			country: "",
+			zip: "",
+			cardName: "",
+			cardNum: "",
+			expiry: "",
+			cvc: ""
+		},
 		registrants: [
 			{
 				first_name: "",
@@ -135,17 +154,35 @@ const InternalForm = ({ classes, event, nextStep, prevStep, step, width }) => {
 		}
 
 		// Registrants validation
+		let valid = true
+		errors.registrants = []
 		values.registrants.forEach((registrant, i) => {
-			let valid = true
-			errors.registrants = []
-			if (!registrant.group) {
-				errors.registrants[i] = { group: "Select age group" }
+			let error = {}
+
+			if (!registrant.first_name) {
+				error.first_name = "Provide first name"
 				valid = false
 			}
-			if (valid) {
-				delete errors.registrants
+			if (!registrant.last_name) {
+				error.last_name = "Provide last name"
+				valid = false
 			}
+			if (!registrant.email) {
+				error.email = "Provide email"
+			} else if (
+				!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(registrant.email)
+			) {
+				error.email = "Invalid email address"
+			}
+			if (!registrant.group) {
+				error.group = "Select age group"
+				valid = false
+			}
+			errors.registrants[i] = error
 		})
+		if (valid) {
+			delete errors.registrants
+		}
 		return errors
 	}
 
@@ -215,7 +252,7 @@ const InternalForm = ({ classes, event, nextStep, prevStep, step, width }) => {
 	)
 }
 
-InternalForm.propTypes = {
+InternalEventForm.propTypes = {
 	event: PropTypes.object
 }
 
@@ -255,10 +292,10 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
 		}
 	}
 }
-const Form = connect(
+const EventForm = connect(
 	mapStateToProps,
 	mapDispatchToProps,
 	mergeProps
-)(withStyles(styles)(withWidth()(InternalForm)))
+)(withStyles(styles)(withWidth()(InternalEventForm)))
 
-export default Form
+export default EventForm

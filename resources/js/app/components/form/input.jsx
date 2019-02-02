@@ -23,7 +23,16 @@ const styles = theme => ({
 
 class Input extends Component {
 	render() {
-		const { classes, error, label, name, value, width, ...props } = this.props
+		const {
+			classes,
+			error,
+			label,
+			name,
+			touched,
+			value,
+			width,
+			...props
+		} = this.props
 		return (
 			<TextField
 				label={label}
@@ -33,11 +42,12 @@ class Input extends Component {
 				}}
 				InputProps={{
 					className: isMobile(width) ? "" : classes.input,
-					endAdornment: this.props.valid ? (
-						<InputAdornment position="end">
-							<CheckIcon color="primary" />
-						</InputAdornment>
-					) : null
+					endAdornment:
+						touched && !error ? (
+							<InputAdornment position="end">
+								<CheckIcon color="primary" />
+							</InputAdornment>
+						) : null
 				}}
 				margin="dense"
 				fullWidth
