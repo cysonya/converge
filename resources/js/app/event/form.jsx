@@ -14,7 +14,7 @@ import { connect } from "react-redux"
 import styled from "styled-components"
 
 import { setStep } from "@/app-store/actions"
-import { isMobile } from "@/helpers/application"
+import { getRandomColor, isMobile } from "@/helpers/application"
 import theme from "@/styles/theme"
 import { media } from "@/styles/utils"
 import AttendantForm from "./attendant-form"
@@ -90,27 +90,53 @@ const InternalEventForm = ({
 		return null
 	}
 
-	const FormNav = () => (
-		<FormActions>
-			{step > 1 && (
-				<Button className="mr-10" onClick={e => prevStep(e)}>
-					Back
-				</Button>
-			)}
-			{step < 4 && (
-				<Button variant="contained" color="primary" onClick={e => nextStep(e)}>
-					Next
-				</Button>
-			)}
-		</FormActions>
-	)
+	const FormNav = ({ errors, touched, values }) => {
+		let disableNext = true
+		if (typeof errors.registrants !== "undefined") {
+			if (step === 1) {
+				errors.registrants.forEach((registrant, i) => {
+					disableNext =
+						Object.keys(registrant).length !== 1 &&
+						Object.keys(registrant).includes("package")
+					console.log("REG: ", registrant)
+				})
+			}
+		}
+		return (
+			<FormActions>
+				{step > 1 && (
+					<Button className="mr-10" onClick={e => prevStep(e)}>
+						Back
+					</Button>
+				)}
+				{step < 4 && (
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={e => nextStep(e)}
+						disabled={disableNext}
+					>
+						Next
+					</Button>
+				)}
+			</FormActions>
+		)
+	}
 
 	const steps = ["Attendants", "Housing", "Review", "Payment"]
 	const initialValues = {
-		customer_first_name: "",
-		customer_last_name: "",
-		customer_email: "",
-		donation: 0,
+		registrants: [
+			{
+				color: getRandomColor(),
+				first_name: "",
+				last_name: "",
+				email: "",
+				group: "",
+				package: "",
+				roommates: "",
+				dietary: ""
+			}
+		],
 		payment: {
 			address: "",
 			city: "",
@@ -122,36 +148,29 @@ const InternalEventForm = ({
 			expiry: "",
 			cvc: ""
 		},
-		registrants: [
-			{
-				first_name: "",
-				last_name: "",
-				email: "",
-				group: "",
-				package: "",
-				roommates: "",
-				dietary: ""
-			}
-		]
+		customer_first_name: "",
+		customer_last_name: "",
+		customer_email: "",
+		donation: 0
 	}
 
 	const handleValidate = values => {
 		let errors = {}
 
 		// Customer validation
-		if (!values.customer_first_name) {
-			errors.customer_first_name = "Provide first name"
-		}
-		if (!values.customer_last_name) {
-			errors.customer_last_name = "Provide last name"
-		}
-		if (!values.customer_email) {
-			errors.customer_email = "Provide email"
-		} else if (
-			!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.customer_email)
-		) {
-			errors.customer_email = "Invalid email address"
-		}
+		// if (!values.customer_first_name) {
+		// 	errors.customer_first_name = "Provide first name"
+		// }
+		// if (!values.customer_last_name) {
+		// 	errors.customer_last_name = "Provide last name"
+		// }
+		// if (!values.customer_email) {
+		// 	errors.customer_email = "Provide email"
+		// } else if (
+		// 	!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.customer_email)
+		// ) {
+		// 	errors.customer_email = "Invalid email address"
+		// }
 
 		// Registrants validation
 		let valid = true
@@ -176,6 +195,10 @@ const InternalEventForm = ({
 			}
 			if (!registrant.group) {
 				error.group = "Select age group"
+				valid = false
+			}
+			if (!registrant.package) {
+				error.package = "Select housing"
 				valid = false
 			}
 			errors.registrants[i] = error
@@ -234,7 +257,7 @@ const InternalEventForm = ({
 										{isMobile(width) && (
 											<StepContent className={classes.stepContent}>
 												{content}
-												<FormNav />
+												<FormNav {...{ errors, touched, values }} />
 											</StepContent>
 										)}
 									</Step>
@@ -242,12 +265,11 @@ const InternalEventForm = ({
 							</Stepper>
 
 							<FormContent>{content}</FormContent>
+							{!isMobile(width) && <FormNav {...{ errors, touched, values }} />}
 						</div>
 					)
 				}}
 			/>
-
-			{!isMobile(width) && <FormNav />}
 		</FormWrapper>
 	)
 }

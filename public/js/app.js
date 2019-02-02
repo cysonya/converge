@@ -5490,6 +5490,227 @@ var _Grow = _interopRequireDefault(__webpack_require__(/*! ./Grow */ "./node_mod
 
 /***/ }),
 
+/***/ "./node_modules/@material-ui/core/IconButton/IconButton.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@material-ui/core/IconButton/IconButton.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js"));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectWithoutProperties */ "./node_modules/@babel/runtime/helpers/objectWithoutProperties.js"));
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js"));
+
+var _classnames = _interopRequireDefault(__webpack_require__(/*! classnames */ "./node_modules/classnames/index.js"));
+
+var _utils = __webpack_require__(/*! @material-ui/utils */ "./node_modules/@material-ui/utils/index.es.js");
+
+var _withStyles = _interopRequireDefault(__webpack_require__(/*! ../styles/withStyles */ "./node_modules/@material-ui/core/styles/withStyles.js"));
+
+var _colorManipulator = __webpack_require__(/*! ../styles/colorManipulator */ "./node_modules/@material-ui/core/styles/colorManipulator.js");
+
+var _ButtonBase = _interopRequireDefault(__webpack_require__(/*! ../ButtonBase */ "./node_modules/@material-ui/core/ButtonBase/index.js"));
+
+var _helpers = __webpack_require__(/*! ../utils/helpers */ "./node_modules/@material-ui/core/utils/helpers.js");
+
+// @inheritedComponent ButtonBase
+var styles = function styles(theme) {
+  return {
+    /* Styles applied to the root element. */
+    root: {
+      textAlign: 'center',
+      flex: '0 0 auto',
+      fontSize: theme.typography.pxToRem(24),
+      padding: 12,
+      borderRadius: '50%',
+      overflow: 'visible',
+      // Explicitly set the default value to solve a bug on IE 11.
+      color: theme.palette.action.active,
+      transition: theme.transitions.create('background-color', {
+        duration: theme.transitions.duration.shortest
+      }),
+      '&:hover': {
+        backgroundColor: (0, _colorManipulator.fade)(theme.palette.action.active, theme.palette.action.hoverOpacity),
+        // Reset on touch devices, it doesn't add specificity
+        '@media (hover: none)': {
+          backgroundColor: 'transparent'
+        },
+        '&$disabled': {
+          backgroundColor: 'transparent'
+        }
+      },
+      '&$disabled': {
+        color: theme.palette.action.disabled
+      }
+    },
+
+    /* Styles applied to the root element if `color="inherit"`. */
+    colorInherit: {
+      color: 'inherit'
+    },
+
+    /* Styles applied to the root element if `color="primary"`. */
+    colorPrimary: {
+      color: theme.palette.primary.main,
+      '&:hover': {
+        backgroundColor: (0, _colorManipulator.fade)(theme.palette.primary.main, theme.palette.action.hoverOpacity),
+        // Reset on touch devices, it doesn't add specificity
+        '@media (hover: none)': {
+          backgroundColor: 'transparent'
+        }
+      }
+    },
+
+    /* Styles applied to the root element if `color="secondary"`. */
+    colorSecondary: {
+      color: theme.palette.secondary.main,
+      '&:hover': {
+        backgroundColor: (0, _colorManipulator.fade)(theme.palette.secondary.main, theme.palette.action.hoverOpacity),
+        // Reset on touch devices, it doesn't add specificity
+        '@media (hover: none)': {
+          backgroundColor: 'transparent'
+        }
+      }
+    },
+
+    /* Styles applied to the root element if `disabled={true}`. */
+    disabled: {},
+
+    /* Styles applied to the children container element. */
+    label: {
+      width: '100%',
+      display: 'flex',
+      alignItems: 'inherit',
+      justifyContent: 'inherit'
+    }
+  };
+};
+/**
+ * Refer to the [Icons](/style/icons/) section of the documentation
+ * regarding the available icon options.
+ */
+
+
+exports.styles = styles;
+
+function IconButton(props) {
+  var _classNames;
+
+  var children = props.children,
+      classes = props.classes,
+      className = props.className,
+      color = props.color,
+      disabled = props.disabled,
+      other = (0, _objectWithoutProperties2.default)(props, ["children", "classes", "className", "color", "disabled"]);
+  return _react.default.createElement(_ButtonBase.default, (0, _extends2.default)({
+    className: (0, _classnames.default)(classes.root, (_classNames = {}, (0, _defineProperty2.default)(_classNames, classes["color".concat((0, _helpers.capitalize)(color))], color !== 'default'), (0, _defineProperty2.default)(_classNames, classes.disabled, disabled), _classNames), className),
+    centerRipple: true,
+    focusRipple: true,
+    disabled: disabled
+  }, other), _react.default.createElement("span", {
+    className: classes.label
+  }, children));
+}
+
+ true ? IconButton.propTypes = {
+  /**
+   * The icon element.
+   */
+  children: (0, _utils.chainPropTypes)(_propTypes.default.node, function (props) {
+    var found = _react.default.Children.toArray(props.children).some(function (child) {
+      return _react.default.isValidElement(child) && child.props.onClick;
+    });
+
+    if (found) {
+      return new Error(['Material-UI: you are providing an onClick event listener ' + 'to a child of a button element.', 'Firefox will never trigger the event.', 'You should move the onClick listener to the parent button element.', 'https://github.com/mui-org/material-ui/issues/13957', // Change error message slightly on every check to prevent caching when testing
+      // which would not trigger console errors on subsequent fails
+       false ? undefined : ''].join('\n'));
+    }
+
+    return null;
+  }),
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css-api) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * The color of the component. It supports those theme colors that make sense for this component.
+   */
+  color: _propTypes.default.oneOf(['default', 'inherit', 'primary', 'secondary']),
+
+  /**
+   * If `true`, the button will be disabled.
+   */
+  disabled: _propTypes.default.bool,
+
+  /**
+   * If `true`, the ripple will be disabled.
+   */
+  disableRipple: _propTypes.default.bool
+} : undefined;
+IconButton.defaultProps = {
+  color: 'default',
+  disabled: false
+};
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiIconButton'
+})(IconButton);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/IconButton/index.js":
+/*!************************************************************!*\
+  !*** ./node_modules/@material-ui/core/IconButton/index.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _IconButton.default;
+  }
+});
+
+var _IconButton = _interopRequireDefault(__webpack_require__(/*! ./IconButton */ "./node_modules/@material-ui/core/IconButton/IconButton.js"));
+
+/***/ }),
+
 /***/ "./node_modules/@material-ui/core/Input/Input.js":
 /*!*******************************************************!*\
   !*** ./node_modules/@material-ui/core/Input/Input.js ***!
@@ -19355,6 +19576,38 @@ var _default = (0, _createSvgIcon.default)(_react.default.createElement(_react.d
 }), _react.default.createElement("path", {
   d: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
 })), 'CheckCircle');
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/icons/Close.js":
+/*!**************************************************!*\
+  !*** ./node_modules/@material-ui/icons/Close.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@material-ui/icons/utils/createSvgIcon.js"));
+
+var _default = (0, _createSvgIcon.default)(_react.default.createElement(_react.default.Fragment, null, _react.default.createElement("path", {
+  d: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+}), _react.default.createElement("path", {
+  fill: "none",
+  d: "M0 0h24v24H0z"
+})), 'Close');
 
 exports.default = _default;
 
@@ -90448,31 +90701,45 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _material_ui_core_Card__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/core/Card */ "./node_modules/@material-ui/core/Card/index.js");
 /* harmony import */ var _material_ui_core_Card__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Card__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/Grid */ "./node_modules/@material-ui/core/Grid/index.js");
-/* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/MenuItem */ "./node_modules/@material-ui/core/MenuItem/index.js");
-/* harmony import */ var _material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/TextField */ "./node_modules/@material-ui/core/TextField/index.js");
-/* harmony import */ var _material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/core/Typography */ "./node_modules/@material-ui/core/Typography/index.js");
-/* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/styles/index.js");
-/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material-ui/core/withWidth */ "./node_modules/@material-ui/core/withWidth/index.js");
-/* harmony import */ var _material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _helpers_application__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/helpers/application */ "./resources/js/helpers/application.js");
-/* harmony import */ var _app_components_form_index__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/app/components/form/index */ "./resources/js/app/components/form/index.js");
-/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components */ "./resources/js/app/event/components.jsx");
+/* harmony import */ var _material_ui_icons_Close__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/icons/Close */ "./node_modules/@material-ui/icons/Close.js");
+/* harmony import */ var _material_ui_icons_Close__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_Close__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/Grid */ "./node_modules/@material-ui/core/Grid/index.js");
+/* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/IconButton */ "./node_modules/@material-ui/core/IconButton/index.js");
+/* harmony import */ var _material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/core/MenuItem */ "./node_modules/@material-ui/core/MenuItem/index.js");
+/* harmony import */ var _material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material-ui/core/TextField */ "./node_modules/@material-ui/core/TextField/index.js");
+/* harmony import */ var _material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material-ui/core/Typography */ "./node_modules/@material-ui/core/Typography/index.js");
+/* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/styles/index.js");
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _helpers_application__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/helpers/application */ "./resources/js/helpers/application.js");
+/* harmony import */ var _app_components_form_index__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/app/components/form/index */ "./resources/js/app/components/form/index.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components */ "./resources/js/app/event/components.jsx");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n\t&& {\n\t\tcolor: ", ";\n\t\tfont-size: 24px;\n\t\tcursor: pointer;\n\t}\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
 
@@ -90490,107 +90757,133 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 
 
+
+
+
+var RemoveIcon = Object(styled_components__WEBPACK_IMPORTED_MODULE_15__["default"])(_material_ui_icons_Close__WEBPACK_IMPORTED_MODULE_3___default.a)(_templateObject(), function (props) {
+  return props.theme.error.main;
+});
 
 var InternalAttendantForm = function InternalAttendantForm(_ref) {
   var errors = _ref.errors,
       classes = _ref.classes,
       groups = _ref.groups,
       touched = _ref.touched,
-      values = _ref.values,
-      width = _ref.width;
-  return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["FieldArray"], {
+      values = _ref.values;
+  return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_10__["FieldArray"], {
     name: "registrants",
     render: function render(arrayHelpers) {
-      return values.registrants.map(function (registrant, index) {
-        return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Card__WEBPACK_IMPORTED_MODULE_2___default.a, {
+      return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement("div", null, values.registrants.map(function (registrant, index) {
+        return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Card__WEBPACK_IMPORTED_MODULE_2___default.a, {
           key: index,
           className: classes.card,
           style: {
-            borderColor: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_14__["getRandomColor"])()
+            borderColor: registrant.color
           }
-        }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6___default.a, {
+        }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_4___default.a, {
+          container: true,
+          justify: "space-between"
+        }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_8___default.a, {
           variant: "h6",
           className: classes.cardName
-        }, index === 0 ? "Your Details" : "Attendant #".concat(index + 1, " Details")), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+        }, index === 0 ? "Your Details" : "Attendant #".concat(index + 1, " Details")), index !== 0 && react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_5___default.a, {
+          "aria-label": "Remove",
+          className: "p-rm",
+          onClick: function onClick() {
+            return arrayHelpers.remove(index);
+          }
+        }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(RemoveIcon, null))), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_4___default.a, {
           container: true,
           spacing: 8
-        }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+        }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_4___default.a, {
           item: true,
           xs: 6
-        }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
+        }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_10__["Field"], {
           name: "registrants[".concat(index, "].first_name"),
           render: function render(_ref2) {
             var field = _ref2.field,
                 form = _ref2.form;
-            return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["Input"], _extends({
+            return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_17__["Input"], _extends({
               label: "First name",
-              error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["inputError"])(form, "registrants[".concat(index, "].first_name")),
-              touched: Object(formik__WEBPACK_IMPORTED_MODULE_9__["getIn"])(form.touched, "registrants[".concat(index, "].first_name"))
+              error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_17__["inputError"])(form, "registrants[".concat(index, "].first_name")),
+              touched: Object(formik__WEBPACK_IMPORTED_MODULE_10__["getIn"])(form.touched, "registrants[".concat(index, "].first_name"))
             }, field));
           }
-        })), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+        })), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_4___default.a, {
           item: true,
           xs: 6
-        }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
+        }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_10__["Field"], {
           name: "registrants[".concat(index, "].last_name"),
           render: function render(_ref3) {
             var field = _ref3.field,
                 form = _ref3.form;
-            return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["Input"], _extends({
+            return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_17__["Input"], _extends({
               label: "Last name",
-              error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["inputError"])(form, "registrants[".concat(index, "].last_name")),
-              touched: Object(formik__WEBPACK_IMPORTED_MODULE_9__["getIn"])(form.touched, "registrants[".concat(index, "].last_name"))
+              error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_17__["inputError"])(form, "registrants[".concat(index, "].last_name")),
+              touched: Object(formik__WEBPACK_IMPORTED_MODULE_10__["getIn"])(form.touched, "registrants[".concat(index, "].last_name"))
             }, field));
           }
-        })), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+        })), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_4___default.a, {
           item: true,
           xs: 6
-        }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
+        }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_10__["Field"], {
           name: "registrants[".concat(index, "].email"),
           render: function render(_ref4) {
             var field = _ref4.field,
                 form = _ref4.form;
-            return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["Input"], _extends({
+            return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_17__["Input"], _extends({
               label: "Email",
-              error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["inputError"])(form, "registrants[".concat(index, "].email")),
-              touched: Object(formik__WEBPACK_IMPORTED_MODULE_9__["getIn"])(form.touched, "registrants[".concat(index, "].email"))
+              error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_17__["inputError"])(form, "registrants[".concat(index, "].email")),
+              touched: Object(formik__WEBPACK_IMPORTED_MODULE_10__["getIn"])(form.touched, "registrants[".concat(index, "].email"))
             }, field));
           }
-        })), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+        })), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_4___default.a, {
           item: true,
           xs: 6
-        }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
+        }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_10__["Field"], {
           name: "registrants[".concat(index, "].group"),
           render: function render(_ref5) {
             var field = _ref5.field,
                 form = _ref5.form;
-            return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["Input"], _extends({
+            return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_17__["Input"], _extends({
               select: true,
               label: "Age Group",
-              error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["inputError"])(form, "registrants[".concat(index, "].group"))
-            }, field), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_4___default.a, {
+              error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_17__["inputError"])(form, "registrants[".concat(index, "].group"))
+            }, field), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_6___default.a, {
               value: ""
             }), groups.map(function (group, i) {
-              return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_4___default.a, {
+              return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_6___default.a, {
                 key: i,
                 value: group.id
               }, group.description);
             }));
           }
         }))));
-      });
+      }), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_1___default.a, {
+        variant: "outlined",
+        color: "primary",
+        size: "small",
+        style: {
+          marginBottom: "20px"
+        },
+        onClick: function onClick() {
+          return arrayHelpers.push({
+            color: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_16__["getRandomColor"])(),
+            first_name: "",
+            last_name: "",
+            email: "",
+            group: "",
+            package: "",
+            roommates: "",
+            dietary: ""
+          });
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_icons_AddCircle__WEBPACK_IMPORTED_MODULE_0___default.a, {
+        className: "pr-5",
+        fontSize: "small"
+      }, "Add"), " ", "ADD ATTENDANT"));
     }
-  }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_1___default.a, {
-    variant: "outlined",
-    color: "primary",
-    size: "small",
-    style: {
-      marginBottom: "20px"
-    }
-  }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_icons_AddCircle__WEBPACK_IMPORTED_MODULE_0___default.a, {
-    className: "pr-5",
-    fontSize: "small"
-  }, "Add"), " ", "ADD ATTENDANT"));
+  });
 };
 
 InternalAttendantForm.propTypes = {};
@@ -90605,7 +90898,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
   return {};
 };
 
-var AttendantForm = Object(react_redux__WEBPACK_IMPORTED_MODULE_12__["connect"])(mapStateToProps, mapDispatchToProps)(Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_7__["withStyles"])(_components__WEBPACK_IMPORTED_MODULE_16__["styles"])(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_8___default()()(InternalAttendantForm)));
+var AttendantForm = Object(react_redux__WEBPACK_IMPORTED_MODULE_13__["connect"])(mapStateToProps, mapDispatchToProps)(Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_9__["withStyles"])(_components__WEBPACK_IMPORTED_MODULE_18__["styles"])(InternalAttendantForm));
 /* harmony default export */ __webpack_exports__["default"] = (AttendantForm);
 
 /***/ }),
@@ -91223,7 +91516,21 @@ var InternalEventForm = function InternalEventForm(_ref) {
     return null;
   }
 
-  var FormNav = function FormNav() {
+  var FormNav = function FormNav(_ref2) {
+    var errors = _ref2.errors,
+        touched = _ref2.touched,
+        values = _ref2.values;
+    var disableNext = true;
+
+    if (typeof errors.registrants !== "undefined") {
+      if (step === 1) {
+        errors.registrants.forEach(function (registrant, i) {
+          disableNext = Object.keys(registrant).length !== 1 && Object.keys(registrant).includes("package");
+          console.log("REG: ", registrant);
+        });
+      }
+    }
+
     return react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(FormActions, null, step > 1 && react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0___default.a, {
       className: "mr-10",
       onClick: function onClick(e) {
@@ -91234,16 +91541,23 @@ var InternalEventForm = function InternalEventForm(_ref) {
       color: "primary",
       onClick: function onClick(e) {
         return nextStep(e);
-      }
+      },
+      disabled: disableNext
     }, "Next"));
   };
 
   var steps = ["Attendants", "Housing", "Review", "Payment"];
   var initialValues = {
-    customer_first_name: "",
-    customer_last_name: "",
-    customer_email: "",
-    donation: 0,
+    registrants: [{
+      color: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_14__["getRandomColor"])(),
+      first_name: "",
+      last_name: "",
+      email: "",
+      group: "",
+      package: "",
+      roommates: "",
+      dietary: ""
+    }],
     payment: {
       address: "",
       city: "",
@@ -91255,34 +91569,28 @@ var InternalEventForm = function InternalEventForm(_ref) {
       expiry: "",
       cvc: ""
     },
-    registrants: [{
-      first_name: "",
-      last_name: "",
-      email: "",
-      group: "",
-      package: "",
-      roommates: "",
-      dietary: ""
-    }]
+    customer_first_name: "",
+    customer_last_name: "",
+    customer_email: "",
+    donation: 0
   };
 
   var handleValidate = function handleValidate(values) {
     var errors = {}; // Customer validation
-
-    if (!values.customer_first_name) {
-      errors.customer_first_name = "Provide first name";
-    }
-
-    if (!values.customer_last_name) {
-      errors.customer_last_name = "Provide last name";
-    }
-
-    if (!values.customer_email) {
-      errors.customer_email = "Provide email";
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.customer_email)) {
-      errors.customer_email = "Invalid email address";
-    } // Registrants validation
-
+    // if (!values.customer_first_name) {
+    // 	errors.customer_first_name = "Provide first name"
+    // }
+    // if (!values.customer_last_name) {
+    // 	errors.customer_last_name = "Provide last name"
+    // }
+    // if (!values.customer_email) {
+    // 	errors.customer_email = "Provide email"
+    // } else if (
+    // 	!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.customer_email)
+    // ) {
+    // 	errors.customer_email = "Invalid email address"
+    // }
+    // Registrants validation
 
     var valid = true;
     errors.registrants = [];
@@ -91310,6 +91618,11 @@ var InternalEventForm = function InternalEventForm(_ref) {
         valid = false;
       }
 
+      if (!registrant.package) {
+        error.package = "Select housing";
+        valid = false;
+      }
+
       errors.registrants[i] = error;
     });
 
@@ -91325,14 +91638,14 @@ var InternalEventForm = function InternalEventForm(_ref) {
     validate: function validate(values) {
       return handleValidate(values);
     },
-    onSubmit: function onSubmit(values, _ref2) {
-      var setSubmitting = _ref2.setSubmitting;
+    onSubmit: function onSubmit(values, _ref3) {
+      var setSubmitting = _ref3.setSubmitting;
       return true;
     },
-    render: function render(_ref3) {
-      var errors = _ref3.errors,
-          touched = _ref3.touched,
-          values = _ref3.values;
+    render: function render(_ref4) {
+      var errors = _ref4.errors,
+          touched = _ref4.touched,
+          values = _ref4.values;
       var content = react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_attendant_form__WEBPACK_IMPORTED_MODULE_17__["default"], {
         errors: errors,
         touched: touched,
@@ -91382,10 +91695,18 @@ var InternalEventForm = function InternalEventForm(_ref) {
           key: label
         }, react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_material_ui_core_StepLabel__WEBPACK_IMPORTED_MODULE_4___default.a, null, label), Object(_helpers_application__WEBPACK_IMPORTED_MODULE_14__["isMobile"])(width) && react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_material_ui_core_StepContent__WEBPACK_IMPORTED_MODULE_3___default.a, {
           className: classes.stepContent
-        }, content, react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(FormNav, null)));
-      })), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(FormContent, null, content));
+        }, content, react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(FormNav, {
+          errors: errors,
+          touched: touched,
+          values: values
+        })));
+      })), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(FormContent, null, content), !Object(_helpers_application__WEBPACK_IMPORTED_MODULE_14__["isMobile"])(width) && react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(FormNav, {
+        errors: errors,
+        touched: touched,
+        values: values
+      }));
     }
-  }), !Object(_helpers_application__WEBPACK_IMPORTED_MODULE_14__["isMobile"])(width) && react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(FormNav, null));
+  }));
 };
 
 InternalEventForm.propTypes = {
