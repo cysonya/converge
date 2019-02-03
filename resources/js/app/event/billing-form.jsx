@@ -19,7 +19,7 @@ import { Input, inputError } from "@/app/components/form/index"
 import { isMobile } from "@/helpers/application"
 import { media } from "@/styles/utils"
 
-import { styles, TotalAmount } from "./components"
+import { getTotal, styles, TotalAmount } from "./components"
 
 const SectionTitle = styled.div`
 	display: flex;
@@ -53,7 +53,15 @@ const Step = styled.span`
 	border-radius: 50%;
 `
 
-const InternalBillingForm = ({ classes, errors, touched, values, width }) => {
+const InternalBillingForm = ({
+	classes,
+	errors,
+	orderTotal,
+	pkgSummary,
+	touched,
+	values,
+	width
+}) => {
 	return (
 		<div>
 			<Grid container spacing={40} justify="space-between">
@@ -70,20 +78,29 @@ const InternalBillingForm = ({ classes, errors, touched, values, width }) => {
 					<SectionTitle divider>
 						<LockIcon className="pr-5" /> Order Summary
 					</SectionTitle>
-					<TotalAmount>
-						<Typography variant="body2">
-							Bowler Hall X <strong>2</strong>
-						</Typography>
-						<Typography variant="body2">$150</Typography>
-					</TotalAmount>
-					<TotalAmount>
-						<Typography variant="body2">Donation</Typography>
-						<Typography variant="body2">$10</Typography>
-					</TotalAmount>
+					{Object.keys(pkgSummary).map((pkg, i) => (
+						<TotalAmount key={i}>
+							<Typography variant="body2">
+								{pkgSummary[pkg].title}{" "}
+								{pkgSummary[pkg].quantity > 0 && (
+									<strong>x {pkgSummary[pkg].quantity}</strong>
+								)}
+							</Typography>
+							<Typography variant="body2">
+								${pkgSummary[pkg].price * pkgSummary[pkg].quantity}
+							</Typography>
+						</TotalAmount>
+					))}
+					{parseInt(values.donation) > 0 && (
+						<TotalAmount>
+							<Typography variant="body2">Donation</Typography>
+							<Typography variant="body2">${values.donation}</Typography>
+						</TotalAmount>
+					)}
 					<Divider className={classes.divider} />
 					<TotalAmount>
 						<strong>Total</strong>
-						<strong>$160 USD</strong>
+						<strong>${orderTotal} USD</strong>
 					</TotalAmount>
 				</Grid>
 				<Grid item xs={12} md={7} style={isMobile(width) ? {} : { order: 1 }}>
@@ -250,8 +267,32 @@ const InternalBillingForm = ({ classes, errors, touched, values, width }) => {
 
 InternalBillingForm.propTypes = {}
 
+const getPkgSummary = (state, ownProps) => {
+	const pkgs = state.event.packages
+	let summary = {}
+
+	// Get quantity for each package ordered with cost per package //
+	// ex: {2: {quantity: 2, price: 110}}
+	ownProps.values.registrants.forEach(registrant => {
+		if (summary.hasOwnProperty(registrant.package)) {
+			summary[registrant.package].quantity += 1
+		} else {
+			let pkg = pkgs.find(p => p.id === registrant.package)
+			summary[registrant.package] = {
+				quantity: 1,
+				price: pkg.price,
+				title: pkg.title
+			}
+		}
+	})
+	return summary
+}
+
 const mapStateToProps = (state, ownProps) => {
-	return {}
+	return {
+		orderTotal: getTotal(state, ownProps),
+		pkgSummary: getPkgSummary(state, ownProps)
+	}
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {

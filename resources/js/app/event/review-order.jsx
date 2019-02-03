@@ -25,7 +25,7 @@ import styled from "styled-components"
 import { isMobile } from "@/helpers/application"
 import { media } from "@/styles/utils"
 
-import { TotalAmount } from "./components"
+import { getTotal, TotalAmount } from "./components"
 
 const styles = theme => ({
 	summaryWrapper: {
@@ -174,7 +174,6 @@ const InternalReviewOrder = ({
 										id="adornment-amount"
 										placeholder="Other"
 										error={errors.donation}
-										helperText={errors.donation}
 										{...field}
 										startAdornment={
 											<InputAdornment position="start">$</InputAdornment>
@@ -197,19 +196,12 @@ const InternalReviewOrder = ({
 
 InternalReviewOrder.propTypes = {}
 
-const getTotal = (state, ownProps) => {
-	return ownProps.values.registrants.reduce((acc, registrant) => {
-		let pkg = state.event.packages.find(p => p.id === registrant.package)
-		return acc + Math.round(pkg.price)
-	}, 0)
-}
-
 const mapStateToProps = (state, ownProps) => {
 	return {
+		donationSelect: [5, 10, 20, 50, 100],
 		groups: state.event.groups,
-		packages: state.event.packages,
 		orderTotal: getTotal(state, ownProps),
-		donationSelect: [5, 10, 20, 50, 100]
+		packages: state.event.packages
 	}
 }
 

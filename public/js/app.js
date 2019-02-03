@@ -89603,7 +89603,7 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 var RemoveIcon = Object(styled_components__WEBPACK_IMPORTED_MODULE_15__["default"])(_material_ui_icons_Close__WEBPACK_IMPORTED_MODULE_3___default.a)(_templateObject(), function (props) {
-  return props.theme.error.main;
+  return props.theme.grey[500];
 });
 
 var InternalAttendantForm = function InternalAttendantForm(_ref) {
@@ -89863,6 +89863,8 @@ var Step = styled_components__WEBPACK_IMPORTED_MODULE_14__["default"].span(_temp
 var InternalBillingForm = function InternalBillingForm(_ref) {
   var classes = _ref.classes,
       errors = _ref.errors,
+      orderTotal = _ref.orderTotal,
+      pkgSummary = _ref.pkgSummary,
       touched = _ref.touched,
       values = _ref.values,
       width = _ref.width;
@@ -89884,17 +89886,21 @@ var InternalBillingForm = function InternalBillingForm(_ref) {
     divider: true
   }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_icons_Lock__WEBPACK_IMPORTED_MODULE_1___default.a, {
     className: "pr-5"
-  }), " Order Summary"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_18__["TotalAmount"], null, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6___default.a, {
-    variant: "body2"
-  }, "Bowler Hall X ", react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("strong", null, "2")), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6___default.a, {
-    variant: "body2"
-  }, "$150")), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_18__["TotalAmount"], null, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6___default.a, {
+  }), " Order Summary"), Object.keys(pkgSummary).map(function (pkg, i) {
+    return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_18__["TotalAmount"], {
+      key: i
+    }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6___default.a, {
+      variant: "body2"
+    }, pkgSummary[pkg].title, " ", pkgSummary[pkg].quantity > 0 && react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("strong", null, "x ", pkgSummary[pkg].quantity)), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6___default.a, {
+      variant: "body2"
+    }, "$", pkgSummary[pkg].price * pkgSummary[pkg].quantity));
+  }), parseInt(values.donation) > 0 && react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_18__["TotalAmount"], null, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6___default.a, {
     variant: "body2"
   }, "Donation"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6___default.a, {
     variant: "body2"
-  }, "$10")), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_2___default.a, {
+  }, "$", values.donation)), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_2___default.a, {
     className: classes.divider
-  }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_18__["TotalAmount"], null, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("strong", null, "Total"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("strong", null, "$160 USD"))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+  }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_18__["TotalAmount"], null, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("strong", null, "Total"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("strong", null, "$", orderTotal, " USD"))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
     item: true,
     xs: 12,
     md: 7,
@@ -90077,8 +90083,33 @@ var InternalBillingForm = function InternalBillingForm(_ref) {
 
 InternalBillingForm.propTypes = {};
 
+var getPkgSummary = function getPkgSummary(state, ownProps) {
+  var pkgs = state.event.packages;
+  var summary = {}; // Get quantity for each package ordered with cost per package //
+  // ex: {2: {quantity: 2, price: 110}}
+
+  ownProps.values.registrants.forEach(function (registrant) {
+    if (summary.hasOwnProperty(registrant.package)) {
+      summary[registrant.package].quantity += 1;
+    } else {
+      var pkg = pkgs.find(function (p) {
+        return p.id === registrant.package;
+      });
+      summary[registrant.package] = {
+        quantity: 1,
+        price: pkg.price,
+        title: pkg.title
+      };
+    }
+  });
+  return summary;
+};
+
 var mapStateToProps = function mapStateToProps(state, ownProps) {
-  return {};
+  return {
+    orderTotal: Object(_components__WEBPACK_IMPORTED_MODULE_18__["getTotal"])(state, ownProps),
+    pkgSummary: getPkgSummary(state, ownProps)
+  };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
@@ -90094,7 +90125,7 @@ var BillingForm = Object(react_redux__WEBPACK_IMPORTED_MODULE_13__["connect"])(m
 /*!***********************************************!*\
   !*** ./resources/js/app/event/components.jsx ***!
   \***********************************************/
-/*! exports provided: styles, TotalAmount, Divider */
+/*! exports provided: styles, TotalAmount, Divider, getTotal */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -90102,6 +90133,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "styles", function() { return styles; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TotalAmount", function() { return TotalAmount; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Divider", function() { return Divider; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTotal", function() { return getTotal; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
@@ -90182,6 +90214,14 @@ var Divider = function Divider(props) {
     return props.theme.primary.main;
   });
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Line, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Text, null, props.text));
+};
+var getTotal = function getTotal(state, ownProps) {
+  return ownProps.values.registrants.reduce(function (acc, registrant) {
+    var pkg = state.event.packages.find(function (p) {
+      return p.id === registrant.package;
+    });
+    return acc + Math.round(pkg.price);
+  }, 0);
 };
 
 /***/ }),
@@ -91296,8 +91336,7 @@ var InternalReviewOrder = function InternalReviewOrder(_ref) {
       return react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(_material_ui_core_Input__WEBPACK_IMPORTED_MODULE_4___default.a, _extends({
         id: "adornment-amount",
         placeholder: "Other",
-        error: errors.donation,
-        helperText: errors.donation
+        error: errors.donation
       }, field, {
         startAdornment: react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(_material_ui_core_InputAdornment__WEBPACK_IMPORTED_MODULE_5___default.a, {
           position: "start"
@@ -91311,21 +91350,12 @@ var InternalReviewOrder = function InternalReviewOrder(_ref) {
 
 InternalReviewOrder.propTypes = {};
 
-var getTotal = function getTotal(state, ownProps) {
-  return ownProps.values.registrants.reduce(function (acc, registrant) {
-    var pkg = state.event.packages.find(function (p) {
-      return p.id === registrant.package;
-    });
-    return acc + Math.round(pkg.price);
-  }, 0);
-};
-
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
+    donationSelect: [5, 10, 20, 50, 100],
     groups: state.event.groups,
-    packages: state.event.packages,
-    orderTotal: getTotal(state, ownProps),
-    donationSelect: [5, 10, 20, 50, 100]
+    orderTotal: Object(_components__WEBPACK_IMPORTED_MODULE_24__["getTotal"])(state, ownProps),
+    packages: state.event.packages
   };
 };
 

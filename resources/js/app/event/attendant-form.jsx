@@ -22,7 +22,7 @@ import { Divide, styles } from "./components"
 
 const RemoveIcon = styled(CloseIcon)`
 	&& {
-		color: ${props => props.theme.error.main};
+		color: ${props => props.theme.grey[500]};
 		font-size: 24px;
 		cursor: pointer;
 	}
