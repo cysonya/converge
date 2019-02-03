@@ -1,6 +1,3 @@
-import Button from "@material-ui/core/Button"
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft"
-import ChevronRightIcon from "@material-ui/icons/ChevronRight"
 import Step from "@material-ui/core/Step"
 import Stepper from "@material-ui/core/Stepper"
 import StepContent from "@material-ui/core/StepContent"
@@ -21,6 +18,7 @@ import theme from "@/styles/theme"
 import { media } from "@/styles/utils"
 import AttendantForm from "./attendant-form"
 import BillingForm from "./billing-form"
+import FormNav from "./form-nav"
 import HousingForm from "./housing-form"
 import ReviewOrder from "./review-order"
 
@@ -71,86 +69,9 @@ const FormContent = styled(Form)`
 	`}
 `
 
-const FormActions = styled.div`
-	padding-top: 8px;
-	border-top: 1px solid ${props => props.theme.primary.main} ${media.md`
-		padding: 10px 20px;
-		text-align: right;
-		background-color: ${props => props.theme.grey[200]}
-	`};
-`
-
-const InternalEventForm = ({
-	classes,
-	event,
-	nextStep,
-	prevStep,
-	step,
-	width
-}) => {
+const InternalEventForm = ({ classes, event, step, width }) => {
 	if (Object.keys(event).length < 1) {
 		return null
-	}
-
-	const FormNav = ({ errors, touched, values }) => {
-		let showNext = true
-
-		// Show next btn if all inputs in current step are valid
-		if (step === 1) {
-			showNext = false
-			if (errors.registrants) {
-				for (let registrant of errors.registrants) {
-					showNext =
-						Object.keys(registrant).length <= 1 &&
-						Object.keys(registrant).includes("package")
-
-					// Prevents next valid case from overriding error check
-					if (!showNext) {
-						break
-					}
-				}
-			} else {
-				// Set showNext to true on 'back' if no errors. Checking if registrants fields have been touched also prevents showNext to be true on initial load when there's no errors
-				showNext = !!touched.registrants
-			}
-		}
-		if (step === 2) {
-			showNext = false
-			for (let registrant of touched.registrants) {
-				showNext = !!registrant.package
-				if (!showNext) {
-					break
-				}
-			}
-			// Set true if no errors
-			showNext = !!!errors.registrants
-		}
-
-		if (step === 3) {
-			if (!!errors.donation) {
-				showNext = false
-			}
-		}
-
-		return (
-			<FormActions>
-				{step > 1 && (
-					<Button className="mr-10" onClick={e => prevStep(e)}>
-						<ChevronLeftIcon size="small" /> Back
-					</Button>
-				)}
-				{step < 4 && (
-					<Button
-						variant="contained"
-						color="primary"
-						onClick={e => nextStep(e)}
-						disabled={!showNext}
-					>
-						Next <ChevronRightIcon size="small" />
-					</Button>
-				)}
-			</FormActions>
-		)
 	}
 
 	const steps = ["Attendants", "Housing", "Review", "Payment"]
@@ -441,38 +362,12 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-	return {
-		dispatch: dispatch
-	}
+	return {}
 }
-const mergeProps = (stateProps, dispatchProps, ownProps) => {
-	const { step } = stateProps
-	const { dispatch } = dispatchProps
 
-	return {
-		...ownProps,
-		...stateProps,
-		...dispatchProps,
-		prevStep: e => {
-			e.preventDefault()
-			if (step - 1 < 1) {
-				return false
-			}
-			dispatch(setStep(step - 1))
-		},
-		nextStep: e => {
-			e.preventDefault()
-			if (step + 1 > 4) {
-				return false
-			}
-			dispatch(setStep(step + 1))
-		}
-	}
-}
 const EventForm = connect(
 	mapStateToProps,
-	mapDispatchToProps,
-	mergeProps
+	mapDispatchToProps
 )(withStyles(styles)(withWidth()(InternalEventForm)))
 
 export default EventForm

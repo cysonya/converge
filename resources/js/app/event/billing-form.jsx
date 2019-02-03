@@ -255,7 +255,13 @@ const InternalBillingForm = ({
 								/>
 							</Grid>
 						</Grid>
-						<Button variant="contained" color="primary" fullWidth>
+						<Button
+							type="submit"
+							variant="contained"
+							color="primary"
+							disabled={Object.keys(errors).length > 0}
+							fullWidth
+						>
 							PLACE ORDER
 						</Button>
 					</PaymentContainer>
@@ -271,7 +277,7 @@ const getPkgSummary = (state, ownProps) => {
 	const pkgs = state.event.packages
 	let summary = {}
 
-	// Get quantity for each package ordered with cost per package //
+	// Get quantity for each package ordered with cost per package
 	// ex: {2: {quantity: 2, price: 110}}
 	ownProps.values.registrants.forEach(registrant => {
 		if (summary.hasOwnProperty(registrant.package)) {
