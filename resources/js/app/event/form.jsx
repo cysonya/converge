@@ -120,8 +120,14 @@ const InternalEventForm = ({
 					break
 				}
 			}
-
+			// Set true if no errors
 			showNext = !!!errors.registrants
+		}
+
+		if (step === 3) {
+			if (!!errors.donation) {
+				showNext = false
+			}
 		}
 
 		return (
@@ -167,13 +173,14 @@ const InternalEventForm = ({
 			zip: "",
 			cardName: "",
 			cardNum: "",
-			expiry: "",
-			cvc: ""
+			expiryMonth: "",
+			expiryYear: "",
+			cvv: ""
 		},
 		customer_first_name: "",
 		customer_last_name: "",
 		customer_email: "",
-		donation: 0
+		donation: ""
 	}
 
 	const handleValidate = values => {
@@ -193,6 +200,128 @@ const InternalEventForm = ({
 		// ) {
 		// 	errors.customer_email = "Invalid email address"
 		// }
+
+		if (!values.payment.address) {
+			errors.payment = Object.assign(
+				{
+					address: "Provide address"
+				},
+				errors.payment
+			)
+		}
+		if (!values.payment.city) {
+			errors.payment = Object.assign(
+				{
+					city: "Required"
+				},
+				errors.payment
+			)
+		}
+		if (!values.payment.state) {
+			errors.payment = Object.assign(
+				{
+					state: "Required"
+				},
+				errors.payment
+			)
+		}
+		if (!values.payment.zip) {
+			errors.payment = Object.assign(
+				{
+					zip: "Required"
+				},
+				errors.payment
+			)
+		}
+		if (!values.payment.country) {
+			errors.payment = Object.assign(
+				{
+					country: "Required"
+				},
+				errors.payment
+			)
+		}
+		if (!values.payment.cardName) {
+			errors.payment = Object.assign(
+				{
+					cardName: "Required"
+				},
+				errors.payment
+			)
+		}
+		if (!values.payment.cardNum) {
+			errors.payment = Object.assign(
+				{
+					cardNum: "Required"
+				},
+				errors.payment
+			)
+		} else if (
+			!/[0-9]{4} {0,1}[0-9]{4} {0,1}[0-9]{4} {0,1}[0-9]{4}/.test(
+				values.payment.cardNum
+			)
+		) {
+			errors.payment = Object.assign(
+				{
+					cardNum: "Invalid Card number"
+				},
+				errors.payment
+			)
+		}
+		if (!values.payment.expiryMonth) {
+			errors.payment = Object.assign(
+				{
+					expiryMonth: "Required"
+				},
+				errors.payment
+			)
+		} else if (!/^(0[1-9]|1[0-2])$/.test(values.payment.expiryMonth)) {
+			errors.payment = Object.assign(
+				{
+					expiryMonth: "Invalid month"
+				},
+				errors.payment
+			)
+		}
+		if (!values.payment.expiryYear) {
+			errors.payment = Object.assign(
+				{
+					expiryYear: "Required"
+				},
+				errors.payment
+			)
+		} else if (!/^\d{2}$/.test(values.payment.expiryYear)) {
+			errors.payment = Object.assign(
+				{
+					expiryYear: "Invalid year"
+				},
+				errors.payment
+			)
+		}
+		if (!values.payment.cvv) {
+			errors.payment = Object.assign(
+				{
+					cvv: "Required"
+				},
+				errors.payment
+			)
+		} else if (!/^\d{3}$/.test(values.payment.cvv)) {
+			errors.payment = Object.assign(
+				{
+					cvv: "Invalid code"
+				},
+				errors.payment
+			)
+		}
+
+		// Only validate donation if amount is entered
+		if (!!values.donation) {
+			if (isNaN(values.donation)) {
+				errors.donation = "Enter a number"
+			} else if (!/^\d+$/.test(parseFloat(values.donation))) {
+				errors.donation = "Whole numbers only"
+			}
+		}
 
 		// Registrants validation
 		let valid = true

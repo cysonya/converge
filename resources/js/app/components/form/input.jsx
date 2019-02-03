@@ -49,13 +49,16 @@ class Input extends Component {
 							</InputAdornment>
 						) : null
 				}}
+				inputProps={
+					this.props.maxLength ? { maxLength: this.props.maxLength } : {}
+				}
 				margin="dense"
 				fullWidth
 				name={name}
 				value={value}
-				{...props}
 				error={!!error}
 				helperText={error}
+				{...props}
 			>
 				{this.props.children}
 			</TextField>

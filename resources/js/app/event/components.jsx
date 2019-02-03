@@ -39,7 +39,6 @@ export const styles = theme => ({
 export const TotalAmount = styled.div`
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 5px;
 `
 
 export const Divider = props => {

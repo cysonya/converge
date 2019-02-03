@@ -4,7 +4,7 @@ import FormControl from "@material-ui/core/FormControl"
 import Grid from "@material-ui/core/Grid"
 import Input from "@material-ui/core/Input"
 import InputAdornment from "@material-ui/core/InputAdornment"
-import InputLabel from "@material-ui/core/InputLabel"
+import FormHelperText from "@material-ui/core/FormHelperText"
 import Paper from "@material-ui/core/Paper"
 import Table from "@material-ui/core/Table"
 import TableBody from "@material-ui/core/TableBody"
@@ -173,6 +173,8 @@ const InternalReviewOrder = ({
 									<Input
 										id="adornment-amount"
 										placeholder="Other"
+										error={errors.donation}
+										helperText={errors.donation}
 										{...field}
 										startAdornment={
 											<InputAdornment position="start">$</InputAdornment>
@@ -180,6 +182,11 @@ const InternalReviewOrder = ({
 									/>
 								)}
 							/>
+							{!!errors.donation && (
+								<FormHelperText error={errors.donation}>
+									{errors.donation}
+								</FormHelperText>
+							)}
 						</FormControl>
 					</ButtonGroup>
 				</Grid>

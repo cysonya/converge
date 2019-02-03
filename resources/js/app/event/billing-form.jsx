@@ -2,11 +2,13 @@ import Button from "@material-ui/core/Button"
 import LockIcon from "@material-ui/icons/Lock"
 import Divider from "@material-ui/core/Divider"
 import Grid from "@material-ui/core/Grid"
+import MenuItem from "@material-ui/core/MenuItem"
 import TextField from "@material-ui/core/TextField"
 import Typography from "@material-ui/core/Typography"
 import { withStyles } from "@material-ui/core/styles"
 import withWidth from "@material-ui/core/withWidth"
 
+import { Field, getIn } from "formik"
 import NumberFormat from "react-number-format"
 import React from "react"
 import ReactDOM from "react-dom"
@@ -14,6 +16,7 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import styled from "styled-components"
 
+import { Input, inputError } from "@/app/components/form/index"
 import { isMobile } from "@/helpers/application"
 import { media } from "@/styles/utils"
 
@@ -45,11 +48,11 @@ const Step = styled.span`
 	width: 24px;
 	font-size: 14px;
 	color: #fff;
-	background-color: ${props => props.theme.secondary.light};
+	background-color: ${props => props.theme.grey[800]};
 	border-radius: 50%;
 `
 
-const InternalBillingForm = ({ classes, width }) => {
+const InternalBillingForm = ({ classes, errors, touched, values, width }) => {
 	const CreditCardFormat = props => {
 		const { inputRef, ...other } = props
 		return (
@@ -82,88 +85,77 @@ const InternalBillingForm = ({ classes, width }) => {
 						<SectionTitle>
 							<Step>1</Step> Billing Information
 						</SectionTitle>
-						<TextField
-							label="Address"
-							variant="outlined"
-							InputLabelProps={{
-								className: classes.inputLabel
-							}}
-							InputProps={{
-								className: classes.input
-							}}
-							inputProps={{
-								maxLength: 3
-							}}
-							fullWidth
-							margin="dense"
+						<Field
+							name="payment.address"
+							render={({ field, form }) => (
+								<Input
+									label="Street Address"
+									error={inputError(form, "payment.address")}
+									touched={getIn(form.touched, "payment.address")}
+									autoComplete="billing street-address"
+									{...field}
+								/>
+							)}
 						/>
 						<Grid container spacing={8} style={{ marginBottom: "10px" }}>
 							<Grid item xs={6}>
-								<TextField
-									label="City"
-									variant="outlined"
-									InputLabelProps={{
-										className: classes.inputLabel
-									}}
-									InputProps={{
-										className: classes.input
-									}}
-									inputProps={{
-										maxLength: 3
-									}}
-									fullWidth
-									margin="dense"
+								<Field
+									name="payment.city"
+									render={({ field, form }) => (
+										<Input
+											label="City"
+											error={inputError(form, "payment.city")}
+											touched={getIn(form.touched, "payment.city")}
+											autoComplete="billing address-level2"
+											{...field}
+										/>
+									)}
 								/>
 							</Grid>
 							<Grid item xs={6}>
-								<TextField
-									label="State/Province"
-									variant="outlined"
-									InputLabelProps={{
-										className: classes.inputLabel
-									}}
-									InputProps={{
-										className: classes.input
-									}}
-									inputProps={{
-										maxLength: 3
-									}}
-									fullWidth
-									margin="dense"
+								<Field
+									name="payment.state"
+									render={({ field, form }) => (
+										<Input
+											label="State/Province"
+											error={inputError(form, "payment.state")}
+											touched={getIn(form.touched, "payment.state")}
+											autoComplete="billing address-level1"
+											{...field}
+										/>
+									)}
 								/>
 							</Grid>
 							<Grid item xs={6}>
-								<TextField
-									label="Country"
-									variant="outlined"
-									InputLabelProps={{
-										className: classes.inputLabel
-									}}
-									InputProps={{
-										className: classes.input
-									}}
-									inputProps={{
-										maxLength: 3
-									}}
-									fullWidth
-									margin="dense"
+								<Field
+									name="payment.zip"
+									render={({ field, form }) => (
+										<Input
+											label="Zip/Postal Code"
+											error={inputError(form, "payment.zip")}
+											touched={getIn(form.touched, "payment.zip")}
+											autoComplete="billing postal-code"
+											{...field}
+										/>
+									)}
 								/>
 							</Grid>
 							<Grid item xs={6}>
-								<TextField
-									label="Zip/Postal code"
-									variant="outlined"
-									InputLabelProps={{
-										className: classes.inputLabel
-									}}
-									InputProps={{
-										className: classes.input
-									}}
-									inputProps={{
-										maxLength: 3
-									}}
-									fullWidth
-									margin="dense"
+								<Field
+									name="payment.country"
+									render={({ field, form }) => (
+										<Input
+											select
+											label="Country"
+											error={inputError(form, "payment.country")}
+											autoComplete="billing country"
+											{...field}
+										>
+											<MenuItem value="" />
+											<MenuItem value="US">United States</MenuItem>
+											<MenuItem value="CA">Canada</MenuItem>
+										</Input>
+									)}
 								/>
 							</Grid>
 						</Grid>
@@ -171,60 +163,76 @@ const InternalBillingForm = ({ classes, width }) => {
 						<SectionTitle>
 							<Step>2</Step> Card Details
 						</SectionTitle>
-						<TextField
-							label="Cardholder name"
-							variant="outlined"
-							InputLabelProps={{
-								className: classes.inputLabel
-							}}
-							InputProps={{
-								className: classes.input
-							}}
-							margin="dense"
-							fullWidth
+						<Field
+							name="payment.cardName"
+							render={({ field, form }) => (
+								<Input
+									label="Cardholder Name"
+									error={inputError(form, "payment.cardName")}
+									touched={getIn(form.touched, "payment.cardName")}
+									autoComplete="cc-name"
+									{...field}
+								/>
+							)}
 						/>
-						<TextField
-							label="Card number"
-							variant="outlined"
-							InputLabelProps={{
-								className: classes.inputLabel
-							}}
-							InputProps={{
-								inputComponent: CreditCardFormat,
-								className: classes.input
-							}}
-							margin="dense"
-							fullWidth
+						<Field
+							name="payment.cardNum"
+							render={({ field, form }) => (
+								<Input
+									label="Card Number"
+									error={inputError(form, "payment.cardNum")}
+									touched={getIn(form.touched, "payment.cardNum")}
+									autoComplete="cc-number"
+									maxLength="16"
+									{...field}
+								/>
+							)}
 						/>
+
 						<Grid container spacing={8} style={{ marginBottom: "10px" }}>
 							<Grid item xs={6}>
-								<TextField
-									label="Expiry"
-									variant="outlined"
-									InputLabelProps={{
-										className: classes.inputLabel
-									}}
-									InputProps={{
-										inputComponent: CardExpFormat,
-										className: classes.input
-									}}
-									margin="dense"
+								<Field
+									name="payment.expiryMonth"
+									render={({ field, form }) => (
+										<Input
+											label="Month"
+											error={inputError(form, "payment.expiryMonth")}
+											touched={getIn(form.touched, "payment.expiryMonth")}
+											autoComplete="cc-exp-month"
+											maxLength="2"
+											{...field}
+										/>
+									)}
 								/>
 							</Grid>
 							<Grid item xs={6}>
-								<TextField
-									label="CVV"
-									variant="outlined"
-									InputLabelProps={{
-										className: classes.inputLabel
-									}}
-									InputProps={{
-										className: classes.input
-									}}
-									inputProps={{
-										maxLength: 3
-									}}
-									margin="dense"
+								<Field
+									name="payment.expiryYear"
+									render={({ field, form }) => (
+										<Input
+											label="Year"
+											error={inputError(form, "payment.expiryYear")}
+											touched={getIn(form.touched, "payment.expiryYear")}
+											autoComplete="cc-exp-month"
+											maxLength="2"
+											{...field}
+										/>
+									)}
+								/>
+							</Grid>
+							<Grid item xs={6}>
+								<Field
+									name="payment.cvv"
+									render={({ field, form }) => (
+										<Input
+											label="Security code"
+											error={inputError(form, "payment.cvv")}
+											touched={getIn(form.touched, "payment.cvv")}
+											autoComplete="cc-exp-month"
+											maxLength="3"
+											{...field}
+										/>
+									)}
 								/>
 							</Grid>
 						</Grid>
