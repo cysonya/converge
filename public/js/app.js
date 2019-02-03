@@ -19581,6 +19581,70 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "./node_modules/@material-ui/icons/ChevronLeft.js":
+/*!********************************************************!*\
+  !*** ./node_modules/@material-ui/icons/ChevronLeft.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@material-ui/icons/utils/createSvgIcon.js"));
+
+var _default = (0, _createSvgIcon.default)(_react.default.createElement(_react.default.Fragment, null, _react.default.createElement("path", {
+  d: "M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+}), _react.default.createElement("path", {
+  fill: "none",
+  d: "M0 0h24v24H0z"
+})), 'ChevronLeft');
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/icons/ChevronRight.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@material-ui/icons/ChevronRight.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@material-ui/icons/utils/createSvgIcon.js"));
+
+var _default = (0, _createSvgIcon.default)(_react.default.createElement(_react.default.Fragment, null, _react.default.createElement("path", {
+  d: "M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+}), _react.default.createElement("path", {
+  fill: "none",
+  d: "M0 0h24v24H0z"
+})), 'ChevronRight');
+
+exports.default = _default;
+
+/***/ }),
+
 /***/ "./node_modules/@material-ui/icons/Close.js":
 /*!**************************************************!*\
   !*** ./node_modules/@material-ui/icons/Close.js ***!
@@ -74671,1230 +74735,6 @@ function polyfill(Component) {
 
 /***/ }),
 
-/***/ "./node_modules/react-number-format/lib/number_format.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/react-number-format/lib/number_format.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js"));
-
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-
-var _utils = __webpack_require__(/*! ./utils */ "./node_modules/react-number-format/lib/utils.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-var propTypes = {
-  thousandSeparator: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.oneOf([true])]),
-  decimalSeparator: _propTypes.default.string,
-  thousandsGroupStyle: _propTypes.default.oneOf(['thousand', 'lakh', 'wan']),
-  decimalScale: _propTypes.default.number,
-  fixedDecimalScale: _propTypes.default.bool,
-  displayType: _propTypes.default.oneOf(['input', 'text']),
-  prefix: _propTypes.default.string,
-  suffix: _propTypes.default.string,
-  format: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.func]),
-  removeFormatting: _propTypes.default.func,
-  mask: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.arrayOf(_propTypes.default.string)]),
-  value: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
-  defaultValue: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
-  isNumericString: _propTypes.default.bool,
-  customInput: _propTypes.default.func,
-  allowNegative: _propTypes.default.bool,
-  allowEmptyFormatting: _propTypes.default.bool,
-  onValueChange: _propTypes.default.func,
-  onKeyDown: _propTypes.default.func,
-  onMouseUp: _propTypes.default.func,
-  onChange: _propTypes.default.func,
-  onFocus: _propTypes.default.func,
-  onBlur: _propTypes.default.func,
-  type: _propTypes.default.oneOf(['text', 'tel', 'password']),
-  isAllowed: _propTypes.default.func,
-  renderText: _propTypes.default.func,
-  getInputRef: _propTypes.default.func
-};
-var defaultProps = {
-  displayType: 'input',
-  decimalSeparator: '.',
-  thousandsGroupStyle: 'thousand',
-  fixedDecimalScale: false,
-  prefix: '',
-  suffix: '',
-  allowNegative: true,
-  allowEmptyFormatting: false,
-  isNumericString: false,
-  type: 'text',
-  onValueChange: _utils.noop,
-  onChange: _utils.noop,
-  onKeyDown: _utils.noop,
-  onMouseUp: _utils.noop,
-  onFocus: _utils.noop,
-  onBlur: _utils.noop,
-  isAllowed: _utils.returnTrue,
-  getInputRef: _utils.noop
-};
-
-var NumberFormat =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(NumberFormat, _React$Component);
-
-  function NumberFormat(props) {
-    var _this;
-
-    _classCallCheck(this, NumberFormat);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(NumberFormat).call(this, props));
-    var defaultValue = props.defaultValue; //validate props
-
-    _this.validateProps();
-
-    var formattedValue = _this.formatValueProp(defaultValue);
-
-    _this.state = {
-      value: formattedValue,
-      numAsString: _this.removeFormatting(formattedValue)
-    };
-    _this.selectionBeforeInput = {
-      selectionStart: 0,
-      selectionEnd: 0
-    };
-    _this.onChange = _this.onChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onKeyDown = _this.onKeyDown.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onMouseUp = _this.onMouseUp.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onFocus = _this.onFocus.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onBlur = _this.onBlur.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    return _this;
-  }
-
-  _createClass(NumberFormat, [{
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      this.updateValueIfRequired(prevProps);
-    }
-  }, {
-    key: "updateValueIfRequired",
-    value: function updateValueIfRequired(prevProps) {
-      var props = this.props,
-          state = this.state,
-          focusedElm = this.focusedElm;
-      var stateValue = state.value,
-          _state$numAsString = state.numAsString,
-          lastNumStr = _state$numAsString === void 0 ? '' : _state$numAsString;
-
-      if (prevProps !== props) {
-        //validate props
-        this.validateProps();
-        var lastValueWithNewFormat = this.formatNumString(lastNumStr);
-        var formattedValue = props.value === undefined ? lastValueWithNewFormat : this.formatValueProp();
-        var numAsString = this.removeFormatting(formattedValue);
-        var floatValue = parseFloat(numAsString);
-        var lastFloatValue = parseFloat(lastNumStr);
-
-        if ( //while typing set state only when float value changes
-        (!isNaN(floatValue) || !isNaN(lastFloatValue)) && floatValue !== lastFloatValue || //can also set state when float value is same and the format props changes
-        lastValueWithNewFormat !== stateValue || //set state always when not in focus and formatted value is changed
-        focusedElm === null && formattedValue !== stateValue) {
-          this.updateValue({
-            formattedValue: formattedValue,
-            numAsString: numAsString,
-            input: focusedElm
-          });
-        }
-      }
-    }
-    /** Misc methods **/
-
-  }, {
-    key: "getFloatString",
-    value: function getFloatString() {
-      var num = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-      var decimalScale = this.props.decimalScale;
-
-      var _this$getSeparators = this.getSeparators(),
-          decimalSeparator = _this$getSeparators.decimalSeparator;
-
-      var numRegex = this.getNumberRegex(true); //remove negation for regex check
-
-      var hasNegation = num[0] === '-';
-      if (hasNegation) num = num.replace('-', ''); //if decimal scale is zero remove decimal and number after decimalSeparator
-
-      if (decimalSeparator && decimalScale === 0) {
-        num = num.split(decimalSeparator)[0];
-      }
-
-      num = (num.match(numRegex) || []).join('').replace(decimalSeparator, '.'); //remove extra decimals
-
-      var firstDecimalIndex = num.indexOf('.');
-
-      if (firstDecimalIndex !== -1) {
-        num = "".concat(num.substring(0, firstDecimalIndex), ".").concat(num.substring(firstDecimalIndex + 1, num.length).replace(new RegExp((0, _utils.escapeRegExp)(decimalSeparator), 'g'), ''));
-      } //add negation back
-
-
-      if (hasNegation) num = '-' + num;
-      return num;
-    } //returned regex assumes decimalSeparator is as per prop
-
-  }, {
-    key: "getNumberRegex",
-    value: function getNumberRegex(g, ignoreDecimalSeparator) {
-      var _this$props = this.props,
-          format = _this$props.format,
-          decimalScale = _this$props.decimalScale;
-
-      var _this$getSeparators2 = this.getSeparators(),
-          decimalSeparator = _this$getSeparators2.decimalSeparator;
-
-      return new RegExp('\\d' + (decimalSeparator && decimalScale !== 0 && !ignoreDecimalSeparator && !format ? '|' + (0, _utils.escapeRegExp)(decimalSeparator) : ''), g ? 'g' : undefined);
-    }
-  }, {
-    key: "getSeparators",
-    value: function getSeparators() {
-      var decimalSeparator = this.props.decimalSeparator;
-      var thousandSeparator = this.props.thousandSeparator;
-
-      if (thousandSeparator === true) {
-        thousandSeparator = ',';
-      }
-
-      return {
-        decimalSeparator: decimalSeparator,
-        thousandSeparator: thousandSeparator
-      };
-    }
-  }, {
-    key: "getMaskAtIndex",
-    value: function getMaskAtIndex(index) {
-      var _this$props$mask = this.props.mask,
-          mask = _this$props$mask === void 0 ? ' ' : _this$props$mask;
-
-      if (typeof mask === 'string') {
-        return mask;
-      }
-
-      return mask[index] || ' ';
-    }
-  }, {
-    key: "getValueObject",
-    value: function getValueObject(formattedValue, numAsString) {
-      var floatValue = parseFloat(numAsString);
-      return {
-        formattedValue: formattedValue,
-        value: numAsString,
-        floatValue: isNaN(floatValue) ? undefined : floatValue
-      };
-    }
-  }, {
-    key: "validateProps",
-    value: function validateProps() {
-      var mask = this.props.mask; //validate decimalSeparator and thousandSeparator
-
-      var _this$getSeparators3 = this.getSeparators(),
-          decimalSeparator = _this$getSeparators3.decimalSeparator,
-          thousandSeparator = _this$getSeparators3.thousandSeparator;
-
-      if (decimalSeparator === thousandSeparator) {
-        throw new Error("\n          Decimal separator can't be same as thousand separator.\n          thousandSeparator: ".concat(thousandSeparator, " (thousandSeparator = {true} is same as thousandSeparator = \",\")\n          decimalSeparator: ").concat(decimalSeparator, " (default value for decimalSeparator is .)\n       "));
-      } //validate mask
-
-
-      if (mask) {
-        var maskAsStr = mask === 'string' ? mask : mask.toString();
-
-        if (maskAsStr.match(/\d/g)) {
-          throw new Error("\n          Mask ".concat(mask, " should not contain numeric character;\n        "));
-        }
-      }
-    }
-    /** Misc methods end **/
-
-    /** caret specific methods **/
-
-  }, {
-    key: "setPatchedCaretPosition",
-    value: function setPatchedCaretPosition(el, caretPos, currentValue) {
-      /* setting caret position within timeout of 0ms is required for mobile chrome,
-      otherwise browser resets the caret position after we set it
-      We are also setting it without timeout so that in normal browser we don't see the flickering */
-      (0, _utils.setCaretPosition)(el, caretPos);
-      setTimeout(function () {
-        if (el.value === currentValue) (0, _utils.setCaretPosition)(el, caretPos);
-      }, 0);
-    }
-    /* This keeps the caret within typing area so people can't type in between prefix or suffix */
-
-  }, {
-    key: "correctCaretPosition",
-    value: function correctCaretPosition(value, caretPos, direction) {
-      var _this$props2 = this.props,
-          prefix = _this$props2.prefix,
-          suffix = _this$props2.suffix,
-          format = _this$props2.format; //if value is empty return 0
-
-      if (value === '') return 0; //caret position should be between 0 and value length
-
-      caretPos = (0, _utils.clamp)(caretPos, 0, value.length); //in case of format as number limit between prefix and suffix
-
-      if (!format) {
-        var hasNegation = value[0] === '-';
-        return (0, _utils.clamp)(caretPos, prefix.length + (hasNegation ? 1 : 0), value.length - suffix.length);
-      } //in case if custom format method don't do anything
-
-
-      if (typeof format === 'function') return caretPos;
-      /* in case format is string find the closest # position from the caret position */
-      //in case the caretPos have input value on it don't do anything
-
-      if (format[caretPos] === '#' && (0, _utils.charIsNumber)(value[caretPos])) return caretPos; //if caretPos is just after input value don't do anything
-
-      if (format[caretPos - 1] === '#' && (0, _utils.charIsNumber)(value[caretPos - 1])) return caretPos; //find the nearest caret position
-
-      var firstHashPosition = format.indexOf('#');
-      var lastHashPosition = format.lastIndexOf('#'); //limit the cursor between the first # position and the last # position
-
-      caretPos = (0, _utils.clamp)(caretPos, firstHashPosition, lastHashPosition + 1);
-      var nextPos = format.substring(caretPos, format.length).indexOf('#');
-      var caretLeftBound = caretPos;
-      var caretRightBound = caretPos + (nextPos === -1 ? 0 : nextPos); //get the position where the last number is present
-
-      while (caretLeftBound > firstHashPosition && (format[caretLeftBound] !== '#' || !(0, _utils.charIsNumber)(value[caretLeftBound]))) {
-        caretLeftBound -= 1;
-      }
-
-      var goToLeft = !(0, _utils.charIsNumber)(value[caretRightBound]) || direction === 'left' && caretPos !== firstHashPosition || caretPos - caretLeftBound < caretRightBound - caretPos;
-
-      if (goToLeft) {
-        //check if number should be taken after the bound or after it
-        //if number preceding a valid number keep it after
-        return (0, _utils.charIsNumber)(value[caretLeftBound]) ? caretLeftBound + 1 : caretLeftBound;
-      }
-
-      return caretRightBound;
-    }
-  }, {
-    key: "getCaretPosition",
-    value: function getCaretPosition(inputValue, formattedValue, caretPos) {
-      var format = this.props.format;
-      var stateValue = this.state.value;
-      var numRegex = this.getNumberRegex(true);
-      var inputNumber = (inputValue.match(numRegex) || []).join('');
-      var formattedNumber = (formattedValue.match(numRegex) || []).join('');
-      var j, i;
-      j = 0;
-
-      for (i = 0; i < caretPos; i++) {
-        var currentInputChar = inputValue[i] || '';
-        var currentFormatChar = formattedValue[j] || ''; //no need to increase new cursor position if formatted value does not have those characters
-        //case inputValue = 1a23 and formattedValue =  123
-
-        if (!currentInputChar.match(numRegex) && currentInputChar !== currentFormatChar) continue; //When we are striping out leading zeros maintain the new cursor position
-        //Case inputValue = 00023 and formattedValue = 23;
-
-        if (currentInputChar === '0' && currentFormatChar.match(numRegex) && currentFormatChar !== '0' && inputNumber.length !== formattedNumber.length) continue; //we are not using currentFormatChar because j can change here
-
-        while (currentInputChar !== formattedValue[j] && j < formattedValue.length) {
-          j++;
-        }
-
-        j++;
-      }
-
-      if (typeof format === 'string' && !stateValue) {
-        //set it to the maximum value so it goes after the last number
-        j = formattedValue.length;
-      } //correct caret position if its outside of editable area
-
-
-      j = this.correctCaretPosition(formattedValue, j);
-      return j;
-    }
-    /** caret specific methods ends **/
-
-    /** methods to remove formattting **/
-
-  }, {
-    key: "removePrefixAndSuffix",
-    value: function removePrefixAndSuffix(val) {
-      var _this$props3 = this.props,
-          format = _this$props3.format,
-          prefix = _this$props3.prefix,
-          suffix = _this$props3.suffix; //remove prefix and suffix
-
-      if (!format && val) {
-        var isNegative = val[0] === '-'; //remove negation sign
-
-        if (isNegative) val = val.substring(1, val.length); //remove prefix
-
-        val = prefix && val.indexOf(prefix) === 0 ? val.substring(prefix.length, val.length) : val; //remove suffix
-
-        var suffixLastIndex = val.lastIndexOf(suffix);
-        val = suffix && suffixLastIndex !== -1 && suffixLastIndex === val.length - suffix.length ? val.substring(0, suffixLastIndex) : val; //add negation sign back
-
-        if (isNegative) val = '-' + val;
-      }
-
-      return val;
-    }
-  }, {
-    key: "removePatternFormatting",
-    value: function removePatternFormatting(val) {
-      var format = this.props.format;
-      var formatArray = format.split('#').filter(function (str) {
-        return str !== '';
-      });
-      var start = 0;
-      var numStr = '';
-
-      for (var i = 0, ln = formatArray.length; i <= ln; i++) {
-        var part = formatArray[i] || ''; //if i is the last fragment take the index of end of the value
-        //For case like +1 (911) 911 91 91 having pattern +1 (###) ### ## ##
-
-        var index = i === ln ? val.length : val.indexOf(part, start);
-        /* in any case if we don't find the pattern part in the value assume the val as numeric string
-        This will be also in case if user has started typing, in any other case it will not be -1
-        unless wrong prop value is provided */
-
-        if (index === -1) {
-          numStr = val;
-          break;
-        } else {
-          numStr += val.substring(start, index);
-          start = index + part.length;
-        }
-      }
-
-      return (numStr.match(/\d/g) || []).join('');
-    }
-  }, {
-    key: "removeFormatting",
-    value: function removeFormatting(val) {
-      var _this$props4 = this.props,
-          format = _this$props4.format,
-          removeFormatting = _this$props4.removeFormatting;
-      if (!val) return val;
-
-      if (!format) {
-        val = this.removePrefixAndSuffix(val);
-        val = this.getFloatString(val);
-      } else if (typeof format === 'string') {
-        val = this.removePatternFormatting(val);
-      } else if (typeof removeFormatting === 'function') {
-        //condition need to be handled if format method is provide,
-        val = removeFormatting(val);
-      } else {
-        val = (val.match(/\d/g) || []).join('');
-      }
-
-      return val;
-    }
-    /** methods to remove formattting end **/
-
-    /*** format specific methods start ***/
-
-    /**
-     * Format when # based string is provided
-     * @param  {string} numStr Numeric String
-     * @return {string}        formatted Value
-     */
-
-  }, {
-    key: "formatWithPattern",
-    value: function formatWithPattern(numStr) {
-      var format = this.props.format;
-      var hashCount = 0;
-      var formattedNumberAry = format.split('');
-
-      for (var i = 0, ln = format.length; i < ln; i++) {
-        if (format[i] === '#') {
-          formattedNumberAry[i] = numStr[hashCount] || this.getMaskAtIndex(hashCount);
-          hashCount += 1;
-        }
-      }
-
-      return formattedNumberAry.join('');
-    }
-    /**
-     * @param  {string} numStr Numeric string/floatString] It always have decimalSeparator as .
-     * @return {string} formatted Value
-     */
-
-  }, {
-    key: "formatAsNumber",
-    value: function formatAsNumber(numStr) {
-      var _this$props5 = this.props,
-          decimalScale = _this$props5.decimalScale,
-          fixedDecimalScale = _this$props5.fixedDecimalScale,
-          prefix = _this$props5.prefix,
-          suffix = _this$props5.suffix,
-          allowNegative = _this$props5.allowNegative,
-          thousandsGroupStyle = _this$props5.thousandsGroupStyle;
-
-      var _this$getSeparators4 = this.getSeparators(),
-          thousandSeparator = _this$getSeparators4.thousandSeparator,
-          decimalSeparator = _this$getSeparators4.decimalSeparator;
-
-      var hasDecimalSeparator = numStr.indexOf('.') !== -1 || decimalScale && fixedDecimalScale;
-
-      var _splitDecimal = (0, _utils.splitDecimal)(numStr, allowNegative),
-          beforeDecimal = _splitDecimal.beforeDecimal,
-          afterDecimal = _splitDecimal.afterDecimal,
-          addNegation = _splitDecimal.addNegation; // eslint-disable-line prefer-const
-      //apply decimal precision if its defined
-
-
-      if (decimalScale !== undefined) afterDecimal = (0, _utils.limitToScale)(afterDecimal, decimalScale, fixedDecimalScale);
-
-      if (thousandSeparator) {
-        var thousandsGroupRegex = (0, _utils.getThousandsGroupRegex)(thousandsGroupStyle);
-        beforeDecimal = beforeDecimal.replace(thousandsGroupRegex, '$1' + thousandSeparator);
-      } //add prefix and suffix
-
-
-      if (prefix) beforeDecimal = prefix + beforeDecimal;
-      if (suffix) afterDecimal = afterDecimal + suffix; //restore negation sign
-
-      if (addNegation) beforeDecimal = '-' + beforeDecimal;
-      numStr = beforeDecimal + (hasDecimalSeparator && decimalSeparator || '') + afterDecimal;
-      return numStr;
-    }
-  }, {
-    key: "formatNumString",
-    value: function formatNumString() {
-      var numStr = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-      var _this$props6 = this.props,
-          format = _this$props6.format,
-          allowEmptyFormatting = _this$props6.allowEmptyFormatting;
-      var formattedValue = numStr;
-
-      if (numStr === '' && !allowEmptyFormatting) {
-        formattedValue = '';
-      } else if (numStr === '-' && !format) {
-        formattedValue = '-';
-      } else if (typeof format === 'string') {
-        formattedValue = this.formatWithPattern(formattedValue);
-      } else if (typeof format === 'function') {
-        formattedValue = format(formattedValue);
-      } else {
-        formattedValue = this.formatAsNumber(formattedValue);
-      }
-
-      return formattedValue;
-    }
-  }, {
-    key: "formatValueProp",
-    value: function formatValueProp(defaultValue) {
-      var _this$props7 = this.props,
-          format = _this$props7.format,
-          decimalScale = _this$props7.decimalScale,
-          fixedDecimalScale = _this$props7.fixedDecimalScale,
-          allowEmptyFormatting = _this$props7.allowEmptyFormatting;
-      var _this$props8 = this.props,
-          _this$props8$value = _this$props8.value,
-          value = _this$props8$value === void 0 ? defaultValue : _this$props8$value,
-          isNumericString = _this$props8.isNumericString;
-      var isNonNumericFalsy = !value && value !== 0;
-
-      if (isNonNumericFalsy && allowEmptyFormatting) {
-        value = '';
-      } // if value is not defined return empty string
-
-
-      if (isNonNumericFalsy && !allowEmptyFormatting) return '';
-
-      if (typeof value === 'number') {
-        value = value.toString();
-        isNumericString = true;
-      } //change infinity value to empty string
-
-
-      if (value === 'Infinity' && isNumericString) {
-        value = '';
-      } //round the number based on decimalScale
-      //format only if non formatted value is provided
-
-
-      if (isNumericString && !format && typeof decimalScale === 'number') {
-        value = (0, _utils.roundToPrecision)(value, decimalScale, fixedDecimalScale);
-      }
-
-      var formattedValue = isNumericString ? this.formatNumString(value) : this.formatInput(value);
-      return formattedValue;
-    }
-  }, {
-    key: "formatNegation",
-    value: function formatNegation() {
-      var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-      var allowNegative = this.props.allowNegative;
-      var negationRegex = new RegExp('(-)');
-      var doubleNegationRegex = new RegExp('(-)(.)*(-)'); // Check number has '-' value
-
-      var hasNegation = negationRegex.test(value); // Check number has 2 or more '-' values
-
-      var removeNegation = doubleNegationRegex.test(value); //remove negation
-
-      value = value.replace(/-/g, '');
-
-      if (hasNegation && !removeNegation && allowNegative) {
-        value = '-' + value;
-      }
-
-      return value;
-    }
-  }, {
-    key: "formatInput",
-    value: function formatInput() {
-      var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-      var format = this.props.format; //format negation only if we are formatting as number
-
-      if (!format) {
-        value = this.removePrefixAndSuffix(value);
-        value = this.formatNegation(value);
-      } //remove formatting from number
-
-
-      value = this.removeFormatting(value);
-      return this.formatNumString(value);
-    }
-    /*** format specific methods end ***/
-
-  }, {
-    key: "isCharacterAFormat",
-    value: function isCharacterAFormat(caretPos, value) {
-      var _this$props9 = this.props,
-          format = _this$props9.format,
-          prefix = _this$props9.prefix,
-          suffix = _this$props9.suffix,
-          decimalScale = _this$props9.decimalScale,
-          fixedDecimalScale = _this$props9.fixedDecimalScale;
-
-      var _this$getSeparators5 = this.getSeparators(),
-          decimalSeparator = _this$getSeparators5.decimalSeparator; //check within format pattern
-
-
-      if (typeof format === 'string' && format[caretPos] !== '#') return true; //check in number format
-
-      if (!format && (caretPos < prefix.length || caretPos >= value.length - suffix.length || decimalScale && fixedDecimalScale && value[caretPos] === decimalSeparator)) {
-        return true;
-      }
-
-      return false;
-    }
-  }, {
-    key: "checkIfFormatGotDeleted",
-    value: function checkIfFormatGotDeleted(start, end, value) {
-      for (var i = start; i < end; i++) {
-        if (this.isCharacterAFormat(i, value)) return true;
-      }
-
-      return false;
-    }
-    /**
-     * This will check if any formatting got removed by the delete or backspace and reset the value
-     * It will also work as fallback if android chome keyDown handler does not work
-     **/
-
-  }, {
-    key: "correctInputValue",
-    value: function correctInputValue(caretPos, lastValue, value) {
-      var _this$props10 = this.props,
-          format = _this$props10.format,
-          allowNegative = _this$props10.allowNegative,
-          prefix = _this$props10.prefix,
-          suffix = _this$props10.suffix;
-
-      var _this$getSeparators6 = this.getSeparators(),
-          decimalSeparator = _this$getSeparators6.decimalSeparator;
-
-      var lastNumStr = this.state.numAsString || '';
-      var _this$selectionBefore = this.selectionBeforeInput,
-          selectionStart = _this$selectionBefore.selectionStart,
-          selectionEnd = _this$selectionBefore.selectionEnd;
-
-      var _findChangedIndex = (0, _utils.findChangedIndex)(lastValue, value),
-          start = _findChangedIndex.start,
-          end = _findChangedIndex.end;
-      /** Check if only . is added in the numeric format and replace it with decimal separator */
-
-
-      if (!format && decimalSeparator !== '.' && start === end && value[selectionStart] === '.') {
-        return value.substr(0, selectionStart) + decimalSeparator + value.substr(selectionStart + 1, value.length);
-      }
-      /* don't do anyhting if something got added,
-       or if value is empty string (when whole input is cleared)
-       or whole input is replace with a number
-      */
-
-
-      var leftBound = !!format ? 0 : prefix.length;
-      var rightBound = lastValue.length - (!!format ? 0 : suffix.length);
-
-      if (value.length > lastValue.length || !value.length || start === end || selectionStart === 0 && selectionEnd === lastValue.length || selectionStart === leftBound && selectionEnd === rightBound) {
-        return value;
-      } //if format got deleted reset the value to last value
-
-
-      if (this.checkIfFormatGotDeleted(start, end, lastValue)) {
-        value = lastValue;
-      } //for numbers check if beforeDecimal got deleted and there is nothing after decimal,
-      //clear all numbers in such case while keeping the - sign
-
-
-      if (!format) {
-        var numericString = this.removeFormatting(value);
-
-        var _splitDecimal2 = (0, _utils.splitDecimal)(numericString, allowNegative),
-            beforeDecimal = _splitDecimal2.beforeDecimal,
-            afterDecimal = _splitDecimal2.afterDecimal,
-            addNegation = _splitDecimal2.addNegation; // eslint-disable-line prefer-const
-        //clear only if something got deleted
-
-
-        var isBeforeDecimalPoint = caretPos < value.indexOf(decimalSeparator) + 1;
-
-        if (numericString.length < lastNumStr.length && isBeforeDecimalPoint && beforeDecimal === '' && !parseFloat(afterDecimal)) {
-          return addNegation ? '-' : '';
-        }
-      }
-
-      return value;
-    }
-    /** Update value and caret position */
-
-  }, {
-    key: "updateValue",
-    value: function updateValue(params) {
-      var _this2 = this;
-
-      var onUpdate = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _utils.noop;
-      var formattedValue = params.formattedValue,
-          input = params.input;
-      var numAsString = params.numAsString,
-          caretPos = params.caretPos;
-      var onValueChange = this.props.onValueChange;
-      var lastValue = this.state.value; //set caret position, and value imperatively when element is provided
-
-      if (input) {
-        //calculate caret position if not defined
-        if (!caretPos) {
-          var inputValue = params.inputValue || input.value;
-          var currentCaretPosition = (0, _utils.getCurrentCaretPosition)(input); //get the caret position
-
-          caretPos = this.getCaretPosition(inputValue, formattedValue, currentCaretPosition);
-        } //set the value imperatively, this is required for IE fix
-
-
-        input.value = formattedValue; //set caret position
-
-        this.setPatchedCaretPosition(input, caretPos, formattedValue);
-      } //calculate numeric string if not passed
-
-
-      if (numAsString === undefined) {
-        numAsString = this.removeFormatting(formattedValue);
-      } //update state if value is changed
-
-
-      if (formattedValue !== lastValue) {
-        this.setState({
-          value: formattedValue,
-          numAsString: numAsString
-        }, function () {
-          onValueChange(_this2.getValueObject(formattedValue, numAsString));
-          onUpdate();
-        });
-      } else {
-        onUpdate();
-      }
-    }
-  }, {
-    key: "onChange",
-    value: function onChange(e) {
-      e.persist();
-      var el = e.target;
-      var inputValue = el.value;
-      var state = this.state,
-          props = this.props;
-      var isAllowed = props.isAllowed;
-      var lastValue = state.value || '';
-      var currentCaretPosition = (0, _utils.getCurrentCaretPosition)(el);
-      inputValue = this.correctInputValue(currentCaretPosition, lastValue, inputValue);
-      var formattedValue = this.formatInput(inputValue) || '';
-      var numAsString = this.removeFormatting(formattedValue);
-      var valueObj = this.getValueObject(formattedValue, numAsString);
-
-      if (!isAllowed(valueObj)) {
-        formattedValue = lastValue;
-      }
-
-      this.updateValue({
-        formattedValue: formattedValue,
-        numAsString: numAsString,
-        inputValue: inputValue,
-        input: el
-      }, function () {
-        props.onChange(e);
-      });
-    }
-  }, {
-    key: "onBlur",
-    value: function onBlur(e) {
-      var props = this.props,
-          state = this.state;
-      var format = props.format,
-          onBlur = props.onBlur;
-      var numAsString = state.numAsString;
-      var lastValue = state.value;
-      this.focusedElm = null;
-
-      if (!format) {
-        numAsString = (0, _utils.fixLeadingZero)(numAsString);
-        var formattedValue = this.formatNumString(numAsString); //change the state
-
-        if (formattedValue !== lastValue) {
-          // the event needs to be persisted because its properties can be accessed in an asynchronous way
-          e.persist();
-          this.updateValue({
-            formattedValue: formattedValue,
-            numAsString: numAsString
-          }, function () {
-            onBlur(e);
-          });
-          return;
-        }
-      }
-
-      onBlur(e);
-    }
-  }, {
-    key: "onKeyDown",
-    value: function onKeyDown(e) {
-      var el = e.target;
-      var key = e.key;
-      var selectionStart = el.selectionStart,
-          selectionEnd = el.selectionEnd,
-          _el$value = el.value,
-          value = _el$value === void 0 ? '' : _el$value;
-      var expectedCaretPosition;
-      var _this$props11 = this.props,
-          decimalScale = _this$props11.decimalScale,
-          fixedDecimalScale = _this$props11.fixedDecimalScale,
-          prefix = _this$props11.prefix,
-          suffix = _this$props11.suffix,
-          format = _this$props11.format,
-          onKeyDown = _this$props11.onKeyDown,
-          onValueChange = _this$props11.onValueChange;
-      var ignoreDecimalSeparator = decimalScale !== undefined && fixedDecimalScale;
-      var numRegex = this.getNumberRegex(false, ignoreDecimalSeparator);
-      var negativeRegex = new RegExp('-');
-      var isPatternFormat = typeof format === 'string';
-      this.selectionBeforeInput = {
-        selectionStart: selectionStart,
-        selectionEnd: selectionEnd //Handle backspace and delete against non numerical/decimal characters or arrow keys
-
-      };
-
-      if (key === 'ArrowLeft' || key === 'Backspace') {
-        expectedCaretPosition = selectionStart - 1;
-      } else if (key === 'ArrowRight') {
-        expectedCaretPosition = selectionStart + 1;
-      } else if (key === 'Delete') {
-        expectedCaretPosition = selectionStart;
-      } //if expectedCaretPosition is not set it means we don't want to Handle keyDown
-      //also if multiple characters are selected don't handle
-
-
-      if (expectedCaretPosition === undefined || selectionStart !== selectionEnd) {
-        onKeyDown(e);
-        return;
-      }
-
-      var newCaretPosition = expectedCaretPosition;
-      var leftBound = isPatternFormat ? format.indexOf('#') : prefix.length;
-      var rightBound = isPatternFormat ? format.lastIndexOf('#') + 1 : value.length - suffix.length;
-
-      if (key === 'ArrowLeft' || key === 'ArrowRight') {
-        var direction = key === 'ArrowLeft' ? 'left' : 'right';
-        newCaretPosition = this.correctCaretPosition(value, expectedCaretPosition, direction);
-      } else if (key === 'Delete' && !numRegex.test(value[expectedCaretPosition]) && !negativeRegex.test(value[expectedCaretPosition])) {
-        while (!numRegex.test(value[newCaretPosition]) && newCaretPosition < rightBound) {
-          newCaretPosition++;
-        }
-      } else if (key === 'Backspace' && !numRegex.test(value[expectedCaretPosition])) {
-        /* NOTE: This is special case when backspace is pressed on a
-        negative value while the cursor position is after prefix. We can't handle it on onChange because
-        we will not have any information of keyPress
-        */
-        if (selectionStart <= leftBound + 1 && value[0] === '-' && typeof format === 'undefined') {
-          var newValue = value.substring(1); //persist event before performing async task
-
-          e.persist();
-          this.updateValue({
-            formattedValue: newValue,
-            caretPos: newCaretPosition,
-            input: el
-          });
-        } else if (!negativeRegex.test(value[expectedCaretPosition])) {
-          while (!numRegex.test(value[newCaretPosition - 1]) && newCaretPosition > leftBound) {
-            newCaretPosition--;
-          }
-
-          newCaretPosition = this.correctCaretPosition(value, newCaretPosition, 'left');
-        }
-      }
-
-      if (newCaretPosition !== expectedCaretPosition || expectedCaretPosition < leftBound || expectedCaretPosition > rightBound) {
-        e.preventDefault();
-        this.setPatchedCaretPosition(el, newCaretPosition, value);
-      }
-      /* NOTE: this is just required for unit test as we need to get the newCaretPosition,
-              Remove this when you find different solution */
-
-
-      if (e.isUnitTestRun) {
-        this.setPatchedCaretPosition(el, newCaretPosition, value);
-      }
-
-      this.props.onKeyDown(e);
-    }
-    /** required to handle the caret position when click anywhere within the input **/
-
-  }, {
-    key: "onMouseUp",
-    value: function onMouseUp(e) {
-      var el = e.target;
-      /**
-       * NOTE: we have to give default value for value as in case when custom input is provided
-       * value can come as undefined when nothing is provided on value prop.
-      */
-
-      var selectionStart = el.selectionStart,
-          selectionEnd = el.selectionEnd,
-          _el$value2 = el.value,
-          value = _el$value2 === void 0 ? '' : _el$value2;
-
-      if (selectionStart === selectionEnd) {
-        var caretPosition = this.correctCaretPosition(value, selectionStart);
-
-        if (caretPosition !== selectionStart) {
-          this.setPatchedCaretPosition(el, caretPosition, value);
-        }
-      }
-
-      this.props.onMouseUp(e);
-    }
-  }, {
-    key: "onFocus",
-    value: function onFocus(e) {
-      var _this3 = this;
-
-      // Workaround Chrome and Safari bug https://bugs.chromium.org/p/chromium/issues/detail?id=779328
-      // (onFocus event target selectionStart is always 0 before setTimeout)
-      e.persist();
-      this.focusedElm = e.target;
-      setTimeout(function () {
-        var el = e.target;
-        var selectionStart = el.selectionStart,
-            selectionEnd = el.selectionEnd,
-            _el$value3 = el.value,
-            value = _el$value3 === void 0 ? '' : _el$value3;
-
-        var caretPosition = _this3.correctCaretPosition(value, selectionStart); //setPatchedCaretPosition only when everything is not selected on focus (while tabbing into the field)
-
-
-        if (caretPosition !== selectionStart && !(selectionStart === 0 && selectionEnd === value.length)) {
-          _this3.setPatchedCaretPosition(el, caretPosition, value);
-        }
-
-        _this3.props.onFocus(e);
-      }, 0);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this$props12 = this.props,
-          type = _this$props12.type,
-          displayType = _this$props12.displayType,
-          customInput = _this$props12.customInput,
-          renderText = _this$props12.renderText,
-          getInputRef = _this$props12.getInputRef;
-      var value = this.state.value;
-      var otherProps = (0, _utils.omit)(this.props, propTypes);
-
-      var inputProps = _extends({}, otherProps, {
-        type: type,
-        value: value,
-        onChange: this.onChange,
-        onKeyDown: this.onKeyDown,
-        onMouseUp: this.onMouseUp,
-        onFocus: this.onFocus,
-        onBlur: this.onBlur
-      });
-
-      if (displayType === 'text') {
-        return renderText ? renderText(value) || null : _react.default.createElement("span", _extends({}, otherProps, {
-          ref: getInputRef
-        }), value);
-      } else if (customInput) {
-        var CustomInput = customInput;
-        return _react.default.createElement(CustomInput, inputProps);
-      }
-
-      return _react.default.createElement("input", _extends({}, inputProps, {
-        ref: getInputRef
-      }));
-    }
-  }]);
-
-  return NumberFormat;
-}(_react.default.Component);
-
-NumberFormat.propTypes = propTypes;
-NumberFormat.defaultProps = defaultProps;
-var _default = NumberFormat;
-exports.default = _default;
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/react-number-format/lib/utils.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/react-number-format/lib/utils.js ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.noop = noop;
-exports.returnTrue = returnTrue;
-exports.charIsNumber = charIsNumber;
-exports.escapeRegExp = escapeRegExp;
-exports.getThousandsGroupRegex = getThousandsGroupRegex;
-exports.splitDecimal = splitDecimal;
-exports.fixLeadingZero = fixLeadingZero;
-exports.limitToScale = limitToScale;
-exports.roundToPrecision = roundToPrecision;
-exports.omit = omit;
-exports.setCaretPosition = setCaretPosition;
-exports.findChangedIndex = findChangedIndex;
-exports.clamp = clamp;
-exports.getCurrentCaretPosition = getCurrentCaretPosition;
-
-// basic noop function
-function noop() {}
-
-function returnTrue() {
-  return true;
-}
-
-function charIsNumber(char) {
-  return !!(char || '').match(/\d/);
-}
-
-function escapeRegExp(str) {
-  return str.replace(/[-[\]/{}()*+?.\\^$|]/g, "\\$&");
-}
-
-function getThousandsGroupRegex(thousandsGroupStyle) {
-  switch (thousandsGroupStyle) {
-    case 'lakh':
-      return /(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/g;
-
-    case 'wan':
-      return /(\d)(?=(\d{4})+(?!\d))/g;
-
-    case 'thousand':
-    default:
-      return /(\d)(?=(\d{3})+(?!\d))/g;
-  }
-} //spilt a float number into different parts beforeDecimal, afterDecimal, and negation
-
-
-function splitDecimal(numStr) {
-  var allowNegative = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-  var hasNagation = numStr[0] === '-';
-  var addNegation = hasNagation && allowNegative;
-  numStr = numStr.replace('-', '');
-  var parts = numStr.split('.');
-  var beforeDecimal = parts[0];
-  var afterDecimal = parts[1] || '';
-  return {
-    beforeDecimal: beforeDecimal,
-    afterDecimal: afterDecimal,
-    hasNagation: hasNagation,
-    addNegation: addNegation
-  };
-}
-
-function fixLeadingZero(numStr) {
-  if (!numStr) return numStr;
-  var isNegative = numStr[0] === '-';
-  if (isNegative) numStr = numStr.substring(1, numStr.length);
-  var parts = numStr.split('.');
-  var beforeDecimal = parts[0].replace(/^0+/, '') || '0';
-  var afterDecimal = parts[1] || '';
-  return "".concat(isNegative ? '-' : '').concat(beforeDecimal).concat(afterDecimal ? ".".concat(afterDecimal) : '');
-}
-/**
- * limit decimal numbers to given scale
- * Not used .fixedTo because that will break with big numbers
- */
-
-
-function limitToScale(numStr, scale, fixedDecimalScale) {
-  var str = '';
-  var filler = fixedDecimalScale ? '0' : '';
-
-  for (var i = 0; i <= scale - 1; i++) {
-    str += numStr[i] || filler;
-  }
-
-  return str;
-}
-/**
- * This method is required to round prop value to given scale.
- * Not used .round or .fixedTo because that will break with big numbers
- */
-
-
-function roundToPrecision(numStr, scale, fixedDecimalScale) {
-  //if number is empty don't do anything return empty string
-  if (['', '-'].indexOf(numStr) !== -1) return numStr;
-  var shoudHaveDecimalSeparator = numStr.indexOf('.') !== -1 && scale;
-
-  var _splitDecimal = splitDecimal(numStr),
-      beforeDecimal = _splitDecimal.beforeDecimal,
-      afterDecimal = _splitDecimal.afterDecimal,
-      hasNagation = _splitDecimal.hasNagation;
-
-  var roundedDecimalParts = parseFloat("0.".concat(afterDecimal || '0')).toFixed(scale).split('.');
-  var intPart = beforeDecimal.split('').reverse().reduce(function (roundedStr, current, idx) {
-    if (roundedStr.length > idx) {
-      return (Number(roundedStr[0]) + Number(current)).toString() + roundedStr.substring(1, roundedStr.length);
-    }
-
-    return current + roundedStr;
-  }, roundedDecimalParts[0]);
-  var decimalPart = limitToScale(roundedDecimalParts[1] || '', Math.min(scale, afterDecimal.length), fixedDecimalScale);
-  var negation = hasNagation ? '-' : '';
-  var decimalSeparator = shoudHaveDecimalSeparator ? '.' : '';
-  return "".concat(negation).concat(intPart).concat(decimalSeparator).concat(decimalPart);
-}
-
-function omit(obj, keyMaps) {
-  var filteredObj = {};
-  Object.keys(obj).forEach(function (key) {
-    if (!keyMaps[key]) filteredObj[key] = obj[key];
-  });
-  return filteredObj;
-}
-/** set the caret positon in an input field **/
-
-
-function setCaretPosition(el, caretPos) {
-  el.value = el.value; // ^ this is used to not only get "focus", but
-  // to make sure we don't have it everything -selected-
-  // (it causes an issue in chrome, and having it doesn't hurt any other browser)
-
-  if (el !== null) {
-    if (el.createTextRange) {
-      var range = el.createTextRange();
-      range.move('character', caretPos);
-      range.select();
-      return true;
-    } // (el.selectionStart === 0 added for Firefox bug)
-
-
-    if (el.selectionStart || el.selectionStart === 0) {
-      el.focus();
-      el.setSelectionRange(caretPos, caretPos);
-      return true;
-    } // fail city, fortunately this never happens (as far as I've tested) :)
-
-
-    el.focus();
-    return false;
-  }
-}
-/**
-  Given previous value and newValue it returns the index
-  start - end to which values have changed.
-  This function makes assumption about only consecutive
-  characters are changed which is correct assumption for caret input.
-*/
-
-
-function findChangedIndex(prevValue, newValue) {
-  var i = 0,
-      j = 0;
-  var prevLength = prevValue.length;
-  var newLength = newValue.length;
-
-  while (prevValue[i] === newValue[i] && i < prevLength) {
-    i++;
-  } //check what has been changed from last
-
-
-  while (prevValue[prevLength - 1 - j] === newValue[newLength - 1 - j] && newLength - j > i && prevLength - j > i) {
-    j++;
-  }
-
-  return {
-    start: i,
-    end: prevLength - j
-  };
-}
-/*
-  Returns a number whose value is limited to the given range
-*/
-
-
-function clamp(num, min, max) {
-  return Math.min(Math.max(num, min), max);
-}
-
-function getCurrentCaretPosition(el) {
-  /*Max of selectionStart and selectionEnd is taken for the patch of pixel and other mobile device caret bug*/
-  return Math.max(el.selectionStart, el.selectionEnd);
-}
-
-/***/ }),
-
 /***/ "./node_modules/react-redux/es/components/Context.js":
 /*!***********************************************************!*\
   !*** ./node_modules/react-redux/es/components/Context.js ***!
@@ -90933,28 +89773,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material-ui/core/withWidth */ "./node_modules/@material-ui/core/withWidth/index.js");
 /* harmony import */ var _material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
-/* harmony import */ var react_number_format__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-number-format */ "./node_modules/react-number-format/lib/number_format.js");
-/* harmony import */ var react_number_format__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(react_number_format__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _app_components_form_index__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/app/components/form/index */ "./resources/js/app/components/form/index.js");
-/* harmony import */ var _helpers_application__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/helpers/application */ "./resources/js/helpers/application.js");
-/* harmony import */ var _styles_utils__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/styles/utils */ "./resources/js/styles/utils.js");
-/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components */ "./resources/js/app/event/components.jsx");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _app_components_form_index__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/app/components/form/index */ "./resources/js/app/components/form/index.js");
+/* harmony import */ var _helpers_application__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/helpers/application */ "./resources/js/helpers/application.js");
+/* harmony import */ var _styles_utils__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/styles/utils */ "./resources/js/styles/utils.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components */ "./resources/js/app/event/components.jsx");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\n\tdisplay: inline-flex;\n\tjustify-content: center;\n\talign-items: center;\n\tmargin-right: 8px;\n\theight: 24px;\n\twidth: 24px;\n\tfont-size: 14px;\n\tcolor: #fff;\n\tbackground-color: ", ";\n\tborder-radius: 50%;\n"]);
 
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n\tdisplay: inline-flex;\n\tjustify-content: center;\n\talign-items: center;\n\tmargin-right: 8px;\n\theight: 24px;\n\twidth: 24px;\n\tfont-size: 14px;\n\tcolor: #fff;\n\tbackground-color: ", ";\n\tborder-radius: 50%;\n"]);
+  var data = _taggedTemplateLiteral(["\n\tpadding: 10px;\n\tbackground-color: ", ";\n\tborder: 1px solid ", ";\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -90964,7 +89808,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n\tpadding: 10px;\n\tbackground-color: ", ";\n\tborder: 1px solid ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n\t\tmargin-bottom: 8px;\n\t"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -90974,7 +89818,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n\tdisplay: flex;\n\talign-items: center;\n\tmargin-bottom: 8px;\n\t", "\n"]);
+  var data = _taggedTemplateLiteral(["\n\tdisplay: flex;\n\talign-items: center;\n\t", "\n\t", "\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -91004,16 +89848,15 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 
-
-var SectionTitle = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div(_templateObject(), function (props) {
+var SectionTitle = styled_components__WEBPACK_IMPORTED_MODULE_14__["default"].div(_templateObject(), function (props) {
   return props.divider && "\n\t\tpadding-bottom: 4px;\n\t\tborder-bottom: 1px solid ".concat(props.theme.grey[300], ";\n\n\t");
-});
-var PaymentContainer = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div(_templateObject2(), function (props) {
+}, _styles_utils__WEBPACK_IMPORTED_MODULE_17__["media"].md(_templateObject2()));
+var PaymentContainer = styled_components__WEBPACK_IMPORTED_MODULE_14__["default"].div(_templateObject3(), function (props) {
   return props.theme.grey[200];
 }, function (props) {
   return props.theme.grey[300];
 });
-var Step = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].span(_templateObject3(), function (props) {
+var Step = styled_components__WEBPACK_IMPORTED_MODULE_14__["default"].span(_templateObject4(), function (props) {
   return props.theme.grey[800];
 });
 
@@ -91023,228 +89866,213 @@ var InternalBillingForm = function InternalBillingForm(_ref) {
       touched = _ref.touched,
       values = _ref.values,
       width = _ref.width;
-
-  var CreditCardFormat = function CreditCardFormat(props) {
-    var inputRef = props.inputRef,
-        other = _objectWithoutProperties(props, ["inputRef"]);
-
-    return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(react_number_format__WEBPACK_IMPORTED_MODULE_10___default.a, _extends({
-      format: "#### #### #### ####",
-      mask: "_",
-      getInputRef: inputRef
-    }, other));
-  };
-
-  var CardExpFormat = function CardExpFormat(props) {
-    var inputRef = props.inputRef,
-        other = _objectWithoutProperties(props, ["inputRef"]);
-
-    return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(react_number_format__WEBPACK_IMPORTED_MODULE_10___default.a, _extends({
-      format: "##/##",
-      placeholder: "MM/YY",
-      mask: ["M", "M", "Y", "Y"],
-      getInputRef: inputRef
-    }, other));
-  };
-
-  return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+  return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
     container: true,
     spacing: 40,
     justify: "space-between"
-  }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+  }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+    item: true,
+    xs: 12,
+    md: 5,
+    style: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_16__["isMobile"])(width) ? {
+      marginTop: "10px",
+      paddingBottom: 0
+    } : {
+      order: 2
+    }
+  }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(SectionTitle, {
+    divider: true
+  }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_icons_Lock__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    className: "pr-5"
+  }), " Order Summary"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_18__["TotalAmount"], null, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6___default.a, {
+    variant: "body2"
+  }, "Bowler Hall X ", react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("strong", null, "2")), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6___default.a, {
+    variant: "body2"
+  }, "$150")), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_18__["TotalAmount"], null, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6___default.a, {
+    variant: "body2"
+  }, "Donation"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6___default.a, {
+    variant: "body2"
+  }, "$10")), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    className: classes.divider
+  }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_18__["TotalAmount"], null, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("strong", null, "Total"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("strong", null, "$160 USD"))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
     item: true,
     xs: 12,
     md: 7,
-    className: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_17__["isMobile"])(width) ? "pb-rm" : ""
-  }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(PaymentContainer, null, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(SectionTitle, null, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(Step, null, "1"), " Billing Information"), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
+    style: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_16__["isMobile"])(width) ? {} : {
+      order: 1
+    }
+  }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(PaymentContainer, null, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(SectionTitle, {
+    divider: true
+  }, "Billing Information"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
     name: "payment.address",
     render: function render(_ref2) {
       var field = _ref2.field,
           form = _ref2.form;
-      return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_16__["Input"], _extends({
+      return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["Input"], _extends({
         label: "Street Address",
-        error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_16__["inputError"])(form, "payment.address"),
+        error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["inputError"])(form, "payment.address"),
         touched: Object(formik__WEBPACK_IMPORTED_MODULE_9__["getIn"])(form.touched, "payment.address"),
         autoComplete: "billing street-address"
       }, field));
     }
-  }), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+  }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
     container: true,
     spacing: 8,
     style: {
       marginBottom: "10px"
     }
-  }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+  }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
     item: true,
     xs: 6
-  }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
+  }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
     name: "payment.city",
     render: function render(_ref3) {
       var field = _ref3.field,
           form = _ref3.form;
-      return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_16__["Input"], _extends({
+      return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["Input"], _extends({
         label: "City",
-        error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_16__["inputError"])(form, "payment.city"),
+        error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["inputError"])(form, "payment.city"),
         touched: Object(formik__WEBPACK_IMPORTED_MODULE_9__["getIn"])(form.touched, "payment.city"),
         autoComplete: "billing address-level2"
       }, field));
     }
-  })), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+  })), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
     item: true,
     xs: 6
-  }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
+  }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
     name: "payment.state",
     render: function render(_ref4) {
       var field = _ref4.field,
           form = _ref4.form;
-      return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_16__["Input"], _extends({
+      return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["Input"], _extends({
         label: "State/Province",
-        error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_16__["inputError"])(form, "payment.state"),
+        error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["inputError"])(form, "payment.state"),
         touched: Object(formik__WEBPACK_IMPORTED_MODULE_9__["getIn"])(form.touched, "payment.state"),
         autoComplete: "billing address-level1"
       }, field));
     }
-  })), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+  })), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
     item: true,
     xs: 6
-  }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
+  }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
     name: "payment.zip",
     render: function render(_ref5) {
       var field = _ref5.field,
           form = _ref5.form;
-      return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_16__["Input"], _extends({
+      return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["Input"], _extends({
         label: "Zip/Postal Code",
-        error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_16__["inputError"])(form, "payment.zip"),
+        error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["inputError"])(form, "payment.zip"),
         touched: Object(formik__WEBPACK_IMPORTED_MODULE_9__["getIn"])(form.touched, "payment.zip"),
         autoComplete: "billing postal-code"
       }, field));
     }
-  })), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+  })), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
     item: true,
     xs: 6
-  }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
+  }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
     name: "payment.country",
     render: function render(_ref6) {
       var field = _ref6.field,
           form = _ref6.form;
-      return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_16__["Input"], _extends({
+      return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["Input"], _extends({
         select: true,
         label: "Country",
-        error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_16__["inputError"])(form, "payment.country"),
+        error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["inputError"])(form, "payment.country"),
         autoComplete: "billing country"
-      }, field), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_4___default.a, {
+      }, field), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_4___default.a, {
         value: ""
-      }), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_4___default.a, {
+      }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_4___default.a, {
         value: "US"
-      }, "United States"), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_4___default.a, {
+      }, "United States"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_4___default.a, {
         value: "CA"
       }, "Canada"));
     }
-  }))), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(SectionTitle, null, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(Step, null, "2"), " Card Details"), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
+  }))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(SectionTitle, {
+    divider: true
+  }, "Card Details"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
     name: "payment.cardName",
     render: function render(_ref7) {
       var field = _ref7.field,
           form = _ref7.form;
-      return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_16__["Input"], _extends({
+      return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["Input"], _extends({
         label: "Cardholder Name",
-        error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_16__["inputError"])(form, "payment.cardName"),
+        error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["inputError"])(form, "payment.cardName"),
         touched: Object(formik__WEBPACK_IMPORTED_MODULE_9__["getIn"])(form.touched, "payment.cardName"),
         autoComplete: "cc-name"
       }, field));
     }
-  }), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
+  }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
     name: "payment.cardNum",
     render: function render(_ref8) {
       var field = _ref8.field,
           form = _ref8.form;
-      return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_16__["Input"], _extends({
+      return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["Input"], _extends({
         label: "Card Number",
-        error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_16__["inputError"])(form, "payment.cardNum"),
+        error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["inputError"])(form, "payment.cardNum"),
         touched: Object(formik__WEBPACK_IMPORTED_MODULE_9__["getIn"])(form.touched, "payment.cardNum"),
         autoComplete: "cc-number",
         maxLength: "16"
       }, field));
     }
-  }), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+  }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
     container: true,
     spacing: 8,
     style: {
       marginBottom: "10px"
     }
-  }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+  }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
     item: true,
     xs: 6
-  }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
+  }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
     name: "payment.expiryMonth",
     render: function render(_ref9) {
       var field = _ref9.field,
           form = _ref9.form;
-      return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_16__["Input"], _extends({
+      return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["Input"], _extends({
         label: "Month",
-        error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_16__["inputError"])(form, "payment.expiryMonth"),
+        error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["inputError"])(form, "payment.expiryMonth"),
         touched: Object(formik__WEBPACK_IMPORTED_MODULE_9__["getIn"])(form.touched, "payment.expiryMonth"),
         autoComplete: "cc-exp-month",
         maxLength: "2"
       }, field));
     }
-  })), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+  })), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
     item: true,
     xs: 6
-  }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
+  }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
     name: "payment.expiryYear",
     render: function render(_ref10) {
       var field = _ref10.field,
           form = _ref10.form;
-      return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_16__["Input"], _extends({
+      return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["Input"], _extends({
         label: "Year",
-        error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_16__["inputError"])(form, "payment.expiryYear"),
+        error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["inputError"])(form, "payment.expiryYear"),
         touched: Object(formik__WEBPACK_IMPORTED_MODULE_9__["getIn"])(form.touched, "payment.expiryYear"),
         autoComplete: "cc-exp-month",
         maxLength: "2"
       }, field));
     }
-  })), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+  })), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
     item: true,
     xs: 6
-  }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
+  }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
     name: "payment.cvv",
     render: function render(_ref11) {
       var field = _ref11.field,
           form = _ref11.form;
-      return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_16__["Input"], _extends({
+      return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["Input"], _extends({
         label: "Security code",
-        error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_16__["inputError"])(form, "payment.cvv"),
+        error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["inputError"])(form, "payment.cvv"),
         touched: Object(formik__WEBPACK_IMPORTED_MODULE_9__["getIn"])(form.touched, "payment.cvv"),
         autoComplete: "cc-exp-month",
         maxLength: "3"
       }, field));
     }
-  }))), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0___default.a, {
+  }))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0___default.a, {
     variant: "contained",
     color: "primary",
     fullWidth: true
-  }, "PLACE ORDER"))), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
-    item: true,
-    xs: 12,
-    md: 5,
-    style: {
-      marginBottom: "20px"
-    }
-  }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(SectionTitle, {
-    divider: true
-  }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_icons_Lock__WEBPACK_IMPORTED_MODULE_1___default.a, {
-    className: "pr-5"
-  }), " Order Summary"), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_19__["TotalAmount"], null, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6___default.a, {
-    variant: "body2"
-  }, "Bowler Hall X ", react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement("strong", null, "2")), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6___default.a, {
-    variant: "body2"
-  }, "$150")), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_19__["TotalAmount"], null, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6___default.a, {
-    variant: "body2"
-  }, "Donation"), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6___default.a, {
-    variant: "body2"
-  }, "$10")), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    className: classes.divider
-  }), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_19__["TotalAmount"], null, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement("strong", null, "Total"), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement("strong", null, "$160 USD")))));
+  }, "PLACE ORDER")))));
 };
 
 InternalBillingForm.propTypes = {};
@@ -91257,7 +90085,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
   return {};
 };
 
-var BillingForm = Object(react_redux__WEBPACK_IMPORTED_MODULE_14__["connect"])(mapStateToProps, mapDispatchToProps)(Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_7__["withStyles"])(_components__WEBPACK_IMPORTED_MODULE_19__["styles"])(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_8___default()()(InternalBillingForm)));
+var BillingForm = Object(react_redux__WEBPACK_IMPORTED_MODULE_13__["connect"])(mapStateToProps, mapDispatchToProps)(Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_7__["withStyles"])(_components__WEBPACK_IMPORTED_MODULE_18__["styles"])(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_8___default()()(InternalBillingForm)));
 /* harmony default export */ __webpack_exports__["default"] = (BillingForm);
 
 /***/ }),
@@ -91369,35 +90197,39 @@ var Divider = function Divider(props) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @material-ui/core/Button */ "./node_modules/@material-ui/core/Button/index.js");
 /* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _material_ui_core_Step__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material-ui/core/Step */ "./node_modules/@material-ui/core/Step/index.js");
-/* harmony import */ var _material_ui_core_Step__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Step__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _material_ui_core_Stepper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/core/Stepper */ "./node_modules/@material-ui/core/Stepper/index.js");
-/* harmony import */ var _material_ui_core_Stepper__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Stepper__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _material_ui_core_StepContent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/StepContent */ "./node_modules/@material-ui/core/StepContent/index.js");
-/* harmony import */ var _material_ui_core_StepContent__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_StepContent__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _material_ui_core_StepLabel__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/StepLabel */ "./node_modules/@material-ui/core/StepLabel/index.js");
-/* harmony import */ var _material_ui_core_StepLabel__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_StepLabel__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/styles/index.js");
-/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/core/withWidth */ "./node_modules/@material-ui/core/withWidth/index.js");
-/* harmony import */ var _material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _app_store_actions__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/app-store/actions */ "./resources/js/app-store/actions.js");
-/* harmony import */ var _helpers_application__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/helpers/application */ "./resources/js/helpers/application.js");
-/* harmony import */ var _styles_theme__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/styles/theme */ "./resources/js/styles/theme.js");
-/* harmony import */ var _styles_utils__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/styles/utils */ "./resources/js/styles/utils.js");
-/* harmony import */ var _attendant_form__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./attendant-form */ "./resources/js/app/event/attendant-form.jsx");
-/* harmony import */ var _billing_form__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./billing-form */ "./resources/js/app/event/billing-form.jsx");
-/* harmony import */ var _housing_form__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./housing-form */ "./resources/js/app/event/housing-form.jsx");
-/* harmony import */ var _review_order__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./review-order */ "./resources/js/app/event/review-order.jsx");
+/* harmony import */ var _material_ui_icons_ChevronLeft__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material-ui/icons/ChevronLeft */ "./node_modules/@material-ui/icons/ChevronLeft.js");
+/* harmony import */ var _material_ui_icons_ChevronLeft__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_ChevronLeft__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _material_ui_icons_ChevronRight__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/icons/ChevronRight */ "./node_modules/@material-ui/icons/ChevronRight.js");
+/* harmony import */ var _material_ui_icons_ChevronRight__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_ChevronRight__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _material_ui_core_Step__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/Step */ "./node_modules/@material-ui/core/Step/index.js");
+/* harmony import */ var _material_ui_core_Step__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Step__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _material_ui_core_Stepper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/Stepper */ "./node_modules/@material-ui/core/Stepper/index.js");
+/* harmony import */ var _material_ui_core_Stepper__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Stepper__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _material_ui_core_StepContent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/StepContent */ "./node_modules/@material-ui/core/StepContent/index.js");
+/* harmony import */ var _material_ui_core_StepContent__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_StepContent__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _material_ui_core_StepLabel__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/core/StepLabel */ "./node_modules/@material-ui/core/StepLabel/index.js");
+/* harmony import */ var _material_ui_core_StepLabel__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_StepLabel__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/styles/index.js");
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material-ui/core/withWidth */ "./node_modules/@material-ui/core/withWidth/index.js");
+/* harmony import */ var _material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _app_store_actions__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/app-store/actions */ "./resources/js/app-store/actions.js");
+/* harmony import */ var _helpers_application__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/helpers/application */ "./resources/js/helpers/application.js");
+/* harmony import */ var _styles_theme__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/styles/theme */ "./resources/js/styles/theme.js");
+/* harmony import */ var _styles_utils__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/styles/utils */ "./resources/js/styles/utils.js");
+/* harmony import */ var _attendant_form__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./attendant-form */ "./resources/js/app/event/attendant-form.jsx");
+/* harmony import */ var _billing_form__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./billing-form */ "./resources/js/app/event/billing-form.jsx");
+/* harmony import */ var _housing_form__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./housing-form */ "./resources/js/app/event/housing-form.jsx");
+/* harmony import */ var _review_order__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./review-order */ "./resources/js/app/event/review-order.jsx");
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _templateObject8() {
@@ -91506,6 +90338,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
+
 var styles = function styles(theme) {
   return {
     stepper: _defineProperty({
@@ -91521,14 +90355,14 @@ var styles = function styles(theme) {
   };
 };
 
-var FormWrapper = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div(_templateObject(), _styles_theme__WEBPACK_IMPORTED_MODULE_15__["default"].shadows[3], _styles_utils__WEBPACK_IMPORTED_MODULE_16__["media"].md(_templateObject2()));
-var FormHeading = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].h4(_templateObject3(), function (props) {
+var FormWrapper = styled_components__WEBPACK_IMPORTED_MODULE_14__["default"].div(_templateObject(), _styles_theme__WEBPACK_IMPORTED_MODULE_17__["default"].shadows[3], _styles_utils__WEBPACK_IMPORTED_MODULE_18__["media"].md(_templateObject2()));
+var FormHeading = styled_components__WEBPACK_IMPORTED_MODULE_14__["default"].h4(_templateObject3(), function (props) {
   return props.theme.grey[900];
-}, _styles_utils__WEBPACK_IMPORTED_MODULE_16__["media"].md(_templateObject4()));
-var FormContent = Object(styled_components__WEBPACK_IMPORTED_MODULE_12__["default"])(formik__WEBPACK_IMPORTED_MODULE_7__["Form"])(_templateObject5(), _styles_utils__WEBPACK_IMPORTED_MODULE_16__["media"].md(_templateObject6()));
-var FormActions = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div(_templateObject7(), function (props) {
+}, _styles_utils__WEBPACK_IMPORTED_MODULE_18__["media"].md(_templateObject4()));
+var FormContent = Object(styled_components__WEBPACK_IMPORTED_MODULE_14__["default"])(formik__WEBPACK_IMPORTED_MODULE_9__["Form"])(_templateObject5(), _styles_utils__WEBPACK_IMPORTED_MODULE_18__["media"].md(_templateObject6()));
+var FormActions = styled_components__WEBPACK_IMPORTED_MODULE_14__["default"].div(_templateObject7(), function (props) {
   return props.theme.primary.main;
-}, _styles_utils__WEBPACK_IMPORTED_MODULE_16__["media"].md(_templateObject8(), function (props) {
+}, _styles_utils__WEBPACK_IMPORTED_MODULE_18__["media"].md(_templateObject8(), function (props) {
   return props.theme.grey[200];
 }));
 
@@ -91627,25 +90461,29 @@ var InternalEventForm = function InternalEventForm(_ref) {
       }
     }
 
-    return react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(FormActions, null, step > 1 && react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0___default.a, {
+    return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(FormActions, null, step > 1 && react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0___default.a, {
       className: "mr-10",
       onClick: function onClick(e) {
         return prevStep(e);
       }
-    }, "Back"), step < 4 && react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0___default.a, {
+    }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_icons_ChevronLeft__WEBPACK_IMPORTED_MODULE_1___default.a, {
+      size: "small"
+    }), " Back"), step < 4 && react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0___default.a, {
       variant: "contained",
       color: "primary",
       onClick: function onClick(e) {
         return nextStep(e);
       },
       disabled: !showNext
-    }, "Next"));
+    }, "Next ", react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_icons_ChevronRight__WEBPACK_IMPORTED_MODULE_2___default.a, {
+      size: "small"
+    })));
   };
 
   var steps = ["Attendants", "Housing", "Review", "Payment"];
   var initialValues = {
     registrants: [{
-      color: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_14__["getRandomColor"])(),
+      color: "#F3A712",
       first_name: "",
       last_name: "",
       email: "",
@@ -91815,7 +90653,7 @@ var InternalEventForm = function InternalEventForm(_ref) {
     return errors;
   };
 
-  return react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(FormWrapper, null, react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(FormHeading, null, event.title, " Registration"), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_7__["Formik"], {
+  return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(FormWrapper, null, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(FormHeading, null, event.title, " Registration"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Formik"], {
     initialValues: initialValues,
     validate: function validate(values) {
       return handleValidate(values);
@@ -91829,7 +90667,7 @@ var InternalEventForm = function InternalEventForm(_ref) {
           setFieldValue = _ref4.setFieldValue,
           touched = _ref4.touched,
           values = _ref4.values;
-      var content = react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_attendant_form__WEBPACK_IMPORTED_MODULE_17__["default"], {
+      var content = react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_attendant_form__WEBPACK_IMPORTED_MODULE_19__["default"], {
         errors: errors,
         touched: touched,
         values: values
@@ -91838,7 +90676,7 @@ var InternalEventForm = function InternalEventForm(_ref) {
 
       switch (step) {
         case 2:
-          content = react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_housing_form__WEBPACK_IMPORTED_MODULE_19__["default"], {
+          content = react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_housing_form__WEBPACK_IMPORTED_MODULE_21__["default"], {
             errors: errors,
             touched: touched,
             values: values
@@ -91847,7 +90685,7 @@ var InternalEventForm = function InternalEventForm(_ref) {
           break;
 
         case 3:
-          content = react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_review_order__WEBPACK_IMPORTED_MODULE_20__["default"], {
+          content = react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_review_order__WEBPACK_IMPORTED_MODULE_22__["default"], {
             errors: errors,
             setFieldValue: setFieldValue,
             touched: touched,
@@ -91857,7 +90695,7 @@ var InternalEventForm = function InternalEventForm(_ref) {
           break;
 
         case 4:
-          content = react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_billing_form__WEBPACK_IMPORTED_MODULE_18__["default"], {
+          content = react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_billing_form__WEBPACK_IMPORTED_MODULE_20__["default"], {
             errors: errors,
             touched: touched,
             values: values
@@ -91869,22 +90707,22 @@ var InternalEventForm = function InternalEventForm(_ref) {
       console.log("VALUES: ", values);
       console.log("ERRORS: ", errors);
       console.log("TOUCHED: ", touched);
-      return react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_material_ui_core_Stepper__WEBPACK_IMPORTED_MODULE_2___default.a, {
+      return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Stepper__WEBPACK_IMPORTED_MODULE_4___default.a, {
         activeStep: step - 1,
-        alternativeLabel: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_14__["isMobile"])(width) ? false : true,
+        alternativeLabel: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_16__["isMobile"])(width) ? false : true,
         className: classes.stepper,
-        orientation: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_14__["isMobile"])(width) ? "vertical" : "horizontal"
+        orientation: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_16__["isMobile"])(width) ? "vertical" : "horizontal"
       }, steps.map(function (label) {
-        return react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_material_ui_core_Step__WEBPACK_IMPORTED_MODULE_1___default.a, {
+        return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Step__WEBPACK_IMPORTED_MODULE_3___default.a, {
           key: label
-        }, react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_material_ui_core_StepLabel__WEBPACK_IMPORTED_MODULE_4___default.a, null, label), Object(_helpers_application__WEBPACK_IMPORTED_MODULE_14__["isMobile"])(width) && react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_material_ui_core_StepContent__WEBPACK_IMPORTED_MODULE_3___default.a, {
+        }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_StepLabel__WEBPACK_IMPORTED_MODULE_6___default.a, null, label), Object(_helpers_application__WEBPACK_IMPORTED_MODULE_16__["isMobile"])(width) && react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_StepContent__WEBPACK_IMPORTED_MODULE_5___default.a, {
           className: classes.stepContent
-        }, content, react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(FormNav, {
+        }, content, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(FormNav, {
           errors: errors,
           touched: touched,
           values: values
         })));
-      })), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(FormContent, null, content), !Object(_helpers_application__WEBPACK_IMPORTED_MODULE_14__["isMobile"])(width) && react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(FormNav, {
+      })), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(FormContent, null, content), !Object(_helpers_application__WEBPACK_IMPORTED_MODULE_16__["isMobile"])(width) && react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(FormNav, {
         errors: errors,
         touched: touched,
         values: values
@@ -91894,7 +90732,7 @@ var InternalEventForm = function InternalEventForm(_ref) {
 };
 
 InternalEventForm.propTypes = {
-  event: prop_types__WEBPACK_IMPORTED_MODULE_10___default.a.object
+  event: prop_types__WEBPACK_IMPORTED_MODULE_12___default.a.object
 };
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
@@ -91921,7 +90759,7 @@ var mergeProps = function mergeProps(stateProps, dispatchProps, ownProps) {
         return false;
       }
 
-      dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_13__["setStep"])(step - 1));
+      dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_15__["setStep"])(step - 1));
     },
     nextStep: function nextStep(e) {
       e.preventDefault();
@@ -91930,12 +90768,12 @@ var mergeProps = function mergeProps(stateProps, dispatchProps, ownProps) {
         return false;
       }
 
-      dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_13__["setStep"])(step + 1));
+      dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_15__["setStep"])(step + 1));
     }
   });
 };
 
-var EventForm = Object(react_redux__WEBPACK_IMPORTED_MODULE_11__["connect"])(mapStateToProps, mapDispatchToProps, mergeProps)(Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_5__["withStyles"])(styles)(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_6___default()()(InternalEventForm)));
+var EventForm = Object(react_redux__WEBPACK_IMPORTED_MODULE_13__["connect"])(mapStateToProps, mapDispatchToProps, mergeProps)(Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_7__["withStyles"])(styles)(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_8___default()()(InternalEventForm)));
 /* harmony default export */ __webpack_exports__["default"] = (EventForm);
 
 /***/ }),
@@ -92613,8 +91451,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRandomColor", function() { return getRandomColor; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isMobile", function() { return isMobile; });
 var getRandomColor = function getRandomColor() {
-  var colors = ["#F3A712", "#29335C", "#E4572E", "#669BBC", "#6F1D1B", "#A0CCDA"];
-  return colors[Math.floor(Math.random() * 6)];
+  var colors = ["#29335C", "#E4572E", "#669BBC", "#A0CCDA"];
+  return colors[Math.floor(Math.random() * 4)];
 };
 var isMobile = function isMobile(width) {
   return /xs|sm/.test(width);

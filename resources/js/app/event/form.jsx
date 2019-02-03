@@ -1,4 +1,6 @@
 import Button from "@material-ui/core/Button"
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft"
+import ChevronRightIcon from "@material-ui/icons/ChevronRight"
 import Step from "@material-ui/core/Step"
 import Stepper from "@material-ui/core/Stepper"
 import StepContent from "@material-ui/core/StepContent"
@@ -14,7 +16,7 @@ import { connect } from "react-redux"
 import styled from "styled-components"
 
 import { setStep } from "@/app-store/actions"
-import { getRandomColor, isMobile } from "@/helpers/application"
+import { isMobile } from "@/helpers/application"
 import theme from "@/styles/theme"
 import { media } from "@/styles/utils"
 import AttendantForm from "./attendant-form"
@@ -134,7 +136,7 @@ const InternalEventForm = ({
 			<FormActions>
 				{step > 1 && (
 					<Button className="mr-10" onClick={e => prevStep(e)}>
-						Back
+						<ChevronLeftIcon size="small" /> Back
 					</Button>
 				)}
 				{step < 4 && (
@@ -144,7 +146,7 @@ const InternalEventForm = ({
 						onClick={e => nextStep(e)}
 						disabled={!showNext}
 					>
-						Next
+						Next <ChevronRightIcon size="small" />
 					</Button>
 				)}
 			</FormActions>
@@ -155,7 +157,7 @@ const InternalEventForm = ({
 	const initialValues = {
 		registrants: [
 			{
-				color: getRandomColor(),
+				color: "#F3A712",
 				first_name: "",
 				last_name: "",
 				email: "",

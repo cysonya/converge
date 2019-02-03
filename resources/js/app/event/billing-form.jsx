@@ -24,13 +24,15 @@ import { styles, TotalAmount } from "./components"
 const SectionTitle = styled.div`
 	display: flex;
 	align-items: center;
-	margin-bottom: 8px;
 	${props =>
 		props.divider &&
 		`
 		padding-bottom: 4px;
 		border-bottom: 1px solid ${props.theme.grey[300]};
 
+	`}
+	${media.md`
+		margin-bottom: 8px;
 	`}
 `
 const PaymentContainer = styled.div`
@@ -55,11 +57,38 @@ const InternalBillingForm = ({ classes, errors, touched, values, width }) => {
 	return (
 		<div>
 			<Grid container spacing={40} justify="space-between">
-				<Grid item xs={12} md={7} className={isMobile(width) ? "pb-rm" : ""}>
+				<Grid
+					item
+					xs={12}
+					md={5}
+					style={
+						isMobile(width)
+							? { marginTop: "10px", paddingBottom: 0 }
+							: { order: 2 }
+					}
+				>
+					<SectionTitle divider>
+						<LockIcon className="pr-5" /> Order Summary
+					</SectionTitle>
+					<TotalAmount>
+						<Typography variant="body2">
+							Bowler Hall X <strong>2</strong>
+						</Typography>
+						<Typography variant="body2">$150</Typography>
+					</TotalAmount>
+					<TotalAmount>
+						<Typography variant="body2">Donation</Typography>
+						<Typography variant="body2">$10</Typography>
+					</TotalAmount>
+					<Divider className={classes.divider} />
+					<TotalAmount>
+						<strong>Total</strong>
+						<strong>$160 USD</strong>
+					</TotalAmount>
+				</Grid>
+				<Grid item xs={12} md={7} style={isMobile(width) ? {} : { order: 1 }}>
 					<PaymentContainer>
-						<SectionTitle>
-							<Step>1</Step> Billing Information
-						</SectionTitle>
+						<SectionTitle divider>Billing Information</SectionTitle>
 						<Field
 							name="payment.address"
 							render={({ field, form }) => (
@@ -135,9 +164,7 @@ const InternalBillingForm = ({ classes, errors, touched, values, width }) => {
 							</Grid>
 						</Grid>
 
-						<SectionTitle>
-							<Step>2</Step> Card Details
-						</SectionTitle>
+						<SectionTitle divider>Card Details</SectionTitle>
 						<Field
 							name="payment.cardName"
 							render={({ field, form }) => (
@@ -215,27 +242,6 @@ const InternalBillingForm = ({ classes, errors, touched, values, width }) => {
 							PLACE ORDER
 						</Button>
 					</PaymentContainer>
-				</Grid>
-
-				<Grid item xs={12} md={5} style={{ marginBottom: "20px" }}>
-					<SectionTitle divider>
-						<LockIcon className="pr-5" /> Order Summary
-					</SectionTitle>
-					<TotalAmount>
-						<Typography variant="body2">
-							Bowler Hall X <strong>2</strong>
-						</Typography>
-						<Typography variant="body2">$150</Typography>
-					</TotalAmount>
-					<TotalAmount>
-						<Typography variant="body2">Donation</Typography>
-						<Typography variant="body2">$10</Typography>
-					</TotalAmount>
-					<Divider className={classes.divider} />
-					<TotalAmount>
-						<strong>Total</strong>
-						<strong>$160 USD</strong>
-					</TotalAmount>
 				</Grid>
 			</Grid>
 		</div>
