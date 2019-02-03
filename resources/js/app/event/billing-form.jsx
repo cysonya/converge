@@ -9,7 +9,6 @@ import { withStyles } from "@material-ui/core/styles"
 import withWidth from "@material-ui/core/withWidth"
 
 import { Field, getIn } from "formik"
-import NumberFormat from "react-number-format"
 import React from "react"
 import ReactDOM from "react-dom"
 import PropTypes from "prop-types"
@@ -53,30 +52,6 @@ const Step = styled.span`
 `
 
 const InternalBillingForm = ({ classes, errors, touched, values, width }) => {
-	const CreditCardFormat = props => {
-		const { inputRef, ...other } = props
-		return (
-			<NumberFormat
-				format="#### #### #### ####"
-				mask="_"
-				getInputRef={inputRef}
-				{...other}
-			/>
-		)
-	}
-	const CardExpFormat = props => {
-		const { inputRef, ...other } = props
-		return (
-			<NumberFormat
-				format="##/##"
-				placeholder="MM/YY"
-				mask={["M", "M", "Y", "Y"]}
-				getInputRef={inputRef}
-				{...other}
-			/>
-		)
-	}
-
 	return (
 		<div>
 			<Grid container spacing={40} justify="space-between">
