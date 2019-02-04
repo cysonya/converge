@@ -58,15 +58,15 @@ const FormWrapper = styled.div`
 `
 const FormHeading = styled.h4`
 	margin: 0;
-	padding: 10px;
+	padding: 20px 10px 0;
 	font-size: 18px;
 	font-weight: normal;
-	color: white;
 	text-align: center;
-	background-color: ${props => props.theme.grey[900]};
 	${media.md`
-		font-size: 22px;
 		padding: 12px 20px;
+		color: white;
+		font-size: 22px;
+		background-color: ${props => props.theme.grey[900]};
 	`}
 `
 
