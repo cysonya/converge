@@ -12,14 +12,18 @@ const mix = require("laravel-mix")
  */
 
 mix.webpackConfig({
-	resolve: {
-		extensions: [".js", ".jsx"],
-		alias: {
-			"@": __dirname + "/resources/js"
-		}
-	}
+  resolve: {
+    extensions: [".js", ".jsx"],
+    alias: {
+      "@": __dirname + "/resources/js"
+    }
+  }
 })
 
 mix
-	.react("resources/js/app.js", "public/js")
-	.sass("resources/sass/app.scss", "public/css")
+  .react("resources/js/app.js", "public/js")
+  .sass("resources/sass/app.scss", "public/css")
+
+if (mix.inProduction()) {
+  mix.version()
+}
