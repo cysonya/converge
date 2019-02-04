@@ -1,3 +1,4 @@
+import Paper from "@material-ui/core/Paper"
 import Step from "@material-ui/core/Step"
 import Stepper from "@material-ui/core/Stepper"
 import StepContent from "@material-ui/core/StepContent"
@@ -10,9 +11,10 @@ import React from "react"
 import ReactDOM from "react-dom"
 import PropTypes from "prop-types"
 import { connect } from "react-redux"
+import { Elements, injectStripe } from "react-stripe-elements"
 import styled from "styled-components"
 
-import { setStep } from "@/app-store/actions"
+import { placeOrder, setStep } from "@/app-store/actions"
 import { isMobile } from "@/helpers/application"
 import theme from "@/styles/theme"
 import { media } from "@/styles/utils"
@@ -33,6 +35,13 @@ const styles = theme => ({
 	stepContent: {
 		paddingLeft: "10px",
 		paddingRight: "0"
+	},
+	error: {
+		marginLeft: "20px",
+		marginRight: "20px",
+		padding: "10px",
+		color: "white",
+		backgroundColor: theme.palette.error.dark
 	}
 })
 
@@ -62,14 +71,20 @@ const FormHeading = styled.h4`
 `
 
 const FormContent = styled(Form)`
-	display: none;
 	${media.md`
 		display: block;
 		padding: 20px;
 	`}
 `
 
-const InternalEventForm = ({ classes, event, step, width }) => {
+const InternalEventForm = ({
+	classes,
+	doPlaceOrder,
+	event,
+	step,
+	stripe,
+	width
+}) => {
 	if (Object.keys(event).length < 1) {
 		return null
 	}
@@ -89,16 +104,11 @@ const InternalEventForm = ({ classes, event, step, width }) => {
 			}
 		],
 		payment: {
-			address: "",
-			city: "",
-			state: "",
-			country: "",
-			zip: "",
 			cardName: "",
-			cardNum: "",
-			expiryMonth: "",
-			expiryYear: "",
-			cvv: ""
+			cardNumber: "",
+			cardExpiry: "",
+			cardCvc: "",
+			postalCode: ""
 		},
 		customer_first_name: "",
 		customer_last_name: "",
@@ -109,132 +119,31 @@ const InternalEventForm = ({ classes, event, step, width }) => {
 	const handleValidate = values => {
 		let errors = {}
 
-		// Customer validation
-		// if (!values.customer_first_name) {
-		// 	errors.customer_first_name = "Provide first name"
-		// }
-		// if (!values.customer_last_name) {
-		// 	errors.customer_last_name = "Provide last name"
-		// }
-		// if (!values.customer_email) {
-		// 	errors.customer_email = "Provide email"
-		// } else if (
-		// 	!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.customer_email)
-		// ) {
-		// 	errors.customer_email = "Invalid email address"
-		// }
-
-		if (!values.payment.address) {
-			errors.payment = Object.assign(
-				{
-					address: "Provide address"
-				},
-				errors.payment
-			)
-		}
-		if (!values.payment.city) {
-			errors.payment = Object.assign(
-				{
-					city: "Required"
-				},
-				errors.payment
-			)
-		}
-		if (!values.payment.state) {
-			errors.payment = Object.assign(
-				{
-					state: "Required"
-				},
-				errors.payment
-			)
-		}
-		if (!values.payment.zip) {
-			errors.payment = Object.assign(
-				{
-					zip: "Required"
-				},
-				errors.payment
-			)
-		}
-		if (!values.payment.country) {
-			errors.payment = Object.assign(
-				{
-					country: "Required"
-				},
-				errors.payment
-			)
-		}
 		if (!values.payment.cardName) {
-			errors.payment = Object.assign(
-				{
-					cardName: "Required"
-				},
-				errors.payment
-			)
+			errors.payment = Object.assign({ cardName: "Required" }, errors.payment)
 		}
-		if (!values.payment.cardNum) {
-			errors.payment = Object.assign(
-				{
-					cardNum: "Required"
-				},
-				errors.payment
-			)
-		} else if (
-			!/[0-9]{4} {0,1}[0-9]{4} {0,1}[0-9]{4} {0,1}[0-9]{4}/.test(
-				values.payment.cardNum
-			)
-		) {
-			errors.payment = Object.assign(
-				{
-					cardNum: "Invalid Card number"
-				},
-				errors.payment
-			)
+		if (!values.payment.cardNumber) {
+			errors.payment = Object.assign({ cardNumber: "Required" }, errors.payment)
 		}
-		if (!values.payment.expiryMonth) {
-			errors.payment = Object.assign(
-				{
-					expiryMonth: "Required"
-				},
-				errors.payment
-			)
-		} else if (!/^(0[1-9]|1[0-2])$/.test(values.payment.expiryMonth)) {
-			errors.payment = Object.assign(
-				{
-					expiryMonth: "Invalid month"
-				},
-				errors.payment
-			)
+		if (!values.payment.cardNumbercardExpiry) {
+			errors.payment = Object.assign({ cardExpiry: "Required" }, errors.payment)
 		}
-		if (!values.payment.expiryYear) {
-			errors.payment = Object.assign(
-				{
-					expiryYear: "Required"
-				},
-				errors.payment
-			)
-		} else if (!/^\d{2}$/.test(values.payment.expiryYear)) {
-			errors.payment = Object.assign(
-				{
-					expiryYear: "Invalid year"
-				},
-				errors.payment
-			)
+		if (!values.payment.cardCvc) {
+			errors.payment = Object.assign({ cardCvc: "Required" }, errors.payment)
 		}
-		if (!values.payment.cvv) {
-			errors.payment = Object.assign(
-				{
-					cvv: "Required"
-				},
-				errors.payment
-			)
-		} else if (!/^\d{3}$/.test(values.payment.cvv)) {
-			errors.payment = Object.assign(
-				{
-					cvv: "Invalid code"
-				},
-				errors.payment
-			)
+		if (!values.payment.postalCode) {
+			errors.payment = Object.assign({ postalCode: "Required" }, errors.payment)
+		}
+		// remove payment errors if completed
+		if (errors.payment) {
+			for (let err in errors.payment) {
+				if (values.payment[err] === "complete") {
+					delete errors.payment[err]
+				}
+			}
+			if (Object.keys(errors.payment).length === 0) {
+				delete errors.payment
+			}
 		}
 
 		// Only validate donation if amount is entered
@@ -286,33 +195,61 @@ const InternalEventForm = ({ classes, event, step, width }) => {
 	return (
 		<FormWrapper>
 			<FormHeading>{event.title} Registration</FormHeading>
-
 			<Formik
 				initialValues={initialValues}
 				validate={values => {
 					return handleValidate(values)
 				}}
 				onSubmit={(values, { setSubmitting }) => {
-					return true
+					stripe
+						.createToken({ name: values.payment.cardName })
+						.then(({ error, token }) => {
+							console.log("Stripe TOKEN: ", token)
+							console.log("Stripe ERRORS: ", error)
+							if (!!token) {
+								values.stripeToken = token.id
+								values.customer_email = values.registrants[0].email
+								values.customer_first_name =
+									values.registrants[0].customer_first_name
+								values.customer_last_name =
+									values.registrants[0].customer_last_name
+
+								doPlaceOrder(values, setSubmitting)
+							}
+						})
 				}}
-				render={({ errors, setFieldValue, touched, values }) => {
+				render={({
+					errors,
+					setFieldValue,
+					setFieldTouched,
+					setFieldError,
+					touched,
+					values
+				}) => {
 					let content = <AttendantForm {...{ errors, touched, values }} />
-					let title = "Step 1: Register attendants"
 
 					switch (step) {
 						case 2:
 							content = <HousingForm {...{ errors, touched, values }} />
-							title = "Step 2: Choose housing"
 							break
 						case 3:
 							content = (
 								<ReviewOrder {...{ errors, setFieldValue, touched, values }} />
 							)
-							title = "Step 3: Review"
 							break
 						case 4:
-							content = <BillingForm {...{ errors, touched, values }} />
-							title = "Step 4: Billing information"
+							content = (
+								<BillingForm
+									{...{
+										errors,
+										setFieldValue,
+										setFieldTouched,
+										setFieldError,
+										touched,
+										values
+									}}
+								/>
+							)
 							break
 					}
 					console.log("VALUES: ", values)
@@ -330,18 +267,24 @@ const InternalEventForm = ({ classes, event, step, width }) => {
 								{steps.map(label => (
 									<Step key={label}>
 										<StepLabel>{label}</StepLabel>
-										{isMobile(width) && (
+										{isMobile(width) ? (
 											<StepContent className={classes.stepContent}>
 												{content}
 												<FormNav {...{ errors, touched, values }} />
 											</StepContent>
-										)}
+										) : null}
 									</Step>
 								))}
 							</Stepper>
-
-							<FormContent>{content}</FormContent>
-							{!isMobile(width) && <FormNav {...{ errors, touched, values }} />}
+							{false && (
+								<Paper className={classes.error}>Testing error message</Paper>
+							)}
+							{!isMobile(width) && (
+								<div>
+									<FormContent>{content}</FormContent>
+									<FormNav {...{ errors, touched, values }} />
+								</div>
+							)}
 						</div>
 					)
 				}}
@@ -357,12 +300,17 @@ InternalEventForm.propTypes = {
 const mapStateToProps = (state, ownProps) => {
 	return {
 		event: state.event,
-		step: state.event.step
+		step: state.event.step,
+		stripe: ownProps.stripe
 	}
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-	return {}
+	return {
+		doPlaceOrder: (values, setSubmitting) => {
+			dispatch(placeOrder(values, setSubmitting))
+		}
+	}
 }
 
 const EventForm = connect(
@@ -370,4 +318,4 @@ const EventForm = connect(
 	mapDispatchToProps
 )(withStyles(styles)(withWidth()(InternalEventForm)))
 
-export default EventForm
+export default injectStripe(EventForm)

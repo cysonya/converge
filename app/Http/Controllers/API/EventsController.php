@@ -27,6 +27,7 @@ class EventsController extends Controller
         });
 
         return response()->json([
+            'id' => $event->id,
             'title' => $event->title,
             'description' => $event->description,
             'start_date' => $event->start_date,

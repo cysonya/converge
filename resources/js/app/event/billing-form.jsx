@@ -2,6 +2,7 @@ import Button from "@material-ui/core/Button"
 import LockIcon from "@material-ui/icons/Lock"
 import Divider from "@material-ui/core/Divider"
 import Grid from "@material-ui/core/Grid"
+import Input from "@material-ui/core/Input"
 import MenuItem from "@material-ui/core/MenuItem"
 import TextField from "@material-ui/core/TextField"
 import Typography from "@material-ui/core/Typography"
@@ -14,8 +15,15 @@ import ReactDOM from "react-dom"
 import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import styled from "styled-components"
+import {
+	CardElement,
+	CardNumberElement,
+	CardExpiryElement,
+	CardCVCElement,
+	PostalCodeElement
+} from "react-stripe-elements"
 
-import { Input, inputError } from "@/app/components/form/index"
+import { inputError } from "@/app/components/form/index"
 import { isMobile } from "@/helpers/application"
 import { media } from "@/styles/utils"
 
@@ -24,13 +32,8 @@ import { getTotal, styles, TotalAmount } from "./components"
 const SectionTitle = styled.div`
 	display: flex;
 	align-items: center;
-	${props =>
-		props.divider &&
-		`
-		padding-bottom: 4px;
-		border-bottom: 1px solid ${props.theme.grey[300]};
-
-	`}
+	padding-bottom: 4px;
+	border-bottom: 1px solid ${props => props.theme.grey[300]};
 	${media.md`
 		margin-bottom: 8px;
 	`}
@@ -40,21 +43,43 @@ const PaymentContainer = styled.div`
 	background-color: ${props => props.theme.grey[200]};
 	border: 1px solid ${props => props.theme.grey[300]};
 `
-const Step = styled.span`
-	display: inline-flex;
-	justify-content: center;
-	align-items: center;
-	margin-right: 8px;
-	height: 24px;
-	width: 24px;
+const FormControl = styled.div`
+	margin-bottom: 12px;
+`
+const FormLabel = styled.div`
+	margin-bottom: 5px;
+	padding-left: 4px;
 	font-size: 14px;
-	color: #fff;
-	background-color: ${props => props.theme.grey[800]};
-	border-radius: 50%;
+`
+const ErrorText = styled.div`
+	margin: 8px 12px 0;
+	font-size: 0.75rem;
+	line-height: 1em;
+	color: ${props => props.theme.error.main};
+`
+const NameInput = styled.input`
+	background-color: white;
+	height: 40px;
+	width: 100%;
+	padding: 10px 12px;
+	border-radius: 4px;
+	border: 1px solid transparent;
+	box-shadow: 0 1px 3px 0 #e6ebf1;
+	&:focus {
+		outline: none;
+		border-color: ${props => props.theme.primary.main};
+	}
+	${props =>
+		props.error &&
+		`
+		border-color: ${props => props.theme.error.main};
+	`}
 `
 
 const InternalBillingForm = ({
 	classes,
+	doChange,
+	doFocus,
 	errors,
 	orderTotal,
 	pkgSummary,
@@ -64,7 +89,12 @@ const InternalBillingForm = ({
 }) => {
 	return (
 		<div>
-			<Grid container spacing={40} justify="space-between">
+			<Grid
+				container
+				spacing={40}
+				justify="space-between"
+				style={{ marginBottom: "10px" }}
+			>
 				<Grid
 					item
 					xs={12}
@@ -75,7 +105,7 @@ const InternalBillingForm = ({
 							: { order: 2 }
 					}
 				>
-					<SectionTitle divider>
+					<SectionTitle>
 						<LockIcon className="pr-5" /> Order Summary
 					</SectionTitle>
 					{Object.keys(pkgSummary).map((pkg, i) => (
@@ -105,156 +135,82 @@ const InternalBillingForm = ({
 				</Grid>
 				<Grid item xs={12} md={7} style={isMobile(width) ? {} : { order: 1 }}>
 					<PaymentContainer>
-						<SectionTitle divider>Billing Information</SectionTitle>
-						<Field
-							name="payment.address"
-							render={({ field, form }) => (
-								<Input
-									label="Street Address"
-									error={inputError(form, "payment.address")}
-									touched={getIn(form.touched, "payment.address")}
-									autoComplete="billing street-address"
-									{...field}
-								/>
-							)}
-						/>
-						<Grid container spacing={8} style={{ marginBottom: "10px" }}>
-							<Grid item xs={6}>
-								<Field
-									name="payment.city"
-									render={({ field, form }) => (
-										<Input
-											label="City"
-											error={inputError(form, "payment.city")}
-											touched={getIn(form.touched, "payment.city")}
-											autoComplete="billing address-level2"
-											{...field}
-										/>
-									)}
-								/>
-							</Grid>
-							<Grid item xs={6}>
-								<Field
-									name="payment.state"
-									render={({ field, form }) => (
-										<Input
-											label="State/Province"
-											error={inputError(form, "payment.state")}
-											touched={getIn(form.touched, "payment.state")}
-											autoComplete="billing address-level1"
-											{...field}
-										/>
-									)}
-								/>
-							</Grid>
-							<Grid item xs={6}>
-								<Field
-									name="payment.zip"
-									render={({ field, form }) => (
-										<Input
-											label="Zip/Postal Code"
-											error={inputError(form, "payment.zip")}
-											touched={getIn(form.touched, "payment.zip")}
-											autoComplete="billing postal-code"
-											{...field}
-										/>
-									)}
-								/>
-							</Grid>
-							<Grid item xs={6}>
-								<Field
-									name="payment.country"
-									render={({ field, form }) => (
-										<Input
-											select
-											label="Country"
-											error={inputError(form, "payment.country")}
-											autoComplete="billing country"
-											{...field}
-										>
-											<MenuItem value="" />
-											<MenuItem value="US">United States</MenuItem>
-											<MenuItem value="CA">Canada</MenuItem>
-										</Input>
-									)}
-								/>
-							</Grid>
-						</Grid>
-
-						<SectionTitle divider>Card Details</SectionTitle>
 						<Field
 							name="payment.cardName"
 							render={({ field, form }) => (
-								<Input
-									label="Cardholder Name"
-									error={inputError(form, "payment.cardName")}
-									touched={getIn(form.touched, "payment.cardName")}
-									autoComplete="cc-name"
-									{...field}
-								/>
+								<FormControl>
+									<FormLabel>Cardholder Name</FormLabel>
+									<NameInput
+										error={!!inputError(form, "payment.cardName")}
+										{...field}
+									/>
+									{!!inputError(form, "payment.cardName") && (
+										<ErrorText>{errors.payment.cardName}</ErrorText>
+									)}
+								</FormControl>
 							)}
 						/>
 						<Field
-							name="payment.cardNum"
-							render={({ field, form }) => (
-								<Input
-									label="Card Number"
-									error={inputError(form, "payment.cardNum")}
-									touched={getIn(form.touched, "payment.cardNum")}
-									autoComplete="cc-number"
-									maxLength="16"
-									{...field}
-								/>
+							name="payment.cardNumber"
+							render={({ form }) => (
+								<FormControl>
+									<FormLabel>Card Number</FormLabel>
+									<CardNumberElement
+										onChange={e => doChange(e)}
+										onFocus={e => doFocus(e)}
+									/>
+									{!!inputError(form, "payment.cardNumber") && (
+										<ErrorText>{errors.payment.cardNumber}</ErrorText>
+									)}
+								</FormControl>
+							)}
+						/>
+						<Field
+							name="payment.cardExpiry"
+							render={({ form }) => (
+								<FormControl>
+									<FormLabel>Expiry</FormLabel>
+									<CardExpiryElement
+										onChange={e => doChange(e)}
+										onFocus={e => doFocus(e)}
+									/>
+									{!!inputError(form, "payment.cardExpiry") && (
+										<ErrorText>{errors.payment.cardExpiry}</ErrorText>
+									)}
+								</FormControl>
+							)}
+						/>
+						<Field
+							name="payment.cardCvc"
+							render={({ form }) => (
+								<FormControl>
+									<FormLabel>Secure Code</FormLabel>
+									<CardCVCElement
+										onChange={e => doChange(e)}
+										onFocus={e => doFocus(e)}
+									/>
+									{!!inputError(form, "payment.cardCvc") && (
+										<ErrorText>{errors.payment.cardCvc}</ErrorText>
+									)}
+								</FormControl>
+							)}
+						/>
+						<Field
+							name="payment.postalCode"
+							render={({ form }) => (
+								<FormControl>
+									<FormLabel>Zip</FormLabel>
+									<PostalCodeElement
+										onChange={e => doChange(e)}
+										onFocus={e => doFocus(e)}
+									/>
+									{!!inputError(form, "payment.postalCode") && (
+										<ErrorText>{errors.payment.postalCode}</ErrorText>
+									)}
+								</FormControl>
 							)}
 						/>
 
-						<Grid container spacing={8} style={{ marginBottom: "10px" }}>
-							<Grid item xs={6}>
-								<Field
-									name="payment.expiryMonth"
-									render={({ field, form }) => (
-										<Input
-											label="Month"
-											error={inputError(form, "payment.expiryMonth")}
-											touched={getIn(form.touched, "payment.expiryMonth")}
-											autoComplete="cc-exp-month"
-											maxLength="2"
-											{...field}
-										/>
-									)}
-								/>
-							</Grid>
-							<Grid item xs={6}>
-								<Field
-									name="payment.expiryYear"
-									render={({ field, form }) => (
-										<Input
-											label="Year"
-											error={inputError(form, "payment.expiryYear")}
-											touched={getIn(form.touched, "payment.expiryYear")}
-											autoComplete="cc-exp-month"
-											maxLength="2"
-											{...field}
-										/>
-									)}
-								/>
-							</Grid>
-							<Grid item xs={6}>
-								<Field
-									name="payment.cvv"
-									render={({ field, form }) => (
-										<Input
-											label="Security code"
-											error={inputError(form, "payment.cvv")}
-											touched={getIn(form.touched, "payment.cvv")}
-											autoComplete="cc-exp-month"
-											maxLength="3"
-											{...field}
-										/>
-									)}
-								/>
-							</Grid>
-						</Grid>
 						<Button
 							type="submit"
 							variant="contained"
@@ -296,18 +252,41 @@ const getPkgSummary = (state, ownProps) => {
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		orderTotal: getTotal(state, ownProps),
+		orderTotal: getTotal(state, ownProps) + ownProps.values.donation,
 		pkgSummary: getPkgSummary(state, ownProps)
 	}
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-	return {}
+	return {
+		dispatch: dispatch
+	}
+}
+const mergeProps = (stateProps, dispatchProps, ownProps) => {
+	const { setFieldValue, setFieldError, setFieldTouched } = ownProps
+	const { dispatch } = dispatchProps
+
+	return {
+		...ownProps,
+		...stateProps,
+		...dispatchProps,
+		doChange: e => {
+			if (!!e.error) {
+				setFieldError(`payment.${e.elementType}`, e.error.message)
+			} else if (e.complete) {
+				setFieldValue(`payment.${e.elementType}`, "complete")
+			}
+		},
+		doFocus: e => {
+			setFieldTouched(`payment.${e.elementType}`, true)
+		}
+	}
 }
 
 const BillingForm = connect(
 	mapStateToProps,
-	mapDispatchToProps
+	mapDispatchToProps,
+	mergeProps
 )(withStyles(styles)(withWidth()(InternalBillingForm)))
 
 export default BillingForm

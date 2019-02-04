@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import styled from "styled-components"
+import { Elements, injectStripe } from "react-stripe-elements"
 
 import { fetchEvent } from "@/app-store/actions"
 import { media } from "@/styles/utils"
@@ -24,7 +25,9 @@ class Event extends Component {
 		`
 		return (
 			<Container>
-				<EventForm />
+				<Elements>
+					<EventForm />
+				</Elements>
 			</Container>
 		)
 	}

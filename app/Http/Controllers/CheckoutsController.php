@@ -93,6 +93,6 @@ class CheckoutsController extends Controller
     		$order->packages()->attach((int)$registrant['package']);
     	}
 
-    	return $event->attendants;
+    	return $order;
     }
 }
