@@ -6,9 +6,12 @@ import { Link } from "react-router-dom"
 
 const InternalNavigation = ({ isLoggedIn }) => (
   <div>
-    <Link to="/">Dashboard</Link>
-    <Link to="/login">Sign In</Link>
-    <Link to="/register">Register</Link>
+    <img src={require('../../../images/layout/logo.svg')} />
+    <ul>
+      <li><a href="">About</a></li>
+      <li><a href="">Something</a></li>
+      <li><a href="">Speakers</a></li>
+    </ul>
   </div>
 )
 

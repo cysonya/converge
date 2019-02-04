@@ -29,7 +29,7 @@ class CheckoutsController extends Controller
 
     	// Get order total
     	$packages = array_pluck($request->registrants, 'package');
-    	$order_total = collect($packages)
+    	$orderTotal = collect($packages)
     		->sum(function($package) {
     			return Package::find($package)->price;
     		}
@@ -49,10 +49,18 @@ class CheckoutsController extends Controller
 
     	$charge = Charge::create(array(
     		'customer' => $customer->id,
-    		'amount' => $order_total * 100,
+    		'amount' => $orderTotal * 100,
     		'currency' => 'usd',
     		'description' => "Payment for {$event->title}"
     	));
+        if ($request->donation > 0) {
+            $donationCharge = Charge::create(array(
+                'customer' => $customer->id,
+                'amount' => $request->donation * 100,
+                'currency' => 'usd',
+                'description' => "Donation for {$event->title}"
+            ));
+        }
 
     	// Create order
     	$order = Order::create([
@@ -60,7 +68,7 @@ class CheckoutsController extends Controller
     		'first_name' => strip_tags($request->customer_first_name),
     		'last_name' => strip_tags($request->customer_last_name),
     		'email' => strip_tags($request->customer_email),
-    		'order_total' => $order_total,
+    		'order_total' => $orderTotal,
     		'stripe_customer_id' => $customer->id,
     		'status' => 'completed'
     	]);
@@ -68,10 +76,19 @@ class CheckoutsController extends Controller
     	// Create payment
     	$payment = $order->payments()->create([
     		'payment_type' => 'order',
-    		'amount' => $order_total,
+    		'amount' => $orderTotal,
     		'transaction_id' => $charge->id,
     		'transaction_date' => Carbon::now()
     	]);
+        // Create donation
+        if ($request->donation > 0) {
+            $payment = $order->payments()->create([
+                'payment_type' => 'donation',
+                'amount' => $request->donation,
+                'transaction_id' => $charge->id,
+                'transaction_date' => Carbon::now()
+            ]);
+        }
 
     	// Create the attendants
     	foreach($request->registrants as $registrant) {

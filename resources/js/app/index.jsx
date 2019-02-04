@@ -10,11 +10,12 @@ import Event from "./event/index"
 
 const InternalApp = ({ history, match }) => {
   return (
-    <ConnectedRouter history={history}>
-      <div>
+    <div>
+      <Navigation />
+      <ConnectedRouter history={history}>
         <Route exact path="/events/:id" component={Event} />
-      </div>
-    </ConnectedRouter>
+      </ConnectedRouter>
+    </div>
   )
 }
 

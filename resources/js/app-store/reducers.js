@@ -22,8 +22,17 @@ function event(state = {}, action) {
   }
 }
 
+function order(state={status: "incomplete", error: null, data: {}}, action) {
+  let newState = Object.assign({}, state)
+  switch (action.type) {
+    default:
+      return state
+  }
+}
+
 export default history =>
   combineReducers({
     router: connectRouter(history),
-    event
+    event,
+    order
   })

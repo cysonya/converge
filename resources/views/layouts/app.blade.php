@@ -7,13 +7,20 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>
+        @hasSection('title')
+            @yield('title') - {{ config('app.name', 'Laravel') }}
+        @else
+            {{ config('app.name', 'Laravel') }}
+        @endif
+    </title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://js.stripe.com/v3/"></script>
     @include('_global_site_vars')
 
+    <link rel="icon" href="{{asset('favicon.png')}}" type="image/gif" sizes="16x16">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
