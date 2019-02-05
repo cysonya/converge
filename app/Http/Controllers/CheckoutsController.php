@@ -38,29 +38,61 @@ class CheckoutsController extends Controller
     	// Charge with Stripe
     	Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
-    	$customer = Customer::create(array(
-    		'email' => strip_tags($request->customer_email),
-    		'source' => strip_tags($request->stripeToken),
-    		'metadata' => [
-    			'first_name' => strip_tags($request->customer_first_name),
-    			'last_name' => strip_tags($request->customer_last_name)
-    		]
-    	));
-
-    	$charge = Charge::create(array(
-    		'customer' => $customer->id,
-    		'amount' => $orderTotal * 100,
-    		'currency' => 'usd',
-    		'description' => "Payment for {$event->title}"
-    	));
-        if ($request->donation > 0) {
-            $donationCharge = Charge::create(array(
-                'customer' => $customer->id,
-                'amount' => $request->donation * 100,
-                'currency' => 'usd',
-                'description' => "Donation for {$event->title}"
+        try {
+            $customer = Customer::create(array(
+                'email' => strip_tags($request->customer_email),
+                'source' => strip_tags($request->stripeToken),
+                'metadata' => [
+                    'first_name' => strip_tags($request->customer_first_name),
+                    'last_name' => strip_tags($request->customer_last_name)
+                ]
             ));
+
+            $charge = Charge::create(array(
+                'customer' => $customer->id,
+                'amount' => $orderTotal * 100,
+                'currency' => 'usd',
+                'description' => "Payment for {$event->title}"
+            ));
+            if ($request->donation > 0) {
+                $donationCharge = Charge::create(array(
+                    'customer' => $customer->id,
+                    'amount' => $request->donation * 100,
+                    'currency' => 'usd',
+                    'description' => "Donation for {$event->title}"
+                ));
+            }
+
+        } catch(\Stripe\Error\Card $e) {
+            // Card declined
+            $body = $e->getJsonBody();
+            $err = $body['error']['message'];
+            return response()
+                ->json(['status' => "error", 'error' => $err]);
+        } catch (\Stripe\Error\RateLimit $e) {
+            // Too many requests made to the API too quickly
+            return response()
+                ->json(['status' => "error", 'error' => "Too many requests. Please try again in a few minutes."]);
+        } catch (\Stripe\Error\InvalidRequest $e) {
+            // Invalid parameters were supplied to Stripe's API
+            return response()
+                ->json(['status' => "error", 'error' => "Server request error"]);
+        } catch (\Stripe\Error\Authentication $e) {
+            // Authentication with Stripe's API failed
+            // (maybe you changed API keys recently)
+        } catch (\Stripe\Error\ApiConnection $e) {
+            // Network communication with Stripe failed
+        } catch (\Stripe\Error\Base $e) {
+            // Display a very generic error to the user, and maybe send
+            // yourself an email
+            return response()
+                ->json(['status' => "error", 'error' => "An error has occured."]);
+        } catch (Exception $e) {
+            // Something else happened, completely unrelated to Stripe
+            return response()
+                ->json(['status' => "error", 'error' => "An error has occured."]);
         }
+
 
     	// Create order
     	$order = Order::create([

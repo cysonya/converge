@@ -33,6 +33,7 @@ const SectionTitle = styled.div`
 	display: flex;
 	align-items: center;
 	padding-bottom: 4px;
+	margin-bottom: 10px;
 	border-bottom: 1px solid ${props => props.theme.grey[300]};
 	${media.md`
 		margin-bottom: 8px;
@@ -79,7 +80,7 @@ const NameInput = styled.input`
 const InternalBillingForm = ({
 	classes,
 	doChange,
-	doFocus,
+	doBlur,
 	errors,
 	orderTotal,
 	pkgSummary,
@@ -91,7 +92,7 @@ const InternalBillingForm = ({
 		<div>
 			<Grid
 				container
-				spacing={40}
+				spacing={isMobile(width) ? 16 : 40}
 				justify="space-between"
 				style={{ marginBottom: "10px" }}
 			>
@@ -99,11 +100,7 @@ const InternalBillingForm = ({
 					item
 					xs={12}
 					md={5}
-					style={
-						isMobile(width)
-							? { marginTop: "10px", paddingBottom: 0 }
-							: { order: 2 }
-					}
+					style={isMobile(width) ? { marginTop: "10px" } : { order: 2 }}
 				>
 					<SectionTitle>
 						<LockIcon className="pr-5" /> Order Summary
@@ -133,6 +130,7 @@ const InternalBillingForm = ({
 						<strong>${orderTotal} USD</strong>
 					</TotalAmount>
 				</Grid>
+
 				<Grid item xs={12} md={7} style={isMobile(width) ? {} : { order: 1 }}>
 					<PaymentContainer>
 						<Field
@@ -158,7 +156,7 @@ const InternalBillingForm = ({
 									<FormLabel>Card Number</FormLabel>
 									<CardNumberElement
 										onChange={e => doChange(e)}
-										onFocus={e => doFocus(e)}
+										onBlur={e => doBlur(e)}
 									/>
 									{!!inputError(form, "payment.cardNumber") && (
 										<ErrorText>{errors.payment.cardNumber}</ErrorText>
@@ -173,7 +171,7 @@ const InternalBillingForm = ({
 									<FormLabel>Expiry</FormLabel>
 									<CardExpiryElement
 										onChange={e => doChange(e)}
-										onFocus={e => doFocus(e)}
+										onBlur={e => doBlur(e)}
 									/>
 									{!!inputError(form, "payment.cardExpiry") && (
 										<ErrorText>{errors.payment.cardExpiry}</ErrorText>
@@ -188,7 +186,7 @@ const InternalBillingForm = ({
 									<FormLabel>Secure Code</FormLabel>
 									<CardCVCElement
 										onChange={e => doChange(e)}
-										onFocus={e => doFocus(e)}
+										onBlur={e => doBlur(e)}
 									/>
 									{!!inputError(form, "payment.cardCvc") && (
 										<ErrorText>{errors.payment.cardCvc}</ErrorText>
@@ -203,7 +201,7 @@ const InternalBillingForm = ({
 									<FormLabel>Zip</FormLabel>
 									<PostalCodeElement
 										onChange={e => doChange(e)}
-										onFocus={e => doFocus(e)}
+										onBlur={e => doBlur(e)}
 									/>
 									{!!inputError(form, "payment.postalCode") && (
 										<ErrorText>{errors.payment.postalCode}</ErrorText>
@@ -278,7 +276,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
 				setFieldValue(`payment.${e.elementType}`, "complete")
 			}
 		},
-		doFocus: e => {
+		doBlur: e => {
 			setFieldTouched(`payment.${e.elementType}`, true)
 		}
 	}

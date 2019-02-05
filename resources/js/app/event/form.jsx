@@ -1,4 +1,8 @@
+import CloseIcon from "@material-ui/icons/Close"
+import IconButton from "@material-ui/core/IconButton"
 import Paper from "@material-ui/core/Paper"
+import Snackbar from "@material-ui/core/Snackbar"
+import SnackbarContent from "@material-ui/core/SnackbarContent"
 import Step from "@material-ui/core/Step"
 import Stepper from "@material-ui/core/Stepper"
 import StepContent from "@material-ui/core/StepContent"
@@ -14,7 +18,7 @@ import { connect } from "react-redux"
 import { Elements, injectStripe } from "react-stripe-elements"
 import styled from "styled-components"
 
-import { placeOrder, setStep } from "@/app-store/actions"
+import { placeOrder, removeOrderError, setStep } from "@/app-store/actions"
 import { isMobile } from "@/helpers/application"
 import theme from "@/styles/theme"
 import { media } from "@/styles/utils"
@@ -37,11 +41,17 @@ const styles = theme => ({
 		paddingRight: "0"
 	},
 	error: {
-		marginLeft: "20px",
-		marginRight: "20px",
-		padding: "10px",
 		color: "white",
-		backgroundColor: theme.palette.error.dark
+		backgroundColor: theme.palette.error.dark,
+		[theme.breakpoints.up("md")]: {
+			marginLeft: "20px",
+			marginRight: "20px",
+			maxWidth: "none",
+			boxShadow: theme.shadows[2]
+		}
+	},
+	errorClose: {
+		padding: 0
 	}
 })
 
@@ -76,7 +86,9 @@ const FormContent = styled.div`
 
 const InternalEventForm = ({
 	classes,
+	closeError,
 	doPlaceOrder,
+	error,
 	event,
 	step,
 	stripe,
@@ -84,6 +96,43 @@ const InternalEventForm = ({
 }) => {
 	if (Object.keys(event).length < 1) {
 		return null
+	}
+
+	function ErrorAlert() {
+		let errorContent = (
+			<SnackbarContent
+				className={classes.error}
+				aria-describedby="error-message"
+				message={error}
+				action={[
+					<IconButton
+						className={classes.errorClose}
+						key="close"
+						aria-label="Close"
+						color="inherit"
+						onClick={() => closeError()}
+					>
+						<CloseIcon />
+					</IconButton>
+				]}
+			/>
+		)
+		if (isMobile(width)) {
+			return (
+				<Snackbar
+					anchorOrigin={{
+						vertical: "bottom",
+						horizontal: "left"
+					}}
+					open
+					onClose={() => closeError()}
+				>
+					{errorContent}
+				</Snackbar>
+			)
+		} else {
+			return errorContent
+		}
 	}
 
 	const initialValues = {
@@ -116,19 +165,34 @@ const InternalEventForm = ({
 		let errors = {}
 
 		if (!values.payment.cardName) {
-			errors.payment = Object.assign({ cardName: "Required" }, errors.payment)
+			errors.payment = Object.assign(
+				{ cardName: "Provide valid card details" },
+				errors.payment
+			)
 		}
 		if (!values.payment.cardNumber) {
-			errors.payment = Object.assign({ cardNumber: "Required" }, errors.payment)
+			errors.payment = Object.assign(
+				{ cardNumber: "Provide valid card details" },
+				errors.payment
+			)
 		}
 		if (!values.payment.cardNumbercardExpiry) {
-			errors.payment = Object.assign({ cardExpiry: "Required" }, errors.payment)
+			errors.payment = Object.assign(
+				{ cardExpiry: "Provide valid card details" },
+				errors.payment
+			)
 		}
 		if (!values.payment.cardCvc) {
-			errors.payment = Object.assign({ cardCvc: "Required" }, errors.payment)
+			errors.payment = Object.assign(
+				{ cardCvc: "Provide valid card details" },
+				errors.payment
+			)
 		}
 		if (!values.payment.postalCode) {
-			errors.payment = Object.assign({ postalCode: "Required" }, errors.payment)
+			errors.payment = Object.assign(
+				{ postalCode: "Provide valid card details" },
+				errors.payment
+			)
 		}
 		// remove payment errors if completed
 		if (errors.payment) {
@@ -191,13 +255,13 @@ const InternalEventForm = ({
 	return (
 		<FormWrapper>
 			<FormHeading>{event.title} Registration</FormHeading>
+
 			<Formik
 				initialValues={initialValues}
 				validate={values => {
 					return handleValidate(values)
 				}}
 				onSubmit={(values, { setSubmitting }) => {
-					console.log("SUBMITTED")
 					stripe
 						.createToken({ name: values.payment.cardName })
 						.then(({ error, token }) => {
@@ -279,10 +343,8 @@ const InternalEventForm = ({
 									</Step>
 								))}
 							</Stepper>
-							<FormContent />
-							{false && (
-								<Paper className={classes.error}>Testing error message</Paper>
-							)}
+							{!!error && <ErrorAlert />}
+
 							{!isMobile(width) ? (
 								<div>
 									<FormContent>{getContent(step)}</FormContent>
@@ -303,6 +365,7 @@ InternalEventForm.propTypes = {
 
 const mapStateToProps = (state, ownProps) => {
 	return {
+		error: state.order.error,
 		event: state.event,
 		step: state.event.step,
 		stripe: ownProps.stripe
@@ -313,6 +376,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		doPlaceOrder: (values, setSubmitting) => {
 			dispatch(placeOrder(values, setSubmitting))
+		},
+		closeError: () => {
+			dispatch(removeOrderError())
 		}
 	}
 }
