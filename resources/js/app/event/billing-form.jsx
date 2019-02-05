@@ -142,6 +142,7 @@ const InternalBillingForm = ({
 									<FormLabel>Cardholder Name</FormLabel>
 									<NameInput
 										error={!!inputError(form, "payment.cardName")}
+										autocomplete="cc-name"
 										{...field}
 									/>
 									{!!inputError(form, "payment.cardName") && (

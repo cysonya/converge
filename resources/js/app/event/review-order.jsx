@@ -172,12 +172,13 @@ const InternalReviewOrder = ({
 								render={({ field }) => (
 									<Input
 										id="adornment-amount"
+										type="number"
 										placeholder="Other"
 										error={errors.donation}
-										{...field}
 										startAdornment={
 											<InputAdornment position="start">$</InputAdornment>
 										}
+										{...field}
 									/>
 								)}
 							/>
