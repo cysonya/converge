@@ -27,7 +27,7 @@ const NavContainer = styled.div`
   padding: 10px;
   ${media.md`
     padding: 25px 0;
-    width: 970px;
+    width: 750px;
   `}
   ${media.lg`
     width: 1170px;
