@@ -80,7 +80,7 @@ const InternalAttendantForm = ({
 															form.touched,
 															`registrants[${index}].first_name`
 														)}
-														autocomplete="fname"
+														autocomplete="name"
 														{...field}
 													/>
 												)
@@ -102,7 +102,7 @@ const InternalAttendantForm = ({
 															form.touched,
 															`registrants[${index}].last_name`
 														)}
-														autocomplete="lname"
+														autocomplete="name"
 														{...field}
 													/>
 												)

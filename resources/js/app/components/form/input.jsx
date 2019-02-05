@@ -24,6 +24,7 @@ const styles = theme => ({
 class Input extends Component {
 	render() {
 		const {
+			autocomplete,
 			classes,
 			error,
 			label,
@@ -49,9 +50,7 @@ class Input extends Component {
 							</InputAdornment>
 						) : null
 				}}
-				inputProps={
-					this.props.maxLength ? { maxLength: this.props.maxLength } : {}
-				}
+				inputProps={{ autocomplete: autocomplete }}
 				margin="dense"
 				fullWidth
 				name={name}
