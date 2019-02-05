@@ -70,11 +70,8 @@ const FormHeading = styled.h4`
 	`}
 `
 
-const FormContent = styled(Form)`
-	${media.md`
-		display: block;
-		padding: 20px;
-	`}
+const FormContent = styled.div`
+	padding: 20px;
 `
 
 const InternalEventForm = ({
@@ -89,7 +86,6 @@ const InternalEventForm = ({
 		return null
 	}
 
-	const steps = ["Attendants", "Housing", "Review", "Payment"]
 	const initialValues = {
 		registrants: [
 			{
@@ -201,6 +197,7 @@ const InternalEventForm = ({
 					return handleValidate(values)
 				}}
 				onSubmit={(values, { setSubmitting }) => {
+					console.log("SUBMITTED")
 					stripe
 						.createToken({ name: values.payment.cardName })
 						.then(({ error, token }) => {
@@ -226,66 +223,73 @@ const InternalEventForm = ({
 					touched,
 					values
 				}) => {
+					const steps = ["Attendants", "Housing", "Review", "Payment"]
 					let content = <AttendantForm {...{ errors, touched, values }} />
-
-					switch (step) {
-						case 2:
-							content = <HousingForm {...{ errors, touched, values }} />
-							break
-						case 3:
-							content = (
-								<ReviewOrder {...{ errors, setFieldValue, touched, values }} />
-							)
-							break
-						case 4:
-							content = (
-								<BillingForm
-									{...{
-										errors,
-										setFieldValue,
-										setFieldTouched,
-										setFieldError,
-										touched,
-										values
-									}}
-								/>
-							)
-							break
+					const getContent = stepIndex => {
+						switch (stepIndex) {
+							case 2:
+								content = <HousingForm {...{ errors, touched, values }} />
+								break
+							case 3:
+								content = (
+									<ReviewOrder
+										{...{ errors, setFieldValue, touched, values }}
+									/>
+								)
+								break
+							case 4:
+								content = (
+									<BillingForm
+										{...{
+											errors,
+											setFieldValue,
+											setFieldTouched,
+											setFieldError,
+											touched,
+											values
+										}}
+									/>
+								)
+								break
+						}
+						return content
 					}
 					console.log("VALUES: ", values)
 					console.log("ERRORS: ", errors)
 					console.log("TOUCHED: ", touched)
 
 					return (
-						<div>
+						<Form>
 							<Stepper
 								activeStep={step - 1}
 								alternativeLabel={isMobile(width) ? false : true}
 								className={classes.stepper}
 								orientation={isMobile(width) ? "vertical" : "horizontal"}
 							>
-								{steps.map(label => (
-									<Step key={label}>
+								{steps.map((label, index) => (
+									<Step key={index}>
 										<StepLabel>{label}</StepLabel>
+
 										{isMobile(width) ? (
 											<StepContent className={classes.stepContent}>
-												{content}
+												{getContent(index + 1)}
 												<FormNav {...{ errors, touched, values }} />
 											</StepContent>
 										) : null}
 									</Step>
 								))}
 							</Stepper>
+							<FormContent />
 							{false && (
 								<Paper className={classes.error}>Testing error message</Paper>
 							)}
-							{!isMobile(width) && (
+							{!isMobile(width) ? (
 								<div>
-									<FormContent>{content}</FormContent>
+									<FormContent>{getContent(step)}</FormContent>
 									<FormNav {...{ errors, touched, values }} />
 								</div>
-							)}
-						</div>
+							) : null}
+						</Form>
 					)
 				}}
 			/>
