@@ -11,7 +11,5 @@ export default function* submitOrder(action) {
 		`/events/${state.event.id}/checkout`,
 		action.values
 	)
-	if (response.status === "error") {
-		yield put(updateOrder(response))
-	}
+	yield put(updateOrder(response))
 }

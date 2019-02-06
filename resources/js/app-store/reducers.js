@@ -37,7 +37,6 @@ function order(
       for (let data in action.data) {
         newState[data] = action.data[data]
       }
-      console.log("NN: ", newState)
       return newState
       break
     case REMOVE_ORDER_ERROR:

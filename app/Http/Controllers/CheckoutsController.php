@@ -142,6 +142,7 @@ class CheckoutsController extends Controller
     		$order->packages()->attach((int)$registrant['package']);
     	}
 
-    	return $order;
+    	return response()
+                ->json(['status' => 'complete', 'data' => $order]);
     }
 }

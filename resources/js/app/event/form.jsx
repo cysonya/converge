@@ -22,6 +22,7 @@ import PaymentForm from "./payment-form"
 import ErrorAlert from "./error-alert"
 import FormNav from "./form-nav"
 import HousingForm from "./housing-form"
+import OrderComplete from "./order-complete"
 import OrderReview from "./order-review"
 
 const styles = theme => ({
@@ -50,12 +51,13 @@ const FormWrapper = styled.div`
 	`}
 `
 const FormHeading = styled.h4`
-	margin: 0;
+	margin: ${props => (props.complete ? "0 0 20px" : "0")};
 	padding: 20px 10px 0;
 	font-size: 18px;
 	font-weight: normal;
 	text-align: center;
 	${media.md`
+		margin: 0;
 		padding: 12px 20px;
 		color: white;
 		font-size: 22px;
@@ -72,6 +74,7 @@ const InternalEventForm = ({
 	doPlaceOrder,
 	error,
 	event,
+	status,
 	step,
 	stripe,
 	width
@@ -199,7 +202,9 @@ const InternalEventForm = ({
 
 	return (
 		<FormWrapper>
-			<FormHeading>{event.title} Registration</FormHeading>
+			<FormHeading complete={status === "complete"}>
+				{event.title} Registration
+			</FormHeading>
 
 			<Formik
 				initialValues={initialValues}
@@ -232,7 +237,13 @@ const InternalEventForm = ({
 					touched,
 					values
 				}) => {
-					const steps = ["Attendants", "Housing", "Review", "Payment"]
+					const steps = [
+						"Attendants",
+						"Housing",
+						"Review",
+						"Payment",
+						"Complete"
+					]
 					let content = <AttendantForm {...{ errors, touched, values }} />
 					const getContent = stepIndex => {
 						switch (stepIndex) {
@@ -263,10 +274,14 @@ const InternalEventForm = ({
 						}
 						return content
 					}
+
+					if (status === "complete") {
+						return <OrderComplete />
+					}
+
 					console.log("VALUES: ", values)
 					console.log("ERRORS: ", errors)
 					console.log("TOUCHED: ", touched)
-
 					return (
 						<Form>
 							<Stepper
@@ -311,6 +326,7 @@ InternalEventForm.propTypes = {
 const mapStateToProps = (state, ownProps) => {
 	return {
 		error: state.order.error,
+		status: state.order.status,
 		event: state.event,
 		step: state.event.step,
 		stripe: ownProps.stripe
