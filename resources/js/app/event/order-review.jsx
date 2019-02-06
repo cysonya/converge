@@ -67,7 +67,7 @@ const DonateButton = styled(Button)`
 		margin-bottom: 6px;
 	}
 `
-const InternalReviewOrder = ({
+const InternalOrderReview = ({
 	classes,
 	donationSelect,
 	errors,
@@ -195,7 +195,7 @@ const InternalReviewOrder = ({
 	)
 }
 
-InternalReviewOrder.propTypes = {}
+InternalOrderReview.propTypes = {}
 
 const mapStateToProps = (state, ownProps) => {
 	return {
@@ -210,9 +210,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return {}
 }
 
-const ReviewOrder = connect(
+const OrderReview = connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(withStyles(styles)(withWidth()(InternalReviewOrder)))
+)(withStyles(styles)(withWidth()(InternalOrderReview)))
 
-export default ReviewOrder
+export default OrderReview

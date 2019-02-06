@@ -1,8 +1,3 @@
-import CloseIcon from "@material-ui/icons/Close"
-import IconButton from "@material-ui/core/IconButton"
-import Paper from "@material-ui/core/Paper"
-import Snackbar from "@material-ui/core/Snackbar"
-import SnackbarContent from "@material-ui/core/SnackbarContent"
 import Step from "@material-ui/core/Step"
 import Stepper from "@material-ui/core/Stepper"
 import StepContent from "@material-ui/core/StepContent"
@@ -18,15 +13,16 @@ import { connect } from "react-redux"
 import { Elements, injectStripe } from "react-stripe-elements"
 import styled from "styled-components"
 
-import { placeOrder, removeOrderError, setStep } from "@/app-store/actions"
+import { placeOrder, setStep } from "@/app-store/actions"
 import { isMobile } from "@/helpers/application"
 import theme from "@/styles/theme"
 import { media } from "@/styles/utils"
 import AttendantForm from "./attendant-form"
-import BillingForm from "./billing-form"
+import PaymentForm from "./payment-form"
+import ErrorAlert from "./error-alert"
 import FormNav from "./form-nav"
 import HousingForm from "./housing-form"
-import ReviewOrder from "./review-order"
+import OrderReview from "./order-review"
 
 const styles = theme => ({
 	stepper: {
@@ -39,19 +35,6 @@ const styles = theme => ({
 	stepContent: {
 		paddingLeft: "10px",
 		paddingRight: "0"
-	},
-	error: {
-		color: "white",
-		backgroundColor: theme.palette.error.dark,
-		[theme.breakpoints.up("md")]: {
-			marginLeft: "20px",
-			marginRight: "20px",
-			maxWidth: "none",
-			boxShadow: theme.shadows[2]
-		}
-	},
-	errorClose: {
-		padding: 0
 	}
 })
 
@@ -86,7 +69,6 @@ const FormContent = styled.div`
 
 const InternalEventForm = ({
 	classes,
-	closeError,
 	doPlaceOrder,
 	error,
 	event,
@@ -96,43 +78,6 @@ const InternalEventForm = ({
 }) => {
 	if (Object.keys(event).length < 1) {
 		return null
-	}
-
-	function ErrorAlert() {
-		let errorContent = (
-			<SnackbarContent
-				className={classes.error}
-				aria-describedby="error-message"
-				message={error}
-				action={[
-					<IconButton
-						className={classes.errorClose}
-						key="close"
-						aria-label="Close"
-						color="inherit"
-						onClick={() => closeError()}
-					>
-						<CloseIcon />
-					</IconButton>
-				]}
-			/>
-		)
-		if (isMobile(width)) {
-			return (
-				<Snackbar
-					anchorOrigin={{
-						vertical: "bottom",
-						horizontal: "left"
-					}}
-					open
-					onClose={() => closeError()}
-				>
-					{errorContent}
-				</Snackbar>
-			)
-		} else {
-			return errorContent
-		}
 	}
 
 	const initialValues = {
@@ -296,14 +241,14 @@ const InternalEventForm = ({
 								break
 							case 3:
 								content = (
-									<ReviewOrder
+									<OrderReview
 										{...{ errors, setFieldValue, touched, values }}
 									/>
 								)
 								break
 							case 4:
 								content = (
-									<BillingForm
+									<PaymentForm
 										{...{
 											errors,
 											setFieldValue,
@@ -376,9 +321,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		doPlaceOrder: (values, setSubmitting) => {
 			dispatch(placeOrder(values, setSubmitting))
-		},
-		closeError: () => {
-			dispatch(removeOrderError())
 		}
 	}
 }

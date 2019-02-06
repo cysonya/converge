@@ -77,7 +77,7 @@ const NameInput = styled.input`
 	`}
 `
 
-const InternalBillingForm = ({
+const InternalPaymentForm = ({
 	classes,
 	doChange,
 	doBlur,
@@ -226,7 +226,7 @@ const InternalBillingForm = ({
 	)
 }
 
-InternalBillingForm.propTypes = {}
+InternalPaymentForm.propTypes = {}
 
 const getPkgSummary = (state, ownProps) => {
 	const pkgs = state.event.packages
@@ -282,10 +282,10 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
 	}
 }
 
-const BillingForm = connect(
+const PaymentForm = connect(
 	mapStateToProps,
 	mapDispatchToProps,
 	mergeProps
-)(withStyles(styles)(withWidth()(InternalBillingForm)))
+)(withStyles(styles)(withWidth()(InternalPaymentForm)))
 
-export default BillingForm
+export default PaymentForm
