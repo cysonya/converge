@@ -21,6 +21,7 @@ const CheckArea = styled.div`
 `
 const CheckIcon = styled(CheckCircleIcon)`
 	&& {
+		margin-bottom: 8px;
 		color: #fff;
 		font-size: 50px;
 	}
@@ -55,7 +56,7 @@ const styles = theme => ({
 		fontSize: "50px"
 	},
 	thanks: {
-		color: theme.palette.primary.light
+		color: "#FFF"
 	}
 })
 const InternalOrderComplete = ({ classes, event, order }) => {
@@ -63,14 +64,14 @@ const InternalOrderComplete = ({ classes, event, order }) => {
 		<div>
 			<CheckArea>
 				<CheckCircleIcon className={classes.check} />
-			</CheckArea>
-			<Content>
-				<Typography className={classes.thanks} variant="h4" gutterBottom>
+				<Typography className={classes.thanks} variant="h4">
 					THANK YOU!
 				</Typography>
+			</CheckArea>
+			<Content>
 				<Typography variant="subtitle2" className="mb-20">
-					for registering for {event.title} ({event.date_range}), held at Hiram
-					College:
+					Thank you for registering for {event.title} ({event.date_range}), held
+					at Hiram College:
 				</Typography>
 
 				<Typography variant="body1">
