@@ -164,9 +164,28 @@ const InternalHousingForm = ({
 
 InternalHousingForm.propTypes = {}
 
+// Only show Townhouse option if attandants contain 'Toddler' age group
+const getPackages = (state, ownProps) => {
+	let pkgs = state.event.packages
+	// Get group id of Toddler
+	let toddlerId = state.event.groups.find(g =>
+		g.description.includes("Toddlers")
+	).id
+
+	if (
+		typeof ownProps.values.registrants.find(r => r.group === toddlerId) ===
+		"undefined"
+	) {
+		// Remove 'Townhouse' from package options
+		return pkgs.filter(p => p.title !== "Townhouse")
+	} else {
+		// return all package options if attendant contains Toddler
+		return pkgs
+	}
+}
 const mapStateToProps = (state, ownProps) => {
 	return {
-		packages: state.event.packages
+		packages: getPackages(state, ownProps)
 	}
 }
 
