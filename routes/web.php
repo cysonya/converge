@@ -28,6 +28,9 @@ Route::post('/events/{event_id}/checkout', [
 	'uses' => 'CheckoutsController@store',
 ]);
 
+// mail test
+Route::get('/send/email', 'EventsController@mail');
+
 /*
  * Admin dashboard routes
  */
