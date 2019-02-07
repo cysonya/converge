@@ -240,13 +240,7 @@ const InternalEventForm = ({
 					touched,
 					values
 				}) => {
-					const steps = [
-						"Attendants",
-						"Housing",
-						"Review",
-						"Payment",
-						"Complete"
-					]
+					const steps = ["Attendants", "Housing", "Review", "Payment"]
 					let content = <AttendantForm {...{ errors, touched, values }} />
 					const getContent = stepIndex => {
 						switch (stepIndex) {
