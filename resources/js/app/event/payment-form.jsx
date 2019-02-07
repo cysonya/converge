@@ -1,9 +1,13 @@
 import Button from "@material-ui/core/Button"
+import CircularProgress from "@material-ui/core/CircularProgress"
+import Dialog from "@material-ui/core/Dialog"
+import DialogContent from "@material-ui/core/DialogContent"
 import LockIcon from "@material-ui/icons/Lock"
 import Divider from "@material-ui/core/Divider"
 import Grid from "@material-ui/core/Grid"
 import Input from "@material-ui/core/Input"
 import MenuItem from "@material-ui/core/MenuItem"
+import Slide from "@material-ui/core/Slide"
 import TextField from "@material-ui/core/TextField"
 import Typography from "@material-ui/core/Typography"
 import { withStyles } from "@material-ui/core/styles"
@@ -76,14 +80,42 @@ const NameInput = styled.input`
 		border-color: ${props => props.theme.error.main};
 	`}
 `
+const Modal = styled(Dialog)`
+	&& {
+		width: 80%;
+		max-width: 400px;
+	}
+`
+const ModalContent = styled(DialogContent)`
+	&& {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+`
+
+function Transition(props) {
+	return <Slide direction="down" {...props} />
+}
+function Processing() {
+	return (
+		<ModalContent>
+			<CircularProgress color="secondary" style={{ marginBottom: "10px" }} />
+			<Typography variant="subtitle2">Processing...</Typography>
+		</ModalContent>
+	)
+}
 
 const InternalPaymentForm = ({
 	classes,
 	doChange,
 	doBlur,
 	errors,
+	isSubmitting,
 	orderTotal,
 	pkgSummary,
+	status,
 	touched,
 	values,
 	width
@@ -214,7 +246,7 @@ const InternalPaymentForm = ({
 							type="submit"
 							variant="contained"
 							color="primary"
-							disabled={Object.keys(errors).length > 0}
+							disabled={Object.keys(errors).length > 0 || isSubmitting}
 							fullWidth
 						>
 							PLACE ORDER
@@ -222,6 +254,18 @@ const InternalPaymentForm = ({
 					</PaymentContainer>
 				</Grid>
 			</Grid>
+
+			<Dialog
+				open={status === "processing"}
+				TransitionComponent={Transition}
+				fullWidth
+				maxWidth="xs"
+				keepMounted
+				aria-labelledby="processing payment"
+				aria-describedby="processing payment"
+			>
+				<Processing />
+			</Dialog>
 		</div>
 	)
 }
@@ -252,7 +296,8 @@ const getPkgSummary = (state, ownProps) => {
 const mapStateToProps = (state, ownProps) => {
 	return {
 		orderTotal: getTotal(state, ownProps) + ownProps.values.donation,
-		pkgSummary: getPkgSummary(state, ownProps)
+		pkgSummary: getPkgSummary(state, ownProps),
+		status: state.order.status
 	}
 }
 
@@ -270,7 +315,9 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
 		...stateProps,
 		...dispatchProps,
 		doChange: e => {
+			console.log(e)
 			if (!!e.error) {
+				setFieldValue(`payment.${e.elementType}`, "")
 				setFieldError(`payment.${e.elementType}`, e.error.message)
 			} else if (e.complete) {
 				setFieldValue(`payment.${e.elementType}`, "complete")

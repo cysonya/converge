@@ -81,7 +81,6 @@ export class Navigation extends Component {
     this.setState({ showMenu: !this.state.showMenu })
   }
   handleMenuClose() {
-    console.log("CLOSE")
     this.setState({ showMenu: false })
   }
 

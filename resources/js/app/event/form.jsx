@@ -13,7 +13,7 @@ import { connect } from "react-redux"
 import { Elements, injectStripe } from "react-stripe-elements"
 import styled from "styled-components"
 
-import { placeOrder, setStep } from "@/app-store/actions"
+import { placeOrder, setStep, updateOrder } from "@/app-store/actions"
 import { isMobile } from "@/helpers/application"
 import theme from "@/styles/theme"
 import { media } from "@/styles/utils"
@@ -77,6 +77,7 @@ const InternalEventForm = ({
 	status,
 	step,
 	stripe,
+	updateOrderStatus,
 	width
 }) => {
 	if (Object.keys(event).length < 1) {
@@ -212,6 +213,7 @@ const InternalEventForm = ({
 					return handleValidate(values)
 				}}
 				onSubmit={(values, { setSubmitting }) => {
+					updateOrderStatus()
 					stripe
 						.createToken({ name: values.payment.cardName })
 						.then(({ error, token }) => {
@@ -231,6 +233,7 @@ const InternalEventForm = ({
 				}}
 				render={({
 					errors,
+					isSubmitting,
 					setFieldValue,
 					setFieldTouched,
 					setFieldError,
@@ -262,6 +265,7 @@ const InternalEventForm = ({
 									<PaymentForm
 										{...{
 											errors,
+											isSubmitting,
 											setFieldValue,
 											setFieldTouched,
 											setFieldError,
@@ -337,6 +341,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		doPlaceOrder: (values, setSubmitting) => {
 			dispatch(placeOrder(values, setSubmitting))
+		},
+		updateOrderStatus: () => {
+			dispatch(updateOrder({ status: "processing" }))
 		}
 	}
 }
