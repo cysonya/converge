@@ -169,18 +169,15 @@ const getPackages = (state, ownProps) => {
 	let pkgs = state.event.packages
 	// Get group id of Toddler
 	let toddlerId = state.event.groups.find(g =>
-		g.description.includes("Toddlers")
+		g.description.includes("Toddler")
 	).id
 
-	if (
-		typeof ownProps.values.registrants.find(r => r.group === toddlerId) ===
-		"undefined"
-	) {
+	if (ownProps.values.registrants.filter(r => r.group === 5).length >= 2) {
+		// return all package options if attendant contains at least 2 Toddler
+		return pkgs
+	} else {
 		// Remove 'Townhouse' from package options
 		return pkgs.filter(p => p.title !== "Townhouse")
-	} else {
-		// return all package options if attendant contains Toddler
-		return pkgs
 	}
 }
 const mapStateToProps = (state, ownProps) => {
