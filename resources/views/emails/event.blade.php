@@ -1,3 +1,3 @@
 <div>
-	Test {{ $event }}
+	Test
 </div>

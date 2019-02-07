@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use App\Event;
 
 use Illuminate\Support\Facades\Mail;
-use App\Mail\OrderMailable;
-
+use App\Mail\EventMailable;
+use App\Jobs\SendEmailJob;
+use Carbon\Carbon;
 class EventsController extends Controller
 {
 	/**
@@ -31,8 +32,13 @@ class EventsController extends Controller
     */
     public function mail()
     {
-        $event = Event::first();
-        Mail::to('cysonya@gmail.com')->send(new OrderMailable($event));
-        return 'Email sent';
+        // $event = Event::first();
+        // Mail::to('cysonya@gmail.com')->send(new EventMailable());
+        // return 'Email sent';
+
+
+        $emailJob = (new SendEmailJob())->delay(Carbon::now()->addSeconds(3));
+        dispatch($emailJob);
+        echo "great";
     }
 }

@@ -10,16 +10,15 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class EventMailable extends Mailable
 {
     use Queueable, SerializesModels;
-    public $event;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($event)
+    public function __construct()
     {
-        $this->event = $event
+
     }
 
     /**
