@@ -29,6 +29,6 @@ class OrderMailable extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.order');
+        return $this->markdown('emails.order');
     }
 }

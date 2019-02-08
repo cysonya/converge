@@ -222,10 +222,8 @@ const InternalEventForm = ({
 							if (!!token) {
 								values.stripeToken = token.id
 								values.customer_email = values.registrants[0].email
-								values.customer_first_name =
-									values.registrants[0].customer_first_name
-								values.customer_last_name =
-									values.registrants[0].customer_last_name
+								values.customer_first_name = values.registrants[0].first_name
+								values.customer_last_name = values.registrants[0].last_name
 
 								doPlaceOrder(values, setSubmitting)
 							}
