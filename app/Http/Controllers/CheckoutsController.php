@@ -142,6 +142,10 @@ class CheckoutsController extends Controller
     		$order->packages()->attach((int)$registrant['package']);
     	}
 
+
+        $emailJob = (new \App\Jobs\ConfirmOrderJob($order));
+        dispatch($emailJob);
+
     	return response()
                 ->json(['status' => 'complete', 'data' => $order]);
     }

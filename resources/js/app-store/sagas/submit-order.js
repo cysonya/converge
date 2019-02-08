@@ -12,4 +12,5 @@ export default function* submitOrder(action) {
 		action.values
 	)
 	yield put(updateOrder(response))
+	action.setSubmitting(false)
 }
