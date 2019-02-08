@@ -1,7 +1,7 @@
 @component('mail::layout')
     {{-- Header --}}
     @slot('header')
-        @component('mail::header', ['url' => config('app.url')])
+        @component('mail::header', ['url' => 'https://convergefest.com'])
             <img src={{ asset('logo.png') }} width="160" />
         @endcomponent
     @endslot
