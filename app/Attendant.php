@@ -20,7 +20,7 @@ class Attendant extends Model
     * @var array
     */
     protected $casts = [
-    'custom_properties' => 'array',
+        'custom_properties' => 'array',
     ];
 
     /**
@@ -61,5 +61,15 @@ class Attendant extends Model
     public function event()
     {
       return $this->belongsTo(\App\Event::class);
+    }
+
+    /**
+     * Get the full name of the attendee.
+     *
+     * @return string
+     */
+    public function getFullNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
     }
 }

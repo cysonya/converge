@@ -61,6 +61,7 @@ h3 {
     font-size: 14px;
     font-weight: bold;
     margin-top: 0;
+    margin-bottom: 10px;
     text-align: left;
 }
 
@@ -95,10 +96,10 @@ img {
 .content {
     margin: 0;
     padding: 0;
-    width: 570px;
+    width: 100%;
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;
-    -premailer-width: 570px;
+    -premailer-width: 100%;
 }
 
 /* Header */
@@ -172,30 +173,38 @@ img {
 
 /* Tables */
 
-.table table {
-    margin: 30px auto;
-    width: 100%;
+.table {
+    margin: 30px 0;
+    padding-left: 0;
+    padding-right: 0;
+    table-layout: fixed;
+    width: 100% !important;
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;
     -premailer-width: 100%;
 }
-
+.table tr {
+    padding-left: 0;
+    padding-right: 0;
+}
 .table th {
-    border-bottom: 1px solid #edeff2;
-    padding-bottom: 8px;
+    text-align: left;
+    padding: 10px 5px;
     margin: 0;
+    border-bottom: 1px solid #edeff2;
 }
 
 .table td {
     color: #74787e;
     font-size: 15px;
     line-height: 18px;
-    padding: 10px 0;
+    padding: 10px 5px;
     margin: 0;
+    border-bottom: 1px solid #edeff2;
 }
 
 .content-cell {
-    padding: 35px;
+    padding: 35px 0;
 }
 
 /* Buttons */
