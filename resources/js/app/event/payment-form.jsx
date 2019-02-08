@@ -315,16 +315,15 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
 		...stateProps,
 		...dispatchProps,
 		doChange: e => {
-			console.log(e)
-			if (!!e.error) {
-				setFieldValue(`payment.${e.elementType}`, "")
-				setFieldError(`payment.${e.elementType}`, e.error.message)
+			if (typeof e.error !== "undefined") {
+				setFieldValue(`payment.${e.elementType}`, "incomplete", false)
+				setFieldError(`payment.${e.elementType}`, e.error.message, false)
 			} else if (e.complete) {
 				setFieldValue(`payment.${e.elementType}`, "complete")
 			}
 		},
 		doBlur: e => {
-			setFieldTouched(`payment.${e.elementType}`, true)
+			setFieldTouched(`payment.${e.elementType}`, true, false)
 		}
 	}
 }
