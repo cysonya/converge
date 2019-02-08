@@ -32,11 +32,6 @@ class EventsController extends Controller
     */
     public function mail()
     {
-        // $event = Event::first();
-        // Mail::to('cysonya@gmail.com')->send(new EventMailable());
-        // return 'Email sent';
-
-
         $emailJob = (new SendEmailJob())->delay(Carbon::now()->addSeconds(3));
         dispatch($emailJob);
         echo "great";
