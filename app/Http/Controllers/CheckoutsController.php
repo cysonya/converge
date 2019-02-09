@@ -34,6 +34,10 @@ class CheckoutsController extends Controller
     			return Package::find($package)->price;
     		}
     	);
+        if ($request->donation > 0) {
+            $orderTotal = $orderTotal + $request->donation;
+        }
+
 
     	// Charge with Stripe
     	Stripe::setApiKey(env('STRIPE_SECRET_KEY'));

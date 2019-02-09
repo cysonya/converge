@@ -29,6 +29,12 @@ class OrderMailable extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.order');
+
+        return $this
+            ->subject("{$this->order->event->title} Confirmation")
+            ->markdown('emails.order')
+            ->with([
+                'donation' => $this->order->payments->where('payment_type', 'donation')->first()
+            ]);
     }
 }

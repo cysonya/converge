@@ -27,6 +27,22 @@ at Hiram College:
 			</tr>
 		@endforeach
 	</tbody>
+	<tfoot>
+		@if($donation)
+			<tr>
+				<td class="td-right" colspan="3" align="right">
+					<strong>Donation:</strong>
+				</td>
+				<td>${{ (int)$donation->amount }}</td>
+			</tr>
+		@endif
+		<tr>
+			<td class="td-right" colspan="3" align="right">
+				<strong>Total:</strong>
+			</td>
+			<td>${{(int)$order->order_total}} USD</td>
+		</tr>
+	</tfoot>
 </table>
 
 Registration is from 3-5pm. This is when you will receive your housing information and a schedule for the weekend.
