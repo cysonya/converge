@@ -116,6 +116,7 @@ const InternalAttendantForm = ({
 												return (
 													<Input
 														label="Email"
+														type="email"
 														error={inputError(
 															form,
 															`registrants[${index}].email`
