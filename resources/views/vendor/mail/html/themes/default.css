@@ -124,7 +124,7 @@ img {
     border-bottom: 1px solid #edeff2;
     border-top: 1px solid #edeff2;
     margin: 0;
-    padding: 0;
+    padding: 0 10px;
     width: 100%;
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;

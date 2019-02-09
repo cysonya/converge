@@ -2,7 +2,7 @@
     {{-- Header --}}
     @slot('header')
         @component('mail::header', ['url' => 'https://convergefest.com'])
-            <img src={{ asset('logo.png') }} width="160" />
+            <img src={{ asset('logo.png') }} width="160" height="36" />
         @endcomponent
     @endslot
 
