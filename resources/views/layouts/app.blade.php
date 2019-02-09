@@ -9,16 +9,17 @@
 
     <title>
         @hasSection('title')
-            @yield('title') - {{ config('app.name', 'Laravel') }}
+            @yield('title') - {{ config('app.name', 'Converge') }}
         @else
-            {{ config('app.name', 'Laravel') }}
+            {{ config('app.name', 'Converge') }}
         @endif
     </title>
 
     <!-- Scripts -->
     <script src="{{ mix('/js/app.js') }}" defer></script>
     <script src="https://js.stripe.com/v3/"></script>
-    @include('_global_site_vars')
+
+    @include('layouts._global_site_vars')
 
     <link rel="icon" href="{{asset('favicon.png')}}" type="image/gif" sizes="16x16">
     <!-- Fonts -->
@@ -29,7 +30,11 @@
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
   </head>
   <body>
-
     <div id="app"></div>
+
+    @if (App::environment(['staging', 'production']))
+        @include('layouts._analytics')
+    @endif
+
   </body>
 </html>

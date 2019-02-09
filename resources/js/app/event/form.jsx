@@ -225,6 +225,16 @@ const InternalEventForm = ({
 								values.customer_first_name = values.registrants[0].first_name
 								values.customer_last_name = values.registrants[0].last_name
 
+								// Set fullstory names
+								if (typeof FS !== "undefined") {
+									FS.setUserVars({
+										displayName: `${values.customer_first_name} ${
+											values.customer_last_name
+										}`,
+										email: values.customer_email
+									})
+								}
+
 								doPlaceOrder(values, setSubmitting)
 							}
 						})
@@ -299,6 +309,7 @@ const InternalEventForm = ({
 									</Step>
 								))}
 							</Stepper>
+
 							{!!error && <ErrorAlert />}
 
 							{!isMobile(width) ? (

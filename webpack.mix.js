@@ -11,24 +11,32 @@ const TargetsPlugin = require("targets-webpack-plugin")
  |
  */
 
-mix.webpackConfig({
-	resolve: {
-		extensions: [".js", ".jsx"],
-		alias: {
-			"@": __dirname + "/resources/js"
-		}
-	},
-	plugins: [
-		new TargetsPlugin({
-			browsers: ["last 2 versions", "chrome >= 41", "IE 11"]
-		})
-	]
-})
-
 mix
 	.react("resources/js/app.js", "public/js")
 	.sass("resources/sass/app.scss", "public/css")
 
 if (mix.inProduction()) {
+	mix.webpackConfig({
+		resolve: {
+			extensions: [".js", ".jsx"],
+			alias: {
+				"@": __dirname + "/resources/js"
+			}
+		},
+		plugins: [
+			new TargetsPlugin({
+				browsers: ["last 2 versions", "chrome >= 41", "IE 11"]
+			})
+		]
+	})
 	mix.version()
+} else {
+	mix.webpackConfig({
+		resolve: {
+			extensions: [".js", ".jsx"],
+			alias: {
+				"@": __dirname + "/resources/js"
+			}
+		}
+	})
 }
