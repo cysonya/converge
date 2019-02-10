@@ -35,4 +35,22 @@ class Package extends Model
     {
         return $this->belongsToMany(\App\Order::class);
     }
+
+    /**
+     * Get the number of package remaining
+     * @return int remaining spots left
+     */
+    public function getQuantityRemainingAttribute()
+    {
+        return $this->quantity_available - $this->quantity_sold;
+    }
+
+    /**
+     * Scope a query to only include packages that are available
+     * @param  $query
+     */
+    public function scopeAvailable($query)
+    {
+        return $query->whereRaw('quantity_available > quantity_sold');
+    }
 }

@@ -20,8 +20,8 @@ class EventsController extends Controller
     {
         $event = Event::findOrFail($event_id);
 
-        $packages = $event->packages->map(function($package) {
-            return $package->only(['id', 'title', 'description', 'price', 'quantity_available']);
+        $packages = $event->packages()->available()->get()->map(function($package) {
+            return $package->only(['id', 'title', 'description', 'price', 'quantity_remaining']);
         });
         $groups = $event->groups->map(function($group) {
             return $group->only(['id', 'description']);
