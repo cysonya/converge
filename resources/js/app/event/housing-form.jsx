@@ -53,6 +53,7 @@ const InternalHousingForm = ({
 	errors,
 	classes,
 	packages,
+	selectedPackages,
 	touched,
 	width,
 	values
@@ -89,7 +90,17 @@ const InternalHousingForm = ({
 												<MenuItem value="" />
 												{packages.map((p, i) => (
 													<MenuItem key={i} value={p.id}>
-														{p.title} - ${p.price}
+														{p.title} - ${p.price}&nbsp;
+														{p.quantity_remaining < 6 && (
+															<span className="text-alert">
+																(
+																{p.quantity_remaining -
+																	(selectedPackages[p.id]
+																		? selectedPackages[p.id]
+																		: 0)}{" "}
+																spots left)
+															</span>
+														)}
 													</MenuItem>
 												))}
 											</Input>
@@ -164,9 +175,10 @@ const InternalHousingForm = ({
 
 InternalHousingForm.propTypes = {}
 
-// Only show Townhouse option if attandants contain 'Toddler' age group
 const getPackages = (state, ownProps) => {
 	let pkgs = state.event.packages
+
+	// Only show Townhouse option if attandants contain 'Toddler' age group
 	// Get group id of Toddler
 	let toddlerId = state.event.groups.find(g =>
 		g.description.includes("Toddler")
@@ -180,9 +192,31 @@ const getPackages = (state, ownProps) => {
 		return pkgs.filter(p => p.title !== "Townhouse")
 	}
 }
+
+// Get quantity of selected packages
+const getSelected = (state, ownProps) => {
+	let pkgs = state.event.packages
+	let selections = {}
+
+	// Map package id to selected quantity
+	// ex: {2: 1, 3: 1}
+	ownProps.values.registrants.forEach(reg => {
+		console.log("REG: ", reg)
+
+		if (selections.hasOwnProperty(reg.package)) {
+			selections[reg.package] += 1
+		} else {
+			let pkg = pkgs.find(p => p.id === reg.package)
+			selections[reg.package] = 1
+		}
+	})
+	console.log("SELECTIONS ARE: ", selections)
+	return selections
+}
 const mapStateToProps = (state, ownProps) => {
 	return {
-		packages: getPackages(state, ownProps)
+		packages: getPackages(state, ownProps),
+		selectedPackages: getSelected(state, ownProps)
 	}
 }
 
