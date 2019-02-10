@@ -54,7 +54,7 @@ class EventsSeeder extends Seeder
           'title' => "East Hall",
           'description' => "",
           'price' => 200,
-          'quantity_available' => 100,
+          'quantity_available' => 1,
           'created_at' => Carbon\Carbon::now(),
           'updated_at' => Carbon\Carbon::now(),
         ],

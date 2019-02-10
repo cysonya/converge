@@ -69,7 +69,9 @@ const InternalHousingForm = ({
 						style={{ borderColor: registrant.color }}
 					>
 						<Typography variant="h6" className={classes.cardName}>
-							{index === 0 ? "Your Details" : `Attendant #${index + 1} Details`}
+							{index === 0
+								? "Your Details"
+								: `${registrant.first_name} ${registrant.last_name} Details`}
 						</Typography>
 
 						<Grid container spacing={8} style={{ marginBottom: "10px" }}>
