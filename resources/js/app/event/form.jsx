@@ -249,11 +249,17 @@ const InternalEventForm = ({
 					values
 				}) => {
 					const steps = ["Attendants", "Housing", "Review", "Payment"]
-					let content = <AttendantForm {...{ errors, touched, values }} />
+					let content = (
+						<AttendantForm {...{ errors, setFieldValue, touched, values }} />
+					)
 					const getContent = stepIndex => {
 						switch (stepIndex) {
 							case 2:
-								content = <HousingForm {...{ errors, touched, values }} />
+								content = (
+									<HousingForm
+										{...{ errors, setFieldValue, touched, values }}
+									/>
+								)
 								break
 							case 3:
 								content = (

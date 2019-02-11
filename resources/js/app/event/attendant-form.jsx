@@ -2,6 +2,8 @@ import AddCircleIcon from "@material-ui/icons/AddCircle"
 import Button from "@material-ui/core/Button"
 import Card from "@material-ui/core/Card"
 import CloseIcon from "@material-ui/icons/Close"
+import Checkbox from "@material-ui/core/Checkbox"
+import FormControlLabel from "@material-ui/core/FormControlLabel"
 import Grid from "@material-ui/core/Grid"
 import IconButton from "@material-ui/core/IconButton"
 import MenuItem from "@material-ui/core/MenuItem"
@@ -31,6 +33,7 @@ const RemoveIcon = styled(CloseIcon)`
 const InternalAttendantForm = ({
 	errors,
 	classes,
+	copyEmail,
 	groups,
 	touched,
 	values
@@ -158,6 +161,16 @@ const InternalAttendantForm = ({
 										/>
 									</Grid>
 								</Grid>
+								<FormControlLabel
+									control={
+										<Checkbox
+											value="on"
+											onClick={e => copyEmail(e)}
+											color="primary"
+										/>
+									}
+									label="Copy email to all attendants"
+								/>
 							</Card>
 						))}
 						<Button
@@ -202,9 +215,28 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return {}
 }
 
+const mergeProps = (stateProps, dispatchProps, ownProps) => {
+	const { setFieldValue, values } = ownProps
+	const { dispatch } = dispatchProps
+
+	return {
+		...ownProps,
+		...stateProps,
+		...dispatchProps,
+		copyEmail: e => {
+			if (e.target.checked) {
+				console.log("VAL: ", values)
+				values.registrants.forEach((reg, i) => {
+					setFieldValue(`registrants[${i}].email`, values.registrants[0].email)
+				})
+			}
+		}
+	}
+}
 const AttendantForm = connect(
 	mapStateToProps,
-	mapDispatchToProps
+	mapDispatchToProps,
+	mergeProps
 )(withStyles(styles)(InternalAttendantForm))
 
 export default AttendantForm
