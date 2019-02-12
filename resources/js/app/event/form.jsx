@@ -248,7 +248,7 @@ const InternalEventForm = ({
 					touched,
 					values
 				}) => {
-					const steps = ["Attendants", "Housing", "Review", "Payment"]
+					const steps = ["Participants", "Housing", "Review", "Payment"]
 					let content = (
 						<AttendantForm {...{ errors, setFieldValue, touched, values }} />
 					)
