@@ -31,11 +31,15 @@ const InternalFormNav = ({
 	// flag to enable/disable next button
 	let showNext = true
 
-	// Show next btn if all inputs in current step are valid
+	/* Step 1: Enter participants
+	 * Registrant error key should only contain 'package' as that is entered in the next screen
+	 */
 	if (step === 1) {
 		showNext = false
-		if (errors.registrants) {
-			const requiredKeys = ["first_name", "last_name", "email", "group"]
+		if (errors.customer_email) {
+			showNext = false
+		} else if (errors.registrants) {
+			const requiredKeys = ["first_name", "last_name", "group"]
 
 			for (let registrant of errors.registrants) {
 				// show next btn if requiredKeys are not found in errors
@@ -51,11 +55,19 @@ const InternalFormNav = ({
 			showNext = !!touched.registrants
 		}
 	}
+	/*
+	 * Step 2: Choose housing
+	 * There should be no registrant errors at all
+	 */
 	if (step === 2) {
 		// Show next if no registrants errors
 		showNext = !!!errors.registrants
 	}
 
+	/*
+	 * Step 3: Review order
+	 * If user inputs donation, make sure it's valid
+	 */
 	if (step === 3) {
 		if (!!errors.donation) {
 			showNext = false
