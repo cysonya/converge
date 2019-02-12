@@ -110,29 +110,25 @@ const InternalAttendantForm = ({
 											}}
 										/>
 									</Grid>
-									<Grid item xs={6}>
-										<Field
-											name={`registrants[${index}].email`}
-											render={({ field, form }) => {
-												return (
-													<Input
-														label="Email"
-														type="email"
-														error={inputError(
-															form,
-															`registrants[${index}].email`
-														)}
-														touched={getIn(
-															form.touched,
-															`registrants[${index}].email`
-														)}
-														autoComplete="email"
-														{...field}
-													/>
-												)
-											}}
-										/>
-									</Grid>
+									{index === 0 && (
+										<Grid item xs={6}>
+											<Field
+												name={`customer_email`}
+												render={({ field, form }) => {
+													return (
+														<Input
+															label="Email"
+															type="email"
+															error={inputError(form, `customer_email`)}
+															touched={getIn(form.touched, `customer_email`)}
+															autoComplete="email"
+															{...field}
+														/>
+													)
+												}}
+											/>
+										</Grid>
+									)}
 									<Grid item xs={6}>
 										<Field
 											name={`registrants[${index}].group`}

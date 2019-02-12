@@ -89,7 +89,7 @@ class CheckoutsController extends Controller
                     'package_id' => (int)$registrant['package'],
                     'first_name' => strip_tags($registrant['first_name']),
                     'last_name' => strip_tags($registrant['last_name']),
-                    'email' => strip_tags($registrant['email']),
+                    'email' => strip_tags($request->customer_email),
                     'custom_properties' => [
                         'roommates' => strip_tags($registrant['roommates']),
                         'dietary' => strip_tags($registrant['dietary'])

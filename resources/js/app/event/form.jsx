@@ -90,7 +90,6 @@ const InternalEventForm = ({
 				color: "#F3A712",
 				first_name: "",
 				last_name: "",
-				email: "",
 				group: "",
 				package: "",
 				roommates: "",
@@ -163,6 +162,14 @@ const InternalEventForm = ({
 				errors.donation = "Whole numbers only"
 			}
 		}
+		// Customer email validation
+		if (!values.customer_email) {
+			errors.customer_email = "Provide email"
+		} else if (
+			!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.customer_email)
+		) {
+			errors.customer_email = "Invalid email address"
+		}
 
 		// Registrants validation
 		let valid = true
@@ -178,13 +185,7 @@ const InternalEventForm = ({
 				error.last_name = "Provide last name"
 				valid = false
 			}
-			if (!registrant.email) {
-				error.email = "Provide email"
-			} else if (
-				!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(registrant.email)
-			) {
-				error.email = "Invalid email address"
-			}
+
 			if (!registrant.group) {
 				error.group = "Select age group"
 				valid = false
@@ -221,7 +222,6 @@ const InternalEventForm = ({
 							console.log("Stripe ERRORS: ", error)
 							if (!!token) {
 								values.stripeToken = token.id
-								values.customer_email = values.registrants[0].email
 								values.customer_first_name = values.registrants[0].first_name
 								values.customer_last_name = values.registrants[0].last_name
 
