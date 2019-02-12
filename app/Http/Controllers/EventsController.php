@@ -19,7 +19,7 @@ class EventsController extends Controller
 	 * @param string $slug
 	 * @return view
 	 */
-    public function show(Request $request, $event_id, $slug = '')
+    public function show(Request $request, $event_id)
     {
     	$event = Event::findOrFail($event_id);
 

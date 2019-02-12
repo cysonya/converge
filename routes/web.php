@@ -18,7 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 
-Route::get('/events/{event_id}/{event_slug?}', [
+Route::get('/events/{event_id}', [
 	'as' => 'showEventPage',
 	'uses' => 'EventsController@show'
 ]);
@@ -34,7 +34,7 @@ Route::get('/send/email', 'EventsController@mail');
 /*
  * Admin dashboard routes
  */
-Route::group(['prefix' => 'admin'], function() {
+Route::group(['prefix' => 'admin', 'middleware' => 'is_admin'], function() {
 	// Events dashboard
 	Route::group(['prefix' => 'events'], function() {
 		Route::get('create', 'AdminEventsController@create');
