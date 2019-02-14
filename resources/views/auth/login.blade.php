@@ -1,5 +1,44 @@
 @extends('layouts.admin')
+@section('head')
+    <link href="{{ mix('/css/forms.css') }}" rel="stylesheet">
+@endsection
 
+@section('content')
+    <div class="form-wrapper">
+        <form class="form" method="POST" action="{{ route('login')}}">
+            <h3 class="form-title">Login</h3>
+            <div class="form-group">
+                <label class="form-label">Email</label>
+                <input class="form-input" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="email" />
+                @if ($errors->has('email'))
+                    <div class="form-feedback has-error">
+                        <strong>{{ $errors->first('email') }}</strong>
+                    </div>
+                @endif
+            </div>
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <input id="password" type="password" class="form-input" name="password" required>
+                @if ($errors->has('password'))
+                    <div class="form-feedback has-error">
+                        <strong>{{ $errors->first('password') }}</strong>
+                    </div>
+                @endif
+            </div>
+            <div class="form-group">
+                <label class="form-label">
+                    <input class="mr-5" type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                    Remember Me
+                </label>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="form-button">Login</button>
+            </div>
+        </form>
+    </div>
+@endsection
+
+@if (false)
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -71,3 +110,4 @@
     </div>
 </div>
 @endsection
+@endif

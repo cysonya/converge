@@ -28,6 +28,8 @@
     <!-- Styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <link href="{{ mix('/css/admin.css') }}" rel="stylesheet">
+
+    @yield('head')
   </head>
   <body>
 

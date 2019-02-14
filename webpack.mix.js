@@ -1,5 +1,5 @@
-const mix = require("laravel-mix")
-const TargetsPlugin = require("targets-webpack-plugin")
+const mix = require("laravel-mix");
+const TargetsPlugin = require("targets-webpack-plugin");
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -15,6 +15,7 @@ mix
 	.react("resources/js/app.js", "public/js")
 	.sass("resources/sass/app.scss", "public/css")
 	.sass("resources/sass/admin.scss", "public/css")
+	.sass("resources/sass/forms.scss", "public/css");
 
 if (mix.inProduction()) {
 	mix.webpackConfig({
@@ -29,8 +30,8 @@ if (mix.inProduction()) {
 				browsers: ["last 2 versions", "chrome >= 41", "IE 11"]
 			})
 		]
-	})
-	mix.version()
+	});
+	mix.version();
 } else {
 	mix.webpackConfig({
 		resolve: {
@@ -39,5 +40,5 @@ if (mix.inProduction()) {
 				"@": __dirname + "/resources/js"
 			}
 		}
-	})
+	});
 }
