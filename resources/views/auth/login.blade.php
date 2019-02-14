@@ -1,28 +1,23 @@
-@extends('layouts.admin')
-@section('head')
-    <link href="{{ mix('/css/forms.css') }}" rel="stylesheet">
-@endsection
-
-@section('content')
-    <div class="form-wrapper">
-        <form class="form" method="POST" action="{{ route('login')}}">
-            <h3 class="form-title">Login</h3>
+@component('auth.form')
+    <form class="form" method="POST" action="{{ route('login')}}">
+        @csrf
+        <div class="form-content">
             <div class="form-group">
                 <label class="form-label">Email</label>
                 <input class="form-input" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="email" />
                 @if ($errors->has('email'))
-                    <div class="form-feedback has-error">
-                        <strong>{{ $errors->first('email') }}</strong>
-                    </div>
+                    <span class="form-feedback has-error" role="alert">
+                        {{ $errors->first('email') }}
+                    </span>
                 @endif
             </div>
             <div class="form-group">
                 <label class="form-label">Password</label>
                 <input id="password" type="password" class="form-input" name="password" required>
                 @if ($errors->has('password'))
-                    <div class="form-feedback has-error">
-                        <strong>{{ $errors->first('password') }}</strong>
-                    </div>
+                    <span class="form-feedback has-error" role="alert">
+                        {{ $errors->first('password') }}
+                    </span>
                 @endif
             </div>
             <div class="form-group">
@@ -31,12 +26,15 @@
                     Remember Me
                 </label>
             </div>
-            <div class="form-group">
-                <button type="submit" class="form-button">Login</button>
-            </div>
-        </form>
-    </div>
-@endsection
+            <button type="submit" class="form-button">Login</button>
+            @if (Route::has('password.request'))
+                <a class="form-link" href="{{ route('password.request') }}">
+                    {{ __('Forgot Your Password?') }}
+                </a>
+            @endif
+        </div>
+    </form>
+@endcomponent
 
 @if (false)
 @section('content')

@@ -20,3 +20,12 @@ $cyan: #6cb2eb;
 
 $color-primary: #8bc53f;
 $color-primary-darker: #61892c;
+
+// Breakpoints
+$media-sm-max: 599px;
+$media-md: 600px;
+$media-lg: 960px;
+
+$tablet-up: "(min-width: #{$media-md})";
+$desktop-up: "(min-width: #{$media-lg})";
+$mobile-only: "(max-width: #{media-sm-max})";
