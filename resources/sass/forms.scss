@@ -1,16 +1,16 @@
 @import "variables";
 
 body {
-	background: #2b5876; /* fallback for old browsers */
+	background: #a8ff78; /* fallback for old browsers */
 	background: -webkit-linear-gradient(
 		to right,
-		#4e4376,
-		#2b5876
+		#78ffd6,
+		#a8ff78
 	); /* Chrome 10-25, Safari 5.1-6 */
 	background: linear-gradient(
 		to right,
-		#4e4376,
-		#2b5876
+		#78ffd6,
+		#a8ff78
 	); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
@@ -31,7 +31,7 @@ body {
 	box-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 0.2),
 		0px 21px 33px 3px rgba(0, 0, 0, 0.14), 0px 8px 40px 7px rgba(0, 0, 0, 0.12);
 	@media #{$tablet-up} {
-		margin-top: 0;
+		margin-top: 5%;
 		padding: 20px 35px 35px;
 		width: 100%;
 	}
@@ -41,7 +41,7 @@ body {
 	width: 240px;
 	height: auto;
 	@media #{$tablet-up} {
-		margin-top: 0;
+		margin-top: -80px;
 	}
 }
 
@@ -66,7 +66,7 @@ body {
 	-webkit-tap-highlight-color: transparent;
 	&:focus {
 		outline: 0;
-		border-color: #03a9f4;
+		border-color: $color-primary;
 	}
 }
 .form-button {
@@ -83,10 +83,10 @@ body {
 	box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2),
 		0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
 	transition: all 0.2s;
-	background: #03a9f4;
+	background: $color-primary;
 
 	&:focus {
-		background-color: #0875a7;
+		background-color: $color-primary-darker;
 		box-shadow: none;
 	}
 }
@@ -95,10 +95,14 @@ body {
 }
 .form-feedback {
 	display: block;
-	padding-top: 5px;
-	font-size: 12px;
-	text-align: left;
 	&.has-error {
-		color: #ff0000;
+		padding-top: 5px;
+		color: $color-error;
+		font-size: 12px;
+		text-align: left;
+	}
+	&.has-succeeded {
+		margin-bottom: 10px;
+		color: $color-primary;
 	}
 }

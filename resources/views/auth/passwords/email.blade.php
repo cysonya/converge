@@ -1,19 +1,26 @@
 @component('auth.form')
-    <form class="form" method="POST" action="{{ route('password.email') }}">
+    @section('image')
+        <img class="form-vector" src={{ asset("images/vectors/get_password.svg") }} width="200" />
+    @endsection
+    <form method="POST" action="{{ route('password.email') }}">
         @csrf
 
-        <div class="form-content">
-            <div class="form-group">
-                <label class="form-label">Email</label>
-                <input id="email" type="email" class="form-input" name="email" value="{{ old('email') }}" autofocus autocomplete="email" required>
-                @if ($errors->has('email'))
-                    <span class="form-feedback has-error" role="alert">
-                        {{ $errors->first('email') }}
-                    </span>
-                @endif
+        @if (session('status'))
+            <div class="form-feedback has-succeeded" role="alert">
+                {{ session('status') }}
             </div>
-            <button type="submit" class="form-button">Send Reset Link</button>
+        @endif
+
+        <div class="form-group">
+            <label class="form-label">Email</label>
+            <input id="email" type="email" class="form-input" name="email" value="{{ old('email') }}" autofocus autocomplete="email" required>
+            @if ($errors->has('email'))
+                <span class="form-feedback has-error" role="alert">
+                    {{ $errors->first('email') }}
+                </span>
+            @endif
         </div>
+        <button type="submit" class="form-button">Send Reset Link</button>
     </form>
 @endcomponent
 

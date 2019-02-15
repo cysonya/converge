@@ -3,7 +3,7 @@
         @csrf
         <div class="form-group">
             <label class="form-label">Email</label>
-            <input class="form-input" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="email" />
+            <input id="email" type="email" class="form-input" name="email" value="{{ old('email') }}" autofocus autocomplete="email" required>
             @if ($errors->has('email'))
                 <span class="form-feedback has-error" role="alert">
                     {{ $errors->first('email') }}

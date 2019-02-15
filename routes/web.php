@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('application');
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 
 Route::get('/events/{event_id}', [
@@ -35,6 +35,9 @@ Route::get('/send/email', 'EventsController@mail');
  * Admin dashboard routes
  */
 Route::group(['prefix' => 'admin', 'middleware' => 'is_admin'], function() {
+	Route::get('dashboard', function() {
+		return view('admin');
+	});
 	// Events dashboard
 	Route::group(['prefix' => 'events'], function() {
 		Route::get('create', 'AdminEventsController@create');

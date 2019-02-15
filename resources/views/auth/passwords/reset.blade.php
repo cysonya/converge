@@ -1,11 +1,32 @@
 @component('auth.form')
-    <form class="form" method="POST" action="{{ route('password.update') }}">
+    <form method="POST" action="{{ route('password.update') }}">
         @csrf
         <input type="hidden" name="token" value="{{ $token }}">
-
-        <div class="form-content">
-
+        <div class="form-group">
+            <label class="form-label">Email</label>
+            <input id="email" type="email" class="form-input" name="email" value="{{ old('email') }}" autofocus autocomplete="email" required>
+            @if ($errors->has('email'))
+                <span class="form-feedback has-error" role="alert">
+                    {{ $errors->first('email') }}
+                </span>
+            @endif
         </div>
+        <div class="form-group">
+            <label class="form-label">Password</label>
+            <input id="password" type="password" class="form-input" name="password" required>
+            @if ($errors->has('password'))
+                <span class="form-feedback has-error" role="alert">
+                    {{ $errors->first('password') }}
+                </span>
+            @endif
+        </div>
+        <div class="form-group">
+            <label class="form-label">Confirm Password</label>
+            <input id="password-confirm" type="password" class="form-input" name="password_confirmation" required>
+        </div>
+
+        <button type="submit" class="form-button">Reset Password</button>
+
     </form>
 @endcomponent
 
