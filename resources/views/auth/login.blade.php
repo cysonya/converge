@@ -1,38 +1,36 @@
 @component('auth.form')
-    <form class="form" method="POST" action="{{ route('login')}}">
+    <form method="POST" action="{{ route('login')}}">
         @csrf
-        <div class="form-content">
-            <div class="form-group">
-                <label class="form-label">Email</label>
-                <input class="form-input" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="email" />
-                @if ($errors->has('email'))
-                    <span class="form-feedback has-error" role="alert">
-                        {{ $errors->first('email') }}
-                    </span>
-                @endif
-            </div>
-            <div class="form-group">
-                <label class="form-label">Password</label>
-                <input id="password" type="password" class="form-input" name="password" required>
-                @if ($errors->has('password'))
-                    <span class="form-feedback has-error" role="alert">
-                        {{ $errors->first('password') }}
-                    </span>
-                @endif
-            </div>
-            <div class="form-group">
-                <label class="form-label">
-                    <input class="mr-5" type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
-                    Remember Me
-                </label>
-            </div>
-            <button type="submit" class="form-button">Login</button>
-            @if (Route::has('password.request'))
-                <a class="form-link" href="{{ route('password.request') }}">
-                    {{ __('Forgot Your Password?') }}
-                </a>
+        <div class="form-group">
+            <label class="form-label">Email</label>
+            <input class="form-input" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="email" />
+            @if ($errors->has('email'))
+                <span class="form-feedback has-error" role="alert">
+                    {{ $errors->first('email') }}
+                </span>
             @endif
         </div>
+        <div class="form-group">
+            <label class="form-label">Password</label>
+            <input id="password" type="password" class="form-input" name="password" required>
+            @if ($errors->has('password'))
+                <span class="form-feedback has-error" role="alert">
+                    {{ $errors->first('password') }}
+                </span>
+            @endif
+        </div>
+        <div class="form-group">
+            <label class="form-label">
+                <input class="mr-5" type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                Remember Me
+            </label>
+        </div>
+        <button type="submit" class="form-button">Login</button>
+        @if (Route::has('password.request'))
+            <a class="form-link" href="{{ route('password.request') }}">
+                {{ __('Forgot Your Password?') }}
+            </a>
+        @endif
     </form>
 @endcomponent
 

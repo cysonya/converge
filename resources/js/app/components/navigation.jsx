@@ -1,14 +1,14 @@
-import ClickAwayListener from "@material-ui/core/ClickAwayListener"
-import CloseIcon from "@material-ui/icons/Close"
-import Collapse from "@material-ui/core/Collapse"
-import Hidden from "@material-ui/core/Hidden"
-import IconButton from "@material-ui/core/IconButton"
-import MenuIcon from "@material-ui/icons/Menu"
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import CloseIcon from "@material-ui/icons/Close";
+import Collapse from "@material-ui/core/Collapse";
+import Hidden from "@material-ui/core/Hidden";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
 
-import React, { Component } from "react"
-import styled from "styled-components"
+import React, { Component } from "react";
+import styled from "styled-components";
 
-import { media } from "@/styles/utils"
+import { media } from "@/styles/utils";
 
 const NavBar = styled.div`
   background-color: #fff;
@@ -16,7 +16,7 @@ const NavBar = styled.div`
   ${media.md`
     margin-bottom: 60px;
   `}
-`
+`;
 const NavContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -32,14 +32,14 @@ const NavContainer = styled.div`
   ${media.lg`
     width: 1170px;
   `}
-`
+`;
 const Logo = styled.img`
   width: 150px;
   height: auto;
   ${media.md`
     width: 161px;
   `}
-`
+`;
 const NavMenu = styled.ul`
   margin: 0;
   padding: 0;
@@ -47,7 +47,7 @@ const NavMenu = styled.ul`
   ${media.md`
     display: flex;
   `}
-`
+`;
 const MenuItem = styled.li`
   padding: 10px;
   border-bottom: 1px solid ${props => props.theme.grey[200]} ${media.md`
@@ -55,7 +55,7 @@ const MenuItem = styled.li`
     padding: 0;
     border-bottom: none;
   `};
-`
+`;
 const MenuLink = styled.a`
   color: black;
   font-size: 13px;
@@ -67,21 +67,21 @@ const MenuLink = styled.a`
   :focus {
     color: ${props => props.theme.secondary.main};
   }
-`
+`;
 
 export class Navigation extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       showMenu: false
-    }
+    };
   }
 
   handleMenuToggle() {
-    this.setState({ showMenu: !this.state.showMenu })
+    this.setState({ showMenu: !this.state.showMenu });
   }
   handleMenuClose() {
-    this.setState({ showMenu: false })
+    this.setState({ showMenu: false });
   }
 
   render() {
@@ -150,8 +150,8 @@ export class Navigation extends Component {
           </NavMenu>
         </Collapse>
       </NavBar>
-    )
+    );
   }
 }
 
-export default Navigation
+export default Navigation;
