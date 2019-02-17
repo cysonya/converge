@@ -13,6 +13,7 @@ const TargetsPlugin = require("targets-webpack-plugin");
 
 mix
 	.react("resources/js/app.js", "public/js")
+	.react("resources/js/admin.js", "public/js")
 	.sass("resources/sass/app.scss", "public/css")
 	.sass("resources/sass/admin.scss", "public/css")
 	.sass("resources/sass/forms.scss", "public/css");

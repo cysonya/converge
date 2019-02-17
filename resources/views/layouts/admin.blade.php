@@ -16,7 +16,7 @@
     </title>
 
     <!-- Scripts -->
-    <script src="{{ mix('/js/app.js') }}" defer></script>
+    <script src="{{ mix('/js/admin.js') }}" defer></script>
 
     @include('layouts._global_site_vars')
 
