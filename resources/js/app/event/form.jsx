@@ -106,7 +106,7 @@ const InternalEventForm = ({
 		customer_first_name: "",
 		customer_last_name: "",
 		customer_email: "",
-		donation: ""
+		donation: 0
 	}
 
 	const handleValidate = values => {

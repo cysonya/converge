@@ -199,7 +199,7 @@ InternalOrderReview.propTypes = {}
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		donationSelect: [5, 10, 20, 50, 100],
+		donationSelect: [0, 5, 10, 20, 50, 100],
 		groups: state.event.groups,
 		orderTotal: getTotal(state, ownProps),
 		packages: state.event.packages
