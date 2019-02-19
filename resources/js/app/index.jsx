@@ -5,13 +5,11 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import { Route } from "react-router-dom"
 
-import Navigation from "./components/navigation"
 import Event from "./event/index"
 
 const InternalApp = ({ history, match }) => {
   return (
     <div>
-      <Navigation />
       <ConnectedRouter history={history}>
         <Route exact path="/events/:id" component={Event} />
       </ConnectedRouter>
