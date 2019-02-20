@@ -22,7 +22,7 @@ import { ThemeProvider } from "styled-components"
 import { history, store } from "./admin-store/index"
 import theme from "./styles/theme"
 
-import Dashboard from "./admin/index"
+import Admin from "./admin/index"
 
 window.adminStore = store
 document.addEventListener("DOMContentLoaded", () => {
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			<Provider store={store}>
 				<ThemeProvider theme={theme.palette}>
 					<MuiThemeProvider theme={theme}>
-						<Dashboard history={history} />
+						<Admin history={history} />
 					</MuiThemeProvider>
 				</ThemeProvider>
 			</Provider>,

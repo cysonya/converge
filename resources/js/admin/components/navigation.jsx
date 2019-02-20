@@ -80,11 +80,13 @@ export class Navigation extends Component {
 		return (
 			<div>
 				<AppBar position="fixed" className={classes.appBar}>
-					<Toolbar variant="dense">
-						<IconButton onClick={() => this.handleDrawerToggle()}>
+					<Toolbar variant="dense" style={{ paddingLeft: 0 }}>
+						<IconButton
+							className="hidden-md-up"
+							onClick={() => this.handleDrawerToggle()}
+						>
 							<MenuIcon />
 						</IconButton>
-						<Typography variant="h6">Converge</Typography>
 					</Toolbar>
 				</AppBar>
 				<nav className={classes.drawer}>
@@ -98,7 +100,7 @@ export class Navigation extends Component {
 					>
 						<List className={classes.drawerMenu}>
 							<ListItem className={classes.menuItem}>
-								<LinkStyled to="/admin/dashboard">
+								<LinkStyled exact to="/admin">
 									<EventIcon className="pr-5" />
 									EVENTS
 								</LinkStyled>

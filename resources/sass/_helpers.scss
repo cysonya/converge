@@ -10,6 +10,7 @@
 .pb-rm {
 	padding-bottom: 0 !important;
 }
+
 .mr-5 {
 	margin-right: 5px !important;
 }
@@ -27,4 +28,14 @@
 }
 .text-left {
 	text-align: left !important;
+}
+@media (max-width: 599px) {
+	.hidden-sm-down {
+		display: none !important;
+	}
+}
+@media (min-width: 600px) {
+	.hidden-md-up {
+		display: none !important;
+	}
 }

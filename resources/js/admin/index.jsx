@@ -4,24 +4,35 @@ import ReactDOM from "react-dom"
 import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import { Route, NavLink } from "react-router-dom"
+import styled from "styled-components"
 
+import Events from "./events"
 import Navigation from "./components/navigation"
+import { media } from "@/styles/utils"
 
-const Content = () => <div>hello</div>
-const InternalDashboard = ({ history }) => {
+const Content = styled.div`
+	margin-top: 75px;
+	${media.sm`
+		margin-left: 220px;
+	`}
+`
+
+const InternalAdmin = ({ history }) => {
 	return (
 		<div>
 			<ConnectedRouter history={history}>
 				<div>
 					<Navigation />
-					<Route path="/admin/dashboard" component={Content} />
+					<Content>
+						<Route path="/admin" component={Events} />
+					</Content>
 				</div>
 			</ConnectedRouter>
 		</div>
 	)
 }
 
-InternalDashboard.propTypes = {}
+InternalAdmin.propTypes = {}
 
 const mapStateToProps = (state, ownProps) => {
 	return {}
@@ -31,9 +42,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return {}
 }
 
-const Dashboard = connect(
+const Admin = connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(InternalDashboard)
+)(InternalAdmin)
 
-export default Dashboard
+export default Admin

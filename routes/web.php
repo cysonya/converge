@@ -32,10 +32,10 @@ Route::post('/events/{event_id}/checkout', [
 Route::get('/send/email', 'EventsController@mail');
 
 /*
- * Admin dashboard routes
+ * Admin routes
  */
 Route::group(['prefix' => 'admin', 'middleware' => 'is_admin'], function() {
-	Route::get('dashboard', function() {
+	Route::get('/', function() {
 		return view('admin');
 	});
 	// Events dashboard
