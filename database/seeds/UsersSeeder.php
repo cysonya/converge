@@ -16,7 +16,8 @@ class UsersSeeder extends Seeder
         	'last_name' => '',
         	'email' => 'admin@converge.com',
         	'password' => bcrypt('converge123'),
-        	'type' => 'admin'
+        	'type' => 'admin',
+            'api_token' => str_random(60)
         ]);
     }
 }

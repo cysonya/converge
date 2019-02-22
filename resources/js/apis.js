@@ -9,11 +9,10 @@ const api = {
       credentials: "include",
       headers: new Headers({
         Accept: "application/json",
-        Authorization:
-          "Bearer " +
-          document
-            .querySelector('meta[name="csrf-token"]')
-            .getAttribute("content"),
+        "X-CSRF-Token": document
+          .querySelector('meta[name="csrf-token"]')
+          .getAttribute("content"),
+        Authorization: "Bearer " + (Cookies.get("auth_token") || ""),
         "Content-Type": "application/json; charaset=utf-8"
       })
     })
