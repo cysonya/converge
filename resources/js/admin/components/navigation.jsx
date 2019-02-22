@@ -22,7 +22,7 @@ import { isMobile } from "@/helpers/application"
 const drawerWidth = 200
 const styles = theme => ({
 	drawer: {
-		[theme.breakpoints.up("sm")]: {
+		[theme.breakpoints.up("md")]: {
 			width: drawerWidth,
 			flexShrink: 0
 		}
@@ -36,7 +36,7 @@ const styles = theme => ({
 	appBar: {
 		marginLeft: drawerWidth,
 		backgroundColor: "#FFF",
-		[theme.breakpoints.up("sm")]: {
+		[theme.breakpoints.up("md")]: {
 			width: `calc(100% - ${drawerWidth}px)`
 		}
 	},

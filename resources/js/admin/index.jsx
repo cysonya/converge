@@ -12,7 +12,7 @@ import { media } from "@/styles/utils"
 
 const Content = styled.div`
 	margin-top: 75px;
-	${media.sm`
+	${media.md`
 		margin-left: 220px;
 	`}
 `

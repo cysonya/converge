@@ -5,7 +5,7 @@ export const SET_EVENT_DATA = "SET_EVENT_DATA"
 export const SET_STEP = "SET_STEP"
 export const UPDATE_ORDER = "UPDATE_ORDER"
 
-// Triggers sumibt-order saga to register attendants and pay for order
+// Triggers submit-order saga to register attendants and pay for order
 export function placeOrder(values, setSubmitting) {
 	return { type: PLACE_ORDER, values, setSubmitting }
 }

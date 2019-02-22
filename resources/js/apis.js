@@ -4,6 +4,27 @@ if (!window.fetch) {
 }
 
 const api = {
+  authGet(url) {
+    return fetch(url, {
+      credentials: "include",
+      headers: new Headers({
+        Accept: "application/json",
+        Authorization:
+          "Bearer " +
+          document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
+        "Content-Type": "application/json; charaset=utf-8"
+      })
+    })
+      .then(statusHelper)
+      .then(response => response.json())
+      .catch(error => error)
+      .then(data => {
+        console.log("AUTH GET RESPONSE: ", data)
+        return data
+      })
+  },
   getHtml(url) {
     return fetch(url, { credentials: "include", redirect: "error" })
       .then(statusHelper)
@@ -19,7 +40,7 @@ const api = {
       .then(response => response.json())
       .catch(error => error)
       .then(data => {
-        console.log("GET RESPONSE: ", data) // The data does log!
+        console.log("GET RESPONSE: ", data)
         return data
       })
   },

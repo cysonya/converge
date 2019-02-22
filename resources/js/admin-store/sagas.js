@@ -8,8 +8,10 @@ import {
 	throttle
 } from "redux-saga/effects"
 
+import fetchEvents from "./sagas/fetch-events"
+
 function* rootSaga() {
-	yield all([])
+	yield all([takeLatest("FETCH_EVENTS", fetchEvents)])
 }
 
 export default rootSaga

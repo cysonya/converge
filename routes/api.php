@@ -17,4 +17,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Route::get('/events', 'API\EventsController@index');
+Route::group(['middleware' => ['auth:api','is_admin']], function() {
+	Route::get('/events', 'API\EventsController@index');
+});
+
 Route::get('/events/{event_id}/{event_slug?}', 'API\EventsController@show');

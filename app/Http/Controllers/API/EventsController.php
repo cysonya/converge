@@ -10,6 +10,13 @@ use App\Event;
 
 class EventsController extends Controller
 {
+    public function index()
+    {
+        $events = Event::withCount('attendants')->get();
+        return response()->json([
+            'events' => $events
+        ]);
+    }
     /**
     * Display the specified resource.
     *
