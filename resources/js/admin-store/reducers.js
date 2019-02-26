@@ -1,17 +1,21 @@
-import { combineReducers } from "redux";
-import { connectRouter } from "connected-react-router";
+import { combineReducers } from "redux"
+import { connectRouter } from "connected-react-router"
 
-function event(state = {}, action) {
-  let newState = Object.assign({}, state);
+function admin(state = {}, action) {
+	let newState = Object.assign({}, state)
 
-  switch (action.type) {
-    default:
-      return state;
-  }
+	switch (action.type) {
+		case "SET_EVENTS_DATA":
+			newState.eventsList = action.data
+			return newState
+			break
+		default:
+			return state
+	}
 }
 
 export default history =>
-  combineReducers({
-    router: connectRouter(history),
-    event
-  });
+	combineReducers({
+		router: connectRouter(history),
+		admin
+	})

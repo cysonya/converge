@@ -6,7 +6,7 @@ import { connect } from "react-redux"
 import { Route, NavLink } from "react-router-dom"
 import styled from "styled-components"
 
-import Events from "./events"
+import Events from "./events/index"
 import Navigation from "./components/navigation"
 import { media } from "@/styles/utils"
 
