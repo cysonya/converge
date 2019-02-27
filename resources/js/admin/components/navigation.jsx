@@ -30,7 +30,7 @@ const styles = theme => ({
 	drawerPaper: {
 		width: drawerWidth,
 		color: "#FFF",
-		backgroundColor: "#2f3558",
+		backgroundColor: theme.palette.common.background,
 		border: 0
 	},
 	appBar: {
