@@ -16,7 +16,7 @@ const Content = styled.div`
 		margin-left: 220px;
 	`}
 `
-
+const Test = () => <div>Event!</div>
 const InternalAdmin = ({ history }) => {
 	return (
 		<div>
@@ -24,7 +24,8 @@ const InternalAdmin = ({ history }) => {
 				<div>
 					<Navigation />
 					<Content>
-						<Route path="/admin" component={Events} />
+						<Route exact path="/admin" component={Events} />
+						<Route path="/admin/events/:id" component={Test} />
 					</Content>
 				</div>
 			</ConnectedRouter>

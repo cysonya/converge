@@ -36,7 +36,10 @@ Route::get('/send/email', 'EventsController@mail');
  */
 Route::group(['prefix' => 'admin', 'middleware' => 'is_admin'], function() {
 	Route::get('/', function() {
-		return view('admin');
+		return view('admin_react');
+	});
+	Route::get('/events/{id}', function() {
+		return view('admin_react');
 	});
 	// Events dashboard
 	Route::group(['prefix' => 'events'], function() {

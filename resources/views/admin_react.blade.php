@@ -2,5 +2,5 @@
 @section("title", "Dashboard")
 
 @section('content')
-	<div id="admin_app"></div>
+	<div id="admin_react"></div>
 @endsection

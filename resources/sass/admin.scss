@@ -18,9 +18,6 @@ body {
   background-color: #f7f7f7;
 }
 a {
-  color: #03a9f4;
   text-decoration: none;
-  &:hover {
-    color: #0875a7;
-  }
+  cursor: pointer;
 }

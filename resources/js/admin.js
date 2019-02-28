@@ -26,7 +26,7 @@ import Admin from "./admin/index"
 
 window.adminStore = store
 document.addEventListener("DOMContentLoaded", () => {
-	const appPage = document.getElementById("admin_app")
+	const appPage = document.getElementById("admin_react")
 	console.log("theme: ", theme)
 	if (appPage) {
 		ReactDOM.render(

@@ -1,9 +1,12 @@
 import Grid from "@material-ui/core/Grid"
+import Link from "@material-ui/core/Link"
 import Paper from "@material-ui/core/Paper"
+import SettingsIcon from "@material-ui/icons/Settings"
 import Typography from "@material-ui/core/Typography"
 import { withStyles } from "@material-ui/core/styles"
 import React from "react"
 import ReactDOM from "react-dom"
+import { NavLink } from "react-router-dom"
 import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import styled from "styled-components"
@@ -15,6 +18,19 @@ const styles = theme => ({
 	},
 	paper: {
 		borderRadius: "0"
+	},
+	count: {
+		fontSize: "32px",
+		color: theme.palette.primary.main
+	},
+	label: {
+		fontSize: "14px",
+		color: theme.palette.grey[600]
+	},
+	actions: {
+		display: "inline-flex",
+		verticalAlign: "middle",
+		color: theme.palette.primary.lighter
 	}
 })
 const Heading = styled.div`
@@ -38,6 +54,18 @@ const EventMonth = styled.div`
 const EventDay = styled.div`
 	font-size: 18px;
 `
+
+const Content = styled.div`
+	padding: 10px 20px 20px;
+	text-align: center;
+`
+const Footer = styled.div`
+	padding: 10px;
+	text-align: center;
+	border-top: 1px solid ${props => props.theme.grey[300]};
+	background-color: ${props => props.theme.grey[200]};
+`
+
 const InternalEventListings = ({ classes, events }) => {
 	if (!events) return null
 	return (
@@ -54,7 +82,24 @@ const InternalEventListings = ({ classes, events }) => {
 								{event.title}
 							</Typography>
 						</Heading>
-						<p>Attendants: {event.attendants_count}</p>
+
+						<Content>
+							<Typography className={classes.count} variant="subtitle2">
+								{event.attendants_count}
+							</Typography>
+							<Typography className={classes.label} variant="body1">
+								Participants
+							</Typography>
+						</Content>
+						<Footer>
+							<Link
+								component={NavLink}
+								className={classes.actions}
+								to={`/admin/events/${event.id}`}
+							>
+								<SettingsIcon className="mr-5" fontSize="small" /> Manage
+							</Link>
+						</Footer>
 					</Paper>
 				</Grid>
 			))}
