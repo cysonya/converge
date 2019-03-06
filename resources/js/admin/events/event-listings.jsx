@@ -111,7 +111,7 @@ InternalEventListings.propTypes = {}
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		events: state.admin.eventsList
+		events: state.eventListings
 	}
 }
 

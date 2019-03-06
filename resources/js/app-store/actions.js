@@ -10,7 +10,7 @@ export function placeOrder(values, setSubmitting) {
 	return { type: PLACE_ORDER, values, setSubmitting }
 }
 
-// Triggers fetch-event saga to fetch data from api
+// Triggers fetch-event saga
 export function fetchEvent(id) {
 	return { type: FETCH_EVENT, id }
 }

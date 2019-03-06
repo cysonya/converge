@@ -7,6 +7,7 @@ import { Route, NavLink } from "react-router-dom"
 import styled from "styled-components"
 
 import Events from "./events/index"
+import Event from "./event/index"
 import Navigation from "./components/navigation"
 import { media } from "@/styles/utils"
 
@@ -16,7 +17,6 @@ const Content = styled.div`
 		margin-left: 220px;
 	`}
 `
-const Test = () => <div>Event!</div>
 const InternalAdmin = ({ history }) => {
 	return (
 		<div>
@@ -25,7 +25,7 @@ const InternalAdmin = ({ history }) => {
 					<Navigation />
 					<Content>
 						<Route exact path="/admin" component={Events} />
-						<Route path="/admin/events/:id" component={Test} />
+						<Route path="/admin/events/:id" component={Event} />
 					</Content>
 				</div>
 			</ConnectedRouter>
