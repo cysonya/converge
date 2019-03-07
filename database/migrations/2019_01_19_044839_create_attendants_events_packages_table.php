@@ -79,6 +79,7 @@ class CreateAttendantsEventsPackagesTable extends Migration
     Schema::create('payments', function (Blueprint $table) {
       $table->increments('id');
       $table->unsignedInteger('order_id')->index();
+      $table->unsignedInteger('event_id')->index();
 
       $table->enum('payment_type', ['order', 'refund', 'donation']);
       $table->decimal('amount', 13, 2);
@@ -90,6 +91,7 @@ class CreateAttendantsEventsPackagesTable extends Migration
       $table->softDeletes();
 
       $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+      $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
     });
 
     Schema::create('event_groups', function (Blueprint $table) {

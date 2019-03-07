@@ -18,6 +18,22 @@ class EventsController extends Controller
         ]);
     }
     /**
+     *
+     */
+    public function dashboard($event_id)
+    {
+        $event = Event::findOrFail($event_id)->withCount(['orders','attendants'])->get()->first();
+        $event->total_donation = $event->payments()->where('payment_type','donation')->sum('amount');
+        $event->total_revenue = $event->payments()->where('payment_type','order')->sum('amount');
+
+        return response()->json([
+            'event' => $event,
+            'packages' => $event->packages()->get(),
+            'orders' => $event->orders()->with('payments')->get(),
+            'attendants' => $event->attendants()->get()
+        ]);
+    }
+    /**
     * Display the specified resource.
     *
     * @param  int  $event_id

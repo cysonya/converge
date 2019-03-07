@@ -4,6 +4,8 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 
 const InternalDashboard = ({ event }) => {
+	if (!event) return null
+
 	return (
 		<div>
 			<h1>{event.title}</h1>
@@ -15,7 +17,7 @@ InternalDashboard.propTypes = {}
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		event: state.event
+		event: state.dashboard.event
 	}
 }
 

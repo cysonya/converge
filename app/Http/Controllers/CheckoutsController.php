@@ -138,6 +138,7 @@ class CheckoutsController extends Controller
 
             // SAVE PAYMENT TO DATABASE
             $order->payments()->create([
+                'event_id' => $event->id,
                 'payment_type' => 'order',
                 'amount' => $orderTotal,
                 'transaction_id' => $charge->id,
@@ -146,6 +147,7 @@ class CheckoutsController extends Controller
             // Create donation
             if ($request->donation > 0) {
                 $order->payments()->create([
+                    'event_id' => $event->id,
                     'payment_type' => 'donation',
                     'amount' => $request->donation,
                     'transaction_id' => $donationCharge->id,

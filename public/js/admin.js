@@ -72088,7 +72088,7 @@ function eventListings() {
 } // Single event
 
 
-function event() {
+function dashboard() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
   var newState = Object.assign({}, state);
@@ -72108,7 +72108,7 @@ function event() {
   return Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
     router: Object(connected_react_router__WEBPACK_IMPORTED_MODULE_1__["connectRouter"])(history),
     eventListings: eventListings,
-    event: event
+    dashboard: dashboard
   });
 });
 
@@ -72127,7 +72127,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux-saga/effects */ "./node_modules/redux-saga/es/effects.js");
 /* harmony import */ var _sagas_fetch_events__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sagas/fetch-events */ "./resources/js/admin-store/sagas/fetch-events.js");
-/* harmony import */ var _sagas_fetch_event__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./sagas/fetch-event */ "./resources/js/admin-store/sagas/fetch-event.js");
+/* harmony import */ var _sagas_fetch_event__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./sagas/fetch-event */ "./resources/js/admin-store/sagas/fetch-event.js");
 
 
 var _marked =
@@ -72144,7 +72144,7 @@ function rootSaga() {
       switch (_context.prev = _context.next) {
         case 0:
           _context.next = 2;
-          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["all"])([Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["takeLatest"])("FETCH_EVENTS", _sagas_fetch_events__WEBPACK_IMPORTED_MODULE_2__["default"]), Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["takeLatest"])("FETCH_EVENT", _sagas_fetch_event__WEBPACK_IMPORTED_MODULE_4__["default"])]);
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["all"])([Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["takeLatest"])("FETCH_EVENTS", _sagas_fetch_events__WEBPACK_IMPORTED_MODULE_2__["default"]), Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["takeLatest"])("FETCH_EVENT", _sagas_fetch_event__WEBPACK_IMPORTED_MODULE_3__["default"])]);
 
         case 2:
         case "end":
@@ -72188,16 +72188,15 @@ function fetchEvents(action) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
-          console.log("SDF");
-          _context.next = 3;
-          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["call"])(_apis__WEBPACK_IMPORTED_MODULE_2__["default"].get, "/api/events/".concat(action.id));
+          _context.next = 2;
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["call"])(_apis__WEBPACK_IMPORTED_MODULE_2__["default"].authGet, "/api/events/".concat(action.id, "/dashboard"));
 
-        case 3:
+        case 2:
           result = _context.sent;
-          _context.next = 6;
+          _context.next = 5;
           return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["put"])(Object(_actions__WEBPACK_IMPORTED_MODULE_3__["updateEvent"])(result));
 
-        case 6:
+        case 5:
         case "end":
           return _context.stop();
       }
@@ -72558,6 +72557,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var InternalDashboard = function InternalDashboard(_ref) {
   var event = _ref.event;
+  if (!event) return null;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, event.title));
 };
 
@@ -72565,7 +72565,7 @@ InternalDashboard.propTypes = {};
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
-    event: state.event
+    event: state.dashboard.event
   };
 };
 

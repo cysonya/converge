@@ -16,7 +16,7 @@ function eventListings(state = [], action) {
 }
 
 // Single event
-function event(state = {}, action) {
+function dashboard(state = {}, action) {
 	let newState = Object.assign({}, state)
 	switch (action.type) {
 		case "UPDATE_EVENT":
@@ -32,5 +32,5 @@ export default history =>
 	combineReducers({
 		router: connectRouter(history),
 		eventListings,
-		event
+		dashboard
 	})

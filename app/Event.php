@@ -40,7 +40,7 @@ class Event extends Model
     */
     public function orders()
     {
-        return $this->hasMany(\App\Models\Order::class);
+        return $this->hasMany(\App\Order::class);
     }
 
     /**
@@ -51,6 +51,16 @@ class Event extends Model
     public function packages()
     {
         return $this->hasMany(\App\Package::class);
+    }
+
+    /**
+    * The payments associated with the event.
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\HasMany
+    */
+    public function payments()
+    {
+        return $this->hasMany(\App\Payment::class);
     }
 
     /**

@@ -4,7 +4,6 @@ import api from "@/apis"
 import { updateEvent } from "../actions"
 
 export default function* fetchEvents(action) {
-	console.log("SDF")
-	const result = yield call(api.get, `/api/events/${action.id}`)
+	const result = yield call(api.authGet, `/api/events/${action.id}/dashboard`)
 	yield put(updateEvent(result))
 }
