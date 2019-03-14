@@ -24,10 +24,12 @@
     <body>
         {!! $content !!}
         <div class="extra-info">
-            Requested Url - {{ request()->url() }}
+            Requested Url: {{ request()->url() }}<br />
+            Fullstory: {{ $_COOKIE['site_token'] ?: 'none'}}<br />
+            Params: {{ request()->all() ?: 'none'}}
         </div>
         <div class="extra-info">
-            {{ request()->all() }}
+            Params: {{ request()->all() ?: 'none'}}
         </div>
         <div class="extra-info">
             &#128336; &nbsp;{{ date('l, jS \of F Y h:i:s a') }} {{ date_default_timezone_get() }}
