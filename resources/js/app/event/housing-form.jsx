@@ -17,38 +17,8 @@ import styled from "styled-components"
 
 import { isMobile } from "@/helpers/application"
 import { Input, inputError } from "@/app/components/form/index"
-// import { media } from "@/styles/utils"
 import { Divider, styles } from "./components"
 
-// const Packages = styled.div`
-// 	display: flex;
-// 	justify-content: space-between;
-// 	flex-wrap: wrap;
-// `
-// const Packagewrapper = styled.div`
-// 	padding: 4px;
-// 	flex-basis: 100%;
-// 	${media.md`
-// 		flex-basis: 33%;
-// 	`}
-// `
-// const Package = styled.div`
-// 	position: relative;
-// 	display: flex;
-// 	padding: 8px;
-// 	background-color: ${props => props.theme.grey[100]};
-// 	border: 2px solid
-// 		${props => (props.selected ? props.theme.primary.light : "transparent")};
-// 	border-radius: 4px;
-// `
-// const Check = styled(CheckCircleIcon)`
-// 	position: absolute;
-// 	top: -11px;
-// 	right: -10px;
-// 	color: ${props => props.theme.primary.main};
-// 	background-color: white;
-// 	border-radius: 50%;
-// `
 const InternalHousingForm = ({
 	errors,
 	classes,
@@ -128,46 +98,6 @@ const InternalHousingForm = ({
 								/>
 							</Grid>
 						</Grid>
-						{/* TODO: delete if not going to use */}
-						{false && (
-							<Packages>
-								<Packagewrapper>
-									<Package selected>
-										{true && <Check />}
-										<Grid item xs>
-											<Typography
-												variant="subtitle2"
-												className={classes.lineHeight}
-											>
-												Bowler Hall
-											</Typography>
-										</Grid>
-										<Grid item>
-											<Typography variant="subtitle1" color="primary">
-												$19.00
-											</Typography>
-										</Grid>
-									</Package>
-								</Packagewrapper>
-
-								<Packagewrapper>
-									<Package>
-										<Grid item xs>
-											<Typography variant="subtitle2">East Hall</Typography>
-										</Grid>
-										<Grid item>
-											<Typography
-												variant="subtitle1"
-												className={classes.lineHeight}
-												color="primary"
-											>
-												$19.00
-											</Typography>
-										</Grid>
-									</Package>
-								</Packagewrapper>
-							</Packages>
-						)}
 					</Card>
 				))
 			}}

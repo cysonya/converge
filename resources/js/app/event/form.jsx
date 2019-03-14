@@ -74,6 +74,7 @@ const InternalEventForm = ({
 	doPlaceOrder,
 	error,
 	event,
+	showError,
 	status,
 	step,
 	stripe,
@@ -97,7 +98,6 @@ const InternalEventForm = ({
 			}
 		],
 		payment: {
-			cardName: "",
 			cardNumber: "",
 			cardExpiry: "",
 			cardCvc: "",
@@ -112,12 +112,12 @@ const InternalEventForm = ({
 	const handleValidate = values => {
 		let errors = {}
 
-		if (!values.payment.cardName) {
-			errors.payment = Object.assign(
-				{ cardName: "Provide valid card details" },
-				errors.payment
-			)
-		}
+		// if (!values.payment.cardName) {
+		// 	errors.payment = Object.assign(
+		// 		{ cardName: "Provide valid card details" },
+		// 		errors.payment
+		// 	)
+		// }
 		if (!values.payment.cardNumber) {
 			errors.payment = Object.assign(
 				{ cardNumber: "Provide valid card details" },
@@ -143,10 +143,11 @@ const InternalEventForm = ({
 			)
 		}
 		// remove payment errors if completed
+		console.log("VALIDATE ERRORS: ", errors, " VALIDATE VALUES: ", values)
 		if (errors.payment) {
 			for (let err in errors.payment) {
 				if (values.payment[err] === "complete") {
-					delete errors.payment[err]
+					// delete errors.payment[err]
 				}
 			}
 			if (Object.keys(errors.payment).length === 0) {
@@ -215,29 +216,31 @@ const InternalEventForm = ({
 				}}
 				onSubmit={(values, { setSubmitting }) => {
 					updateOrderStatus()
-					stripe
-						.createToken({ name: values.payment.cardName })
-						.then(({ error, token }) => {
-							console.log("Stripe TOKEN: ", token)
-							console.log("Stripe ERRORS: ", error)
-							if (!!token) {
-								values.stripeToken = token.id
-								values.customer_first_name = values.registrants[0].first_name
-								values.customer_last_name = values.registrants[0].last_name
+					stripe.createToken().then(({ error, token }) => {
+						console.log("Stripe TOKEN: ", token)
+						console.log("Stripe ERRORS: ", error)
+						if (!!error) {
+							showError(error.message)
+							setSubmitting(false)
+						}
+						if (!!token) {
+							values.stripeToken = token.id
+							values.customer_first_name = values.registrants[0].first_name
+							values.customer_last_name = values.registrants[0].last_name
 
-								// Set fullstory names
-								if (typeof FS !== "undefined") {
-									FS.setUserVars({
-										displayName: `${values.customer_first_name} ${
-											values.customer_last_name
-										}`,
-										email: values.customer_email
-									})
-								}
-
-								doPlaceOrder(values, setSubmitting)
+							// Set fullstory names
+							if (typeof FS !== "undefined") {
+								FS.setUserVars({
+									displayName: `${values.customer_first_name} ${
+										values.customer_last_name
+									}`,
+									email: values.customer_email
+								})
 							}
-						})
+
+							doPlaceOrder(values, setSubmitting)
+						}
+					})
 				}}
 				render={({
 					errors,
@@ -350,6 +353,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		doPlaceOrder: (values, setSubmitting) => {
 			dispatch(placeOrder(values, setSubmitting))
+		},
+		showError: error => {
+			dispatch(updateOrder({ status: "incomplete", error: error }))
 		},
 		updateOrderStatus: () => {
 			dispatch(updateOrder({ status: "processing" }))

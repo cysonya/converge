@@ -165,22 +165,24 @@ const InternalPaymentForm = ({
 
 				<Grid item xs={12} md={7} style={isMobile(width) ? {} : { order: 1 }}>
 					<PaymentContainer>
-						<Field
-							name="payment.cardName"
-							render={({ field, form }) => (
-								<FormControl>
-									<FormLabel>Cardholder Name</FormLabel>
-									<NameInput
-										error={!!inputError(form, "payment.cardName")}
-										autocomplete="cc-name"
-										{...field}
-									/>
-									{!!inputError(form, "payment.cardName") && (
-										<ErrorText>{errors.payment.cardName}</ErrorText>
-									)}
-								</FormControl>
-							)}
-						/>
+						{false && (
+							<Field
+								name="payment.cardName"
+								render={({ field, form }) => (
+									<FormControl>
+										<FormLabel>Cardholder Name</FormLabel>
+										<NameInput
+											error={!!inputError(form, "payment.cardName")}
+											autocomplete="cc-name"
+											{...field}
+										/>
+										{!!inputError(form, "payment.cardName") && (
+											<ErrorText>{errors.payment.cardName}</ErrorText>
+										)}
+									</FormControl>
+								)}
+							/>
+						)}
 						<Field
 							name="payment.cardNumber"
 							render={({ form }) => (
@@ -315,6 +317,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
 		...stateProps,
 		...dispatchProps,
 		doChange: e => {
+			console.log("STRIPE ELEMENT: ", e)
 			if (typeof e.error !== "undefined") {
 				setFieldValue(`payment.${e.elementType}`, "incomplete", false)
 				setFieldError(`payment.${e.elementType}`, e.error.message, false)
