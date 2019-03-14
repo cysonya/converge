@@ -11,13 +11,32 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-        	'first_name' => 'Admin',
-        	'last_name' => '',
-        	'email' => 'admin@converge.com',
-        	'password' => bcrypt('converge123'),
-        	'type' => 'admin',
-            'api_token' => str_random(60)
-        ]);
+        $users = [
+            [
+                'first_name' => 'Admin',
+                'last_name' => '',
+                'email' => 'admin@converge.com',
+                'password' => bcrypt('converge123'),
+                'type' => 'admin',
+                'api_token' => str_random(60)
+            ],
+            [
+                'first_name' => 'Jerry',
+                'last_name' => '',
+                'email' => 'jerry.wierwille@gmail.com',
+                'password' => bcrypt('converge123'),
+                'type' => 'admin',
+                'api_token' => str_random(60)
+            ],
+            [
+                'first_name' => 'Sean',
+                'last_name' => '',
+                'email' => 'sean@lhim.org',
+                'password' => bcrypt('converge123'),
+                'type' => 'admin',
+                'api_token' => str_random(60)
+            ]
+        ];
+        DB::table('users')->insert($users);
     }
 }

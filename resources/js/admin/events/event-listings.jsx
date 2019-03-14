@@ -95,7 +95,7 @@ const InternalEventListings = ({ classes, events }) => {
 							<Link
 								component={NavLink}
 								className={classes.actions}
-								to={`/admin/events/${event.id}`}
+								to={`/admin/events/${event.id}/dashboard`}
 							>
 								<SettingsIcon className="mr-5" fontSize="small" /> Manage
 							</Link>

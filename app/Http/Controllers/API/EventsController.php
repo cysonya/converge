@@ -10,6 +10,11 @@ use App\Event;
 
 class EventsController extends Controller
 {
+    /**
+     * All events listing
+     *
+     * @return json \Illuminate\Http\Response
+     */
     public function index()
     {
         $events = Event::withCount('attendants')->get();
@@ -17,8 +22,12 @@ class EventsController extends Controller
             'events' => $events
         ]);
     }
+
     /**
+     * Event dashboard
      *
+     * @param $event_id int
+     *  @return json \Illuminate\Http\Response
      */
     public function dashboard($event_id)
     {
@@ -33,6 +42,7 @@ class EventsController extends Controller
             'attendants' => $event->attendants()->get()
         ]);
     }
+
     /**
     * Display the specified resource.
     *

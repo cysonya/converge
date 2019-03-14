@@ -25,7 +25,7 @@ const InternalAdmin = ({ history }) => {
 					<Navigation />
 					<Content>
 						<Route exact path="/admin" component={Events} />
-						<Route path="/admin/events/:id" component={Event} />
+						<Route path="/admin/events/:id/dashboard" component={Event} />
 					</Content>
 				</div>
 			</ConnectedRouter>

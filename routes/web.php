@@ -38,7 +38,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'is_admin'], function() {
 	Route::get('/', function() {
 		return view('admin_react');
 	});
-	Route::get('/events/{id}', function() {
+	Route::get('/events/{id}/dashboard', function() {
 		return view('admin_react');
 	});
 	// Events dashboard
