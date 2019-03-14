@@ -14,6 +14,7 @@ import { media } from "@/styles/utils"
 const Content = styled.div`
 	margin-top: 75px;
 	${media.md`
+		margin-top: 40px;
 		margin-left: 220px;
 	`}
 `
