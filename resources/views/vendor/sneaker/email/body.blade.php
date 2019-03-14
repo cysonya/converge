@@ -25,8 +25,7 @@
         {!! $content !!}
         <div class="extra-info">
             Requested Url: {{ request()->url() }}<br />
-            Fullstory: {{ $_COOKIE['site_token'] ?: 'none'}}<br />
-            Params: {{ request()->all() ?: 'none'}}
+            Fullstory: {{ request()->cookie('site_token') ?: 'none'}}
         </div>
         <div class="extra-info">
             Params: {{ request()->all() ?: 'none'}}
