@@ -309,7 +309,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	}
 }
 const mergeProps = (stateProps, dispatchProps, ownProps) => {
-	const { setFieldValue, setFieldError, setFieldTouched } = ownProps
+	const { setFieldValue, setFieldTouched } = ownProps
 	const { dispatch } = dispatchProps
 
 	return {
@@ -317,12 +317,11 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
 		...stateProps,
 		...dispatchProps,
 		doChange: e => {
-			console.log("STRIPE ELEMENT: ", e)
+			// console.log("STRIPE ELEMENT: ", e)
 			if (typeof e.error !== "undefined") {
-				setFieldValue(`payment.${e.elementType}`, "incomplete", false)
-				setFieldError(`payment.${e.elementType}`, e.error.message, false)
+				setFieldValue(`payment.${e.elementType}`, e.error.message, true)
 			} else if (e.complete) {
-				setFieldValue(`payment.${e.elementType}`, "complete")
+				setFieldValue(`payment.${e.elementType}`, "complete", true)
 			}
 		},
 		doBlur: e => {

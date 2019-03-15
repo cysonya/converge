@@ -124,7 +124,7 @@ const InternalEventForm = ({
 				errors.payment
 			)
 		}
-		if (!values.payment.cardNumbercardExpiry) {
+		if (!values.payment.cardExpiry) {
 			errors.payment = Object.assign(
 				{ cardExpiry: "Provide valid card details" },
 				errors.payment
@@ -142,16 +142,17 @@ const InternalEventForm = ({
 				errors.payment
 			)
 		}
-		// remove payment errors if completed
-		console.log("VALIDATE ERRORS: ", errors, " VALIDATE VALUES: ", values)
-		if (errors.payment) {
-			for (let err in errors.payment) {
-				if (values.payment[err] === "complete") {
-					// delete errors.payment[err]
+
+		// Validate payment errors for stripe element
+		for (let field in values.payment) {
+			if (values.payment[field] === "complete") {
+				if (errors.payment) {
+					delete errors.payment[field]
 				}
-			}
-			if (Object.keys(errors.payment).length === 0) {
-				delete errors.payment
+			} else {
+				let err = {}
+				err[field] = values.payment[field]
+				errors.payment = Object.assign(err, errors.payment)
 			}
 		}
 
@@ -247,7 +248,6 @@ const InternalEventForm = ({
 					isSubmitting,
 					setFieldValue,
 					setFieldTouched,
-					setFieldError,
 					touched,
 					values
 				}) => {
@@ -279,7 +279,6 @@ const InternalEventForm = ({
 											isSubmitting,
 											setFieldValue,
 											setFieldTouched,
-											setFieldError,
 											touched,
 											values
 										}}
