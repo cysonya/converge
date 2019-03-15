@@ -5,7 +5,8 @@ import {
   REMOVE_ORDER_ERROR,
   SET_EVENT_DATA,
   SET_STEP,
-  UPDATE_ORDER
+  UPDATE_ORDER,
+  UPDATE_PACKAGE
 } from "./actions"
 
 function event(state = {}, action) {
@@ -20,6 +21,17 @@ function event(state = {}, action) {
       break
     case SET_STEP:
       newState.step = action.index
+      return newState
+      break
+    case UPDATE_PACKAGE:
+      newState.packages.map((p, idx) => {
+        console.log("P: ", p)
+        if (idx === action.index) {
+          return (p = Object.assign(action.value, p))
+        }
+        return p
+      })
+      console.log("NEW: ", newState.packages[action.index])
       return newState
       break
     default:

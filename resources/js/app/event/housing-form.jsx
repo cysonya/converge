@@ -15,15 +15,17 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import styled from "styled-components"
 
-import { isMobile } from "@/helpers/application"
 import { Input, inputError } from "@/app/components/form/index"
+import { filterPackages, updatePackage } from "@/app-store/actions"
+import { isMobile } from "@/helpers/application"
 import { Divider, styles } from "./components"
 
 const InternalHousingForm = ({
-	errors,
-	classes,
-	packages,
 	availablePackages,
+	classes,
+	errors,
+	packages,
+	setChoice,
 	touched,
 	width,
 	values
@@ -58,17 +60,18 @@ const InternalHousingForm = ({
 													form,
 													`registrants[${index}].package`
 												)}
+												onClick={e => setChoice(e, index)}
 												{...field}
 											>
 												<MenuItem value="" />
-												{availablePackages[index].map(
+												{packages.map(
 													(p, i) =>
-														p.remaining > 0 && (
+														p.remain > 0 && (
 															<MenuItem key={i} value={p.id}>
 																{p.title} - ${p.price}&nbsp;
-																{p.remaining < 6 && (
+																{p.remain < 6 && (
 																	<span className="text-alert">
-																		{`(${p.remaining} spots left)`}
+																		{`(${p.remain} spots left)`}
 																	</span>
 																)}
 															</MenuItem>
@@ -115,7 +118,10 @@ const getPackages = (state, ownProps) => {
 		g.description.includes("Toddler")
 	).id
 
-	if (ownProps.values.registrants.filter(r => r.group === 5).length >= 2) {
+	if (
+		toddlerId > -1 &&
+		ownProps.values.registrants.filter(r => r.group === toddlerId).length >= 2
+	) {
 		// return all package options if attendant contains at least 2 Toddler
 		return pkgs
 	} else {
@@ -176,18 +182,53 @@ const getAvailable = (state, ownProps) => {
 }
 const mapStateToProps = (state, ownProps) => {
 	return {
+		allPackages: state.event.packages,
 		packages: getPackages(state, ownProps),
 		availablePackages: getAvailable(state, ownProps)
 	}
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-	return {}
+	return { dispatch }
+}
+
+const mergeProps = (stateProps, dispatchProps, ownProps) => {
+	const { values } = ownProps
+	const { allPackages } = stateProps
+	const { dispatch } = dispatchProps
+	return {
+		...ownProps,
+		...stateProps,
+		...dispatchProps,
+		setChoice: (e, index) => {
+			let value = e.target.value
+			if (!!value) {
+				// let registrants = values.registrants.splice(index, 1)
+				// console.log("RRRRRR: ", registrants)
+				// dispatch(filterPackages(registrants))
+
+				console.log("PACKAGES: ", allPackages)
+				let pkgIndex = allPackages.findIndex(p => p.id === value)
+				console.log(
+					"PKGID: ",
+					allPackages[pkgIndex].quantity_remaining,
+					" VAL: ",
+					value
+				)
+				dispatch(
+					updatePackage(pkgIndex, {
+						remain: allPackages[pkgIndex].quantity_remaining - 1
+					})
+				)
+			}
+		}
+	}
 }
 
 const HousingForm = connect(
 	mapStateToProps,
-	mapDispatchToProps
+	mapDispatchToProps,
+	mergeProps
 )(withStyles(styles)(withWidth()(InternalHousingForm)))
 
 export default HousingForm
