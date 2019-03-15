@@ -24,15 +24,16 @@ function event(state = {}, action) {
       return newState
       break
     case UPDATE_PACKAGE:
-      newState.packages.map((p, idx) => {
-        console.log("P: ", p)
-        if (idx === action.index) {
-          return (p = Object.assign(action.value, p))
+      let packages = newState.packages.map((p, i) => {
+        if (i === action.index) {
+          return Object.assign({}, p, action.value)
         }
         return p
       })
-      console.log("NEW: ", newState.packages[action.index])
-      return newState
+      return {
+        ...newState,
+        packages: packages
+      }
       break
     default:
       return state

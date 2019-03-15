@@ -293,7 +293,7 @@ const InternalEventForm = ({
 						return <OrderComplete />
 					}
 
-					// console.log("VALUES: ", values)
+					console.log("VALUES: ", values)
 					// console.log("ERRORS: ", errors)
 					// console.log("TOUCHED: ", touched)
 					return (

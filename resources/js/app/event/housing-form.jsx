@@ -16,7 +16,7 @@ import { connect } from "react-redux"
 import styled from "styled-components"
 
 import { Input, inputError } from "@/app/components/form/index"
-import { filterPackages, updatePackage } from "@/app-store/actions"
+import { filterPackages } from "@/app-store/actions"
 import { isMobile } from "@/helpers/application"
 import { Divider, styles } from "./components"
 
@@ -66,7 +66,7 @@ const InternalHousingForm = ({
 												<MenuItem value="" />
 												{packages.map(
 													(p, i) =>
-														p.remain > 0 && (
+														(p.remain > 0 || registrant.package === p.id) && (
 															<MenuItem key={i} value={p.id}>
 																{p.title} - ${p.price}&nbsp;
 																{p.remain < 6 && (
@@ -182,7 +182,6 @@ const getAvailable = (state, ownProps) => {
 }
 const mapStateToProps = (state, ownProps) => {
 	return {
-		allPackages: state.event.packages,
 		packages: getPackages(state, ownProps),
 		availablePackages: getAvailable(state, ownProps)
 	}
@@ -194,32 +193,21 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => {
 	const { values } = ownProps
-	const { allPackages } = stateProps
 	const { dispatch } = dispatchProps
 	return {
 		...ownProps,
 		...stateProps,
 		...dispatchProps,
-		setChoice: (e, index) => {
+		setChoice: (e, regIndex) => {
 			let value = e.target.value
 			if (!!value) {
-				// let registrants = values.registrants.splice(index, 1)
-				// console.log("RRRRRR: ", registrants)
-				// dispatch(filterPackages(registrants))
-
-				console.log("PACKAGES: ", allPackages)
-				let pkgIndex = allPackages.findIndex(p => p.id === value)
-				console.log(
-					"PKGID: ",
-					allPackages[pkgIndex].quantity_remaining,
-					" VAL: ",
-					value
-				)
-				dispatch(
-					updatePackage(pkgIndex, {
-						remain: allPackages[pkgIndex].quantity_remaining - 1
-					})
-				)
+				let registrants = values.registrants.map((reg, i) => {
+					if (i === regIndex) {
+						return Object.assign({}, reg, { package: value })
+					}
+					return reg
+				})
+				dispatch(filterPackages(registrants))
 			}
 		}
 	}
