@@ -32,6 +32,10 @@ const styles = theme => ({
 		marginBottom: "20px",
 		padding: "0 10px 10px"
 	},
+	tableData: {
+		padding: "10px 20px 10px 10px",
+		whiteSpace: "nowrap"
+	},
 	alignRight: {
 		paddingRight: "10px !important",
 		textAlign: "right"
@@ -89,10 +93,14 @@ const InternalOrderReview = ({
 					<Table>
 						<TableHead>
 							<TableRow>
-								<TableCell className={classes.alignLeft}>Name</TableCell>
-								<TableCell>Group</TableCell>
-								<TableCell>Housing</TableCell>
-								<TableCell className={classes.alignRight}>Amount</TableCell>
+								<TableCell className={classes.tableData} align="left">
+									Name
+								</TableCell>
+								<TableCell className={classes.tableData}>Group</TableCell>
+								<TableCell className={classes.tableData}>Housing</TableCell>
+								<TableCell className={classes.tableData} align="right">
+									Amount
+								</TableCell>
 							</TableRow>
 						</TableHead>
 
@@ -102,14 +110,18 @@ const InternalOrderReview = ({
 								let pkg = packages.find(g => g.id === registrant.package)
 								return (
 									<TableRow key={index}>
-										<TableCell className={classes.alignLeft}>
+										<TableCell className={classes.tableData} align="left">
 											<strong>
 												{registrant.first_name} {registrant.last_name}
 											</strong>
 										</TableCell>
-										<TableCell>{group.description}</TableCell>
-										<TableCell>{pkg.title}</TableCell>
-										<TableCell className={classes.alignRight}>
+										<TableCell className={classes.tableData}>
+											{group.description}
+										</TableCell>
+										<TableCell className={classes.tableData}>
+											{pkg.title}
+										</TableCell>
+										<TableCell className={classes.tableData} align="right">
 											${Math.round(pkg.price)}
 										</TableCell>
 									</TableRow>

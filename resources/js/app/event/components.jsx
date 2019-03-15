@@ -12,6 +12,11 @@ export const styles = theme => ({
 		borderRadius: "4px",
 		backgroundColor: "#fff"
 	},
+	pkgSelect: {
+		"& .text-alert": {
+			display: "none"
+		}
+	},
 	card: {
 		marginBottom: "20px",
 		padding: "10px 10px 15px",

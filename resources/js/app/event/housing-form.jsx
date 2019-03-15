@@ -23,7 +23,7 @@ const InternalHousingForm = ({
 	errors,
 	classes,
 	packages,
-	selectedPackages,
+	availablePackages,
 	touched,
 	width,
 	values
@@ -51,6 +51,7 @@ const InternalHousingForm = ({
 									render={({ field, form }) => {
 										return (
 											<Input
+												className={classes.pkgSelect}
 												select
 												label="Housing option"
 												error={inputError(
@@ -60,21 +61,19 @@ const InternalHousingForm = ({
 												{...field}
 											>
 												<MenuItem value="" />
-												{packages.map((p, i) => (
-													<MenuItem key={i} value={p.id}>
-														{p.title} - ${p.price}&nbsp;
-														{p.quantity_remaining < 6 && (
-															<span className="text-alert">
-																(
-																{p.quantity_remaining -
-																	(selectedPackages[p.id]
-																		? selectedPackages[p.id]
-																		: 0)}{" "}
-																spots left)
-															</span>
-														)}
-													</MenuItem>
-												))}
+												{availablePackages[index].map(
+													(p, i) =>
+														p.remaining > 0 && (
+															<MenuItem key={i} value={p.id}>
+																{p.title} - ${p.price}&nbsp;
+																{p.remaining < 6 && (
+																	<span className="text-alert">
+																		{`(${p.remaining} spots left)`}
+																	</span>
+																)}
+															</MenuItem>
+														)
+												)}
 											</Input>
 										)
 									}}
@@ -125,30 +124,60 @@ const getPackages = (state, ownProps) => {
 	}
 }
 
-// Get quantity of selected packages
-const getSelected = (state, ownProps) => {
-	let pkgs = state.event.packages
+// Get package qty remaining for each registrant
+const getAvailable = (state, ownProps) => {
+	let eventPkgs = state.event.packages
+	/**
+	 * Map package id to selected qty
+	 * ex: {pkgId: <int - total selected>}
+	 * ex: {1: 2}
+	 */
 	let selections = {}
+	/**
+	 * Map registrant to packages
+	 * ex: {registrantIndex: [{remaining: <int - qty remaining in pkg}]}
+	 * ex: {0: [{remaining: 2, title: 'East Hall'}]}
+	 */
+	let registrantPkgs = {}
 
-	// Map package id to selected quantity
-	// ex: {2: 1, 3: 1}
-	ownProps.values.registrants.forEach(reg => {
-		console.log("REG: ", reg)
+	ownProps.values.registrants.forEach((reg, i) => {
+		let pkgs = [] // array to hold all packages
 
+		// Calculate each packages remaining quantity
+		eventPkgs.forEach(p => {
+			if (selections[p.id]) {
+				p = Object.assign(
+					{ remaining: p.quantity_remaining - selections[p.id] },
+					p
+				)
+			} else {
+				p = Object.assign({ remaining: p.quantity_remaining }, p)
+			}
+			pkgs.push(p)
+		})
+
+		// Assign pkgs data to registrant
+		let data = []
+		data[i] = pkgs
+		registrantPkgs = Object.assign(data, registrantPkgs)
+
+		// Update selected package total qty
 		if (selections.hasOwnProperty(reg.package)) {
 			selections[reg.package] += 1
 		} else {
-			let pkg = pkgs.find(p => p.id === reg.package)
-			selections[reg.package] = 1
+			let pkg = eventPkgs.find(p => p.id === reg.package)
+			if (pkg) {
+				selections[pkg.id] = 1
+			}
 		}
 	})
-	console.log("SELECTIONS ARE: ", selections)
-	return selections
+
+	return registrantPkgs
 }
 const mapStateToProps = (state, ownProps) => {
 	return {
 		packages: getPackages(state, ownProps),
-		selectedPackages: getSelected(state, ownProps)
+		availablePackages: getAvailable(state, ownProps)
 	}
 }
 
