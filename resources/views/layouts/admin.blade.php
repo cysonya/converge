@@ -31,7 +31,7 @@
     @yield('head')
   </head>
   <body>
-
+    wowowow
     @yield('content')
 
     @if (App::environment(['staging', 'production']))

@@ -21,7 +21,6 @@ import { isMobile } from "@/helpers/application"
 import { Divider, styles } from "./components"
 
 const InternalHousingForm = ({
-	availablePackages,
 	classes,
 	errors,
 	packages,
@@ -130,60 +129,9 @@ const getPackages = (state, ownProps) => {
 	}
 }
 
-// Get package qty remaining for each registrant
-const getAvailable = (state, ownProps) => {
-	let eventPkgs = state.event.packages
-	/**
-	 * Map package id to selected qty
-	 * ex: {pkgId: <int - total selected>}
-	 * ex: {1: 2}
-	 */
-	let selections = {}
-	/**
-	 * Map registrant to packages
-	 * ex: {registrantIndex: [{remaining: <int - qty remaining in pkg}]}
-	 * ex: {0: [{remaining: 2, title: 'East Hall'}]}
-	 */
-	let registrantPkgs = {}
-
-	ownProps.values.registrants.forEach((reg, i) => {
-		let pkgs = [] // array to hold all packages
-
-		// Calculate each packages remaining quantity
-		eventPkgs.forEach(p => {
-			if (selections[p.id]) {
-				p = Object.assign(
-					{ remaining: p.quantity_remaining - selections[p.id] },
-					p
-				)
-			} else {
-				p = Object.assign({ remaining: p.quantity_remaining }, p)
-			}
-			pkgs.push(p)
-		})
-
-		// Assign pkgs data to registrant
-		let data = []
-		data[i] = pkgs
-		registrantPkgs = Object.assign(data, registrantPkgs)
-
-		// Update selected package total qty
-		if (selections.hasOwnProperty(reg.package)) {
-			selections[reg.package] += 1
-		} else {
-			let pkg = eventPkgs.find(p => p.id === reg.package)
-			if (pkg) {
-				selections[pkg.id] = 1
-			}
-		}
-	})
-
-	return registrantPkgs
-}
 const mapStateToProps = (state, ownProps) => {
 	return {
-		packages: getPackages(state, ownProps),
-		availablePackages: getAvailable(state, ownProps)
+		packages: getPackages(state, ownProps)
 	}
 }
 
