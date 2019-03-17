@@ -12,33 +12,8 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import styled from "styled-components"
 
-const styles = theme => ({
-	title: {
-		marginLeft: "55px",
-		color: "#fff"
-	},
-	paper: {
-		borderRadius: "0"
-	},
-	count: {
-		fontSize: "32px",
-		color: theme.palette.primary.main
-	},
-	label: {
-		fontSize: "14px",
-		color: theme.palette.grey[600]
-	},
-	actions: {
-		display: "inline-flex",
-		verticalAlign: "middle",
-		color: theme.palette.primary.lighter
-	}
-})
-const Heading = styled.div`
-	position: relative;
-	padding: 10px;
-	background-color: ${props => props.theme.common.background};
-`
+import { CardHeading, CardContent, CardFooter, styles } from "./components"
+
 const EventDate = styled.div`
 	position: absolute;
 	top: -12px;
@@ -56,51 +31,41 @@ const EventDay = styled.div`
 	font-size: 18px;
 `
 
-const Content = styled.div`
-	padding: 10px 20px 20px;
-	text-align: center;
-`
-const Footer = styled.div`
-	padding: 10px;
-	text-align: center;
-	border-top: 1px solid ${props => props.theme.grey[300]};
-	background-color: ${props => props.theme.grey[200]};
-`
-
 const InternalEventListings = ({ classes, events }) => {
 	if (!events) return null
+
 	return (
 		<Grid container spacing={24}>
 			{events.map((event, index) => (
 				<Grid key={index} item xs={12} md={6} lg={4}>
 					<Paper className={classes.paper}>
-						<Heading>
+						<CardHeading>
 							<EventDate>
 								<EventMonth>AUG</EventMonth>
 								<EventDay>02</EventDay>
 							</EventDate>
-							<Typography className={classes.title} variant="h6">
+							<Typography className={classes.eventTitle} variant="h6">
 								{event.title}
 							</Typography>
-						</Heading>
+						</CardHeading>
 
-						<Content>
-							<Typography className={classes.count} variant="subtitle2">
+						<CardContent>
+							<Typography className={classes.statsVal} variant="subtitle2">
 								{event.attendants_count}
 							</Typography>
-							<Typography className={classes.label} variant="body1">
+							<Typography className={classes.statsLabel} variant="body1">
 								Participants
 							</Typography>
-						</Content>
-						<Footer>
+						</CardContent>
+						<CardFooter>
 							<Link
 								component={NavLink}
-								className={classes.actions}
+								className={classes.footerLink}
 								to={`/admin/event/${event.id}/dashboard`}
 							>
 								<SettingsIcon className="mr-5" fontSize="small" /> Manage
 							</Link>
-						</Footer>
+						</CardFooter>
 					</Paper>
 				</Grid>
 			))}

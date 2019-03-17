@@ -17,6 +17,12 @@ class Package extends Model
     protected $guarded = [];
 
     /**
+     * Adds attribute to query
+     * @var array
+     */
+    protected $appends = ['quantity_remaining'];
+
+    /**
     * The event associated with the package.
     *
     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
