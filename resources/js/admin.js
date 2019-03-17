@@ -25,6 +25,7 @@ import theme from "./styles/theme"
 import Admin from "./admin/index"
 
 window.adminStore = store
+
 document.addEventListener("DOMContentLoaded", () => {
 	const appPage = document.getElementById("admin_react")
 	console.log("theme: ", theme)

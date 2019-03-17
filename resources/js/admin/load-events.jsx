@@ -3,9 +3,9 @@ import ReactDOM from "react-dom"
 import PropTypes from "prop-types"
 import { connect } from "react-redux"
 
-import EventListings from "./event-listings"
+import EventListings from "./event/event-listings"
 
-class Events extends Component {
+class LoadEvents extends Component {
 	componentWillMount() {
 		adminStore.dispatch({ type: "FETCH_EVENTS" })
 	}
@@ -15,4 +15,4 @@ class Events extends Component {
 	}
 }
 
-export default Events
+export default LoadEvents

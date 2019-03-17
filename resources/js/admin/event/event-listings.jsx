@@ -4,6 +4,7 @@ import Paper from "@material-ui/core/Paper"
 import SettingsIcon from "@material-ui/icons/Settings"
 import Typography from "@material-ui/core/Typography"
 import { withStyles } from "@material-ui/core/styles"
+
 import React from "react"
 import ReactDOM from "react-dom"
 import { NavLink } from "react-router-dom"
@@ -95,7 +96,7 @@ const InternalEventListings = ({ classes, events }) => {
 							<Link
 								component={NavLink}
 								className={classes.actions}
-								to={`/admin/events/${event.id}/dashboard`}
+								to={`/admin/event/${event.id}/dashboard`}
 							>
 								<SettingsIcon className="mr-5" fontSize="small" /> Manage
 							</Link>

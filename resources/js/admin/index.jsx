@@ -6,16 +6,16 @@ import { connect } from "react-redux"
 import { Route, NavLink } from "react-router-dom"
 import styled from "styled-components"
 
-import Events from "./events/index"
-import Event from "./event/index"
-import Navigation from "./components/navigation"
 import { media } from "@/styles/utils"
 
+import LoadEvents from "./load-events"
+import LoadEvent from "./load-event"
+import Navigation from "./components/navigation"
+
 const Content = styled.div`
-	margin-top: 75px;
 	${media.md`
-		margin-top: 40px;
-		margin-left: 220px;
+		margin-left: 230px;
+		max-width: 1020px;
 	`}
 `
 const InternalAdmin = ({ history }) => {
@@ -25,8 +25,15 @@ const InternalAdmin = ({ history }) => {
 				<div>
 					<Navigation />
 					<Content>
-						<Route exact path="/admin" component={Events} />
-						<Route path="/admin/events/:id/dashboard" component={Event} />
+						<Route exact path="/admin" component={LoadEvents} />
+						<Route
+							path="/admin/event/:eventId/dashboard"
+							component={LoadEvent}
+						/>
+						<Route
+							path="/admin/event/:eventId/packages"
+							component={LoadEvent}
+						/>
 					</Content>
 				</div>
 			</ConnectedRouter>

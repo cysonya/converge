@@ -44,7 +44,7 @@ const LinkStyled = styled(NavLink)`
 	}
 `
 const InternalNavigationLinks = ({ classes, eventId }) => {
-	return eventId && window.location.pathname.includes("events") ? (
+	return eventId && window.location.pathname.includes("event") ? (
 		<List className={classes.drawerMenu}>
 			<ListItem className={classes.menuBack}>
 				<LinkStyled exact to={`/admin`}>
@@ -54,31 +54,31 @@ const InternalNavigationLinks = ({ classes, eventId }) => {
 			</ListItem>
 
 			<ListItem className={classes.menuItem}>
-				<LinkStyled to={`/admin/events/${eventId}/dashboard`}>
+				<LinkStyled to={`/admin/event/${eventId}/dashboard`}>
 					<PollIcon className="pr-5" />
 					Dashboard
 				</LinkStyled>
 			</ListItem>
 			<ListItem className={classes.menuItem}>
-				<LinkStyled to={`/admin/events/${eventId}/packages`}>
+				<LinkStyled to={`/admin/event/${eventId}/packages`}>
 					<HomeIcon className="pr-5" />
 					Housings
 				</LinkStyled>
 			</ListItem>
 			<ListItem className={classes.menuItem}>
-				<LinkStyled to={`/admin/events/${eventId}/attendants`}>
+				<LinkStyled to={`/admin/event/${eventId}/attendants`}>
 					<PeopleIcon className="pr-5" />
 					Participants
 				</LinkStyled>
 			</ListItem>
 			<ListItem className={classes.menuItem}>
-				<LinkStyled to={`/admin/events/${eventId}/orders`}>
+				<LinkStyled to={`/admin/event/${eventId}/orders`}>
 					<ShoppingCartIcon className="pr-5" />
 					Orders
 				</LinkStyled>
 			</ListItem>
 			<ListItem className={classes.menuItem}>
-				<LinkStyled to={`/admin/events/${eventId}/settings`}>
+				<LinkStyled to={`/admin/event/${eventId}/settings`}>
 					<SettingsIcon className="pr-5" />
 					Settings
 				</LinkStyled>

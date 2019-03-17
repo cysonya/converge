@@ -16,6 +16,7 @@ import styled from "styled-components"
 
 import { isMobile } from "@/helpers/application"
 import NavigationLinks from "./navigation-links"
+import TopBar from "./top-bar"
 
 const drawerWidth = 200
 const styles = theme => ({
@@ -32,11 +33,19 @@ const styles = theme => ({
 		border: 0
 	},
 	appBar: {
-		marginLeft: drawerWidth,
+		marginBottom: "30px",
 		backgroundColor: "#FFF",
+		boxShadow: theme.shadows[1],
 		[theme.breakpoints.up("md")]: {
-			display: "none",
-			width: `calc(100% - ${drawerWidth}px)`
+			width: `calc(100% - ${drawerWidth}px)`,
+			marginLeft: drawerWidth
+		}
+	},
+	toolBar: {
+		justifyContent: "space-between",
+		paddingLeft: "0",
+		[theme.breakpoints.up("md")]: {
+			padding: "0 16px"
 		}
 	}
 })
@@ -58,14 +67,15 @@ export class Navigation extends Component {
 		const { classes, width } = this.props
 		return (
 			<div>
-				<AppBar position="fixed" className={classes.appBar}>
-					<Toolbar variant="dense" style={{ paddingLeft: 0 }}>
+				<AppBar className={classes.appBar} position="relative">
+					<Toolbar className={classes.toolBar} variant="dense">
 						<IconButton
 							className="hidden-md-up"
 							onClick={() => this.handleDrawerToggle()}
 						>
 							<MenuIcon />
 						</IconButton>
+						<TopBar />
 					</Toolbar>
 				</AppBar>
 				<nav className={classes.drawer}>
