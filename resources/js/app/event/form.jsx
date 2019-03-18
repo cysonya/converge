@@ -18,8 +18,9 @@ import { isMobile } from "@/helpers/application"
 import theme from "@/styles/theme"
 import { media } from "@/styles/utils"
 import AttendantForm from "./attendant-form"
-import PaymentForm from "./payment-form"
+import ContactSupport from "./contact-support"
 import ErrorAlert from "./error-alert"
+import PaymentForm from "./payment-form"
 import FormNav from "./form-nav"
 import HousingForm from "./housing-form"
 import OrderComplete from "./order-complete"
@@ -330,6 +331,7 @@ const InternalEventForm = ({
 					)
 				}}
 			/>
+			<ContactSupport />
 		</FormWrapper>
 	)
 }
