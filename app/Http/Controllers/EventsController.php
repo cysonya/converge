@@ -26,13 +26,15 @@ class EventsController extends Controller
     }
 
     /**
-    * Test event mailer from view
-    * @return string
+    * Dispatch contact support email job
+    * @return json
     */
-    public function mail()
+    public function contact(Request $request)
     {
-        $emailJob = (new SendEmailJob())->delay(Carbon::now()->addSeconds(3));
+        $emailJob = (new SendEmailJob($request->all()));
         dispatch($emailJob);
-        echo "great";
+
+        return response()
+                ->json(['status' => 'complete', 'data' => $request->all()['name']]);
     }
 }
