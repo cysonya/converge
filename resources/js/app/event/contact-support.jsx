@@ -8,13 +8,14 @@ import Link from "@material-ui/core/Link"
 import Typography from "@material-ui/core/Typography"
 import { withStyles } from "@material-ui/core/styles"
 
-import { Form, Formik } from "formik"
+import { Form, Formik, Field } from "formik"
 import React, { Component } from "react"
 import ReactDOM from "react-dom"
 import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import styled from "styled-components"
 
+import api from "@/apis"
 import { Input, inputError } from "@/app/components/form/index"
 
 import { media } from "@/styles/utils"
@@ -50,12 +51,34 @@ const ContactSupport = withStyles(styles)(
 				open: false
 			}
 		}
+
 		handleOpenDialog() {
 			this.setState({ open: true })
 		}
+
 		handleCloseDialog() {
 			this.setState({ open: false })
 		}
+
+		handleValidate(values) {
+			let errors = {}
+
+			if (!values.name) {
+				errors.name = "Please provide name"
+			}
+			if (!values.email) {
+				errors.email = "Please provide email"
+			} else if (
+				!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+			) {
+				errors.email = "Invalid email address"
+			}
+			if (!values.message) {
+				errors.message = "Please leave a message"
+			}
+			return errors
+		}
+
 		render() {
 			const { classes } = this.props
 			let initialValues = {
@@ -63,7 +86,6 @@ const ContactSupport = withStyles(styles)(
 				email: "",
 				message: ""
 			}
-			console.log("CCc: ", classes)
 			return (
 				<div>
 					<Container>
@@ -86,12 +108,19 @@ const ContactSupport = withStyles(styles)(
 					>
 						<Formik
 							initialValues={initialValues}
+							validate={values => {
+								return this.handleValidate(values)
+							}}
 							onSubmit={(values, { setSubmitting }) => {
-								console.log("SUBMITTING: ", values)
+								setSubmitting(true)
+								api.post("/contact", values).then(data => {
+									setTimeout(() => {
+										this.setState({ open: false })
+										setSubmitting(false)
+									}, 1000)
+								})
 							}}
 							render={({ errors, isSubmitting, touched, values }) => {
-								console.log("VALS: ", values)
-								console.log("ERRS: ", errors)
 								return (
 									<Form>
 										<DialogContent>
@@ -100,13 +129,46 @@ const ContactSupport = withStyles(styles)(
 											</Typography>
 											<Grid container spacing={8}>
 												<Grid item xs={6}>
-													<Input label="Your Name" autocompplete="given-name" />
+													<Field
+														name="name"
+														render={({ field, form }) => (
+															<Input
+																label="Your Name"
+																autocompplete="given-name"
+																error={inputError(form, "name")}
+																touched={touched.name}
+																{...field}
+															/>
+														)}
+													/>
 												</Grid>
 												<Grid item xs={6}>
-													<Input label="Your Email" autocompplete="email" />
+													<Field
+														name="email"
+														render={({ field, form }) => (
+															<Input
+																label="Your Email"
+																autocompplete="email"
+																error={inputError(form, "email")}
+																touched={touched.email}
+																{...field}
+															/>
+														)}
+													/>
 												</Grid>
 												<Grid item xs={12}>
-													<Input label="Message" multiline rows="5" />
+													<Field
+														name="message"
+														render={({ field, form }) => (
+															<Input
+																label="Message"
+																multiline
+																rows="5"
+																error={inputError(form, "message")}
+																{...field}
+															/>
+														)}
+													/>
 												</Grid>
 											</Grid>
 											<Grid container spacing={8} justify="flex-end">
@@ -120,8 +182,9 @@ const ContactSupport = withStyles(styles)(
 														type="submit"
 														variant="contained"
 														color="primary"
+														disabled={isSubmitting}
 													>
-														Send
+														{isSubmitting ? "Sending..." : "Send"}
 													</Button>
 												</Grid>
 											</Grid>
