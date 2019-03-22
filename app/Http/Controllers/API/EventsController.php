@@ -44,7 +44,7 @@ class EventsController extends Controller
     }
 
     /**
-    * Display the specified resource.
+    * Single event data
     *
     * @param  int  $event_id
     * @return \Illuminate\Http\Response

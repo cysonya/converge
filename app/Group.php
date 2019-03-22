@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class EventGroup extends Model
+class Group extends Model
 {
 	/**
 	 * Allow mass assignment

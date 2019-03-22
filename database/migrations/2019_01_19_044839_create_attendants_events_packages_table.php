@@ -94,7 +94,7 @@ class CreateAttendantsEventsPackagesTable extends Migration
       $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
     });
 
-    Schema::create('event_groups', function (Blueprint $table) {
+    Schema::create('groups', function (Blueprint $table) {
       $table->increments('id');
       $table->unsignedInteger('event_id')->index();
 
@@ -125,7 +125,7 @@ class CreateAttendantsEventsPackagesTable extends Migration
 
       $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
       $table->foreign('package_id')->references('id')->on('packages')->onDelete('cascade');
-      $table->foreign('group_id')->references('id')->on('event_groups')->onDelete('cascade');
+      $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
       $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
     });
   }
@@ -142,7 +142,7 @@ class CreateAttendantsEventsPackagesTable extends Migration
       Schema::dropIfExists('payments');
       Schema::dropIfExists('packages');
       Schema::dropIfExists('package_order');
-      Schema::dropIfExists('event_groups');
+      Schema::dropIfExists('groups');
       Schema::dropIfExists('attendants');
   }
 }

@@ -50,7 +50,7 @@ class Attendant extends Model
     */
     public function group()
     {
-      return $this->belongsTo(\App\EventGroup::class);
+      return $this->belongsTo(\App\Group::class);
     }
 
     /**

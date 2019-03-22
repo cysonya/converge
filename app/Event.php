@@ -20,7 +20,7 @@ class Event extends Model
     */
     public function groups()
     {
-        return $this->hasMany(\App\EventGroup::class);
+        return $this->hasMany(\App\Group::class);
     }
 
     /**

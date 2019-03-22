@@ -13,7 +13,7 @@ class EventsSeeder extends Seeder
     {
       DB::table('events')->delete();
       DB::table('packages')->delete();
-      DB::table('event_groups')->delete();
+      DB::table('groups')->delete();
 
       // Seed event
       App\Event::create([
@@ -82,7 +82,7 @@ class EventsSeeder extends Seeder
       ];
       App\Package::insert($packages);
 
-      $event_groups = [
+      $groups = [
         [
           'id' => 1,
           'event_id' => 1,
@@ -120,6 +120,6 @@ class EventsSeeder extends Seeder
         ],
       ];
 
-      App\EventGroup::insert($event_groups);
+      App\Group::insert($groups);
     }
 }

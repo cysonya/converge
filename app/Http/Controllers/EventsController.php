@@ -12,7 +12,7 @@ use Carbon\Carbon;
 class EventsController extends Controller
 {
 	/**
-	 * Show the homepage for an event
+	 * Show event
 	 *
 	 * @param Request $request
 	 * @param integer $event_id
