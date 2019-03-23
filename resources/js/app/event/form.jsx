@@ -1,30 +1,30 @@
-import Step from "@material-ui/core/Step"
-import Stepper from "@material-ui/core/Stepper"
-import StepContent from "@material-ui/core/StepContent"
-import StepLabel from "@material-ui/core/StepLabel"
-import { withStyles } from "@material-ui/core/styles"
-import withWidth from "@material-ui/core/withWidth"
+import Step from "@material-ui/core/Step";
+import Stepper from "@material-ui/core/Stepper";
+import StepContent from "@material-ui/core/StepContent";
+import StepLabel from "@material-ui/core/StepLabel";
+import { withStyles } from "@material-ui/core/styles";
+import withWidth from "@material-ui/core/withWidth";
 
-import { Form, Formik } from "formik"
-import React from "react"
-import ReactDOM from "react-dom"
-import PropTypes from "prop-types"
-import { connect } from "react-redux"
-import { Elements, injectStripe } from "react-stripe-elements"
-import styled from "styled-components"
+import { Form, Formik } from "formik";
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { Elements, injectStripe } from "react-stripe-elements";
+import styled from "styled-components";
 
-import { placeOrder, setStep, updateOrder } from "@/app-store/actions"
-import { isMobile } from "@/helpers/application"
-import theme from "@/styles/theme"
-import { media } from "@/styles/utils"
-import AttendantForm from "./attendant-form"
-import ContactSupport from "./contact-support"
-import ErrorAlert from "./error-alert"
-import PaymentForm from "./payment-form"
-import FormNav from "./form-nav"
-import HousingForm from "./housing-form"
-import OrderComplete from "./order-complete"
-import OrderReview from "./order-review"
+import { placeOrder, setStep, updateOrder } from "@/app-store/actions";
+import { isMobile } from "@/helpers/application";
+import theme from "@/styles/theme";
+import { media } from "@/styles/utils";
+import AttendantForm from "./attendant-form";
+import ContactSupport from "./contact-support";
+import ErrorAlert from "./error-alert";
+import PaymentForm from "./payment-form";
+import FormNav from "./form-nav";
+import HousingForm from "./housing-form";
+import OrderComplete from "./order-complete";
+import OrderReview from "./order-review";
 
 const styles = theme => ({
 	stepper: {
@@ -38,7 +38,7 @@ const styles = theme => ({
 		paddingLeft: "10px",
 		paddingRight: "0"
 	}
-})
+});
 
 const FormWrapper = styled.div`
 	width: 100%;
@@ -50,7 +50,7 @@ const FormWrapper = styled.div`
 		width: 650px;
 		padding-bottom: 0;
 	`}
-`
+`;
 const FormHeading = styled.h4`
 	margin: ${props => (props.complete ? "0 0 20px" : "0")};
 	padding: 20px 10px 0;
@@ -64,11 +64,11 @@ const FormHeading = styled.h4`
 		font-size: 22px;
 		background-color: ${props => props.theme.grey[900]};
 	`}
-`
+`;
 
 const FormContent = styled.div`
 	padding: 20px;
-`
+`;
 
 const InternalEventForm = ({
 	classes,
@@ -83,7 +83,7 @@ const InternalEventForm = ({
 	width
 }) => {
 	if (Object.keys(event).length < 1) {
-		return null
+		return null;
 	}
 
 	const initialValues = {
@@ -108,10 +108,10 @@ const InternalEventForm = ({
 		customer_last_name: "",
 		customer_email: "",
 		donation: 0
-	}
+	};
 
 	const handleValidate = values => {
-		let errors = {}
+		let errors = {};
 
 		// if (!values.payment.cardName) {
 		// 	errors.payment = Object.assign(
@@ -123,87 +123,87 @@ const InternalEventForm = ({
 			errors.payment = Object.assign(
 				{ cardNumber: "Provide valid card details" },
 				errors.payment
-			)
+			);
 		}
 		if (!values.payment.cardExpiry) {
 			errors.payment = Object.assign(
 				{ cardExpiry: "Provide valid card details" },
 				errors.payment
-			)
+			);
 		}
 		if (!values.payment.cardCvc) {
 			errors.payment = Object.assign(
 				{ cardCvc: "Provide valid card details" },
 				errors.payment
-			)
+			);
 		}
 		if (!values.payment.postalCode) {
 			errors.payment = Object.assign(
 				{ postalCode: "Provide valid card details" },
 				errors.payment
-			)
+			);
 		}
 
 		// Validate payment errors for stripe element
 		for (let field in values.payment) {
 			if (values.payment[field] === "complete") {
 				if (errors.payment) {
-					delete errors.payment[field]
+					delete errors.payment[field];
 				}
 			} else {
-				let err = {}
-				err[field] = values.payment[field]
-				errors.payment = Object.assign(err, errors.payment)
+				let err = {};
+				err[field] = values.payment[field];
+				errors.payment = Object.assign(err, errors.payment);
 			}
 		}
 
 		// Only validate donation if amount is entered
 		if (!!values.donation) {
 			if (isNaN(values.donation)) {
-				errors.donation = "Enter a number"
+				errors.donation = "Enter a number";
 			} else if (!/^\d+$/.test(parseFloat(values.donation))) {
-				errors.donation = "Whole numbers only"
+				errors.donation = "Whole numbers only";
 			}
 		}
 		// Customer email validation
 		if (!values.customer_email) {
-			errors.customer_email = "Provide email"
+			errors.customer_email = "Provide email";
 		} else if (
 			!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.customer_email)
 		) {
-			errors.customer_email = "Invalid email address"
+			errors.customer_email = "Invalid email address";
 		}
 
 		// Registrants validation
-		let valid = true
-		errors.registrants = []
+		let valid = true;
+		errors.registrants = [];
 		values.registrants.forEach((registrant, i) => {
-			let error = {}
+			let error = {};
 
 			if (!registrant.first_name) {
-				error.first_name = "Provide first name"
-				valid = false
+				error.first_name = "Provide first name";
+				valid = false;
 			}
 			if (!registrant.last_name) {
-				error.last_name = "Provide last name"
-				valid = false
+				error.last_name = "Provide last name";
+				valid = false;
 			}
 
 			if (!registrant.group) {
-				error.group = "Select age group"
-				valid = false
+				error.group = "Select age group";
+				valid = false;
 			}
 			if (!registrant.package) {
-				error.package = "Select housing"
-				valid = false
+				error.package = "Select housing";
+				valid = false;
 			}
-			errors.registrants[i] = error
-		})
+			errors.registrants[i] = error;
+		});
 		if (valid) {
-			delete errors.registrants
+			delete errors.registrants;
 		}
-		return errors
-	}
+		return errors;
+	};
 
 	return (
 		<FormWrapper>
@@ -214,21 +214,21 @@ const InternalEventForm = ({
 			<Formik
 				initialValues={initialValues}
 				validate={values => {
-					return handleValidate(values)
+					return handleValidate(values);
 				}}
 				onSubmit={(values, { setSubmitting }) => {
-					updateOrderStatus()
+					updateOrderStatus();
 					stripe.createToken().then(({ error, token }) => {
-						console.log("Stripe TOKEN: ", token)
-						console.log("Stripe ERRORS: ", error)
+						console.log("Stripe TOKEN: ", token);
+						console.log("Stripe ERRORS: ", error);
 						if (!!error) {
-							showError(error.message)
-							setSubmitting(false)
+							showError(error.message);
+							setSubmitting(false);
 						}
 						if (!!token) {
-							values.stripeToken = token.id
-							values.customer_first_name = values.registrants[0].first_name
-							values.customer_last_name = values.registrants[0].last_name
+							values.stripeToken = token.id;
+							values.customer_first_name = values.registrants[0].first_name;
+							values.customer_last_name = values.registrants[0].last_name;
 
 							// Set fullstory names
 							if (typeof FS !== "undefined") {
@@ -237,12 +237,12 @@ const InternalEventForm = ({
 										values.customer_last_name
 									}`,
 									email: values.customer_email
-								})
+								});
 							}
 
-							doPlaceOrder(values, setSubmitting)
+							doPlaceOrder(values, setSubmitting);
 						}
-					})
+					});
 				}}
 				render={({
 					errors,
@@ -252,10 +252,10 @@ const InternalEventForm = ({
 					touched,
 					values
 				}) => {
-					const steps = ["Participants", "Housing", "Review", "Payment"]
+					const steps = ["Participants", "Housing", "Review", "Payment"];
 					let content = (
 						<AttendantForm {...{ errors, setFieldValue, touched, values }} />
-					)
+					);
 					const getContent = stepIndex => {
 						switch (stepIndex) {
 							case 2:
@@ -263,15 +263,15 @@ const InternalEventForm = ({
 									<HousingForm
 										{...{ errors, setFieldValue, touched, values }}
 									/>
-								)
-								break
+								);
+								break;
 							case 3:
 								content = (
 									<OrderReview
 										{...{ errors, setFieldValue, touched, values }}
 									/>
-								)
-								break
+								);
+								break;
 							case 4:
 								content = (
 									<PaymentForm
@@ -284,17 +284,17 @@ const InternalEventForm = ({
 											values
 										}}
 									/>
-								)
-								break
+								);
+								break;
 						}
-						return content
-					}
+						return content;
+					};
 
 					if (status === "complete") {
-						return <OrderComplete />
+						return <OrderComplete />;
 					}
 
-					console.log("VALUES: ", values)
+					// console.log("VALUES: ", values)
 					// console.log("ERRORS: ", errors)
 					// console.log("TOUCHED: ", touched)
 					return (
@@ -328,17 +328,17 @@ const InternalEventForm = ({
 								</div>
 							) : null}
 						</Form>
-					)
+					);
 				}}
 			/>
 			<ContactSupport />
 		</FormWrapper>
-	)
-}
+	);
+};
 
 InternalEventForm.propTypes = {
 	event: PropTypes.object
-}
+};
 
 const mapStateToProps = (state, ownProps) => {
 	return {
@@ -347,26 +347,26 @@ const mapStateToProps = (state, ownProps) => {
 		event: state.event,
 		step: state.event.step,
 		stripe: ownProps.stripe
-	}
-}
+	};
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		doPlaceOrder: (values, setSubmitting) => {
-			dispatch(placeOrder(values, setSubmitting))
+			dispatch(placeOrder(values, setSubmitting));
 		},
 		showError: error => {
-			dispatch(updateOrder({ status: "incomplete", error: error }))
+			dispatch(updateOrder({ status: "incomplete", error: error }));
 		},
 		updateOrderStatus: () => {
-			dispatch(updateOrder({ status: "processing" }))
+			dispatch(updateOrder({ status: "processing" }));
 		}
-	}
-}
+	};
+};
 
 const EventForm = connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(withStyles(styles)(withWidth()(InternalEventForm)))
+)(withStyles(styles)(withWidth()(InternalEventForm)));
 
-export default injectStripe(EventForm)
+export default injectStripe(EventForm);

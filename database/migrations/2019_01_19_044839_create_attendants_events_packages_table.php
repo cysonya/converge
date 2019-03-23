@@ -34,11 +34,8 @@ class CreateAttendantsEventsPackagesTable extends Migration
 
       $table->string('title');
       $table->text('description')->nullable();
-      $table->decimal('price', 13, 2);
-
       $table->integer('quantity_available')->nullable()->default(null);
       $table->integer('quantity_sold')->default(0);
-
       $table->tinyInteger('is_paused')->default(0);
 
       $table->timestamps();
@@ -128,6 +125,19 @@ class CreateAttendantsEventsPackagesTable extends Migration
       $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
       $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
     });
+
+    /*
+     * Groups / Packages pivot table
+     */
+    Schema::create('group_package', function ($table) {
+      $table->increments('id');
+      $table->integer('group_id')->unsigned()->index();
+      $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
+      $table->integer('package_id')->unsigned()->index();
+      $table->foreign('package_id')->references('id')->on('packages')->onDelete('cascade');
+
+      $table->decimal('price', 13, 2);
+    });
   }
 
   /**
@@ -141,7 +151,8 @@ class CreateAttendantsEventsPackagesTable extends Migration
       Schema::dropIfExists('orders');
       Schema::dropIfExists('payments');
       Schema::dropIfExists('packages');
-      Schema::dropIfExists('package_order');
+      Schema::dropIfExists('order_package');
+      Schema::dropIfExists('group_package');
       Schema::dropIfExists('groups');
       Schema::dropIfExists('attendants');
   }

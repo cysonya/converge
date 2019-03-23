@@ -21,4 +21,14 @@ class Group extends Model
     {
         return $this->hasMany(\App\Attendant::class);
     }
+
+    /**
+    * The packages associated with the Group.
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    */
+    public function packages()
+    {
+        return $this->belongsToMany(\App\Package::class)->withPivot('price');
+    }
 }

@@ -47,7 +47,7 @@ class EventsController extends Controller
     * Single event data
     *
     * @param  int  $event_id
-    * @return \Illuminate\Http\Response
+    * @return \Illuminate\Http\Respon
     */
     public function show($event_id)
     {
@@ -56,7 +56,7 @@ class EventsController extends Controller
         $packages = $event->packages()->available()->get()->map(function($package) {
             // for UI to show remaining after selection
             $package->remain = $package->quantity_remaining;
-            return $package->only(['id', 'title', 'description', 'price', 'quantity_remaining', 'remain']);
+            return $package->only(['id', 'title', 'description', 'quantity_remaining', 'remain']);
         });
         $groups = $event->groups->map(function($group) {
             return $group->only(['id', 'description']);

@@ -43,6 +43,16 @@ class Package extends Model
     }
 
     /**
+    * The groups associated with the Package.
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    */
+    public function groups()
+    {
+        return $this->belongsToMany(\App\Group::class)->withPivot('price');
+    }
+
+    /**
      * Get the number of package remaining
      * @return int remaining spots left
      */
@@ -57,6 +67,6 @@ class Package extends Model
      */
     public function scopeAvailable($query)
     {
-        return $query->whereRaw('quantity_available > quantity_sold');
+        return $query->whereRaw('is_paused = 0 and (quantity_available > quantity_sold or quantity_available IS NULL)');
     }
 }
