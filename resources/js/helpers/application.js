@@ -6,3 +6,7 @@ export const getRandomColor = () => {
 export const isMobile = width => {
 	return /xs|sm/.test(width)
 }
+
+export const currency = number => {
+	return `$${number}`
+}

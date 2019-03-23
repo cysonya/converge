@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('application');
+    return view('app_react');
 });
 
 Auth::routes(['register' => false]);
@@ -35,15 +35,9 @@ Route::post('contact', 'EventsController@contact');
  * Admin routes
  */
 Route::group(['prefix' => 'admin', 'middleware' => 'is_admin'], function() {
-	Route::get('/', function() {
-		return view('admin_react');
-	});
-	Route::get('/event/{id}/dashboard', function() {
-		return view('admin_react');
-	});
-	Route::get('/event/{id}/packages', function() {
-		return view('admin_react');
-	});
+	Route::get('/', 'AdminEventsController@react');
+	Route::get('/event/{id}/dashboard', 'AdminEventsController@react');
+	Route::get('/event/{id}/packages', 'AdminEventsController@react');
 	// Events dashboard
 	Route::group(['prefix' => 'events'], function() {
 		Route::get('create', 'AdminEventsController@create');

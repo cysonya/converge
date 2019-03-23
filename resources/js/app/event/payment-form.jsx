@@ -28,7 +28,7 @@ import {
 } from "react-stripe-elements"
 
 import { inputError } from "@/app/components/form/index"
-import { isMobile } from "@/helpers/application"
+import { currency, isMobile } from "@/helpers/application"
 import { media } from "@/styles/utils"
 
 import { getTotal, styles, TotalAmount } from "./components"
@@ -146,7 +146,7 @@ const InternalPaymentForm = ({
 								)}
 							</Typography>
 							<Typography variant="body2">
-								${pkgSummary[pkg].price * pkgSummary[pkg].quantity}
+								{currency(pkgSummary[pkg].price * pkgSummary[pkg].quantity)}
 							</Typography>
 						</TotalAmount>
 					))}
@@ -159,7 +159,7 @@ const InternalPaymentForm = ({
 					<Divider className={classes.divider} />
 					<TotalAmount>
 						<strong>Total</strong>
-						<strong>${orderTotal} USD</strong>
+						<strong>{currency(orderTotal)} USD</strong>
 					</TotalAmount>
 				</Grid>
 
@@ -287,7 +287,7 @@ const getPkgSummary = (state, ownProps) => {
 			let pkg = pkgs.find(p => p.id === registrant.package)
 			summary[registrant.package] = {
 				quantity: 1,
-				price: pkg.price,
+				price: pkg.groups.find(g => g.id === registrant.group).price,
 				title: pkg.title
 			}
 		}

@@ -4,7 +4,7 @@
  * building robust, powerful web applications using React + Laravel.
  */
 
-require("./bootstrap")
+require("./bootstrap");
 
 /**
  * Next, we will create a fresh React component instance and attach it to
@@ -12,22 +12,22 @@ require("./bootstrap")
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-import { MuiThemeProvider } from "@material-ui/core/styles"
+import { MuiThemeProvider } from "@material-ui/core/styles";
 
-import React from "react"
-import ReactDOM from "react-dom"
-import { Provider } from "react-redux"
-import { ThemeProvider } from "styled-components"
-import { StripeProvider } from "react-stripe-elements"
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { ThemeProvider } from "styled-components";
+import { StripeProvider } from "react-stripe-elements";
 
-import { history, store } from "./app-store/index"
-import App from "./app/index"
-import theme from "./styles/theme"
+import { history, store } from "./app-store/index";
+import App from "./app/index";
+import theme from "./styles/theme";
 
-window.appStore = store
+window.appStore = store;
 document.addEventListener("DOMContentLoaded", () => {
-	const appPage = document.getElementById("app")
-	console.log("theme: ", theme)
+	const appPage = document.getElementById("app_react");
+	console.log("theme: ", theme);
 	if (appPage) {
 		ReactDOM.render(
 			<Provider store={store}>
@@ -40,24 +40,24 @@ document.addEventListener("DOMContentLoaded", () => {
 				</ThemeProvider>
 			</Provider>,
 			appPage
-		)
+		);
 	}
 
 	// Set user token to identify session in FS
 	if (Cookies.get("site_token") == undefined) {
-		Cookies.set("site_token", generateToken())
+		Cookies.set("site_token", generateToken());
 	}
 	function generateToken() {
 		return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
 			var r = (Math.random() * 16) | 0,
-				v = c === "x" ? r : (r & 0x3) | 0x8
-			return v.toString(16)
-		})
+				v = c === "x" ? r : (r & 0x3) | 0x8;
+			return v.toString(16);
+		});
 	}
 
 	if (typeof FS !== "undefined") {
 		FS.setUserVars({
 			token_str: Cookies.get("site_token")
-		})
+		});
 	}
-})
+});

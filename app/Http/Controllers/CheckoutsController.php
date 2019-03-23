@@ -32,12 +32,11 @@ class CheckoutsController extends Controller
 
         // Validate packages are available and get order total
         try {
-        	$packages = array_pluck($request->registrants, 'package');
-            $orderTotal = 0;
 
-            // Determine if package is sold out
-            foreach ($packages as $p) {
-                $package = Package::find($p);
+            $packagesTotal = 0;
+            foreach ($request->registrants as $registrant)
+            {
+                $package = Package::find((int)$registrant['package']);
                 $package->quantity_sold += 1;
 
                 if ($package->quantity_remaining < 0) {
@@ -50,11 +49,7 @@ class CheckoutsController extends Controller
                 }
                 $package->save();
 
-                $orderTotal += $package->price;
-            }
-            // Add donation to orderTotal
-            if ($request->donation > 0) {
-                $orderTotal = $orderTotal + $request->donation;
+                $packagesTotal += $package->groups()->where('group_id', $registrant['group'])->first()->pivot->price;
             }
 
         } catch (Exception $e) {
@@ -74,7 +69,7 @@ class CheckoutsController extends Controller
                 'first_name' => strip_tags($request->customer_first_name),
                 'last_name' => strip_tags($request->customer_last_name),
                 'email' => strip_tags($request->customer_email),
-                'order_total' => $orderTotal,
+                'order_total' => $packagesTotal + $request->donation,
                 'status' => 'completed'
             ]);
 
@@ -123,7 +118,7 @@ class CheckoutsController extends Controller
 
             $charge = Charge::create(array(
                 'customer' => $customer->id,
-                'amount' => $orderTotal * 100,
+                'amount' => $packagesTotal * 100,
                 'currency' => 'usd',
                 'description' => "Payment for {$event->title}"
             ));
@@ -140,7 +135,7 @@ class CheckoutsController extends Controller
             $order->payments()->create([
                 'event_id' => $event->id,
                 'payment_type' => 'order',
-                'amount' => $orderTotal,
+                'amount' => $packagesTotal,
                 'transaction_id' => $charge->id,
                 'transaction_date' => Carbon::now()
             ]);

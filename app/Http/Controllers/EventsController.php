@@ -22,7 +22,7 @@ class EventsController extends Controller
     public function show(Request $request, $event_id)
     {
     	$event = Event::findOrFail($event_id);
-    	return view('application');
+    	return view('app_react');
     }
 
     /**

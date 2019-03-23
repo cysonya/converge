@@ -22,7 +22,7 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import styled from "styled-components"
 
-import { isMobile } from "@/helpers/application"
+import { currency, isMobile } from "@/helpers/application"
 import { media } from "@/styles/utils"
 
 import { getTotal, TotalAmount } from "./components"
@@ -122,7 +122,11 @@ const InternalOrderReview = ({
 											{pkg.title}
 										</TableCell>
 										<TableCell className={classes.tableData} align="right">
-											${Math.round(pkg.price)}
+											{currency(
+												Math.round(
+													pkg.groups.find(g => g.id === registrant.group).price
+												)
+											)}
 										</TableCell>
 									</TableRow>
 								)
@@ -134,7 +138,7 @@ const InternalOrderReview = ({
 				<TotalContainer>
 					<TotalAmount>
 						<strong>Total</strong>
-						<strong>${orderTotal} USD</strong>
+						<strong>{currency(orderTotal)} USD</strong>
 					</TotalAmount>
 				</TotalContainer>
 			</Paper>

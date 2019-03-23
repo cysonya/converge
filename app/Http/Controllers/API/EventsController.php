@@ -53,11 +53,18 @@ class EventsController extends Controller
     {
         $event = Event::findOrFail($event_id);
 
-        $packages = $event->packages()->available()->get()->map(function($package) {
+        $packages = $event->packages()->available()->with('groups')->get()->map(function($package) {
+            // Get only group id and price
+            $package->groups = $package->groups->map(function($group) {
+                $group->id = $group->id;
+                $group->price = $group->pivot->price;
+                return $group->only(['id', 'price']);
+            });
             // for UI to show remaining after selection
             $package->remain = $package->quantity_remaining;
-            return $package->only(['id', 'title', 'description', 'quantity_remaining', 'remain']);
+            return $package->only(['id', 'title', 'description', 'quantity_remaining', 'remain', 'groups']);
         });
+
         $groups = $event->groups->map(function($group) {
             return $group->only(['id', 'description']);
         });

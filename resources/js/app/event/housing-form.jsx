@@ -17,7 +17,7 @@ import styled from "styled-components"
 
 import { Input, inputError } from "@/app/components/form/index"
 import { filterPackages } from "@/app-store/actions"
-import { isMobile } from "@/helpers/application"
+import { currency, isMobile } from "@/helpers/application"
 import { Divider, styles } from "./components"
 
 const InternalHousingForm = ({
@@ -67,7 +67,12 @@ const InternalHousingForm = ({
 													(p, i) =>
 														(p.remain > 0 || registrant.package === p.id) && (
 															<MenuItem key={i} value={p.id}>
-																{p.title} - ${p.price}&nbsp;
+																{p.title} -&nbsp;
+																{currency(
+																	p.groups.find(g => g.id === registrant.group)
+																		.price
+																)}
+																&nbsp;
 																{p.remain < 6 && (
 																	<span className="text-alert">
 																		{`(${p.remain} spots left)`}

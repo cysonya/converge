@@ -83,8 +83,8 @@ const InternalOrderComplete = ({ classes, event, order }) => {
 				<Divider />
 
 				<Typography className="text-left" variant="body2" gutterBottom>
-					Registration is from 3-5pm at ???. This is when you will receive your
-					housing information and a schedule for the weekend.
+					Registration is from 3-5pm. This is when you will receive your housing
+					information and a schedule for the weekend.
 				</Typography>
 				<Typography className="text-left mb-20" variant="body2" gutterBottom>
 					If you have any comments or questions, please email Jerry Wierwille at

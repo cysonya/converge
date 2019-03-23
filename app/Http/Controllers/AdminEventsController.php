@@ -9,6 +9,15 @@ use App\Event;
 // Todo: Add auth middleware
 class AdminEventsController extends Controller
 {
+	/**
+	 * Show admin react template
+	 *
+	 * @return \Illuminate\View\View
+	 */
+	public function react()
+	{
+		return view('admin_react');
+	}
 
 	/**
 	 * Show the create event form

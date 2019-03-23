@@ -74,6 +74,8 @@ export const Divider = props => {
 export const getTotal = (state, ownProps) => {
 	return ownProps.values.registrants.reduce((acc, registrant) => {
 		let pkg = state.event.packages.find(p => p.id === registrant.package)
-		return acc + Math.round(pkg.price)
+		return (
+			acc + Math.round(pkg.groups.find(g => g.id === registrant.group).price)
+		)
 	}, 0)
 }

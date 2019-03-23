@@ -80,7 +80,7 @@ class EventsSeeder extends Seeder
         [
           'id' => 1,
           'event_id' => 1,
-          'description' => "Adult (14+)",
+          'description' => "Adults (14+)",
           'created_at' => Carbon\Carbon::now(),
           'updated_at' => Carbon\Carbon::now(),
         ],

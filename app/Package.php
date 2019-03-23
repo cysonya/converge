@@ -58,6 +58,9 @@ class Package extends Model
      */
     public function getQuantityRemainingAttribute()
     {
+        if (is_null($this->quantity_available)) {
+            return 9999; //Better way to do this?
+        }
         return $this->quantity_available - $this->quantity_sold;
     }
 

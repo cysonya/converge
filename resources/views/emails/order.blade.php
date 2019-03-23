@@ -23,7 +23,7 @@ at Hiram College:
 				<td>{{ $attendant->fullName }}</td>
 				<td>{{ $attendant->group->description }}</td>
 				<td>{{ $attendant->package->title }}</td>
-				<td>${{ (int)$attendant->package->price }}</td>
+				<td>${{ $attendant->package->groups()->where('group_id', $attendant->group_id)->first()->pivot->price }}</td>
 			</tr>
 		@endforeach
 	</tbody>
