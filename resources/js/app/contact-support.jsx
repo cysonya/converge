@@ -26,7 +26,7 @@ const Container = styled.div`
 	text-align: center;
 	font-size: 12px;
 	color: ${props => props.theme.grey[900]};
-	border-top: 1px solid ${props => props.theme.grey[700]};
+	border-top: 1px solid ${props => props.theme.grey[400]};
 	${media.md`
 		width: auto;
 		color: ${props => props.theme.grey[200]};

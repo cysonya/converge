@@ -111,6 +111,30 @@ export class Navigation extends Component {
                   Speakers
                 </MenuLink>
               </MenuItem>
+              <MenuItem>
+                <MenuLink
+                  href="https://convergefest.com/housing/"
+                  target="_blank"
+                >
+                  Housing
+                </MenuLink>
+              </MenuItem>
+              <MenuItem>
+                <MenuLink
+                  href="https://convergefest.com/donate/"
+                  target="_blank"
+                >
+                  Donate
+                </MenuLink>
+              </MenuItem>
+              <MenuItem>
+                <MenuLink
+                  href="https://convergefest.com/contact/"
+                  target="_blank"
+                >
+                  Contact
+                </MenuLink>
+              </MenuItem>
             </NavMenu>
           </Hidden>
 
@@ -145,6 +169,27 @@ export class Navigation extends Component {
                 target="_blank"
               >
                 Speakers
+              </MenuLink>
+            </MenuItem>
+            <MenuItem>
+              <MenuLink
+                href="https://convergefest.com/housing/"
+                target="_blank"
+              >
+                Housing
+              </MenuLink>
+            </MenuItem>
+            <MenuItem>
+              <MenuLink href="https://convergefest.com/donate/" target="_blank">
+                Donate
+              </MenuLink>
+            </MenuItem>
+            <MenuItem>
+              <MenuLink
+                href="https://convergefest.com/contact/"
+                target="_blank"
+              >
+                Contact
               </MenuLink>
             </MenuItem>
           </NavMenu>
