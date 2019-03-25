@@ -104,7 +104,6 @@ const ContactSupport = withStyles(styles)(
 						onClose={e => this.handleCloseDialog()}
 						aria-labelledby="contact-support"
 						classes={classes}
-						className={classes.root}
 					>
 						<Formik
 							initialValues={initialValues}

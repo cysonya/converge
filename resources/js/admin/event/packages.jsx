@@ -54,7 +54,6 @@ const InternalPackages = ({ classes, eventPackages }) => {
 									<Typography className={classes.cardTitle} variant="h6">
 										{pkg.title}
 									</Typography>
-									<PackagePrice>${pkg.price}</PackagePrice>
 								</CardHeading>
 
 								<CardContent>
@@ -82,7 +81,11 @@ const InternalPackages = ({ classes, eventPackages }) => {
 												}`}
 												variant="subtitle2"
 											>
-												{pkg.quantity_remaining}
+												{pkg.quantity_remaining === 9999 ? (
+													<span>&infin;</span>
+												) : (
+													pkg.quantity_remaining
+												)}
 											</Typography>
 											<Typography
 												className={classes.statsLabel}
@@ -98,7 +101,7 @@ const InternalPackages = ({ classes, eventPackages }) => {
 									<Link
 										component={NavLink}
 										className={classes.footerLink}
-										to={`/admin/package/${pkg.id}/edit`}
+										to={`/admin/event/${pkg.event_id}/packages/${pkg.id}/edit`}
 									>
 										<SettingsIcon className="mr-5" fontSize="inherit" /> Edit
 									</Link>

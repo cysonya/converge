@@ -10,6 +10,7 @@ import { media } from "@/styles/utils"
 
 import LoadEvents from "./load-events"
 import LoadEvent from "./load-event"
+import ModalConductor from "./modal-conductor"
 import Navigation from "./components/navigation"
 
 const Content = styled.div`
@@ -33,6 +34,14 @@ const InternalAdmin = ({ history }) => {
 						<Route
 							path="/admin/event/:eventId/packages"
 							component={LoadEvent}
+							key="pkg"
+						/>
+						<Route
+							key="pkg-edit"
+							path="/admin/event/:eventId/packages/:packageId/edit"
+							render={props => (
+								<ModalConductor model="package-edit" {...props} />
+							)}
 						/>
 					</Content>
 				</div>
