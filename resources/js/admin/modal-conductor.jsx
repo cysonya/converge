@@ -26,6 +26,9 @@ const styles = theme => ({
 			minWidth: "550px",
 			maxWidth: "70vh"
 		}
+	},
+	content: {
+		padding: "24px"
 	}
 })
 
@@ -40,8 +43,16 @@ class ModalConductor extends Component {
 		let title = null
 		switch (model) {
 			case "package-edit":
-				title = "Edit Housing"
-				content = <PackageEdit pkgId={match.params.packageId} />
+				let pkgId = match.params.packageId
+				let pkg = adminStore
+					.getState()
+					.dashboard.packages.find(p => p.id == pkgId)
+				title = (
+					<div>
+						Edit Housing: <em>{pkg.title}</em>
+					</div>
+				)
+				content = <PackageEdit pkgId={pkgId} />
 				break
 			default:
 				content = null
@@ -65,7 +76,9 @@ class ModalConductor extends Component {
 					</IconButton>
 				</ModalHeading>
 
-				<DialogContent>{content}</DialogContent>
+				<DialogContent classes={{ root: classes.content }}>
+					{content}
+				</DialogContent>
 			</Dialog>
 		)
 	}

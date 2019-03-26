@@ -35,9 +35,18 @@ class EventsController extends Controller
         $event->total_donation = $event->payments()->where('payment_type','donation')->sum('amount');
         $event->total_revenue = $event->payments()->where('payment_type','order')->sum('amount');
 
+        $packages = $event->packages()->available()->with('groups')->get()->map(function($package) {
+            // Get only group id and price
+            $package->groups = $package->groups->map(function($group) {
+                $group->price = $group->pivot->price;
+                return $group->only(['id', 'price']);
+            });
+            return $package->only(['id', 'event_id', 'title', 'description', 'quantity_available', 'quantity_remaining', 'quantity_sold', 'groups']);
+        });
+
         return response()->json([
             'event' => $event,
-            'packages' => $event->packages()->get(),
+            'packages' => $packages,
             'orders' => $event->orders()->with('payments')->get(),
             'attendants' => $event->attendants()->get()
         ]);
