@@ -147,6 +147,7 @@ const ContactSupport = withStyles(styles)(
 														render={({ field, form }) => (
 															<Input
 																label="Your Email"
+																type="email"
 																autocompplete="email"
 																error={inputError(form, "email")}
 																touched={touched.email}
