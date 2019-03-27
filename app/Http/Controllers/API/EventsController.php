@@ -39,7 +39,7 @@ class EventsController extends Controller
             // Get only group id and price
             $package->groups = $package->groups->map(function($group) {
                 $group->price = $group->pivot->price;
-                return $group->only(['id', 'price']);
+                return $group->only(['id', 'description', 'price']);
             });
             return $package->only(['id', 'event_id', 'title', 'description', 'quantity_available', 'quantity_remaining', 'quantity_sold', 'groups']);
         });

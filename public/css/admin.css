@@ -42,6 +42,10 @@
   text-align: left !important;
 }
 
+.text-right {
+  text-align: right !important;
+}
+
 @media (max-width: 959px) {
   .hidden-sm-down {
     display: none !important;
