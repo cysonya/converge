@@ -32,7 +32,7 @@ class ConfirmOrderJob implements ShouldQueue
     public function handle()
     {
         Mail::to($this->order->email)
-            ->bcc(['cysonya@gmail.com'])
+            ->bcc(explode(',', env('ADMIN_EMAILS')))
             ->send(new OrderMailable($this->order));
     }
 }
