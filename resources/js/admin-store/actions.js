@@ -2,21 +2,29 @@ export const FETCH_EVENTS = "FETCH_EVENTS"
 export const SET_EVENTS_DATA = "SET_EVENTS_DATA"
 
 export const FETCH_EVENT = "FETCH_EVENT"
-export const UPDATE_EVENT = "UPDATE_EVENT"
+export const SET_EVENT = "SET_EVENT"
 
-// Triggers fetch-events saga
+export const UPDATE_PACKAGE = "UPDATE_PACKAGE"
+export const SET_PACKAGE = "SET_PACKAGE"
+
+// Triggers fetch-events saga - fetches all event
 export function fetchEvents() {
 	return { type: FETCH_EVENTS }
 }
 export function setEventsData(data) {
 	return { type: SET_EVENTS_DATA, data }
 }
-
+// Triggers fetch-event saga - fetches single event
 export function fetchEvent(id) {
 	return { type: FETCH_EVENT, id }
 }
-
-export function updateEvent(data) {
-	return { type: UPDATE_EVENT, data }
+export function setEvent(data) {
+	return { type: SET_EVENT, data }
 }
 
+export function updatePackage(values, setSubmitting) {
+	return { type: UPDATE_PACKAGE, values, setSubmitting }
+}
+export function setPackage(data) {
+	return { type: SET_PACKAGE, data }
+}

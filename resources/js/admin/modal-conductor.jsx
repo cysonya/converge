@@ -76,9 +76,7 @@ class ModalConductor extends Component {
 					</IconButton>
 				</ModalHeading>
 
-				<DialogContent classes={{ root: classes.content }}>
-					{content}
-				</DialogContent>
+				<DialogContent className={classes.content}>{content}</DialogContent>
 			</Dialog>
 		)
 	}

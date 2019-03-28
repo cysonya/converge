@@ -14,21 +14,23 @@ import { connect } from "react-redux"
 import { Formik, Form, Field } from "formik"
 
 import { Input, inputError } from "@/app/components/form/index"
+import { updatePackage } from "@/admin-store/actions"
 
-const InternalPackageEdit = ({ pkg }) => {
-	console.log("PACKAGE: ", pkg)
+const InternalPackageEdit = ({ pkg, postUpdate }) => {
 	return (
 		<Formik
 			initialValues={{
+				id: pkg.id,
+				event_id: pkg.event_id,
 				title: pkg.title,
 				quantity_available: pkg.quantity_available || "",
 				groups: pkg.groups.map(g => ({
 					id: g.id,
-					price: parseFloat(g.price).toFixed(0)
+					price: parseFloat(g.pivot.price).toFixed(0)
 				}))
 			}}
 			onSubmit={(values, { setSubmitting }) => {
-				console.log("SUBMIT: ", values)
+				postUpdate(values, setSubmitting)
 			}}
 			render={({ errors, touched, values }) => (
 				<Form>
@@ -37,12 +39,7 @@ const InternalPackageEdit = ({ pkg }) => {
 							<Field
 								name="title"
 								render={({ field, form }) => (
-									<Input
-										label="Housing Name"
-										error={inputError(form, "title")}
-										touched={touched.title}
-										{...field}
-									/>
+									<Input label="Housing Name" {...field} />
 								)}
 							/>
 						</Grid>
@@ -53,8 +50,6 @@ const InternalPackageEdit = ({ pkg }) => {
 									<Input
 										placeholder="leave blank for unlimited"
 										label="Space available"
-										error={inputError(form, "quantity_available")}
-										touched={touched.quantity_available}
 										{...field}
 									/>
 								)}
@@ -104,7 +99,6 @@ const InternalPackageEdit = ({ pkg }) => {
 InternalPackageEdit.propTypes = {}
 
 const getPackage = (state, ownProps) => {
-	console.log("PKG: ", ownProps.pkgId)
 	return state.dashboard.packages.find(p => p.id == ownProps.pkgId)
 }
 const mapStateToProps = (state, ownProps) => {
@@ -114,7 +108,11 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-	return {}
+	return {
+		postUpdate: (values, setSubmitting) => {
+			dispatch(updatePackage(values, setSubmitting))
+		}
+	}
 }
 
 const PackageEdit = connect(

@@ -20,7 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Route::get('/events', 'API\EventsController@index');
 Route::group(['middleware' => ['auth:api','is_admin']], function() {
 	Route::get('/events', 'API\EventsController@index');
-	Route::get('/event/{event_id}/dashboard', 'API\EventsController@dashboard');
+	Route::get('/events/{event_id}/dashboard', 'API\EventsController@dashboard');
+	Route::post('/events/{event_id}/packages/{package_id}', 'API\EventsController@updatePackage');
 });
 
 Route::get('/events/{event_id}/{event_slug?}', 'API\EventsController@show');

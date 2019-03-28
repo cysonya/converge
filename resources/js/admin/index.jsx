@@ -16,6 +16,7 @@ import Navigation from "./components/navigation"
 const Content = styled.div`
 	${media.md`
 		margin-left: 230px;
+		margin-right: 30px;
 		max-width: 1020px;
 	`}
 `
@@ -28,17 +29,17 @@ const InternalAdmin = ({ history }) => {
 					<Content>
 						<Route exact path="/admin" component={LoadEvents} />
 						<Route
-							path="/admin/event/:eventId/dashboard"
+							path="/admin/events/:eventId/dashboard"
 							component={LoadEvent}
 						/>
 						<Route
-							path="/admin/event/:eventId/packages"
+							path="/admin/events/:eventId/packages"
 							component={LoadEvent}
 							key="pkg"
 						/>
 						<Route
 							key="pkg-edit"
-							path="/admin/event/:eventId/packages/:packageId/edit"
+							path="/admin/events/:eventId/packages/:packageId/edit"
 							render={props => (
 								<ModalConductor model="package-edit" {...props} />
 							)}

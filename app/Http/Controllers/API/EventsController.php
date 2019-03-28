@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\API;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use Carbon\Carbon;
 use App\Event;
+use App\Package;
 
 class EventsController extends Controller
 {
@@ -35,14 +37,7 @@ class EventsController extends Controller
         $event->total_donation = $event->payments()->where('payment_type','donation')->sum('amount');
         $event->total_revenue = $event->payments()->where('payment_type','order')->sum('amount');
 
-        $packages = $event->packages()->available()->with('groups')->get()->map(function($package) {
-            // Get only group id and price
-            $package->groups = $package->groups->map(function($group) {
-                $group->price = $group->pivot->price;
-                return $group->only(['id', 'description', 'price']);
-            });
-            return $package->only(['id', 'event_id', 'title', 'description', 'quantity_available', 'quantity_remaining', 'quantity_sold', 'groups']);
-        });
+        $packages = $event->packages()->available()->with('groups')->get();
 
         return response()->json([
             'event' => $event,
@@ -93,5 +88,24 @@ class EventsController extends Controller
             'packages' => $packages,
             'groups' => $groups
         ]);
+    }
+
+    public function updatePackage(Request $request, $event_id, $package_id)
+    {
+        $package = Package::find($package_id);
+        $package->update([
+            'title' => $request->title,
+            'quantity_available' => $request->quantity_available
+        ]);
+
+        // Update group pricing
+        foreach ($request->groups as $group ) {
+            $package->groups()->updateExistingPivot($group['id'], ['price' => $group['price']]);
+        }
+        // attach group data to response
+        $package->groups = $package->groups;
+
+        return response()
+            ->json(['status' => "success", 'data' => $package]);
     }
 }

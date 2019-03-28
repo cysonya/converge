@@ -101,7 +101,7 @@ const InternalPackages = ({ classes, eventPackages }) => {
 									<Link
 										component={NavLink}
 										className={classes.footerLink}
-										to={`/admin/event/${pkg.event_id}/packages/${pkg.id}/edit`}
+										to={`/admin/events/${pkg.event_id}/packages/${pkg.id}/edit`}
 									>
 										<SettingsIcon className="mr-5" fontSize="inherit" /> Edit
 									</Link>

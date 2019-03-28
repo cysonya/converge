@@ -10,11 +10,13 @@ import {
 
 import fetchEvents from "./sagas/fetch-events"
 import fetchEvent from "./sagas/fetch-event"
+import updatePackage from "./sagas/update-package"
 
 function* rootSaga() {
 	yield all([
 		takeLatest("FETCH_EVENTS", fetchEvents),
-		takeLatest("FETCH_EVENT", fetchEvent)
+		takeLatest("FETCH_EVENT", fetchEvent),
+		takeLatest("UPDATE_PACKAGE", updatePackage)
 	])
 }
 

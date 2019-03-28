@@ -36,8 +36,10 @@ Route::post('contact', 'EventsController@contact');
  */
 Route::group(['prefix' => 'admin', 'middleware' => 'is_admin'], function() {
 	Route::get('/', 'AdminEventsController@react');
-	Route::get('/event/{id}/dashboard', 'AdminEventsController@react');
-	Route::get('/event/{id}/packages', 'AdminEventsController@react');
+	Route::get('/events/{id}/dashboard', 'AdminEventsController@react');
+	Route::get('/events/{id}/packages', 'AdminEventsController@react');
+
+	// OLD NON REACT
 	// Events dashboard
 	Route::group(['prefix' => 'events'], function() {
 		Route::get('create', 'AdminEventsController@create');

@@ -1,8 +1,9 @@
 import ArrowBackIcon from "@material-ui/icons/ArrowBack"
 import EventIcon from "@material-ui/icons/Event"
+import FaceIcon from "@material-ui/icons/Face"
+import GroupIcon from "@material-ui/icons/Group"
 import HomeIcon from "@material-ui/icons/Home"
 import PollIcon from "@material-ui/icons/Poll"
-import PeopleIcon from "@material-ui/icons/People"
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart"
 import SettingsIcon from "@material-ui/icons/Settings"
 import List from "@material-ui/core/List"
@@ -54,31 +55,37 @@ const InternalNavigationLinks = ({ classes, eventId }) => {
 			</ListItem>
 
 			<ListItem className={classes.menuItem}>
-				<LinkStyled to={`/admin/event/${eventId}/dashboard`}>
+				<LinkStyled to={`/admin/events/${eventId}/dashboard`}>
 					<PollIcon className="pr-5" />
 					Dashboard
 				</LinkStyled>
 			</ListItem>
 			<ListItem className={classes.menuItem}>
-				<LinkStyled to={`/admin/event/${eventId}/packages`}>
+				<LinkStyled to={`/admin/events/${eventId}/packages`}>
 					<HomeIcon className="pr-5" />
 					Housings
 				</LinkStyled>
 			</ListItem>
 			<ListItem className={classes.menuItem}>
-				<LinkStyled to={`/admin/event/${eventId}/attendants`}>
-					<PeopleIcon className="pr-5" />
+				<LinkStyled to={`/admin/events/${eventId}/groups`}>
+					<GroupIcon className="pr-5" />
+					Groups
+				</LinkStyled>
+			</ListItem>
+			<ListItem className={classes.menuItem}>
+				<LinkStyled to={`/admin/events/${eventId}/attendants`}>
+					<FaceIcon className="pr-5" />
 					Participants
 				</LinkStyled>
 			</ListItem>
 			<ListItem className={classes.menuItem}>
-				<LinkStyled to={`/admin/event/${eventId}/orders`}>
+				<LinkStyled to={`/admin/events/${eventId}/orders`}>
 					<ShoppingCartIcon className="pr-5" />
 					Orders
 				</LinkStyled>
 			</ListItem>
 			<ListItem className={classes.menuItem}>
-				<LinkStyled to={`/admin/event/${eventId}/settings`}>
+				<LinkStyled to={`/admin/events/${eventId}/settings`}>
 					<SettingsIcon className="pr-5" />
 					Settings
 				</LinkStyled>

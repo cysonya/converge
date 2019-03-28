@@ -53,6 +53,15 @@ const api = {
         return data
       })
   },
+  authPost(url, body, contentType = undefined) {
+    return postBare(url, body, contentType, Cookies.get("auth_token") || "")
+      .then(statusHelper)
+      .then(response => response.json())
+      .then(data => {
+        console.log("POST RESPONSE", data)
+        return data
+      })
+  },
   postNoParse(url, body, contentType = undefined) {
     return postBare(url, body, contentType).then(statusHelper)
   },

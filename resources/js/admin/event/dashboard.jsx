@@ -1,4 +1,5 @@
 import Grid from "@material-ui/core/Grid"
+import Paper from "@material-ui/core/Paper"
 import Typography from "@material-ui/core/Typography"
 import { withStyles } from "@material-ui/core/styles"
 
@@ -7,9 +8,12 @@ import ReactDOM from "react-dom"
 import PropTypes from "prop-types"
 import { connect } from "react-redux"
 
-import styled from "styled-components"
-
 const styles = theme => ({
+	statsBox: {
+		padding: "20px",
+		textAlign: "center",
+		boxShadow: theme.shadows[1]
+	},
 	statsValue: {
 		fontSize: "32px",
 		color: theme.palette.primary.main
@@ -20,15 +24,6 @@ const styles = theme => ({
 	}
 })
 
-const StatsBox = styled.div`
-	padding: 20px;
-	text-align: center;
-	background-color: #fff;
-	border: 1px solid ${props => props.theme.grey[300]};
-`
-const StatsValue = styled.h3`
-	margin: 0 0 5px;
-`
 const InternalDashboard = ({ classes, event }) => {
 	if (!event) return null
 
@@ -36,34 +31,34 @@ const InternalDashboard = ({ classes, event }) => {
 		<div>
 			<Grid container spacing={16}>
 				<Grid item xs={12} md={4}>
-					<StatsBox>
+					<Paper className={classes.statsBox}>
 						<Typography className={classes.statsValue} variant="subtitle2">
 							{event.attendants_count}
 						</Typography>
 						<Typography className={classes.statsLabel} variant="body1">
 							Participants
 						</Typography>
-					</StatsBox>
+					</Paper>
 				</Grid>
 				<Grid item xs={12} md={4}>
-					<StatsBox>
+					<Paper className={classes.statsBox}>
 						<Typography className={classes.statsValue} variant="subtitle2">
 							${event.total_revenue}
 						</Typography>
 						<Typography className={classes.statsLabel} variant="body1">
 							Revenue
 						</Typography>
-					</StatsBox>
+					</Paper>
 				</Grid>
 				<Grid item xs={12} md={4}>
-					<StatsBox>
+					<Paper className={classes.statsBox}>
 						<Typography className={classes.statsValue} variant="subtitle2">
 							${event.total_donation}
 						</Typography>
 						<Typography className={classes.statsLabel} variant="body1">
 							Donations
 						</Typography>
-					</StatsBox>
+					</Paper>
 				</Grid>
 			</Grid>
 		</div>

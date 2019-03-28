@@ -21,7 +21,7 @@ class EventsSeeder extends Seeder
       	'title' => 'Converge 2019',
       	'start_date' => Carbon\Carbon::createFromFormat('Y-m-d', '2019-08-02'),
         'end_date' => Carbon\Carbon::createFromFormat('Y-m-d', '2019-08-04'),
-        'social_share_text' => "I am going to Converge!",
+        'social_share_text' => "",
         'created_at' => Carbon\Carbon::now(),
       	'updated_at' => Carbon\Carbon::now(),
       ]);

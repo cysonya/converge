@@ -13,7 +13,6 @@ export default function* submitOrder(action) {
 			action.values
 		)
 		yield put(updateOrder(response))
-		action.setSubmitting(false)
 	} catch (error) {
 		yield put(
 			updateOrder({
@@ -21,6 +20,6 @@ export default function* submitOrder(action) {
 				error: "An error has occured. Please try again."
 			})
 		)
-		action.setSubmitting(false)
 	}
+	action.setSubmitting(false)
 }
