@@ -151,8 +151,16 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		toggleStatus: pkg => {
-			pkg = Object.assign({}, pkg, { is_paused: !pkg.is_paused })
-			dispatch(updatePackage(pkg))
+			if (
+				confirm(
+					`Are you sure you want to ${
+						pkg.is_paused ? "resume" : "pause"
+					} the sale for ${pkg.title}?`
+				)
+			) {
+				pkg = Object.assign({}, pkg, { is_paused: !pkg.is_paused })
+				dispatch(updatePackage(pkg))
+			}
 		}
 	}
 }
