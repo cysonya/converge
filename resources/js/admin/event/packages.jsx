@@ -1,6 +1,9 @@
+import Button from "@material-ui/core/Button"
 import Grid from "@material-ui/core/Grid"
 import Link from "@material-ui/core/Link"
 import Paper from "@material-ui/core/Paper"
+import PauseIcon from "@material-ui/icons/Pause"
+import PlayArrowIcon from "@material-ui/icons/PlayArrow"
 import SettingsIcon from "@material-ui/icons/Settings"
 import Typography from "@material-ui/core/Typography"
 import { withStyles } from "@material-ui/core/styles"
@@ -13,6 +16,7 @@ import { connect } from "react-redux"
 import styled from "styled-components"
 
 import { CardHeading, CardContent, CardFooter, styles } from "./components"
+import { updatePackage } from "@/admin-store/actions"
 
 const PackagePrice = styled.h6`
 	margin: 0;
@@ -42,7 +46,13 @@ const StatsSection = styled.div`
 		display: none;
 	}
 `
-const InternalPackages = ({ classes, eventPackages }) => {
+const ToggleStatus = styled(Button)`
+	&& {
+		color: #fff;
+		font-size: 12px;
+	}
+`
+const InternalPackages = ({ classes, eventPackages, toggleStatus }) => {
 	return (
 		<div className="p-10">
 			<Grid container spacing={24}>
@@ -50,10 +60,26 @@ const InternalPackages = ({ classes, eventPackages }) => {
 					eventPackages.map((pkg, index) => (
 						<Grid key={index} item xs={12} md={6} lg={4}>
 							<Paper className={classes.paper}>
-								<CardHeading>
+								<CardHeading padding="5px 10px">
 									<Typography className={classes.cardTitle} variant="h6">
 										{pkg.title}
 									</Typography>
+									{pkg.is_paused ? (
+										<ToggleStatus
+											size="small"
+											onClick={() => toggleStatus(pkg)}
+										>
+											<PlayArrowIcon className="mr-5" fontSize="small" />
+											Resume sale
+										</ToggleStatus>
+									) : (
+										<ToggleStatus
+											size="small"
+											onClick={() => toggleStatus(pkg)}
+										>
+											<PauseIcon className="mr-5" fontSize="small" /> Pause sale
+										</ToggleStatus>
+									)}
 								</CardHeading>
 
 								<CardContent>
@@ -123,7 +149,12 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-	return {}
+	return {
+		toggleStatus: pkg => {
+			pkg = Object.assign({}, pkg, { is_paused: !pkg.is_paused })
+			dispatch(updatePackage(pkg))
+		}
+	}
 }
 
 const Packages = connect(

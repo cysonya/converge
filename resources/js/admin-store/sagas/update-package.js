@@ -5,7 +5,7 @@ import api from "@/apis"
 import { setPackage } from "../actions"
 
 export default function* updatePackage(action) {
-	const { values, setSubmitting } = action
+	const { values } = action
 
 	try {
 		const response = yield call(
@@ -20,5 +20,7 @@ export default function* updatePackage(action) {
 	} catch (error) {
 		console.log(error)
 	}
-	setSubmitting(false)
+	if (!!action.setSubmitting) {
+		action.setSubmitting(false)
+	}
 }

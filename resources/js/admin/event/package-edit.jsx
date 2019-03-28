@@ -19,16 +19,7 @@ import { updatePackage } from "@/admin-store/actions"
 const InternalPackageEdit = ({ pkg, postUpdate }) => {
 	return (
 		<Formik
-			initialValues={{
-				id: pkg.id,
-				event_id: pkg.event_id,
-				title: pkg.title,
-				quantity_available: pkg.quantity_available || "",
-				groups: pkg.groups.map(g => ({
-					id: g.id,
-					price: parseFloat(g.pivot.price).toFixed(0)
-				}))
-			}}
+			initialValues={pkg}
 			onSubmit={(values, { setSubmitting }) => {
 				postUpdate(values, setSubmitting)
 			}}
@@ -61,7 +52,7 @@ const InternalPackageEdit = ({ pkg, postUpdate }) => {
 						{pkg.groups.map((group, i) => (
 							<Grid key={i} item xs={6}>
 								<Field
-									name={`groups[${i}].price`}
+									name={`groups[${i}].pivot.price`}
 									render={({ field, form }) => (
 										<TextField
 											label={group.description}
@@ -99,7 +90,15 @@ const InternalPackageEdit = ({ pkg, postUpdate }) => {
 InternalPackageEdit.propTypes = {}
 
 const getPackage = (state, ownProps) => {
-	return state.dashboard.packages.find(p => p.id == ownProps.pkgId)
+	let pkg = state.dashboard.packages.find(p => p.id == ownProps.pkgId)
+	// format group price to 0 decimal place
+	pkg.groups.forEach(
+		g =>
+			(g.pivot = Object.assign({}, g.pivot, {
+				price: parseFloat(g.pivot.price).toFixed(0)
+			}))
+	)
+	return pkg
 }
 const mapStateToProps = (state, ownProps) => {
 	return {

@@ -63,7 +63,7 @@ class ModalConductor extends Component {
 				open={true}
 				fullScreen={fullScreen}
 				onClose={e => history.goBack()}
-				classes={classes}
+				classes={{ paper: classes.paper }}
 			>
 				<ModalHeading>
 					{title}

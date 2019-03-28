@@ -37,7 +37,7 @@ class EventsController extends Controller
         $event->total_donation = $event->payments()->where('payment_type','donation')->sum('amount');
         $event->total_revenue = $event->payments()->where('payment_type','order')->sum('amount');
 
-        $packages = $event->packages()->available()->with('groups')->get();
+        $packages = $event->packages()->with('groups')->get();
 
         return response()->json([
             'event' => $event,
@@ -93,14 +93,11 @@ class EventsController extends Controller
     public function updatePackage(Request $request, $event_id, $package_id)
     {
         $package = Package::find($package_id);
-        $package->update([
-            'title' => $request->title,
-            'quantity_available' => $request->quantity_available
-        ]);
+        $package->update(array_only($request->all(), ['title', 'description', 'quantity_available', 'is_paused']));
 
         // Update group pricing
         foreach ($request->groups as $group ) {
-            $package->groups()->updateExistingPivot($group['id'], ['price' => $group['price']]);
+            $package->groups()->updateExistingPivot($group['id'], ['price' => $group['pivot']['price']]);
         }
         // attach group data to response
         $package->groups = $package->groups;

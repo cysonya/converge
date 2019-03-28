@@ -5,7 +5,7 @@ export const CardHeading = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 10px;
+	padding: ${props => props.padding || "10px"};
 	background-color: ${props => props.theme.common.background};
 `
 export const CardContent = styled.div`
