@@ -15,7 +15,7 @@ class UsersSeeder extends Seeder
             [
                 'first_name' => 'Admin',
                 'last_name' => '',
-                'email' => 'admin@converge.com',
+                'email' => 'cysonya@gmail.com',
                 'password' => bcrypt('converge123'),
                 'type' => 'admin',
                 'api_token' => str_random(60)

@@ -22,18 +22,6 @@ class ConfirmOrderJob implements ShouldQueue
     public function __construct($order)
     {
         $this->order = $order;
-
-        $emails = [];
-        if (\App::environment('production')) {
-            $emails = [
-                'cysonya@gmail.com',
-                'sean@lhim.org',
-                'jerry.wierwille@gmail.com'
-            ];
-        } else {
-            $emails = ['cysonya@gmail.com'];
-        }
-        $this->emails = $emails;
     }
 
     /**
@@ -44,7 +32,7 @@ class ConfirmOrderJob implements ShouldQueue
     public function handle()
     {
         Mail::to($this->order->email)
-            ->bcc($this->emails)
+            ->bcc(['cysonya@gmail.com'])
             ->send(new OrderMailable($this->order));
     }
 }
