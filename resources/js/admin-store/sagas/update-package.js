@@ -16,7 +16,7 @@ export default function* updatePackage(action) {
 		yield put(setPackage(response.data))
 
 		// close modal
-		yield put(push(`/admin/events/${values.event_id}/packages/`))
+		yield put(push(`/admin/events/${values.event_id}/packages`))
 	} catch (error) {
 		console.log(error)
 	}

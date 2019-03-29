@@ -55,11 +55,14 @@ const api = {
   },
   authPost(url, body, contentType = undefined) {
     return postBare(url, body, contentType, Cookies.get("auth_token") || "")
-      .then(statusHelper)
-      .then(response => response.json())
+      .then(handleApiResponse)
       .then(data => {
-        console.log("POST RESPONSE", data)
+        console.log("POST SUCCESS: ", data)
         return data
+      })
+      .catch(error => {
+        console.log("POST err: ", error)
+        throw error
       })
   },
   postNoParse(url, body, contentType = undefined) {
@@ -117,6 +120,7 @@ function postBare(url, body, contentType = undefined, bearerToken = undefined) {
   if (bearerToken) {
     headers["Authorization"] = "Bearer " + bearerToken
   }
+  headers["Accept"] = "application/json"
 
   return fetch(url, {
     body,
@@ -179,6 +183,16 @@ function patchBare(url, body, contentType = undefined) {
     cache: "no-store",
     headers,
     method: "PATCH"
+  })
+}
+
+function handleApiResponse(response) {
+  return response.json().then(json => {
+    if (response.status >= 200 && response.status < 300) {
+      return json
+    } else {
+      return Promise.reject(json)
+    }
   })
 }
 

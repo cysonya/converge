@@ -84,7 +84,8 @@ const ContactSupport = withStyles(styles)(
 			let initialValues = {
 				name: "",
 				email: "",
-				message: ""
+				message: "",
+				site_token: Cookies.get("site_token")
 			}
 			return (
 				<div>
