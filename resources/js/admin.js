@@ -14,15 +14,17 @@ require("./bootstrap")
 
 import { MuiThemeProvider } from "@material-ui/core/styles"
 
+import Button from "@material-ui/core/Button"
+
 import React from "react"
 import ReactDOM from "react-dom"
 import { Provider } from "react-redux"
+import { SnackbarProvider } from "notistack"
 import { ThemeProvider } from "styled-components"
 
+import Admin from "./admin/index"
 import { history, store } from "./admin-store/index"
 import theme from "./styles/theme"
-
-import Admin from "./admin/index"
 
 window.adminStore = store
 
@@ -34,7 +36,17 @@ document.addEventListener("DOMContentLoaded", () => {
 			<Provider store={store}>
 				<ThemeProvider theme={theme.palette}>
 					<MuiThemeProvider theme={theme}>
-						<Admin history={history} />
+						<SnackbarProvider
+							autoHideDuration={8000}
+							maxSnack="3"
+							action={[<Button size="small">{"Dismiss"}</Button>]}
+							anchorOrigin={{
+								vertical: "bottom",
+								horizontal: "center"
+							}}
+						>
+							<Admin history={history} />
+						</SnackbarProvider>
 					</MuiThemeProvider>
 				</ThemeProvider>
 			</Provider>,

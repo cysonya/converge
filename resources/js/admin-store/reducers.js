@@ -39,9 +39,28 @@ function dashboard(state = {}, action) {
 	}
 }
 
+function notifications(state = [], action) {
+	switch (action.type) {
+		case "ENQUEUE_SNACKBAR":
+			let newState = [
+				...state,
+				{
+					...action.notification
+				}
+			]
+			return newState
+
+		case "REMOVE_SNACKBAR":
+			return state.filter(notification => notification.key !== action.key)
+
+		default:
+			return state
+	}
+}
 export default history =>
 	combineReducers({
 		router: connectRouter(history),
 		eventListings,
-		dashboard
+		dashboard,
+		notifications
 	})

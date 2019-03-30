@@ -7,6 +7,9 @@ export const SET_EVENT = "SET_EVENT"
 export const UPDATE_PACKAGE = "UPDATE_PACKAGE"
 export const SET_PACKAGE = "SET_PACKAGE"
 
+export const ENQUEUE_SNACKBAR = "ENQUEUE_SNACKBAR"
+export const REMOVE_SNACKBAR = "REMOVE_SNACKBAR"
+
 // Triggers fetch-events saga - fetches all event
 export function fetchEvents() {
 	return { type: FETCH_EVENTS }
@@ -27,4 +30,18 @@ export function updatePackage(values, setSubmitting) {
 }
 export function setPackage(data) {
 	return { type: SET_PACKAGE, data }
+}
+
+export function enqueueSnackbar(notification) {
+	return {
+		type: ENQUEUE_SNACKBAR,
+		notification: {
+			key: new Date().getTime() + Math.random(),
+			...notification
+		}
+	}
+}
+
+export function removeSnackbar(key) {
+	return { type: REMOVE_SNACKBAR, key }
 }

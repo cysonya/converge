@@ -1,3 +1,4 @@
+import { enqueueSnackbar } from "@/admin-store/actions"
 // Inject fetch polyfill if fetch is unsuported
 if (!window.fetch) {
   const fetch = require("whatwg-fetch")
@@ -58,10 +59,25 @@ const api = {
       .then(handleApiResponse)
       .then(data => {
         console.log("POST SUCCESS: ", data)
+        adminStore.dispatch(
+          enqueueSnackbar({
+            message: data.message,
+            options: {
+              variant: "success"
+            }
+          })
+        )
         return data
       })
       .catch(error => {
-        console.log("POST err: ", error)
+        adminStore.dispatch(
+          enqueueSnackbar({
+            message: error.message,
+            options: {
+              variant: "error"
+            }
+          })
+        )
         throw error
       })
   },

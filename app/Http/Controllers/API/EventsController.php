@@ -92,9 +92,9 @@ class EventsController extends Controller
 
     public function updatePackage(Request $request, $event_id, $package_id)
     {
-        $validator = $request->validate( [
-            'description' => 'required',
-        ]);
+        // $validator = $request->validate( [
+        //     'description' => 'required',
+        // ]);
 
         $package = Package::find($package_id);
         $package->update(array_only($request->all(), ['title', 'description', 'quantity_available', 'is_paused']));

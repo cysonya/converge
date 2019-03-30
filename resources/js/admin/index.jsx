@@ -12,6 +12,7 @@ import LoadEvents from "./load-events"
 import LoadEvent from "./load-event"
 import ModalConductor from "./modal-conductor"
 import Navigation from "./components/navigation"
+import Notifier from "./notifier"
 
 const Content = styled.div`
 	${media.md`
@@ -25,6 +26,7 @@ const InternalAdmin = ({ history }) => {
 		<div>
 			<ConnectedRouter history={history}>
 				<div>
+					<Notifier />
 					<Navigation />
 					<Content>
 						<Route exact path="/admin" component={LoadEvents} />
