@@ -116,17 +116,19 @@ InternalHousingForm.propTypes = {}
 const getPackages = (state, ownProps) => {
 	let pkgs = state.event.packages
 
-	// Only show Townhouse option if attandants contain 'Toddler' age group
-	// Get group id of Toddler
-	let toddlerId = state.event.groups.find(g =>
-		g.description.includes("Toddler")
-	).id
+	// Only show Townhouse option if attandants contain at least two children
+	let childrenIds = []
+	state.event.groups.map(g => {
+		if (!g.description.includes("Adults")) {
+			childrenIds.push(g.id)
+		}
+	})
 
 	if (
-		toddlerId > -1 &&
-		ownProps.values.registrants.filter(r => r.group === toddlerId).length >= 2
+		ownProps.values.registrants.filter(r => childrenIds.includes(r.group))
+			.length >= 2
 	) {
-		// return all package options if attendant contains at least 2 Toddler
+		// return all package options if attendant contains at least 2 children
 		return pkgs
 	} else {
 		// Remove 'Townhouse' from package options
