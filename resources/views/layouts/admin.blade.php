@@ -15,9 +15,6 @@
         @endif
     </title>
 
-    <!-- Scripts -->
-    <script src="{{ mix('/js/admin.js') }}" defer></script>
-
     @include('layouts._global_site_vars')
 
     <link rel="icon" href="{{asset('favicon.png')}}" type="image/gif" sizes="16x16">
@@ -33,9 +30,10 @@
   <body>
     @yield('content')
 
+    <!-- Scripts -->
+    <script src="{{ mix('/js/admin.js') }}"></script>
     @if (App::environment(['staging', 'production']))
         @include('layouts._analytics')
     @endif
-
   </body>
 </html>

@@ -4,7 +4,7 @@
  * building robust, powerful web applications using React + Laravel.
  */
 
-require("./bootstrap")
+require("./bootstrap");
 
 /**
  * Next, we will create a fresh React component instance and attach it to
@@ -12,25 +12,25 @@ require("./bootstrap")
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-import { MuiThemeProvider } from "@material-ui/core/styles"
+import { MuiThemeProvider } from "@material-ui/core/styles";
 
-import Button from "@material-ui/core/Button"
+import Button from "@material-ui/core/Button";
 
-import React from "react"
-import ReactDOM from "react-dom"
-import { Provider } from "react-redux"
-import { SnackbarProvider } from "notistack"
-import { ThemeProvider } from "styled-components"
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { SnackbarProvider } from "notistack";
+import { ThemeProvider } from "styled-components";
 
-import Admin from "./admin/index"
-import { history, store } from "./admin-store/index"
-import theme from "./styles/theme"
+import Admin from "./admin/index";
+import { history, store } from "./admin-store/index";
+import theme from "./styles/theme";
 
-window.adminStore = store
+window.adminStore = store;
 
 document.addEventListener("DOMContentLoaded", () => {
-	const appPage = document.getElementById("admin_react")
-	console.log("theme: ", theme)
+	const appPage = document.getElementById("admin_react");
+	console.log("theme: ", theme);
 	if (appPage) {
 		ReactDOM.render(
 			<Provider store={store}>
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
 					<MuiThemeProvider theme={theme}>
 						<SnackbarProvider
 							autoHideDuration={8000}
-							maxSnack="3"
+							maxSnack={3}
 							action={[<Button size="small">{"Dismiss"}</Button>]}
 							anchorOrigin={{
 								vertical: "bottom",
@@ -51,24 +51,24 @@ document.addEventListener("DOMContentLoaded", () => {
 				</ThemeProvider>
 			</Provider>,
 			appPage
-		)
+		);
 	}
 
 	// Set user token to identify session in FS
 	if (Cookies.get("site_token") == undefined) {
-		Cookies.set("site_token", generateToken())
+		Cookies.set("site_token", generateToken());
 	}
 	function generateToken() {
 		return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
 			var r = (Math.random() * 16) | 0,
-				v = c === "x" ? r : (r & 0x3) | 0x8
-			return v.toString(16)
-		})
+				v = c === "x" ? r : (r & 0x3) | 0x8;
+			return v.toString(16);
+		});
 	}
 
 	if (typeof FS !== "undefined") {
 		FS.setUserVars({
 			token_str: Cookies.get("site_token")
-		})
+		});
 	}
-})
+});

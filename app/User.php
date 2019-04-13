@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -31,6 +32,31 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    // public $incrementing = false;
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $model->uuid = $model->generateNewId();
+        });
+    }
+
+    public function generateNewId()
+    {
+      return (string) Str::uuid();
+    }
+
+    public function getKeyType()
+    {
+        return 'string';
+    }
+
 
     /**
      * Check if user is an admin
@@ -55,9 +81,9 @@ class User extends Authenticatable
      * @return bool
      */
     public function rollApiKey(){
-       do{
+       do {
           $this->api_token = str_random(60);
-       }while($this->where('api_token', $this->api_token)->exists());
+       } while($this->where('api_token', $this->api_token)->exists());
        $this->save();
     }
 }
