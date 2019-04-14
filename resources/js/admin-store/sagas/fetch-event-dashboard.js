@@ -1,14 +1,14 @@
 import { call, put, select } from "redux-saga/effects"
 
 import api from "@/apis"
-import { setEvent } from "../actions"
+import { setEventDashboard } from "../actions"
 
-export default function* fetchEvents(action) {
+export default function* fetchEventDashboard(action) {
 	const state = yield select()
 
 	// Fetches event only once
 	if (!state.dashboard.event || state.dashboard.event.id != action.id) {
 		const result = yield call(api.authGet, `/api/events/${action.id}/dashboard`)
-		yield put(setEvent(result))
+		yield put(setEventDashboard(result))
 	}
 }

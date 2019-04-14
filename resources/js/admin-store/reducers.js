@@ -9,7 +9,6 @@ function eventListings(state = [], action) {
 		case "SET_EVENTS_DATA":
 			newState = action.data
 			return newState
-			break
 		default:
 			return state
 	}
@@ -19,10 +18,12 @@ function eventListings(state = [], action) {
 function dashboard(state = {}, action) {
 	let newState = Object.assign({}, state)
 	switch (action.type) {
-		case "SET_EVENT":
+		case "SET_EVENT_DASHBOARD":
 			newState = action.data
 			return newState
-			break
+		case "SET_EVENT":
+			newState.event = action.data
+			return newState
 		case "SET_PACKAGE":
 			let packages = newState.packages.map((p, i) => {
 				if (p.id === action.data.id) {

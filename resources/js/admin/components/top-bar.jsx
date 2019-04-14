@@ -9,10 +9,11 @@ import styled from "styled-components"
 const Link = styled.a`
 	display: inline-flex;
 	align-items: center;
-	color: ${props => props.theme.grey[900]};
+	color: ${props => props.theme.primary.main};
 	font-weight: 500;
-	&:hover {
-		color: ${props => props.theme.secondary.main};
+	line-height: 1;
+	:hover {
+		color: ${props => props.theme.primary.light};
 	}
 `
 const InternalTopBar = ({ eventId }) => {

@@ -36,6 +36,8 @@ class EventsController extends Controller
         $event = Event::findOrFail($event_id)->withCount(['orders','attendants'])->get()->first();
         $event->total_donation = $event->payments()->where('payment_type','donation')->sum('amount');
         $event->total_revenue = $event->payments()->where('payment_type','order')->sum('amount');
+        $event->start_date = Carbon::parse($event->start_date)->format('Y-m-d');
+        $event->end_date = Carbon::parse($event->end_date)->format('Y-m-d');
 
         $packages = $event->packages()->with('groups')->get();
 
@@ -88,6 +90,21 @@ class EventsController extends Controller
             'packages' => $packages,
             'groups' => $groups
         ]);
+    }
+
+
+    public function updateEvent(Request $request, $event_id)
+    {
+        $event = Event::find($event_id);
+        $event->update(array_only($request->all(), ['title', 'description', 'start_date', 'end_date', 'social_share_text']));
+
+        return response()
+            ->json([
+                'status' => "success",
+                'message' => "Updated event!" ,
+                'data' => $event
+            ]);
+
     }
 
     public function updatePackage(Request $request, $event_id, $package_id)

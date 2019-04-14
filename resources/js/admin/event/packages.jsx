@@ -49,7 +49,13 @@ const StatsSection = styled.div`
 const ToggleStatus = styled(Button)`
 	&& {
 		color: #fff;
-		font-size: 12px;
+		font-size: 10px;
+		font-style: italic;
+		line-height: 1;
+		text-transform: none;
+		svg {
+			font-size: 14px;
+		}
 	}
 `
 const InternalPackages = ({ classes, eventPackages, toggleStatus }) => {
@@ -69,15 +75,16 @@ const InternalPackages = ({ classes, eventPackages, toggleStatus }) => {
 											size="small"
 											onClick={() => toggleStatus(pkg)}
 										>
-											<PlayArrowIcon className="mr-5" fontSize="small" />
-											Resume sale
+											<PlayArrowIcon className="mr-5" fontSize="inherit" />
+											Resume Sale
 										</ToggleStatus>
 									) : (
 										<ToggleStatus
 											size="small"
 											onClick={() => toggleStatus(pkg)}
 										>
-											<PauseIcon className="mr-5" fontSize="small" /> Pause sale
+											<PauseIcon className="mr-5" fontSize="inherit" /> Pause
+											Sale
 										</ToggleStatus>
 									)}
 								</CardHeading>

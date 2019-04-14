@@ -17,6 +17,7 @@ import { Input, inputError } from "@/app/components/form/index"
 import { updatePackage } from "@/admin-store/actions"
 
 const InternalPackageEdit = ({ pkg, postUpdate }) => {
+	console.log("PKG: ", pkg)
 	return (
 		<Formik
 			initialValues={pkg}

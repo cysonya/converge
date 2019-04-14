@@ -2,21 +2,19 @@ import { push } from "connected-react-router"
 import { call, put } from "redux-saga/effects"
 
 import api from "@/apis"
-import { setPackage } from "../actions"
+import { setEvent } from "../actions"
 
-export default function* updatePackage(action) {
+export default function* updateEvent(action) {
 	const { values } = action
+	console.log("TIME TO UPDATE: ", action)
 
 	try {
 		const response = yield call(
 			api.authPost,
-			`/api/events/${values.event_id}/packages/${values.id}`,
+			`/api/events/${values.id}`,
 			values
 		)
-		yield put(setPackage(response.data))
-
-		// close modal
-		yield put(push(`/admin/events/${values.event_id}/packages`))
+		yield put(setEvent(response.data))
 	} catch (error) {
 		console.log(error)
 	}
