@@ -45,7 +45,7 @@ class EventsController extends Controller
             'event' => $event,
             'packages' => $packages,
             'orders' => $event->orders()->with('payments')->get(),
-            'attendants' => $event->attendants()->get()
+            'attendants' => $event->attendants()->with('group')->with('package')->get()
         ]);
     }
 

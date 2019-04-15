@@ -37,6 +37,7 @@ Route::post('contact', 'EventsController@contact');
 Route::group(['prefix' => 'admin', 'middleware' => 'is_admin'], function() {
 	Route::get('/', 'AdminEventsController@react');
 	Route::get('/events/{id}/dashboard', 'AdminEventsController@react');
+	Route::get('/events/{id}/attendants', 'AdminEventsController@react');
 	Route::get('/events/{id}/packages', 'AdminEventsController@react');
 	Route::get('/events/{id}/settings', 'AdminEventsController@react');
 

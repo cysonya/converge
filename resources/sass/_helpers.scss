@@ -35,12 +35,12 @@
 .text-right {
 	text-align: right !important;
 }
-@media (max-width: 959px) {
+@media (max-width: 767px) {
 	.hidden-sm-down {
 		display: none !important;
 	}
 }
-@media (min-width: 960px) {
+@media (min-width: 768px) {
 	.hidden-md-up {
 		display: none !important;
 	}

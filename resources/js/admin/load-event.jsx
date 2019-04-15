@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 
+import Attendants from "./event/attendants"
 import Dashboard from "./event/dashboard"
 import Packages from "./event/packages"
 import Settings from "./event/settings"
@@ -17,9 +18,9 @@ class LoadEvent extends Component {
 
 		if (this.props.match.url.includes("packages")) {
 			content = <Packages />
-		}
-
-		if (this.props.match.url.includes("settings")) {
+		} else if (this.props.match.url.includes("attendants")) {
+			content = <Attendants />
+		} else if (this.props.match.url.includes("settings")) {
 			content = <Settings />
 		}
 		return content
