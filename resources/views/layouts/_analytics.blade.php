@@ -30,7 +30,7 @@
 
 	if (typeof FS !== "undefined") {
 		FS.setUserVars({
-			token_str: Cookies.get("site_token")
+			"token_str": Cookies.get("site_token")
 		});
 	}
 </script>
