@@ -35,6 +35,11 @@
 .text-right {
 	text-align: right !important;
 }
+.center-block,
+.image-center {
+	margin-left: auto;
+	margin-right: auto;
+}
 @media (max-width: 767px) {
 	.hidden-sm-down {
 		display: none !important;

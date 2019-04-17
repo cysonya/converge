@@ -9,9 +9,9 @@
 
     <title>
         @hasSection('title')
-            @yield('title') - {{ config('app.name', 'Converge') }}
+            @yield('title') - {{ config('app.name', 'CONVERGE') }}
         @else
-            {{ config('app.name', 'Converge') }}
+            {{ config('app.name', 'CONVERGE') }}
         @endif
     </title>
 

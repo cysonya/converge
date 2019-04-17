@@ -48,7 +48,7 @@ at Hiram College:
 Registration is from 3-5pm. This is when you will receive your housing information and a schedule for the weekend.
 
 
-If you have any comments or questions, please email Jerry Wierwille at <a href="mailto:jerry@lhim.org">jerry@lhim.org</a>.
+If you have any comments or questions, please email Jerry Wierwille at <a href="mailto:contact@convergefest.com">contact@convergefest.com</a>.
 
 
 Thanks,<br>

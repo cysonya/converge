@@ -62,7 +62,7 @@ export class Navigation extends Component {
       <NavBar>
         <NavContainer>
           <a href="https://convergefest.com" target="_blank">
-            <Logo src={require("../../../images/layout/logo.svg")} />
+            <Logo src={require("@/images/logo.svg")} />
           </a>
           <Hidden smDown>
             <NavigationLinks />

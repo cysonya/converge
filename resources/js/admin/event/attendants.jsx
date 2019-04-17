@@ -42,7 +42,9 @@ const InternalAttendants = ({ attendants, classes }) => {
 					<TableBody>
 						{attendants.map((attendant, i) => (
 							<TableRow key={i}>
-								<TableCell>{attendant.first_name}</TableCell>
+								<TableCell>
+									{attendant.first_name} {attendant.last_name}
+								</TableCell>
 								<TableCell>{attendant.group.description}</TableCell>
 								<TableCell>{attendant.package.title}</TableCell>
 							</TableRow>

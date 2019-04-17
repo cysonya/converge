@@ -18,7 +18,7 @@ class EventsSeeder extends Seeder
       // Seed event
       App\Event::create([
       	'id' => 1,
-      	'title' => 'Converge 2019',
+      	'title' => 'CONVERGE 2019',
       	'start_date' => Carbon\Carbon::createFromFormat('Y-m-d', '2019-08-02'),
         'end_date' => Carbon\Carbon::createFromFormat('Y-m-d', '2019-08-04'),
         'social_share_text' => "",

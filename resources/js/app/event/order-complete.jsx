@@ -1,3 +1,4 @@
+import Grid from "@material-ui/core/Grid"
 import CheckCircleIcon from "@material-ui/icons/CheckCircle"
 import Typography from "@material-ui/core/Typography"
 import { withStyles } from "@material-ui/core/styles"
@@ -69,16 +70,31 @@ const InternalOrderComplete = ({ classes, event, order }) => {
 				</Typography>
 			</CheckArea>
 			<Content>
-				<Typography variant="subtitle2" className="mb-20">
+				<Typography variant="subtitle2" gutterBottom>
 					Thank you for registering for {event.title} ({event.date_range}), held
 					at Hiram College:
 				</Typography>
-
-				<Typography variant="body1">
-					11715 Garfield Road
-					<br />
-					Hiram, Ohio 44234
-				</Typography>
+				<Grid
+					container
+					alignItems="center"
+					justify="center"
+					style={{ margin: "15px 0 0" }}
+				>
+					<Grid item>
+						<img
+							src={require("@/images/converge_v.png")}
+							className="image-center mr-10"
+							width="60px"
+						/>
+					</Grid>
+					<Grid item style={{ textAlign: "left" }}>
+						<Typography variant="body1">
+							11715 Garfield Road
+							<br />
+							Hiram, Ohio 44234
+						</Typography>
+					</Grid>
+				</Grid>
 
 				<Divider />
 
@@ -88,12 +104,12 @@ const InternalOrderComplete = ({ classes, event, order }) => {
 				</Typography>
 				<Typography className="text-left mb-20" variant="body2" gutterBottom>
 					If you have any comments or questions, please email Jerry Wierwille at
-					jerry@lhim.org.
+					contact@convergefest.com.
 				</Typography>
 
 				<ShareArea>
 					<Typography variant="subtitle2" gutterBottom>
-						Tell your friends you're coming to Converge
+						Tell your friends you're coming to CONVERGE
 					</Typography>
 					<ShareGroup>
 						<FacebookShareButton
