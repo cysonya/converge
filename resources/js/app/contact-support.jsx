@@ -38,7 +38,8 @@ const styles = theme => ({
 		width: "90%",
 		margin: "0 auto",
 		[theme.breakpoints.up("md")]: {
-			width: "auto"
+			width: "auto",
+			minWidth: "650px"
 		}
 	}
 })
