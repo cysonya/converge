@@ -15,14 +15,16 @@ class SendEmailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     protected $request;
+    protected $userAgent;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($request)
+    public function __construct($request, $userAgent)
     {
         $this->request = $request;
+        $this->userAgent = $userAgent;
     }
 
     /**
@@ -33,6 +35,6 @@ class SendEmailJob implements ShouldQueue
     public function handle()
     {
         Mail::to('cysonya@gmail.com')
-            ->send(new ContactSupportMailable($this->request));
+            ->send(new ContactSupportMailable($this->request, $this->userAgent));
     }
 }

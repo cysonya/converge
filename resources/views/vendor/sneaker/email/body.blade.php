@@ -25,7 +25,8 @@
         {!! $content !!}
         <div class="extra-info">
             Requested Url: {{ request()->url() }}<br />
-            Fullstory: {{ request()->cookie('site_token') ?: 'none'}}
+            Fullstory: {{ request()->cookie('site_token') ?: 'none'}}<br />
+            User Agent: {{ request()->header('User-Agent')}}
         </div>
         <div class="extra-info">
             Params: {{ request()->all() ?: 'none'}}

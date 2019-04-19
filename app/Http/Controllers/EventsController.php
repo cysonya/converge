@@ -31,7 +31,7 @@ class EventsController extends Controller
     */
     public function contact(Request $request)
     {
-        $emailJob = (new SendEmailJob($request->all()));
+        $emailJob = (new SendEmailJob($request->all(), $request->header('User-Agent')));
         dispatch($emailJob);
 
         return response()
