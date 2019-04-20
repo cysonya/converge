@@ -9,6 +9,9 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 
 const styles = theme => ({
+	gridItem: {
+		maxWidth: "320px"
+	},
 	statsBox: {
 		padding: "20px",
 		textAlign: "center",
@@ -30,7 +33,7 @@ const InternalDashboard = ({ classes, event }) => {
 	return (
 		<div>
 			<Grid container spacing={16}>
-				<Grid item xs={12} md={4}>
+				<Grid item xs={12} md={4} className={classes.gridItem}>
 					<Paper className={classes.statsBox}>
 						<Typography className={classes.statsValue} variant="subtitle2">
 							{event.attendants_count}
@@ -40,7 +43,7 @@ const InternalDashboard = ({ classes, event }) => {
 						</Typography>
 					</Paper>
 				</Grid>
-				<Grid item xs={12} md={4}>
+				<Grid item xs={12} md={4} className={classes.gridItem}>
 					<Paper className={classes.statsBox}>
 						<Typography className={classes.statsValue} variant="subtitle2">
 							${event.total_revenue}
@@ -50,7 +53,7 @@ const InternalDashboard = ({ classes, event }) => {
 						</Typography>
 					</Paper>
 				</Grid>
-				<Grid item xs={12} md={4}>
+				<Grid item xs={12} md={4} className={classes.gridItem}>
 					<Paper className={classes.statsBox}>
 						<Typography className={classes.statsValue} variant="subtitle2">
 							${event.total_donation}

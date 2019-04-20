@@ -64,7 +64,14 @@ const InternalPackages = ({ classes, eventPackages, toggleStatus }) => {
 			<Grid container spacing={24}>
 				{!!eventPackages &&
 					eventPackages.map((pkg, index) => (
-						<Grid key={index} item xs={12} md={6} lg={4}>
+						<Grid
+							key={index}
+							item
+							xs={12}
+							md={6}
+							lg={4}
+							className={classes.gridItem}
+						>
 							<Paper className={classes.paper}>
 								<CardHeading padding="5px 10px">
 									<Typography className={classes.cardTitle} variant="h6">

@@ -18,7 +18,7 @@ const Content = styled.div`
 	${media.md`
 		margin-left: 230px;
 		margin-right: 30px;
-		max-width: 1020px;
+		max-width: calc(100% - 250px);
 	`}
 `
 const InternalAdmin = ({ history }) => {

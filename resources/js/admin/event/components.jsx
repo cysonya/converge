@@ -27,6 +27,11 @@ export const styles = theme => ({
 		marginLeft: "55px",
 		color: "#fff"
 	},
+	gridItem: {
+		[theme.breakpoints.up("md")]: {
+			maxWidth: "350px"
+		}
+	},
 	paper: {
 		borderRadius: "0"
 	},
