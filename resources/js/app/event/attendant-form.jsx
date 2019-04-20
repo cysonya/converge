@@ -249,7 +249,7 @@ const mapStateToProps = (state, ownProps) => {
 		affiliates: [
 			"Church of God",
 			"Spirit & Truth Fellowship",
-			"Living Hope Church",
+			"Living Hope",
 			"Living Faith Church",
 			"Christian Disciples Church",
 			"Higher Ground Church",
