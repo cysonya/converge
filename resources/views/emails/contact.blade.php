@@ -6,7 +6,7 @@
 		<strong>Email:</strong> {{ $request['email'] }}
 	</p>
 	<p>
-		<strong>Token:</strong> {{ request()->cookie('site_token') ?: 'none'}}
+		<strong>Token:</strong> {{ $request['site_token'] }}
 	</p>
 	<p>
 		<strong>User Agent:</strong> {{ $userAgent }}
