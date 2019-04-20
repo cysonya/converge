@@ -29,6 +29,7 @@ const RemoveIcon = styled(CloseIcon)`
 `
 
 const InternalAttendantForm = ({
+	affiliates,
 	errors,
 	classes,
 	copyEmail,
@@ -154,6 +155,58 @@ const InternalAttendantForm = ({
 											}}
 										/>
 									</Grid>
+
+									<Grid item xs={6}>
+										<Field
+											name={`registrants[${index}].affiliate`}
+											render={({ field, form }) => {
+												return (
+													<Input
+														select
+														label="Affiliation"
+														error={inputError(
+															form,
+															`registrants[${index}].affiliate`
+														)}
+														{...field}
+													>
+														<MenuItem value="" />
+														{affiliates.map((a, i) => (
+															<MenuItem key={i} value={a}>
+																{a}
+															</MenuItem>
+														))}
+													</Input>
+												)
+											}}
+										/>
+									</Grid>
+									{index !== 0 && (
+										<Grid item xs={6} className="hidden-sm-down" />
+									)}
+									{values.registrants[index].affiliate === "Other" && (
+										<Grid item xs={12} md={6}>
+											<Field
+												name={`registrants[${index}].affiliate_other`}
+												render={({ field, form }) => {
+													return (
+														<Input
+															label="Please specify affiliation"
+															error={inputError(
+																form,
+																`registrants[${index}].affiliate_other`
+															)}
+															touched={getIn(
+																form.touched,
+																`registrants[${index}].affiliate_other`
+															)}
+															{...field}
+														/>
+													)
+												}}
+											/>
+										</Grid>
+									)}
 								</Grid>
 							</Card>
 						))}
@@ -171,7 +224,9 @@ const InternalAttendantForm = ({
 									group: "",
 									package: "",
 									roommates: "",
-									dietary: ""
+									dietary: "",
+									affiliate: "",
+									affiliate_other: ""
 								})
 							}
 						>
@@ -191,6 +246,16 @@ InternalAttendantForm.propTypes = {}
 
 const mapStateToProps = (state, ownProps) => {
 	return {
+		affiliates: [
+			"Church of God",
+			"Spirit & Truth Fellowship",
+			"Living Hope Church",
+			"Living Faith Church",
+			"Christian Disciples Church",
+			"Higher Ground Church",
+			"Centerpointe Church",
+			"Other"
+		],
 		groups: state.event.groups
 	}
 }

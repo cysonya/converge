@@ -39,7 +39,13 @@ const InternalFormNav = ({
 		if (errors.customer_email) {
 			showNext = false
 		} else if (errors.registrants) {
-			const requiredKeys = ["first_name", "last_name", "group"]
+			const requiredKeys = [
+				"first_name",
+				"last_name",
+				"group",
+				"affiliate",
+				"affiliate_other"
+			]
 
 			for (let registrant of errors.registrants) {
 				// show next btn if requiredKeys are not found in errors

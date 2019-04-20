@@ -95,7 +95,9 @@ const InternalEventForm = ({
 				group: "",
 				package: "",
 				roommates: "",
-				dietary: ""
+				dietary: "",
+				affiliate: "",
+				affiliate_other: ""
 			}
 		],
 		payment: {
@@ -197,6 +199,14 @@ const InternalEventForm = ({
 				error.package = "Select housing"
 				valid = false
 			}
+			if (!registrant.affiliate) {
+				error.affiliate = "Select affiliation"
+				valid = false
+			}
+			if (registrant.affiliate === "Other" && !registrant.affiliate_other) {
+				error.affiliate_other = "Please specify affiliation"
+				valid = false
+			}
 			errors.registrants[i] = error
 		})
 		if (valid) {
@@ -294,8 +304,8 @@ const InternalEventForm = ({
 						return <OrderComplete />
 					}
 
-					// console.log("VALUES: ", values)
-					// console.log("ERRORS: ", errors)
+					console.log("VALUES: ", values)
+					console.log("ERRORS: ", errors)
 					// console.log("TOUCHED: ", touched)
 					return (
 						<Form>

@@ -77,6 +77,10 @@ class CheckoutsController extends Controller
 
             // Create the attendants
             foreach($request->registrants as $registrant) {
+                $affiliate = strip_tags($registrant['affiliate']) == "Other"
+                    ? strip_tags($registrant['affiliate_other'])
+                    : strip_tags($registrant['affiliate']);
+
                 Attendant::create([
                     'event_id' => $event->id,
                     'order_id' => $order->id,
@@ -86,8 +90,9 @@ class CheckoutsController extends Controller
                     'last_name' => strip_tags($registrant['last_name']),
                     'email' => strip_tags($request->customer_email),
                     'custom_properties' => [
+                        'affiliate' => $affiliate,
+                        'dietary' => strip_tags($registrant['dietary']),
                         'roommates' => strip_tags($registrant['roommates']),
-                        'dietary' => strip_tags($registrant['dietary'])
                     ]
                 ]);
 
