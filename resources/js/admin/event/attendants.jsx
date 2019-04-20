@@ -36,6 +36,7 @@ const InternalAttendants = ({ attendants, classes }) => {
 							<TableCell>Name</TableCell>
 							<TableCell>Age Group</TableCell>
 							<TableCell>Package</TableCell>
+							<TableCell>Affiliate</TableCell>
 							<TableCell>Actions</TableCell>
 						</TableRow>
 					</TableHead>
@@ -47,6 +48,8 @@ const InternalAttendants = ({ attendants, classes }) => {
 								</TableCell>
 								<TableCell>{attendant.group.description}</TableCell>
 								<TableCell>{attendant.package.title}</TableCell>
+								<TableCell>{attendant.custom_properties.affiliate}</TableCell>
+								<TableCell>...</TableCell>
 							</TableRow>
 						))}
 					</TableBody>
