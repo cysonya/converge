@@ -250,7 +250,7 @@ const mapStateToProps = (state, ownProps) => {
 			"Church of God",
 			"Spirit & Truth Fellowship",
 			"Living Hope",
-			"Living Faith Church",
+			"Living Faith",
 			"Christian Disciples Church",
 			"Higher Ground Church",
 			"Centerpointe Church",
