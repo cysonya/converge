@@ -54,6 +54,7 @@ const InternalFormNav = ({
 				// Prevents next valid case from overriding error check
 				if (!showNext) {
 					break
+				} else {
 				}
 			}
 		} else {
@@ -134,6 +135,16 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
 			if (step + 1 > 4) {
 				return false
 			}
+
+			if (step === 1 && typeof FS !== "undefined") {
+				FS.setUserVars({
+					displayName: `${ownProps.values.registrants[0].first_name} ${
+						ownProps.values.registrants[0].last_name
+					}`,
+					email: ownProps.values.customer_email
+				})
+			}
+
 			dispatch(setStep(step + 1))
 		}
 	}
