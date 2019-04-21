@@ -14,6 +14,7 @@ import NavigationLinks from "./navigation-links"
 const NavBar = styled.div`
   background-color: #fff;
   border-bottom: 1px solid rgba(82, 87, 135, 0.2);
+  width: 100%;
   ${media.md`
     margin-bottom: 60px;
   `}
@@ -27,11 +28,11 @@ const NavContainer = styled.div`
   margin-right: auto;
   padding: 10px;
   ${media.md`
-    padding: 25px 0;
-    width: 750px;
+    padding: 25px 20px;
+    max-width: 750px;
   `}
   ${media.lg`
-    width: 1170px;
+    max-width: 1170px;
   `}
 `
 const Logo = styled.img`
