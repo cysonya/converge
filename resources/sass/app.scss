@@ -16,15 +16,14 @@ body {
 body {
 	padding-right: 0 !important;
 	font-family: "Roboto", Helvetica, sans-serif;
-	background: url("../images/layout/event_bg.jpg") no-repeat center center fixed;
-	background-size: cover;
+	background-color: #fff;
 	@media #{$tablet-up} {
+		background: url("../images/layout/event_bg.jpg") no-repeat center center
+			fixed;
+		background-size: cover;
 		background-color: #eee;
 	}
 }
-#app {
-}
-
 strong {
 	font-weight: 500;
 }

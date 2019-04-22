@@ -42,7 +42,7 @@ const styles = theme => ({
 
 const FormWrapper = styled.div`
 	width: 100%;
-	background-color: #f9fafd;
+	background-color: #f7f7f7;
 	box-shadow: ${theme.shadows[3]};
 	padding-bottom: 80px;
 
