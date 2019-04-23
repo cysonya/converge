@@ -45,7 +45,10 @@ at Hiram College:
 	</tfoot>
 </table>
 
-Registration is from 3-5pm. This is when you will receive your housing information and a schedule for the weekend.
+Registration is from <strong>3-5pm on Friday (Aug 2)</strong>. This is when you will receive your housing information and a schedule for the weekend. CONVERGE will conclude at <strong>1pm on Sunday (Aug 4)</strong>.
+
+
+You will be receiving a welcome packet email a couple of weeks prior to the event with more instructions and details for packing and preparation.
 
 
 If you have any concerns or questions, contact Jerry Wierwille (<a href="mailto:contact@convergefest.com">contact@convergefest.com</a>) by replying to this email.

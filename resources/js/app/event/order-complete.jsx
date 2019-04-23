@@ -99,17 +99,23 @@ const InternalOrderComplete = ({ classes, event, order }) => {
 				<Divider />
 
 				<Typography className="text-left" variant="body2" gutterBottom>
-					Registration is from 3-5pm. This is when you will receive your housing
-					information and a schedule for the weekend.
+					Registration is from <strong>3-5pm on Friday (Aug 2)</strong>. This is
+					when you will receive your housing information and a schedule for the
+					weekend. CONVERGE will conclude at{" "}
+					<strong>
+						1pm on <span className="nowrap">Sunday (Aug 4)</span>
+					</strong>
+					.
 				</Typography>
 				<Typography className="text-left mb-20" variant="body2" gutterBottom>
-					If you have any comments or questions, please email Jerry Wierwille at
-					contact@convergefest.com.
+					You will be receiving a welcome packet email a couple of weeks prior
+					to the event with more instructions and details for packing and
+					preparation.
 				</Typography>
 
 				<ShareArea>
 					<Typography variant="subtitle2" gutterBottom>
-						Tell your friends you're coming to CONVERGE
+						Tell your friends you're coming to CONVERGE.
 					</Typography>
 					<ShareGroup>
 						<FacebookShareButton
