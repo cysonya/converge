@@ -120,6 +120,7 @@ const InternalPaymentForm = ({
 	values,
 	width
 }) => {
+	console.log("PKG SUM: ", pkgSummary)
 	return (
 		<div>
 			<Grid
@@ -146,7 +147,7 @@ const InternalPaymentForm = ({
 								)}
 							</Typography>
 							<Typography variant="body2">
-								{currency(pkgSummary[pkg].price * pkgSummary[pkg].quantity)}
+								{currency(pkgSummary[pkg].price)}
 							</Typography>
 						</TotalAmount>
 					))}
@@ -282,12 +283,16 @@ const getPkgSummary = (state, ownProps) => {
 	// ex: {2: {quantity: 2, price: 110}}
 	ownProps.values.registrants.forEach(registrant => {
 		if (summary.hasOwnProperty(registrant.package)) {
+			let pkg = pkgs.find(p => p.id === registrant.package)
 			summary[registrant.package].quantity += 1
+			summary[registrant.package].price += parseInt(
+				pkg.groups.find(g => g.id === registrant.group).price
+			)
 		} else {
 			let pkg = pkgs.find(p => p.id === registrant.package)
 			summary[registrant.package] = {
 				quantity: 1,
-				price: pkg.groups.find(g => g.id === registrant.group).price,
+				price: parseInt(pkg.groups.find(g => g.id === registrant.group).price),
 				title: pkg.title
 			}
 		}
