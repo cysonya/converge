@@ -120,7 +120,6 @@ const InternalPaymentForm = ({
 	values,
 	width
 }) => {
-	console.log("PKG SUM: ", pkgSummary)
 	return (
 		<div>
 			<Grid
