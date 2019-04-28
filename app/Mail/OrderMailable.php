@@ -29,12 +29,16 @@ class OrderMailable extends Mailable
      */
     public function build()
     {
-
-        return $this
+        $this
             ->subject("{$this->order->event->title} Confirmation")
             ->markdown('emails.order')
             ->with([
                 'donation' => $this->order->payments->where('payment_type', 'donation')->first()
             ]);
+
+        return $this->withSwiftMessage(function ($message) {
+            $message->getHeaders()
+                ->addTextHeader('x-mailgun-native-send', 'true');
+        });
     }
 }
