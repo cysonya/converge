@@ -75,41 +75,17 @@ const InternalEventForm = ({
 	doPlaceOrder,
 	error,
 	event,
+	initialValues,
 	showError,
 	status,
 	step,
+	steps,
 	stripe,
 	updateOrderStatus,
 	width
 }) => {
 	if (Object.keys(event).length < 1) {
 		return null
-	}
-
-	const initialValues = {
-		registrants: [
-			{
-				color: "#F3A712",
-				first_name: "",
-				last_name: "",
-				group: "",
-				package: "",
-				roommates: "",
-				dietary: "",
-				affiliate: "",
-				affiliate_other: ""
-			}
-		],
-		payment: {
-			cardNumber: "",
-			cardExpiry: "",
-			cardCvc: "",
-			postalCode: ""
-		},
-		customer_first_name: "",
-		customer_last_name: "",
-		customer_email: "",
-		donation: 0
 	}
 
 	const handleValidate = values => {
@@ -331,12 +307,10 @@ const InternalEventForm = ({
 
 							{!!error && <ErrorAlert />}
 
-							{!isMobile(width) ? (
-								<div>
-									<FormContent>{getContent(step)}</FormContent>
-									<FormNav {...{ errors, touched, values }} />
-								</div>
-							) : null}
+							{!isMobile(width) && (
+								<FormContent>{getContent(step)}</FormContent>
+							)}
+							<FormNav {...{ errors, touched, values }} />
 						</Form>
 					)
 				}}
@@ -351,11 +325,38 @@ InternalEventForm.propTypes = {
 }
 
 const mapStateToProps = (state, ownProps) => {
+	const initialValues = {
+		registrants: [
+			{
+				color: "#F3A712",
+				first_name: "",
+				last_name: "",
+				group: "",
+				package: "",
+				roommates: "",
+				dietary: "",
+				affiliate: "",
+				affiliate_other: ""
+			}
+		],
+		payment: {
+			cardNumber: "",
+			cardExpiry: "",
+			cardCvc: "",
+			postalCode: ""
+		},
+		customer_first_name: "",
+		customer_last_name: "",
+		customer_email: "",
+		donation: 0
+	}
 	return {
+		initialValues,
 		error: state.order.error,
 		status: state.order.status,
 		event: state.event,
 		step: state.event.step,
+		steps: state.steps,
 		stripe: ownProps.stripe
 	}
 }

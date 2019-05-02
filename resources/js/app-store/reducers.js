@@ -61,9 +61,60 @@ function order(
   }
 }
 
+function steps(
+  state = [
+    {
+      name: "attendants",
+      complete: false,
+      hasCompleted: false,
+      fields: ["first_name", "last_name", "email", "affiliation"],
+      title: "Participants"
+    },
+    {
+      name: "housing",
+      complete: false,
+      hasCompleted: false,
+      fields: ["packages"],
+      title: "Housing"
+    },
+    {
+      name: "review",
+      complete: false,
+      hasCompleted: false,
+      optional: true,
+      fields: ["donation"],
+      title: "Review"
+    },
+    {
+      name: "payment",
+      complete: false,
+      hasCompleted: false,
+      title: "Payment"
+    }
+  ],
+  action
+) {
+  let newState = state.slice()
+  switch (action.type) {
+    case "PANEL_COMPLETE":
+      newState[action.step] = Object.assign({}, newState[action.step], {
+        complete: true
+      })
+      break
+    case "PANEL_INCOMPLETE":
+      newState[action.step] = Object.assign({}, newState[action.step], {
+        complete: false
+      })
+      break
+    default:
+      return state
+  }
+}
+
 export default history =>
   combineReducers({
     router: connectRouter(history),
     event,
-    order
+    order,
+    steps
   })

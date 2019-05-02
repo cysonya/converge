@@ -98826,7 +98826,11 @@ function statusHelper(response) {
 /*!*******************************************!*\
   !*** ./resources/js/app-store/actions.js ***!
   \*******************************************/
+<<<<<<< HEAD
 /*! exports provided: FETCH_EVENT, FILTER_PACKAGES, PLACE_ORDER, REMOVE_ORDER_ERROR, SET_EVENT_DATA, SET_STEP, UPDATE_ORDER, UPDATE_PACKAGE, placeOrder, fetchEvent, filterPackages, updatePackage, setEventData, setStep, updateOrder, removeOrderError */
+=======
+/*! exports provided: FETCH_EVENT, FILTER_PACKAGES, PLACE_ORDER, PANEL_COMPLETE, PANEL_INCOMPLETE, REMOVE_ORDER_ERROR, SET_EVENT_DATA, SET_STEP, UPDATE_ORDER, UPDATE_PACKAGE, placeOrder, fetchEvent, filterPackages, updatePackage, panelComplete, panelInComplete, setEventData, setStep, updateOrder, removeOrderError */
+>>>>>>> Add steps array to reducer
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -98834,6 +98838,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_EVENT", function() { return FETCH_EVENT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FILTER_PACKAGES", function() { return FILTER_PACKAGES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PLACE_ORDER", function() { return PLACE_ORDER; });
+<<<<<<< HEAD
+=======
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PANEL_COMPLETE", function() { return PANEL_COMPLETE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PANEL_INCOMPLETE", function() { return PANEL_INCOMPLETE; });
+>>>>>>> Add steps array to reducer
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_ORDER_ERROR", function() { return REMOVE_ORDER_ERROR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_EVENT_DATA", function() { return SET_EVENT_DATA; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_STEP", function() { return SET_STEP; });
@@ -98843,6 +98852,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchEvent", function() { return fetchEvent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "filterPackages", function() { return filterPackages; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updatePackage", function() { return updatePackage; });
+<<<<<<< HEAD
+=======
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "panelComplete", function() { return panelComplete; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "panelInComplete", function() { return panelInComplete; });
+>>>>>>> Add steps array to reducer
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setEventData", function() { return setEventData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setStep", function() { return setStep; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateOrder", function() { return updateOrder; });
@@ -98850,6 +98864,11 @@ __webpack_require__.r(__webpack_exports__);
 var FETCH_EVENT = "FETCH_EVENT";
 var FILTER_PACKAGES = "FILTER_PACKAGES";
 var PLACE_ORDER = "PLACE_ORDER";
+<<<<<<< HEAD
+=======
+var PANEL_COMPLETE = "PANEL_COMPLETE";
+var PANEL_INCOMPLETE = "PANEL_INCOMPLETE";
+>>>>>>> Add steps array to reducer
 var REMOVE_ORDER_ERROR = "REMOVE_ORDER_ERROR";
 var SET_EVENT_DATA = "SET_EVENT_DATA";
 var SET_STEP = "SET_STEP";
@@ -98883,6 +98902,23 @@ function updatePackage(index, value) {
     index: index,
     value: value
   };
+<<<<<<< HEAD
+=======
+} // Changes `state.steps[step].complete` to true
+
+function panelComplete(step) {
+  return {
+    type: PANEL_COMPLETE,
+    step: step
+  };
+} // Changes `state.steps[step].complete` to false
+
+function panelInComplete(step) {
+  return {
+    type: PANEL_INCOMPLETE,
+    step: step
+  };
+>>>>>>> Add steps array to reducer
 } // Sets event data store
 
 function setEventData(data) {
@@ -99037,11 +99073,66 @@ function order() {
   }
 }
 
+<<<<<<< HEAD
+=======
+function steps() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [{
+    name: "attendants",
+    complete: false,
+    hasCompleted: false,
+    fields: ["first_name", "last_name", "email", "affiliation"],
+    title: "Participants"
+  }, {
+    name: "housing",
+    complete: false,
+    hasCompleted: false,
+    fields: ["packages"],
+    title: "Housing"
+  }, {
+    name: "review",
+    complete: false,
+    hasCompleted: false,
+    optional: true,
+    fields: ["donation"],
+    title: "Review"
+  }, {
+    name: "payment",
+    complete: false,
+    hasCompleted: false,
+    title: "Payment"
+  }];
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  var newState = state.slice();
+
+  switch (action.type) {
+    case "PANEL_COMPLETE":
+      newState[action.step] = Object.assign({}, newState[action.step], {
+        complete: true
+      });
+      break;
+
+    case "PANEL_INCOMPLETE":
+      newState[action.step] = Object.assign({}, newState[action.step], {
+        complete: false
+      });
+      break;
+
+    default:
+      return state;
+  }
+}
+
+>>>>>>> Add steps array to reducer
 /* harmony default export */ __webpack_exports__["default"] = (function (history) {
   return Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
     router: Object(connected_react_router__WEBPACK_IMPORTED_MODULE_1__["connectRouter"])(history),
     event: event,
+<<<<<<< HEAD
     order: order
+=======
+    order: order,
+    steps: steps
+>>>>>>> Add steps array to reducer
   });
 });
 
@@ -101014,9 +101105,17 @@ var InternalEventForm = function InternalEventForm(_ref) {
       doPlaceOrder = _ref.doPlaceOrder,
       error = _ref.error,
       event = _ref.event,
+<<<<<<< HEAD
       showError = _ref.showError,
       status = _ref.status,
       step = _ref.step,
+=======
+      initialValues = _ref.initialValues,
+      showError = _ref.showError,
+      status = _ref.status,
+      step = _ref.step,
+      steps = _ref.steps,
+>>>>>>> Add steps array to reducer
       stripe = _ref.stripe,
       updateOrderStatus = _ref.updateOrderStatus,
       width = _ref.width;
@@ -101025,6 +101124,7 @@ var InternalEventForm = function InternalEventForm(_ref) {
     return null;
   }
 
+<<<<<<< HEAD
   var initialValues = {
     registrants: [{
       color: "#F3A712",
@@ -101049,6 +101149,8 @@ var InternalEventForm = function InternalEventForm(_ref) {
     donation: 0
   };
 
+=======
+>>>>>>> Add steps array to reducer
   var handleValidate = function handleValidate(values) {
     var errors = {}; // if (!values.payment.cardName) {
     // 	errors.payment = Object.assign(
@@ -101116,12 +101218,20 @@ var InternalEventForm = function InternalEventForm(_ref) {
     values.registrants.forEach(function (registrant, i) {
       var error = {};
 
+<<<<<<< HEAD
       if (!registrant.first_name.trim()) {
+=======
+      if (!registrant.first_name) {
+>>>>>>> Add steps array to reducer
         error.first_name = "Provide first name";
         valid = false;
       }
 
+<<<<<<< HEAD
       if (!registrant.last_name.trim()) {
+=======
+      if (!registrant.last_name) {
+>>>>>>> Add steps array to reducer
         error.last_name = "Provide last name";
         valid = false;
       }
@@ -101265,11 +101375,19 @@ var InternalEventForm = function InternalEventForm(_ref) {
           touched: touched,
           values: values
         })) : null);
+<<<<<<< HEAD
       })), !!error && react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_error_alert__WEBPACK_IMPORTED_MODULE_19__["default"], null), !Object(_helpers_application__WEBPACK_IMPORTED_MODULE_15__["isMobile"])(width) ? react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(FormContent, null, getContent(step)), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_form_nav__WEBPACK_IMPORTED_MODULE_21__["default"], {
         errors: errors,
         touched: touched,
         values: values
       })) : null);
+=======
+      })), !!error && react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_error_alert__WEBPACK_IMPORTED_MODULE_19__["default"], null), !Object(_helpers_application__WEBPACK_IMPORTED_MODULE_15__["isMobile"])(width) && react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(FormContent, null, getContent(step)), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_form_nav__WEBPACK_IMPORTED_MODULE_21__["default"], {
+        errors: errors,
+        touched: touched,
+        values: values
+      }));
+>>>>>>> Add steps array to reducer
     }
   }), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_app_contact_support__WEBPACK_IMPORTED_MODULE_13__["default"], null));
 };
@@ -101279,11 +101397,43 @@ InternalEventForm.propTypes = {
 };
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
+<<<<<<< HEAD
   return {
+=======
+  var initialValues = {
+    registrants: [{
+      color: "#F3A712",
+      first_name: "",
+      last_name: "",
+      group: "",
+      package: "",
+      roommates: "",
+      dietary: "",
+      affiliate: "",
+      affiliate_other: ""
+    }],
+    payment: {
+      cardNumber: "",
+      cardExpiry: "",
+      cardCvc: "",
+      postalCode: ""
+    },
+    customer_first_name: "",
+    customer_last_name: "",
+    customer_email: "",
+    donation: 0
+  };
+  return {
+    initialValues: initialValues,
+>>>>>>> Add steps array to reducer
     error: state.order.error,
     status: state.order.status,
     event: state.event,
     step: state.event.step,
+<<<<<<< HEAD
+=======
+    steps: state.steps,
+>>>>>>> Add steps array to reducer
     stripe: ownProps.stripe
   };
 };
