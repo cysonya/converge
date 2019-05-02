@@ -100316,16 +100316,15 @@ var RemoveIcon = Object(styled_components__WEBPACK_IMPORTED_MODULE_15__["default
 
 var InternalAttendantForm = function InternalAttendantForm(_ref) {
   var affiliates = _ref.affiliates,
-      errors = _ref.errors,
       classes = _ref.classes,
       copyEmail = _ref.copyEmail,
+      formProps = _ref.formProps,
       groups = _ref.groups,
-      touched = _ref.touched,
-      values = _ref.values;
+      touched = _ref.touched;
   return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_10__["FieldArray"], {
     name: "registrants",
     render: function render(arrayHelpers) {
-      return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement("div", null, values.registrants.map(function (registrant, index) {
+      return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement("div", null, formProps.values.registrants.map(function (registrant, index) {
         return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Card__WEBPACK_IMPORTED_MODULE_2___default.a, {
           key: index,
           className: classes.card,
@@ -100439,7 +100438,7 @@ var InternalAttendantForm = function InternalAttendantForm(_ref) {
           item: true,
           xs: 6,
           className: "hidden-sm-down"
-        }), values.registrants[index].affiliate === "Other" && react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_4___default.a, {
+        }), formProps.values.registrants[index].affiliate === "Other" && react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_4___default.a, {
           item: true,
           xs: 12,
           md: 6
@@ -100602,7 +100601,7 @@ var Divider = function Divider(props) {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Line, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Text, null, props.text));
 };
 var getTotal = function getTotal(state, ownProps) {
-  return ownProps.values.registrants.reduce(function (acc, registrant) {
+  return ownProps.formProps.values.registrants.reduce(function (acc, registrant) {
     var pkg = state.event.packages.find(function (p) {
       return p.id === registrant.package;
     });
@@ -100801,12 +100800,10 @@ var FormActions = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].div(
 }));
 
 var InternalFormNav = function InternalFormNav(_ref) {
-  var errors = _ref.errors,
+  var formProps = _ref.formProps,
       nextStep = _ref.nextStep,
       prevStep = _ref.prevStep,
-      step = _ref.step,
-      touched = _ref.touched,
-      values = _ref.values;
+      step = _ref.step;
   // flag to enable/disable next button
   var showNext = true;
   /* Step 1: Enter participants
@@ -100816,9 +100813,9 @@ var InternalFormNav = function InternalFormNav(_ref) {
   if (step === 1) {
     showNext = false;
 
-    if (errors.customer_email) {
+    if (formProps.errors.customer_email) {
       showNext = false;
-    } else if (errors.registrants) {
+    } else if (formProps.errors.registrants) {
       var requiredKeys = ["first_name", "last_name", "group", "affiliate", "affiliate_other"];
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
@@ -100837,7 +100834,7 @@ var InternalFormNav = function InternalFormNav(_ref) {
           } else {}
         };
 
-        for (var _iterator = errors.registrants[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        for (var _iterator = formProps.errors.registrants[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var _ret = _loop();
 
           if (_ret === "break") break;
@@ -100858,7 +100855,7 @@ var InternalFormNav = function InternalFormNav(_ref) {
       }
     } else {
       // Set showNext to true on 'back' if no errors. Checking if registrants fields have been touched also prevents showNext to be true on initial load when there's no errors
-      showNext = !!touched.registrants;
+      showNext = !!formProps.touched.registrants;
     }
   }
   /*
@@ -100869,7 +100866,7 @@ var InternalFormNav = function InternalFormNav(_ref) {
 
   if (step === 2) {
     // Show next if no registrants errors
-    showNext = !!!errors.registrants;
+    showNext = !!!formProps.errors.registrants;
   }
   /*
    * Step 3: Review order
@@ -100878,7 +100875,7 @@ var InternalFormNav = function InternalFormNav(_ref) {
 
 
   if (step === 3) {
-    if (!!errors.donation) {
+    if (!!formProps.errors.donation) {
       showNext = false;
     }
   }
@@ -100938,8 +100935,8 @@ var mergeProps = function mergeProps(stateProps, dispatchProps, ownProps) {
 
       if (step === 1 && typeof FS !== "undefined") {
         FS.setUserVars({
-          displayName: "".concat(ownProps.values.registrants[0].first_name, " ").concat(ownProps.values.registrants[0].last_name),
-          email: ownProps.values.customer_email
+          displayName: "".concat(ownProps.formProps.values.registrants[0].first_name, " ").concat(ownProps.formProps.values.registrants[0].last_name),
+          email: ownProps.formProps.values.customer_email
         });
       }
 
@@ -101106,10 +101103,14 @@ var InternalEventForm = function InternalEventForm(_ref) {
       error = _ref.error,
       event = _ref.event,
 <<<<<<< HEAD
+<<<<<<< HEAD
       showError = _ref.showError,
       status = _ref.status,
       step = _ref.step,
 =======
+=======
+      getStepContent = _ref.getStepContent,
+>>>>>>> Use formik props as formProps
       initialValues = _ref.initialValues,
       showError = _ref.showError,
       status = _ref.status,
@@ -101303,49 +101304,29 @@ var InternalEventForm = function InternalEventForm(_ref) {
         }
       });
     },
-    render: function render(_ref4) {
-      var errors = _ref4.errors,
-          isSubmitting = _ref4.isSubmitting,
-          setFieldValue = _ref4.setFieldValue,
-          setFieldTouched = _ref4.setFieldTouched,
-          touched = _ref4.touched,
-          values = _ref4.values;
+    render: function render(props) {
       var steps = ["Participants", "Housing", "Review", "Payment"];
       var content = react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_attendant_form__WEBPACK_IMPORTED_MODULE_18__["default"], {
-        errors: errors,
-        setFieldValue: setFieldValue,
-        touched: touched,
-        values: values
+        formProps: props
       });
 
       var getContent = function getContent(stepIndex) {
         switch (stepIndex) {
           case 2:
             content = react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_housing_form__WEBPACK_IMPORTED_MODULE_22__["default"], {
-              errors: errors,
-              setFieldValue: setFieldValue,
-              touched: touched,
-              values: values
+              formProps: props
             });
             break;
 
           case 3:
             content = react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_order_review__WEBPACK_IMPORTED_MODULE_24__["default"], {
-              errors: errors,
-              setFieldValue: setFieldValue,
-              touched: touched,
-              values: values
+              formProps: props
             });
             break;
 
           case 4:
             content = react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_payment_form__WEBPACK_IMPORTED_MODULE_20__["default"], {
-              errors: errors,
-              isSubmitting: isSubmitting,
-              setFieldValue: setFieldValue,
-              setFieldTouched: setFieldTouched,
-              touched: touched,
-              values: values
+              formProps: props
             });
             break;
         }
@@ -101371,10 +101352,9 @@ var InternalEventForm = function InternalEventForm(_ref) {
         }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_material_ui_core_StepLabel__WEBPACK_IMPORTED_MODULE_3___default.a, null, label), Object(_helpers_application__WEBPACK_IMPORTED_MODULE_15__["isMobile"])(width) ? react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_material_ui_core_StepContent__WEBPACK_IMPORTED_MODULE_2___default.a, {
           className: classes.stepContent
         }, getContent(index + 1), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_form_nav__WEBPACK_IMPORTED_MODULE_21__["default"], {
-          errors: errors,
-          touched: touched,
-          values: values
+          formProps: props
         })) : null);
+<<<<<<< HEAD
 <<<<<<< HEAD
       })), !!error && react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_error_alert__WEBPACK_IMPORTED_MODULE_19__["default"], null), !Object(_helpers_application__WEBPACK_IMPORTED_MODULE_15__["isMobile"])(width) ? react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(FormContent, null, getContent(step)), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_form_nav__WEBPACK_IMPORTED_MODULE_21__["default"], {
         errors: errors,
@@ -101388,6 +101368,11 @@ var InternalEventForm = function InternalEventForm(_ref) {
         values: values
       }));
 >>>>>>> Add steps array to reducer
+=======
+      })), !!error && react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_error_alert__WEBPACK_IMPORTED_MODULE_19__["default"], null), !Object(_helpers_application__WEBPACK_IMPORTED_MODULE_15__["isMobile"])(width) && react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(FormContent, null, getContent(step)), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_form_nav__WEBPACK_IMPORTED_MODULE_21__["default"], {
+        formProps: props
+      })));
+>>>>>>> Use formik props as formProps
     }
   }), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_app_contact_support__WEBPACK_IMPORTED_MODULE_13__["default"], null));
 };
@@ -101502,10 +101487,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_store_actions__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/app-store/actions */ "./resources/js/app-store/actions.js");
 /* harmony import */ var _helpers_application__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/helpers/application */ "./resources/js/helpers/application.js");
 /* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components */ "./resources/js/app/event/components.jsx");
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 
@@ -101530,16 +101511,14 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 var InternalHousingForm = function InternalHousingForm(_ref) {
   var classes = _ref.classes,
-      errors = _ref.errors,
+      formProps = _ref.formProps,
       packages = _ref.packages,
       setChoice = _ref.setChoice,
-      touched = _ref.touched,
-      width = _ref.width,
-      values = _ref.values;
+      width = _ref.width;
   return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["FieldArray"], {
     name: "registrants",
     render: function render(arrayHelpers) {
-      return values.registrants.map(function (registrant, index) {
+      return formProps.values.registrants.map(function (registrant, index) {
         return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Card__WEBPACK_IMPORTED_MODULE_0___default.a, {
           key: index,
           className: classes.card,
@@ -101633,7 +101612,7 @@ var getPackages = function getPackages(state, ownProps) {
     }
   });
 
-  if (ownProps.values.registrants.filter(function (r) {
+  if (ownProps.formProps.values.registrants.filter(function (r) {
     return childrenIds.includes(r.group);
   }).length >= 2) {
     // return all package options if attendant contains at least 2 children
@@ -101654,19 +101633,11 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
   return {
-    dispatch: dispatch
-  };
-};
-
-var mergeProps = function mergeProps(stateProps, dispatchProps, ownProps) {
-  var values = ownProps.values;
-  var dispatch = dispatchProps.dispatch;
-  return _objectSpread({}, ownProps, stateProps, dispatchProps, {
     setChoice: function setChoice(e, regIndex) {
       var value = e.target.value;
 
       if (!!value) {
-        var registrants = values.registrants.map(function (reg, i) {
+        var registrants = ownProps.formProps.values.registrants.map(function (reg, i) {
           if (i === regIndex) {
             return Object.assign({}, reg, {
               package: value
@@ -101678,10 +101649,10 @@ var mergeProps = function mergeProps(stateProps, dispatchProps, ownProps) {
         dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_16__["filterPackages"])(registrants));
       }
     }
-  });
+  };
 };
 
-var HousingForm = Object(react_redux__WEBPACK_IMPORTED_MODULE_13__["connect"])(mapStateToProps, mapDispatchToProps, mergeProps)(Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_7__["withStyles"])(_components__WEBPACK_IMPORTED_MODULE_18__["styles"])(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_8___default()()(InternalHousingForm)));
+var HousingForm = Object(react_redux__WEBPACK_IMPORTED_MODULE_13__["connect"])(mapStateToProps, mapDispatchToProps)(Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_7__["withStyles"])(_components__WEBPACK_IMPORTED_MODULE_18__["styles"])(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_8___default()()(InternalHousingForm)));
 /* harmony default export */ __webpack_exports__["default"] = (HousingForm);
 
 /***/ }),
@@ -102049,13 +102020,10 @@ var DonateButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_21__["defau
 var InternalOrderReview = function InternalOrderReview(_ref) {
   var classes = _ref.classes,
       donationSelect = _ref.donationSelect,
-      errors = _ref.errors,
+      formProps = _ref.formProps,
       groups = _ref.groups,
       orderTotal = _ref.orderTotal,
       packages = _ref.packages,
-      setFieldValue = _ref.setFieldValue,
-      touched = _ref.touched,
-      values = _ref.values,
       width = _ref.width;
   return react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_13___default.a, {
     variant: "h6",
@@ -102072,7 +102040,7 @@ var InternalOrderReview = function InternalOrderReview(_ref) {
   }, "Housing"), react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_10___default.a, {
     className: classes.tableData,
     align: "right"
-  }, "Amount"))), react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(_material_ui_core_TableBody__WEBPACK_IMPORTED_MODULE_9___default.a, null, values.registrants.map(function (registrant, index) {
+  }, "Amount"))), react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(_material_ui_core_TableBody__WEBPACK_IMPORTED_MODULE_9___default.a, null, formProps.values.registrants.map(function (registrant, index) {
     var group = groups.find(function (g) {
       return g.id === registrant.group;
     });
@@ -102112,7 +102080,7 @@ var InternalOrderReview = function InternalOrderReview(_ref) {
       marginBottom: "10px"
     }
   }, "Donate to help people come who otherwise cannot afford it:"), react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(ButtonGroup, null, donationSelect.map(function (donation, i) {
-    return donation === values.donation ? react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(DonateButton, {
+    return donation === formProps.values.donation ? react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(DonateButton, {
       key: i,
       variant: "contained",
       size: "small",
@@ -102122,7 +102090,7 @@ var InternalOrderReview = function InternalOrderReview(_ref) {
       variant: "outlined",
       size: "small",
       onClick: function onClick() {
-        return setFieldValue("donation", donation);
+        return formProps.setFieldValue("donation", donation);
       }
     }, "$", donation);
   }), react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(_material_ui_core_FormControl__WEBPACK_IMPORTED_MODULE_2___default.a, {
@@ -102135,14 +102103,14 @@ var InternalOrderReview = function InternalOrderReview(_ref) {
         id: "adornment-amount",
         type: "number",
         placeholder: "Other",
-        error: errors.donation,
+        error: formProps.errors.donation,
         startAdornment: react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(_material_ui_core_InputAdornment__WEBPACK_IMPORTED_MODULE_5___default.a, {
           position: "start"
         }, "$")
       }, field));
     }
-  }), !!errors.donation && react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(_material_ui_core_FormHelperText__WEBPACK_IMPORTED_MODULE_6___default.a, {
-    error: errors.donation
+  }), !!formProps.errors.donation && react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(_material_ui_core_FormHelperText__WEBPACK_IMPORTED_MODULE_6___default.a, {
+    error: formProps.errors.donation
   }, errors.donation))))));
 };
 
@@ -102218,10 +102186,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers_application__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @/helpers/application */ "./resources/js/helpers/application.js");
 /* harmony import */ var _styles_utils__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @/styles/utils */ "./resources/js/styles/utils.js");
 /* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components */ "./resources/js/app/event/components.jsx");
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _templateObject9() {
@@ -102385,13 +102349,10 @@ var InternalPaymentForm = function InternalPaymentForm(_ref) {
   var classes = _ref.classes,
       doChange = _ref.doChange,
       doBlur = _ref.doBlur,
-      errors = _ref.errors,
-      isSubmitting = _ref.isSubmitting,
+      formProps = _ref.formProps,
       orderTotal = _ref.orderTotal,
       pkgSummary = _ref.pkgSummary,
       status = _ref.status,
-      touched = _ref.touched,
-      values = _ref.values,
       width = _ref.width;
   return react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_6___default.a, {
     container: true,
@@ -102419,11 +102380,11 @@ var InternalPaymentForm = function InternalPaymentForm(_ref) {
     }, pkgSummary[pkg].title, " ", pkgSummary[pkg].quantity > 0 && react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement("strong", null, "x ", pkgSummary[pkg].quantity)), react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_11___default.a, {
       variant: "body2"
     }, Object(_helpers_application__WEBPACK_IMPORTED_MODULE_22__["currency"])(pkgSummary[pkg].price)));
-  }), parseInt(values.donation) > 0 && react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_24__["TotalAmount"], null, react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_11___default.a, {
+  }), parseInt(formProps.values.donation) > 0 && react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_24__["TotalAmount"], null, react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_11___default.a, {
     variant: "body2"
   }, "Donation"), react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_11___default.a, {
     variant: "body2"
-  }, "$", values.donation)), react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(_material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_5___default.a, {
+  }, "$", formProps.values.donation)), react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(_material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_5___default.a, {
     className: classes.divider
   }), react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_24__["TotalAmount"], null, react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement("strong", null, "Total"), react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement("strong", null, Object(_helpers_application__WEBPACK_IMPORTED_MODULE_22__["currency"])(orderTotal), " USD"))), react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_6___default.a, {
     item: true,
@@ -102443,7 +102404,7 @@ var InternalPaymentForm = function InternalPaymentForm(_ref) {
         onBlur: function onBlur(e) {
           return doBlur(e);
         }
-      }), !!Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_21__["inputError"])(form, "payment.cardNumber") && react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(ErrorText, null, errors.payment.cardNumber));
+      }), !!Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_21__["inputError"])(form, "payment.cardNumber") && react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(ErrorText, null, formProps.errors.payment.cardNumber));
     }
   }), react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_14__["Field"], {
     name: "payment.cardExpiry",
@@ -102456,7 +102417,7 @@ var InternalPaymentForm = function InternalPaymentForm(_ref) {
         onBlur: function onBlur(e) {
           return doBlur(e);
         }
-      }), !!Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_21__["inputError"])(form, "payment.cardExpiry") && react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(ErrorText, null, errors.payment.cardExpiry));
+      }), !!Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_21__["inputError"])(form, "payment.cardExpiry") && react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(ErrorText, null, formProps.errors.payment.cardExpiry));
     }
   }), react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_14__["Field"], {
     name: "payment.cardCvc",
@@ -102469,7 +102430,7 @@ var InternalPaymentForm = function InternalPaymentForm(_ref) {
         onBlur: function onBlur(e) {
           return doBlur(e);
         }
-      }), !!Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_21__["inputError"])(form, "payment.cardCvc") && react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(ErrorText, null, errors.payment.cardCvc));
+      }), !!Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_21__["inputError"])(form, "payment.cardCvc") && react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(ErrorText, null, formProps.errors.payment.cardCvc));
     }
   }), react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_14__["Field"], {
     name: "payment.postalCode",
@@ -102482,13 +102443,13 @@ var InternalPaymentForm = function InternalPaymentForm(_ref) {
         onBlur: function onBlur(e) {
           return doBlur(e);
         }
-      }), !!Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_21__["inputError"])(form, "payment.postalCode") && react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(ErrorText, null, errors.payment.postalCode));
+      }), !!Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_21__["inputError"])(form, "payment.postalCode") && react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(ErrorText, null, formProps.errors.payment.postalCode));
     }
   }), react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0___default.a, {
     type: "submit",
     variant: "contained",
     color: "primary",
-    disabled: Object.keys(errors).length > 0 || isSubmitting,
+    disabled: !formProps.isValid || formProps.isSubmitting,
     fullWidth: true
   }, "PLACE ORDER")))), react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(_material_ui_core_Dialog__WEBPACK_IMPORTED_MODULE_2___default.a, {
     open: status === "processing",
@@ -102508,7 +102469,7 @@ var getPkgSummary = function getPkgSummary(state, ownProps) {
   var summary = {}; // Get quantity for each package ordered with cost per package
   // ex: {2: {quantity: 2, price: 110}}
 
-  ownProps.values.registrants.forEach(function (registrant) {
+  ownProps.formProps.values.registrants.forEach(function (registrant) {
     if (summary.hasOwnProperty(registrant.package)) {
       var pkg = pkgs.find(function (p) {
         return p.id === registrant.package;
@@ -102536,25 +102497,18 @@ var getPkgSummary = function getPkgSummary(state, ownProps) {
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
-    orderTotal: Object(_components__WEBPACK_IMPORTED_MODULE_24__["getTotal"])(state, ownProps) + ownProps.values.donation,
+    orderTotal: Object(_components__WEBPACK_IMPORTED_MODULE_24__["getTotal"])(state, ownProps) + ownProps.formProps.values.donation,
     pkgSummary: getPkgSummary(state, ownProps),
     status: state.order.status
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+  var _ownProps$formProps = ownProps.formProps,
+      setFieldValue = _ownProps$formProps.setFieldValue,
+      setFieldTouched = _ownProps$formProps.setFieldTouched;
   return {
-    dispatch: dispatch
-  };
-};
-
-var mergeProps = function mergeProps(stateProps, dispatchProps, ownProps) {
-  var setFieldValue = ownProps.setFieldValue,
-      setFieldTouched = ownProps.setFieldTouched;
-  var dispatch = dispatchProps.dispatch;
-  return _objectSpread({}, ownProps, stateProps, dispatchProps, {
     doChange: function doChange(e) {
-      // console.log("STRIPE ELEMENT: ", e)
       if (typeof e.error !== "undefined") {
         setFieldValue("payment.".concat(e.elementType), e.error.message, true);
       } else if (e.complete) {
@@ -102564,10 +102518,10 @@ var mergeProps = function mergeProps(stateProps, dispatchProps, ownProps) {
     doBlur: function doBlur(e) {
       setFieldTouched("payment.".concat(e.elementType), true, false);
     }
-  });
+  };
 };
 
-var PaymentForm = Object(react_redux__WEBPACK_IMPORTED_MODULE_18__["connect"])(mapStateToProps, mapDispatchToProps, mergeProps)(Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_12__["withStyles"])(_components__WEBPACK_IMPORTED_MODULE_24__["styles"])(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_13___default()()(InternalPaymentForm)));
+var PaymentForm = Object(react_redux__WEBPACK_IMPORTED_MODULE_18__["connect"])(mapStateToProps, mapDispatchToProps)(Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_12__["withStyles"])(_components__WEBPACK_IMPORTED_MODULE_24__["styles"])(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_13___default()()(InternalPaymentForm)));
 /* harmony default export */ __webpack_exports__["default"] = (PaymentForm);
 
 /***/ }),

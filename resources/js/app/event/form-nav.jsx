@@ -20,14 +20,7 @@ const FormActions = styled.div`
 	`};
 `
 
-const InternalFormNav = ({
-	errors,
-	nextStep,
-	prevStep,
-	step,
-	touched,
-	values
-}) => {
+const InternalFormNav = ({ formProps, nextStep, prevStep, step }) => {
 	// flag to enable/disable next button
 	let showNext = true
 
@@ -36,9 +29,9 @@ const InternalFormNav = ({
 	 */
 	if (step === 1) {
 		showNext = false
-		if (errors.customer_email) {
+		if (formProps.errors.customer_email) {
 			showNext = false
-		} else if (errors.registrants) {
+		} else if (formProps.errors.registrants) {
 			const requiredKeys = [
 				"first_name",
 				"last_name",
@@ -47,7 +40,7 @@ const InternalFormNav = ({
 				"affiliate_other"
 			]
 
-			for (let registrant of errors.registrants) {
+			for (let registrant of formProps.errors.registrants) {
 				// show next btn if requiredKeys are not found in errors
 				showNext = !requiredKeys.some(k => Object.keys(registrant).includes(k))
 
@@ -59,7 +52,7 @@ const InternalFormNav = ({
 			}
 		} else {
 			// Set showNext to true on 'back' if no errors. Checking if registrants fields have been touched also prevents showNext to be true on initial load when there's no errors
-			showNext = !!touched.registrants
+			showNext = !!formProps.touched.registrants
 		}
 	}
 	/*
@@ -68,7 +61,7 @@ const InternalFormNav = ({
 	 */
 	if (step === 2) {
 		// Show next if no registrants errors
-		showNext = !!!errors.registrants
+		showNext = !!!formProps.errors.registrants
 	}
 
 	/*
@@ -76,7 +69,7 @@ const InternalFormNav = ({
 	 * If user inputs donation, make sure it's valid
 	 */
 	if (step === 3) {
-		if (!!errors.donation) {
+		if (!!formProps.errors.donation) {
 			showNext = false
 		}
 	}
@@ -138,10 +131,10 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
 
 			if (step === 1 && typeof FS !== "undefined") {
 				FS.setUserVars({
-					displayName: `${ownProps.values.registrants[0].first_name} ${
-						ownProps.values.registrants[0].last_name
-					}`,
-					email: ownProps.values.customer_email
+					displayName: `${
+						ownProps.formProps.values.registrants[0].first_name
+					} ${ownProps.formProps.values.registrants[0].last_name}`,
+					email: ownProps.formProps.values.customer_email
 				})
 			}
 

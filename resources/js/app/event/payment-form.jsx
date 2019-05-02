@@ -111,13 +111,10 @@ const InternalPaymentForm = ({
 	classes,
 	doChange,
 	doBlur,
-	errors,
-	isSubmitting,
+	formProps,
 	orderTotal,
 	pkgSummary,
 	status,
-	touched,
-	values,
 	width
 }) => {
 	return (
@@ -150,10 +147,12 @@ const InternalPaymentForm = ({
 							</Typography>
 						</TotalAmount>
 					))}
-					{parseInt(values.donation) > 0 && (
+					{parseInt(formProps.values.donation) > 0 && (
 						<TotalAmount>
 							<Typography variant="body2">Donation</Typography>
-							<Typography variant="body2">${values.donation}</Typography>
+							<Typography variant="body2">
+								${formProps.values.donation}
+							</Typography>
 						</TotalAmount>
 					)}
 					<Divider className={classes.divider} />
@@ -177,7 +176,7 @@ const InternalPaymentForm = ({
 											{...field}
 										/>
 										{!!inputError(form, "payment.cardName") && (
-											<ErrorText>{errors.payment.cardName}</ErrorText>
+											<ErrorText>{formProps.errors.payment.cardName}</ErrorText>
 										)}
 									</FormControl>
 								)}
@@ -193,7 +192,7 @@ const InternalPaymentForm = ({
 										onBlur={e => doBlur(e)}
 									/>
 									{!!inputError(form, "payment.cardNumber") && (
-										<ErrorText>{errors.payment.cardNumber}</ErrorText>
+										<ErrorText>{formProps.errors.payment.cardNumber}</ErrorText>
 									)}
 								</FormControl>
 							)}
@@ -208,7 +207,7 @@ const InternalPaymentForm = ({
 										onBlur={e => doBlur(e)}
 									/>
 									{!!inputError(form, "payment.cardExpiry") && (
-										<ErrorText>{errors.payment.cardExpiry}</ErrorText>
+										<ErrorText>{formProps.errors.payment.cardExpiry}</ErrorText>
 									)}
 								</FormControl>
 							)}
@@ -223,7 +222,7 @@ const InternalPaymentForm = ({
 										onBlur={e => doBlur(e)}
 									/>
 									{!!inputError(form, "payment.cardCvc") && (
-										<ErrorText>{errors.payment.cardCvc}</ErrorText>
+										<ErrorText>{formProps.errors.payment.cardCvc}</ErrorText>
 									)}
 								</FormControl>
 							)}
@@ -238,7 +237,7 @@ const InternalPaymentForm = ({
 										onBlur={e => doBlur(e)}
 									/>
 									{!!inputError(form, "payment.postalCode") && (
-										<ErrorText>{errors.payment.postalCode}</ErrorText>
+										<ErrorText>{formProps.errors.payment.postalCode}</ErrorText>
 									)}
 								</FormControl>
 							)}
@@ -248,7 +247,7 @@ const InternalPaymentForm = ({
 							type="submit"
 							variant="contained"
 							color="primary"
-							disabled={Object.keys(errors).length > 0 || isSubmitting}
+							disabled={!formProps.isValid || formProps.isSubmitting}
 							fullWidth
 						>
 							PLACE ORDER
@@ -280,7 +279,7 @@ const getPkgSummary = (state, ownProps) => {
 
 	// Get quantity for each package ordered with cost per package
 	// ex: {2: {quantity: 2, price: 110}}
-	ownProps.values.registrants.forEach(registrant => {
+	ownProps.formProps.values.registrants.forEach(registrant => {
 		if (summary.hasOwnProperty(registrant.package)) {
 			let pkg = pkgs.find(p => p.id === registrant.package)
 			summary[registrant.package].quantity += 1
@@ -301,27 +300,16 @@ const getPkgSummary = (state, ownProps) => {
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		orderTotal: getTotal(state, ownProps) + ownProps.values.donation,
+		orderTotal: getTotal(state, ownProps) + ownProps.formProps.values.donation,
 		pkgSummary: getPkgSummary(state, ownProps),
 		status: state.order.status
 	}
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
+	const { setFieldValue, setFieldTouched } = ownProps.formProps
 	return {
-		dispatch: dispatch
-	}
-}
-const mergeProps = (stateProps, dispatchProps, ownProps) => {
-	const { setFieldValue, setFieldTouched } = ownProps
-	const { dispatch } = dispatchProps
-
-	return {
-		...ownProps,
-		...stateProps,
-		...dispatchProps,
 		doChange: e => {
-			// console.log("STRIPE ELEMENT: ", e)
 			if (typeof e.error !== "undefined") {
 				setFieldValue(`payment.${e.elementType}`, e.error.message, true)
 			} else if (e.complete) {
@@ -336,8 +324,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
 
 const PaymentForm = connect(
 	mapStateToProps,
-	mapDispatchToProps,
-	mergeProps
+	mapDispatchToProps
 )(withStyles(styles)(withWidth()(InternalPaymentForm)))
 
 export default PaymentForm

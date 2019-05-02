@@ -74,13 +74,10 @@ const DonateButton = styled(Button)`
 const InternalOrderReview = ({
 	classes,
 	donationSelect,
-	errors,
+	formProps,
 	groups,
 	orderTotal,
 	packages,
-	setFieldValue,
-	touched,
-	values,
 	width
 }) => {
 	return (
@@ -105,7 +102,7 @@ const InternalOrderReview = ({
 						</TableHead>
 
 						<TableBody>
-							{values.registrants.map((registrant, index) => {
+							{formProps.values.registrants.map((registrant, index) => {
 								let group = groups.find(g => g.id === registrant.group)
 								let pkg = packages.find(g => g.id === registrant.package)
 								return (
@@ -161,7 +158,7 @@ const InternalOrderReview = ({
 
 					<ButtonGroup>
 						{donationSelect.map((donation, i) =>
-							donation === values.donation ? (
+							donation === formProps.values.donation ? (
 								<DonateButton
 									key={i}
 									variant="contained"
@@ -175,7 +172,7 @@ const InternalOrderReview = ({
 									key={i}
 									variant="outlined"
 									size="small"
-									onClick={() => setFieldValue("donation", donation)}
+									onClick={() => formProps.setFieldValue("donation", donation)}
 								>
 									${donation}
 								</DonateButton>
@@ -190,7 +187,7 @@ const InternalOrderReview = ({
 										id="adornment-amount"
 										type="number"
 										placeholder="Other"
-										error={errors.donation}
+										error={formProps.errors.donation}
 										startAdornment={
 											<InputAdornment position="start">$</InputAdornment>
 										}
@@ -198,8 +195,8 @@ const InternalOrderReview = ({
 									/>
 								)}
 							/>
-							{!!errors.donation && (
-								<FormHelperText error={errors.donation}>
+							{!!formProps.errors.donation && (
+								<FormHelperText error={formProps.errors.donation}>
 									{errors.donation}
 								</FormHelperText>
 							)}

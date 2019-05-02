@@ -75,6 +75,7 @@ const InternalEventForm = ({
 	doPlaceOrder,
 	error,
 	event,
+	getStepContent,
 	initialValues,
 	showError,
 	status,
@@ -230,47 +231,19 @@ const InternalEventForm = ({
 						}
 					})
 				}}
-				render={({
-					errors,
-					isSubmitting,
-					setFieldValue,
-					setFieldTouched,
-					touched,
-					values
-				}) => {
+				render={props => {
 					const steps = ["Participants", "Housing", "Review", "Payment"]
-					let content = (
-						<AttendantForm {...{ errors, setFieldValue, touched, values }} />
-					)
+					let content = <AttendantForm formProps={props} />
 					const getContent = stepIndex => {
 						switch (stepIndex) {
 							case 2:
-								content = (
-									<HousingForm
-										{...{ errors, setFieldValue, touched, values }}
-									/>
-								)
+								content = <HousingForm formProps={props} />
 								break
 							case 3:
-								content = (
-									<OrderReview
-										{...{ errors, setFieldValue, touched, values }}
-									/>
-								)
+								content = <OrderReview formProps={props} />
 								break
 							case 4:
-								content = (
-									<PaymentForm
-										{...{
-											errors,
-											isSubmitting,
-											setFieldValue,
-											setFieldTouched,
-											touched,
-											values
-										}}
-									/>
-								)
+								content = <PaymentForm formProps={props} />
 								break
 						}
 						return content
@@ -298,7 +271,7 @@ const InternalEventForm = ({
 										{isMobile(width) ? (
 											<StepContent className={classes.stepContent}>
 												{getContent(index + 1)}
-												<FormNav {...{ errors, touched, values }} />
+												<FormNav formProps={props} />
 											</StepContent>
 										) : null}
 									</Step>
@@ -308,9 +281,11 @@ const InternalEventForm = ({
 							{!!error && <ErrorAlert />}
 
 							{!isMobile(width) && (
-								<FormContent>{getContent(step)}</FormContent>
+								<div>
+									<FormContent>{getContent(step)}</FormContent>
+									<FormNav formProps={props} />
+								</div>
 							)}
-							<FormNav {...{ errors, touched, values }} />
 						</Form>
 					)
 				}}

@@ -30,12 +30,11 @@ const RemoveIcon = styled(CloseIcon)`
 
 const InternalAttendantForm = ({
 	affiliates,
-	errors,
 	classes,
 	copyEmail,
+	formProps,
 	groups,
-	touched,
-	values
+	touched
 }) => {
 	return (
 		<FieldArray
@@ -43,7 +42,7 @@ const InternalAttendantForm = ({
 			render={arrayHelpers => {
 				return (
 					<div>
-						{values.registrants.map((registrant, index) => (
+						{formProps.values.registrants.map((registrant, index) => (
 							<Card
 								key={index}
 								className={classes.card}
@@ -184,7 +183,8 @@ const InternalAttendantForm = ({
 									{index !== 0 && (
 										<Grid item xs={6} className="hidden-sm-down" />
 									)}
-									{values.registrants[index].affiliate === "Other" && (
+									{formProps.values.registrants[index].affiliate ===
+										"Other" && (
 										<Grid item xs={12} md={6}>
 											<Field
 												name={`registrants[${index}].affiliate_other`}

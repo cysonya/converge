@@ -22,18 +22,16 @@ import { Divider, styles } from "./components"
 
 const InternalHousingForm = ({
 	classes,
-	errors,
+	formProps,
 	packages,
 	setChoice,
-	touched,
-	width,
-	values
+	width
 }) => {
 	return (
 		<FieldArray
 			name="registrants"
 			render={arrayHelpers => {
-				return values.registrants.map((registrant, index) => (
+				return formProps.values.registrants.map((registrant, index) => (
 					<Card
 						key={index}
 						className={classes.card}
@@ -125,8 +123,9 @@ const getPackages = (state, ownProps) => {
 	})
 
 	if (
-		ownProps.values.registrants.filter(r => childrenIds.includes(r.group))
-			.length >= 2
+		ownProps.formProps.values.registrants.filter(r =>
+			childrenIds.includes(r.group)
+		).length >= 2
 	) {
 		// return all package options if attendant contains at least 2 children
 		return pkgs
@@ -143,25 +142,18 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-	return { dispatch }
-}
-
-const mergeProps = (stateProps, dispatchProps, ownProps) => {
-	const { values } = ownProps
-	const { dispatch } = dispatchProps
 	return {
-		...ownProps,
-		...stateProps,
-		...dispatchProps,
 		setChoice: (e, regIndex) => {
 			let value = e.target.value
 			if (!!value) {
-				let registrants = values.registrants.map((reg, i) => {
-					if (i === regIndex) {
-						return Object.assign({}, reg, { package: value })
+				let registrants = ownProps.formProps.values.registrants.map(
+					(reg, i) => {
+						if (i === regIndex) {
+							return Object.assign({}, reg, { package: value })
+						}
+						return reg
 					}
-					return reg
-				})
+				)
 				dispatch(filterPackages(registrants))
 			}
 		}
@@ -170,8 +162,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
 
 const HousingForm = connect(
 	mapStateToProps,
-	mapDispatchToProps,
-	mergeProps
+	mapDispatchToProps
 )(withStyles(styles)(withWidth()(InternalHousingForm)))
 
 export default HousingForm
