@@ -182,11 +182,11 @@ const InternalEventForm = ({
 		values.registrants.forEach((registrant, i) => {
 			let error = {}
 
-			if (!registrant.first_name) {
+			if (!registrant.first_name.trim()) {
 				error.first_name = "Provide first name"
 				valid = false
 			}
-			if (!registrant.last_name) {
+			if (!registrant.last_name.trim()) {
 				error.last_name = "Provide last name"
 				valid = false
 			}
