@@ -86,7 +86,6 @@ class EventsController extends Controller
             'date_range' => $start_date->format('M j') . '-' . $end_date->format('j'),
             'start_date' => $event->start_date,
             'end_date' => $event->end_date,
-            'step' => 1,
             'packages' => $packages,
             'groups' => $groups
         ]);

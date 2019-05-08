@@ -2,13 +2,14 @@ import Button from "@material-ui/core/Button"
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft"
 import ChevronRightIcon from "@material-ui/icons/ChevronRight"
 
-import React from "react"
+import { getIn } from "formik"
+import React, { Component } from "react"
 import ReactDOM from "react-dom"
 import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import styled from "styled-components"
 
-import { setStep } from "@/app-store/actions"
+import { panelComplete, panelIncomplete, setStep } from "@/app-store/actions"
 import { media } from "@/styles/utils"
 
 const FormActions = styled.div`
@@ -20,73 +21,41 @@ const FormActions = styled.div`
 	`};
 `
 
-const InternalFormNav = ({ formProps, nextStep, prevStep, step }) => {
+const InternalFormNav = ({ formProps, nextStep, panels, prevStep, step }) => {
 	// flag to enable/disable next button
-	let showNext = true
+	// Ensures fields are touched to show proper validation on page load
+	let hasErrors = !!!formProps.touched.registrants
 
-	/* Step 1: Enter participants
-	 * Registrant error key should only contain 'package' as that is entered in the next screen
-	 */
-	if (step === 1) {
-		showNext = false
-		if (formProps.errors.customer_email) {
-			showNext = false
-		} else if (formProps.errors.registrants) {
-			const requiredKeys = [
-				"first_name",
-				"last_name",
-				"group",
-				"affiliate",
-				"affiliate_other"
-			]
-
-			for (let registrant of formProps.errors.registrants) {
-				// show next btn if requiredKeys are not found in errors
-				showNext = !requiredKeys.some(k => Object.keys(registrant).includes(k))
-
-				// Prevents next valid case from overriding error check
-				if (!showNext) {
-					break
-				} else {
-				}
-			}
-		} else {
-			// Set showNext to true on 'back' if no errors. Checking if registrants fields have been touched also prevents showNext to be true on initial load when there's no errors
-			showNext = !!formProps.touched.registrants
-		}
+	// Step 1 & 2: Check if registrant fields have errors
+	if (step < 2 && !hasErrors) {
+		hasErrors = formProps.values.registrants.some((registrant, i) => {
+			return panels[step].fields.some(field => {
+				return getIn(formProps.errors, `registrants[${i}][${field}]`)
+			})
+		})
 	}
-	/*
-	 * Step 2: Choose housing
-	 * There should be no registrant errors at all
-	 */
-	if (step === 2) {
-		// Show next if no registrants errors
-		showNext = !!!formProps.errors.registrants
+	// If registrant does not have errors, check if other fields like payment, donation have errors
+	if (!hasErrors) {
+		hasErrors = panels[step].fields.some(field => {
+			return getIn(formProps.errors, field)
+		})
 	}
 
-	/*
-	 * Step 3: Review order
-	 * If user inputs donation, make sure it's valid
-	 */
-	if (step === 3) {
-		if (!!formProps.errors.donation) {
-			showNext = false
-		}
-	}
+	console.log("LAST CHECK ", hasErrors)
 
 	return (
 		<FormActions>
-			{step > 1 && (
+			{step > 0 && (
 				<Button className="mr-10" onClick={e => prevStep(e)}>
 					<ChevronLeftIcon size="small" /> Back
 				</Button>
 			)}
-			{step < 4 && (
+			{step < 3 && (
 				<Button
 					variant="contained"
 					color="primary"
 					onClick={e => nextStep(e)}
-					disabled={!showNext}
+					disabled={hasErrors}
 				>
 					Next <ChevronRightIcon size="small" />
 				</Button>
@@ -99,17 +68,19 @@ InternalFormNav.propTypes = {}
 
 const mapStateToProps = (state, ownProps) => {
 	return {
+		panels: state.panels,
 		step: state.event.step
 	}
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
-		dispatch: dispatch
+		dispatch
 	}
 }
 const mergeProps = (stateProps, dispatchProps, ownProps) => {
-	const { step } = stateProps
+	const { formProps } = ownProps
+	const { panels, step } = stateProps
 	const { dispatch } = dispatchProps
 
 	return {
@@ -118,14 +89,14 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
 		...dispatchProps,
 		prevStep: e => {
 			e.preventDefault()
-			if (step - 1 < 1) {
+			if (step - 1 < 0) {
 				return false
 			}
 			dispatch(setStep(step - 1))
 		},
 		nextStep: e => {
 			e.preventDefault()
-			if (step + 1 > 4) {
+			if (step > 3) {
 				return false
 			}
 
@@ -139,6 +110,14 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
 			}
 
 			dispatch(setStep(step + 1))
+		},
+		markPanelComplete: () => {
+			console.log("MARKED COMPLETE")
+			dispatch(panelComplete(step))
+		},
+		markPanelIncomplete: () => {
+			console.log("MARKED not COMPLETE")
+			dispatch(panelIncomplete(step))
 		}
 	}
 }

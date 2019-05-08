@@ -15,7 +15,7 @@ import Typography from "@material-ui/core/Typography"
 import { withStyles } from "@material-ui/core/styles"
 import withWidth from "@material-ui/core/withWidth"
 
-import { Field } from "formik"
+import { Field, getIn } from "formik"
 import React from "react"
 import ReactDOM from "react-dom"
 import PropTypes from "prop-types"
@@ -24,6 +24,7 @@ import styled from "styled-components"
 
 import { currency, isMobile } from "@/helpers/application"
 import { media } from "@/styles/utils"
+import { inputError } from "@/app/components/form/index"
 
 import { getTotal, TotalAmount } from "./components"
 
@@ -182,12 +183,12 @@ const InternalOrderReview = ({
 						<FormControl className={classes.donateInput}>
 							<Field
 								name="donation"
-								render={({ field }) => (
+								render={({ field, form }) => (
 									<Input
 										id="adornment-amount"
 										type="number"
 										placeholder="Other"
-										error={formProps.errors.donation}
+										error={!!inputError(form, "donation")}
 										startAdornment={
 											<InputAdornment position="start">$</InputAdornment>
 										}
@@ -197,7 +198,7 @@ const InternalOrderReview = ({
 							/>
 							{!!formProps.errors.donation && (
 								<FormHelperText error={formProps.errors.donation}>
-									{errors.donation}
+									{formProps.errors.donation}
 								</FormHelperText>
 							)}
 						</FormControl>

@@ -72,20 +72,20 @@ const FormContent = styled.div`
 
 const InternalEventForm = ({
 	classes,
+	currentStep,
 	doPlaceOrder,
 	error,
 	event,
 	getStepContent,
 	initialValues,
+	panels,
 	showError,
 	status,
-	step,
-	steps,
 	stripe,
 	updateOrderStatus,
 	width
 }) => {
-	if (Object.keys(event).length < 1) {
+	if (!event.id) {
 		return null
 	}
 
@@ -236,13 +236,13 @@ const InternalEventForm = ({
 					let content = <AttendantForm formProps={props} />
 					const getContent = stepIndex => {
 						switch (stepIndex) {
-							case 2:
+							case 1:
 								content = <HousingForm formProps={props} />
 								break
-							case 3:
+							case 2:
 								content = <OrderReview formProps={props} />
 								break
-							case 4:
+							case 3:
 								content = <PaymentForm formProps={props} />
 								break
 						}
@@ -253,24 +253,24 @@ const InternalEventForm = ({
 						return <OrderComplete />
 					}
 
-					// console.log("VALUES: ", values)
-					// console.log("ERRORS: ", errors)
-					// console.log("TOUCHED: ", touched)
+					// console.log("VALUES: ", props.values)
+					// console.log("ERRORS: ", props.errors)
+					// console.log("TOUCHED: ", props.touched)
 					return (
 						<Form>
 							<Stepper
-								activeStep={step - 1}
+								activeStep={currentStep - 1}
 								alternativeLabel={isMobile(width) ? false : true}
 								className={classes.stepper}
 								orientation={isMobile(width) ? "vertical" : "horizontal"}
 							>
-								{steps.map((label, index) => (
+								{panels.map((panel, index) => (
 									<Step key={index}>
-										<StepLabel>{label}</StepLabel>
+										<StepLabel>{panel.title}</StepLabel>
 
 										{isMobile(width) ? (
 											<StepContent className={classes.stepContent}>
-												{getContent(index + 1)}
+												{getContent(index)}
 												<FormNav formProps={props} />
 											</StepContent>
 										) : null}
@@ -282,7 +282,7 @@ const InternalEventForm = ({
 
 							{!isMobile(width) && (
 								<div>
-									<FormContent>{getContent(step)}</FormContent>
+									<FormContent>{getContent(currentStep)}</FormContent>
 									<FormNav formProps={props} />
 								</div>
 							)}
@@ -327,11 +327,11 @@ const mapStateToProps = (state, ownProps) => {
 	}
 	return {
 		initialValues,
+		currentStep: state.event.step,
 		error: state.order.error,
 		status: state.order.status,
 		event: state.event,
-		step: state.event.step,
-		steps: state.steps,
+		panels: state.panels,
 		stripe: ownProps.stripe
 	}
 }

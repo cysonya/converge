@@ -9,7 +9,7 @@ import {
   UPDATE_PACKAGE
 } from "./actions"
 
-function event(state = {}, action) {
+function event(state = { step: 0 }, action) {
   let newState = Object.assign({}, state)
 
   switch (action.type) {
@@ -61,24 +61,34 @@ function order(
   }
 }
 
-function steps(
+function panels(
   state = [
     {
       name: "attendants",
+      active: true,
       complete: false,
       hasCompleted: false,
-      fields: ["first_name", "last_name", "email", "affiliation"],
+      fields: [
+        "first_name",
+        "last_name",
+        "customer_email",
+        "group",
+        "affiliate",
+        "affiliate_other"
+      ],
       title: "Participants"
     },
     {
       name: "housing",
+      active: false,
       complete: false,
       hasCompleted: false,
-      fields: ["packages"],
+      fields: ["package"],
       title: "Housing"
     },
     {
       name: "review",
+      active: false,
       complete: false,
       hasCompleted: false,
       optional: true,
@@ -87,8 +97,15 @@ function steps(
     },
     {
       name: "payment",
+      active: false,
       complete: false,
       hasCompleted: false,
+      fields: [
+        "payment.cardNumber",
+        "payment.cardExpiry",
+        "payment.cardCvc",
+        "payment.postalCode"
+      ],
       title: "Payment"
     }
   ],
@@ -100,11 +117,13 @@ function steps(
       newState[action.step] = Object.assign({}, newState[action.step], {
         complete: true
       })
+      return newState
       break
     case "PANEL_INCOMPLETE":
       newState[action.step] = Object.assign({}, newState[action.step], {
         complete: false
       })
+      return newState
       break
     default:
       return state
@@ -116,5 +135,5 @@ export default history =>
     router: connectRouter(history),
     event,
     order,
-    steps
+    panels
   })

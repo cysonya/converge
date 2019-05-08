@@ -32,7 +32,7 @@ export function panelComplete(step) {
 	return { type: PANEL_COMPLETE, step }
 }
 // Changes `state.steps[step].complete` to false
-export function panelInComplete(step) {
+export function panelIncomplete(step) {
 	return { type: PANEL_INCOMPLETE, step }
 }
 
