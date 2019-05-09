@@ -65,9 +65,6 @@ function panels(
   state = [
     {
       name: "attendants",
-      active: true,
-      complete: false,
-      hasCompleted: false,
       fields: [
         "first_name",
         "last_name",
@@ -80,26 +77,16 @@ function panels(
     },
     {
       name: "housing",
-      active: false,
-      complete: false,
-      hasCompleted: false,
       fields: ["package"],
       title: "Housing"
     },
     {
       name: "review",
-      active: false,
-      complete: false,
-      hasCompleted: false,
-      optional: true,
       fields: ["donation"],
       title: "Review"
     },
     {
       name: "payment",
-      active: false,
-      complete: false,
-      hasCompleted: false,
       fields: [
         "payment.cardNumber",
         "payment.cardExpiry",
@@ -113,18 +100,6 @@ function panels(
 ) {
   let newState = state.slice()
   switch (action.type) {
-    case "PANEL_COMPLETE":
-      newState[action.step] = Object.assign({}, newState[action.step], {
-        complete: true
-      })
-      return newState
-      break
-    case "PANEL_INCOMPLETE":
-      newState[action.step] = Object.assign({}, newState[action.step], {
-        complete: false
-      })
-      return newState
-      break
     default:
       return state
   }

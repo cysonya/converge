@@ -98826,7 +98826,7 @@ function statusHelper(response) {
 /*!*******************************************!*\
   !*** ./resources/js/app-store/actions.js ***!
   \*******************************************/
-/*! exports provided: FETCH_EVENT, FILTER_PACKAGES, PLACE_ORDER, PANEL_COMPLETE, PANEL_INCOMPLETE, REMOVE_ORDER_ERROR, SET_EVENT_DATA, SET_STEP, UPDATE_ORDER, UPDATE_PACKAGE, placeOrder, fetchEvent, filterPackages, updatePackage, panelComplete, panelIncomplete, setEventData, setStep, updateOrder, removeOrderError */
+/*! exports provided: FETCH_EVENT, FILTER_PACKAGES, PLACE_ORDER, REMOVE_ORDER_ERROR, SET_EVENT_DATA, SET_STEP, UPDATE_ORDER, UPDATE_PACKAGE, placeOrder, fetchEvent, filterPackages, updatePackage, setEventData, setStep, updateOrder, removeOrderError */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -98834,8 +98834,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_EVENT", function() { return FETCH_EVENT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FILTER_PACKAGES", function() { return FILTER_PACKAGES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PLACE_ORDER", function() { return PLACE_ORDER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PANEL_COMPLETE", function() { return PANEL_COMPLETE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PANEL_INCOMPLETE", function() { return PANEL_INCOMPLETE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_ORDER_ERROR", function() { return REMOVE_ORDER_ERROR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_EVENT_DATA", function() { return SET_EVENT_DATA; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_STEP", function() { return SET_STEP; });
@@ -98845,8 +98843,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchEvent", function() { return fetchEvent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "filterPackages", function() { return filterPackages; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updatePackage", function() { return updatePackage; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "panelComplete", function() { return panelComplete; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "panelIncomplete", function() { return panelIncomplete; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setEventData", function() { return setEventData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setStep", function() { return setStep; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateOrder", function() { return updateOrder; });
@@ -98854,8 +98850,6 @@ __webpack_require__.r(__webpack_exports__);
 var FETCH_EVENT = "FETCH_EVENT";
 var FILTER_PACKAGES = "FILTER_PACKAGES";
 var PLACE_ORDER = "PLACE_ORDER";
-var PANEL_COMPLETE = "PANEL_COMPLETE";
-var PANEL_INCOMPLETE = "PANEL_INCOMPLETE";
 var REMOVE_ORDER_ERROR = "REMOVE_ORDER_ERROR";
 var SET_EVENT_DATA = "SET_EVENT_DATA";
 var SET_STEP = "SET_STEP";
@@ -98888,20 +98882,6 @@ function updatePackage(index, value) {
     type: UPDATE_PACKAGE,
     index: index,
     value: value
-  };
-} // Changes `state.steps[step].complete` to true
-
-function panelComplete(step) {
-  return {
-    type: PANEL_COMPLETE,
-    step: step
-  };
-} // Changes `state.steps[step].complete` to false
-
-function panelIncomplete(step) {
-  return {
-    type: PANEL_INCOMPLETE,
-    step: step
   };
 } // Sets event data store
 
@@ -99062,31 +99042,18 @@ function order() {
 function panels() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [{
     name: "attendants",
-    active: true,
-    complete: false,
-    hasCompleted: false,
     fields: ["first_name", "last_name", "customer_email", "group", "affiliate", "affiliate_other"],
     title: "Participants"
   }, {
     name: "housing",
-    active: false,
-    complete: false,
-    hasCompleted: false,
     fields: ["package"],
     title: "Housing"
   }, {
     name: "review",
-    active: false,
-    complete: false,
-    hasCompleted: false,
-    optional: true,
     fields: ["donation"],
     title: "Review"
   }, {
     name: "payment",
-    active: false,
-    complete: false,
-    hasCompleted: false,
     fields: ["payment.cardNumber", "payment.cardExpiry", "payment.cardCvc", "payment.postalCode"],
     title: "Payment"
   }];
@@ -99094,20 +99061,6 @@ function panels() {
   var newState = state.slice();
 
   switch (action.type) {
-    case "PANEL_COMPLETE":
-      newState[action.step] = Object.assign({}, newState[action.step], {
-        complete: true
-      });
-      return newState;
-      break;
-
-    case "PANEL_INCOMPLETE":
-      newState[action.step] = Object.assign({}, newState[action.step], {
-        complete: false
-      });
-      return newState;
-      break;
-
     default:
       return state;
   }
@@ -100812,7 +100765,6 @@ var InternalFormNav = function InternalFormNav(_ref) {
     });
   }
 
-  console.log("LAST CHECK ", hasErrors);
   return react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(FormActions, null, step > 0 && react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0___default.a, {
     className: "mr-10",
     onClick: function onClick(e) {
@@ -100877,14 +100829,6 @@ var mergeProps = function mergeProps(stateProps, dispatchProps, ownProps) {
       }
 
       dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_9__["setStep"])(step + 1));
-    },
-    markPanelComplete: function markPanelComplete() {
-      console.log("MARKED COMPLETE");
-      dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_9__["panelComplete"])(step));
-    },
-    markPanelIncomplete: function markPanelIncomplete() {
-      console.log("MARKED not COMPLETE");
-      dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_9__["panelIncomplete"])(step));
     }
   });
 };
@@ -100938,6 +100882,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _housing_form__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./housing-form */ "./resources/js/app/event/housing-form.jsx");
 /* harmony import */ var _order_complete__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./order-complete */ "./resources/js/app/event/order-complete.jsx");
 /* harmony import */ var _order_review__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./order-review */ "./resources/js/app/event/order-review.jsx");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
 function _templateObject5() {
   var data = _taggedTemplateLiteral(["\n\tpadding: 20px;\n"]);
 
@@ -101048,6 +100994,7 @@ var InternalEventForm = function InternalEventForm(_ref) {
       error = _ref.error,
       event = _ref.event,
       getStepContent = _ref.getStepContent,
+      handlePanelClick = _ref.handlePanelClick,
       initialValues = _ref.initialValues,
       panels = _ref.panels,
       showError = _ref.showError,
@@ -101205,7 +101152,10 @@ var InternalEventForm = function InternalEventForm(_ref) {
       });
     },
     render: function render(props) {
-      var steps = ["Participants", "Housing", "Review", "Payment"];
+      if (status === "complete") {
+        return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_order_complete__WEBPACK_IMPORTED_MODULE_23__["default"], null);
+      }
+
       var content = react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_attendant_form__WEBPACK_IMPORTED_MODULE_18__["default"], {
         formProps: props
       });
@@ -101232,24 +101182,24 @@ var InternalEventForm = function InternalEventForm(_ref) {
         }
 
         return content;
-      };
-
-      if (status === "complete") {
-        return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_order_complete__WEBPACK_IMPORTED_MODULE_23__["default"], null);
-      } // console.log("VALUES: ", props.values)
+      }; // console.log("VALUES: ", props.values)
       // console.log("ERRORS: ", props.errors)
       // console.log("TOUCHED: ", props.touched)
 
 
       return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["Form"], null, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_material_ui_core_Stepper__WEBPACK_IMPORTED_MODULE_1___default.a, {
-        activeStep: currentStep - 1,
+        activeStep: currentStep,
         alternativeLabel: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_15__["isMobile"])(width) ? false : true,
         className: classes.stepper,
         orientation: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_15__["isMobile"])(width) ? "vertical" : "horizontal"
       }, panels.map(function (panel, index) {
         return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_material_ui_core_Step__WEBPACK_IMPORTED_MODULE_0___default.a, {
           key: index
-        }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_material_ui_core_StepLabel__WEBPACK_IMPORTED_MODULE_3___default.a, null, panel.title), Object(_helpers_application__WEBPACK_IMPORTED_MODULE_15__["isMobile"])(width) ? react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_material_ui_core_StepContent__WEBPACK_IMPORTED_MODULE_2___default.a, {
+        }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_material_ui_core_StepLabel__WEBPACK_IMPORTED_MODULE_3___default.a, {
+          onClick: function onClick(e) {
+            return handlePanelClick(e, props, index);
+          }
+        }, panel.title), Object(_helpers_application__WEBPACK_IMPORTED_MODULE_15__["isMobile"])(width) ? react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_material_ui_core_StepContent__WEBPACK_IMPORTED_MODULE_2___default.a, {
           className: classes.stepContent
         }, getContent(index), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_form_nav__WEBPACK_IMPORTED_MODULE_21__["default"], {
           formProps: props
@@ -101293,15 +101243,15 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
     initialValues: initialValues,
     currentStep: state.event.step,
     error: state.order.error,
-    status: state.order.status,
     event: state.event,
-    panels: state.panels,
-    stripe: ownProps.stripe
+    status: state.order.status,
+    panels: state.panels
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
   return {
+    dispatch: dispatch,
     doPlaceOrder: function doPlaceOrder(values, setSubmitting) {
       dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_14__["placeOrder"])(values, setSubmitting));
     },
@@ -101319,7 +101269,60 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
   };
 };
 
-var EventForm = Object(react_redux__WEBPACK_IMPORTED_MODULE_10__["connect"])(mapStateToProps, mapDispatchToProps)(Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_4__["withStyles"])(styles)(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_5___default()()(InternalEventForm)));
+var mergeProps = function mergeProps(stateProps, dispatchProps, ownProps) {
+  var panels = stateProps.panels,
+      step = stateProps.step;
+  var dispatch = dispatchProps.dispatch;
+  return _objectSpread({}, ownProps, stateProps, dispatchProps, {
+    handlePanelClick: function handlePanelClick(e, formProps, stepIndex) {
+      e.preventDefault(); // Check if previous panels contain error. Touch first invalid field
+
+      var invalid = panels.slice(0, stepIndex).some(function (panel, index) {
+        var hasErrors = !!!formProps.touched.registrants; // Check for errors in regirants array fields
+
+        if (!hasErrors) {
+          hasErrors = formProps.values.registrants.some(function (registrant, i) {
+            return panel.fields.some(function (field) {
+              var err = Object(formik__WEBPACK_IMPORTED_MODULE_6__["getIn"])(formProps.errors, "registrants[".concat(i, "][").concat(field, "]"));
+
+              if (err) {
+                formProps.setFieldTouched("registrants[".concat(i, "][").concat(field, "]"), true, false);
+              }
+
+              return err;
+            });
+          });
+        } // Check for errors in regular fields
+
+
+        if (!hasErrors) {
+          hasErrors = panel.fields.some(function (field) {
+            var err = Object(formik__WEBPACK_IMPORTED_MODULE_6__["getIn"])(formProps.errors, field);
+
+            if (err) {
+              formProps.setFieldTouched(field, true, false);
+            }
+
+            return err;
+          });
+        } // Open panel if error exists
+
+
+        if (hasErrors) {
+          dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_14__["setStep"])(index));
+        }
+
+        return hasErrors;
+      });
+
+      if (!invalid) {
+        dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_14__["setStep"])(stepIndex));
+      }
+    }
+  });
+};
+
+var EventForm = Object(react_redux__WEBPACK_IMPORTED_MODULE_10__["connect"])(mapStateToProps, mapDispatchToProps, mergeProps)(Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_4__["withStyles"])(styles)(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_5___default()()(InternalEventForm)));
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_stripe_elements__WEBPACK_IMPORTED_MODULE_11__["injectStripe"])(EventForm));
 
 /***/ }),

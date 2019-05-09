@@ -2,10 +2,11 @@ import Step from "@material-ui/core/Step"
 import Stepper from "@material-ui/core/Stepper"
 import StepContent from "@material-ui/core/StepContent"
 import StepLabel from "@material-ui/core/StepLabel"
+
 import { withStyles } from "@material-ui/core/styles"
 import withWidth from "@material-ui/core/withWidth"
 
-import { Form, Formik } from "formik"
+import { Form, Formik, getIn } from "formik"
 import React from "react"
 import ReactDOM from "react-dom"
 import PropTypes from "prop-types"
@@ -77,6 +78,7 @@ const InternalEventForm = ({
 	error,
 	event,
 	getStepContent,
+	handlePanelClick,
 	initialValues,
 	panels,
 	showError,
@@ -232,8 +234,12 @@ const InternalEventForm = ({
 					})
 				}}
 				render={props => {
-					const steps = ["Participants", "Housing", "Review", "Payment"]
+					if (status === "complete") {
+						return <OrderComplete />
+					}
+
 					let content = <AttendantForm formProps={props} />
+
 					const getContent = stepIndex => {
 						switch (stepIndex) {
 							case 1:
@@ -249,24 +255,22 @@ const InternalEventForm = ({
 						return content
 					}
 
-					if (status === "complete") {
-						return <OrderComplete />
-					}
-
 					// console.log("VALUES: ", props.values)
 					// console.log("ERRORS: ", props.errors)
 					// console.log("TOUCHED: ", props.touched)
 					return (
 						<Form>
 							<Stepper
-								activeStep={currentStep - 1}
+								activeStep={currentStep}
 								alternativeLabel={isMobile(width) ? false : true}
 								className={classes.stepper}
 								orientation={isMobile(width) ? "vertical" : "horizontal"}
 							>
 								{panels.map((panel, index) => (
 									<Step key={index}>
-										<StepLabel>{panel.title}</StepLabel>
+										<StepLabel onClick={e => handlePanelClick(e, props, index)}>
+											{panel.title}
+										</StepLabel>
 
 										{isMobile(width) ? (
 											<StepContent className={classes.stepContent}>
@@ -329,15 +333,15 @@ const mapStateToProps = (state, ownProps) => {
 		initialValues,
 		currentStep: state.event.step,
 		error: state.order.error,
-		status: state.order.status,
 		event: state.event,
-		panels: state.panels,
-		stripe: ownProps.stripe
+		status: state.order.status,
+		panels: state.panels
 	}
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
+		dispatch,
 		doPlaceOrder: (values, setSubmitting) => {
 			dispatch(placeOrder(values, setSubmitting))
 		},
@@ -349,10 +353,63 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		}
 	}
 }
+const mergeProps = (stateProps, dispatchProps, ownProps) => {
+	const { panels, step } = stateProps
+	const { dispatch } = dispatchProps
+
+	return {
+		...ownProps,
+		...stateProps,
+		...dispatchProps,
+		handlePanelClick: (e, formProps, stepIndex) => {
+			e.preventDefault()
+			// Check if previous panels contain error. Touch first invalid field
+			const invalid = panels.slice(0, stepIndex).some((panel, index) => {
+				let hasErrors = !!!formProps.touched.registrants
+				// Check for errors in regirants array fields
+				if (!hasErrors) {
+					hasErrors = formProps.values.registrants.some((registrant, i) => {
+						return panel.fields.some(field => {
+							const err = getIn(formProps.errors, `registrants[${i}][${field}]`)
+							if (err) {
+								formProps.setFieldTouched(
+									`registrants[${i}][${field}]`,
+									true,
+									false
+								)
+							}
+							return err
+						})
+					})
+				}
+				// Check for errors in regular fields
+				if (!hasErrors) {
+					hasErrors = panel.fields.some(field => {
+						const err = getIn(formProps.errors, field)
+						if (err) {
+							formProps.setFieldTouched(field, true, false)
+						}
+						return err
+					})
+				}
+				// Open panel if error exists
+				if (hasErrors) {
+					dispatch(setStep(index))
+				}
+				return hasErrors
+			})
+
+			if (!invalid) {
+				dispatch(setStep(stepIndex))
+			}
+		}
+	}
+}
 
 const EventForm = connect(
 	mapStateToProps,
-	mapDispatchToProps
+	mapDispatchToProps,
+	mergeProps
 )(withStyles(styles)(withWidth()(InternalEventForm)))
 
 export default injectStripe(EventForm)

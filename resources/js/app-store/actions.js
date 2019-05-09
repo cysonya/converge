@@ -1,8 +1,6 @@
 export const FETCH_EVENT = "FETCH_EVENT"
 export const FILTER_PACKAGES = "FILTER_PACKAGES"
 export const PLACE_ORDER = "PLACE_ORDER"
-export const PANEL_COMPLETE = "PANEL_COMPLETE"
-export const PANEL_INCOMPLETE = "PANEL_INCOMPLETE"
 export const REMOVE_ORDER_ERROR = "REMOVE_ORDER_ERROR"
 export const SET_EVENT_DATA = "SET_EVENT_DATA"
 export const SET_STEP = "SET_STEP"
@@ -25,15 +23,6 @@ export function filterPackages(registrants) {
 }
 export function updatePackage(index, value) {
 	return { type: UPDATE_PACKAGE, index, value }
-}
-
-// Changes `state.steps[step].complete` to true
-export function panelComplete(step) {
-	return { type: PANEL_COMPLETE, step }
-}
-// Changes `state.steps[step].complete` to false
-export function panelIncomplete(step) {
-	return { type: PANEL_INCOMPLETE, step }
 }
 
 // Sets event data store

@@ -9,7 +9,7 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import styled from "styled-components"
 
-import { panelComplete, panelIncomplete, setStep } from "@/app-store/actions"
+import { setStep } from "@/app-store/actions"
 import { media } from "@/styles/utils"
 
 const FormActions = styled.div`
@@ -40,8 +40,6 @@ const InternalFormNav = ({ formProps, nextStep, panels, prevStep, step }) => {
 			return getIn(formProps.errors, field)
 		})
 	}
-
-	console.log("LAST CHECK ", hasErrors)
 
 	return (
 		<FormActions>
@@ -110,14 +108,6 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
 			}
 
 			dispatch(setStep(step + 1))
-		},
-		markPanelComplete: () => {
-			console.log("MARKED COMPLETE")
-			dispatch(panelComplete(step))
-		},
-		markPanelIncomplete: () => {
-			console.log("MARKED not COMPLETE")
-			dispatch(panelIncomplete(step))
 		}
 	}
 }
