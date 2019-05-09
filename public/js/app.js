@@ -101275,15 +101275,14 @@ var mergeProps = function mergeProps(stateProps, dispatchProps, ownProps) {
   var dispatch = dispatchProps.dispatch;
   return _objectSpread({}, ownProps, stateProps, dispatchProps, {
     handlePanelClick: function handlePanelClick(e, formProps, stepIndex) {
-      e.preventDefault(); // Check if previous panels contain error. Touch first invalid field
-
-      var invalid = panels.slice(0, stepIndex).some(function (panel, index) {
-        var hasErrors = !!!formProps.touched.registrants; // Check for errors in regirants array fields
-
-        if (!hasErrors) {
-          hasErrors = formProps.values.registrants.some(function (registrant, i) {
+      e.preventDefault();
+      formProps.validateForm().then(function (validateErrors) {
+        // Check if previous panels contain error. Touch first invalid field
+        var invalid = panels.slice(0, stepIndex).some(function (panel, index) {
+          // Check for errors in regirants array fields
+          var hasErrors = formProps.values.registrants.some(function (registrant, i) {
             return panel.fields.some(function (field) {
-              var err = Object(formik__WEBPACK_IMPORTED_MODULE_6__["getIn"])(formProps.errors, "registrants[".concat(i, "][").concat(field, "]"));
+              var err = Object(formik__WEBPACK_IMPORTED_MODULE_6__["getIn"])(validateErrors, "registrants[".concat(i, "][").concat(field, "]"));
 
               if (err) {
                 formProps.setFieldTouched("registrants[".concat(i, "][").concat(field, "]"), true, false);
@@ -101292,32 +101291,32 @@ var mergeProps = function mergeProps(stateProps, dispatchProps, ownProps) {
               return err;
             });
           });
-        } // Check for errors in regular fields
+          console.log("ERROR?! ", hasErrors); // Check for errors in regular fields
+
+          if (!hasErrors) {
+            hasErrors = panel.fields.some(function (field) {
+              var err = Object(formik__WEBPACK_IMPORTED_MODULE_6__["getIn"])(validateErrors, field);
+
+              if (err) {
+                formProps.setFieldTouched(field, true, false);
+              }
+
+              return err;
+            });
+          } // Open panel if error exists
 
 
-        if (!hasErrors) {
-          hasErrors = panel.fields.some(function (field) {
-            var err = Object(formik__WEBPACK_IMPORTED_MODULE_6__["getIn"])(formProps.errors, field);
+          if (hasErrors) {
+            dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_14__["setStep"])(index));
+          }
 
-            if (err) {
-              formProps.setFieldTouched(field, true, false);
-            }
+          return hasErrors;
+        });
 
-            return err;
-          });
-        } // Open panel if error exists
-
-
-        if (hasErrors) {
-          dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_14__["setStep"])(index));
+        if (!invalid) {
+          dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_14__["setStep"])(stepIndex));
         }
-
-        return hasErrors;
       });
-
-      if (!invalid) {
-        dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_14__["setStep"])(stepIndex));
-      }
     }
   });
 };

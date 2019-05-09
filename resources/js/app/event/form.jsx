@@ -363,14 +363,13 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
 		...dispatchProps,
 		handlePanelClick: (e, formProps, stepIndex) => {
 			e.preventDefault()
-			// Check if previous panels contain error. Touch first invalid field
-			const invalid = panels.slice(0, stepIndex).some((panel, index) => {
-				let hasErrors = !!!formProps.touched.registrants
-				// Check for errors in regirants array fields
-				if (!hasErrors) {
-					hasErrors = formProps.values.registrants.some((registrant, i) => {
+			formProps.validateForm().then(validateErrors => {
+				// Check if previous panels contain error. Touch first invalid field
+				const invalid = panels.slice(0, stepIndex).some((panel, index) => {
+					// Check for errors in regirants array fields
+					let hasErrors = formProps.values.registrants.some((registrant, i) => {
 						return panel.fields.some(field => {
-							const err = getIn(formProps.errors, `registrants[${i}][${field}]`)
+							const err = getIn(validateErrors, `registrants[${i}][${field}]`)
 							if (err) {
 								formProps.setFieldTouched(
 									`registrants[${i}][${field}]`,
@@ -381,27 +380,28 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
 							return err
 						})
 					})
-				}
-				// Check for errors in regular fields
-				if (!hasErrors) {
-					hasErrors = panel.fields.some(field => {
-						const err = getIn(formProps.errors, field)
-						if (err) {
-							formProps.setFieldTouched(field, true, false)
-						}
-						return err
-					})
-				}
-				// Open panel if error exists
-				if (hasErrors) {
-					dispatch(setStep(index))
-				}
-				return hasErrors
-			})
+					console.log("ERROR?! ", hasErrors)
+					// Check for errors in regular fields
+					if (!hasErrors) {
+						hasErrors = panel.fields.some(field => {
+							const err = getIn(validateErrors, field)
+							if (err) {
+								formProps.setFieldTouched(field, true, false)
+							}
+							return err
+						})
+					}
+					// Open panel if error exists
+					if (hasErrors) {
+						dispatch(setStep(index))
+					}
+					return hasErrors
+				})
 
-			if (!invalid) {
-				dispatch(setStep(stepIndex))
-			}
+				if (!invalid) {
+					dispatch(setStep(stepIndex))
+				}
+			})
 		}
 	}
 }
