@@ -93180,9 +93180,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/withWidth */ "./node_modules/@material-ui/core/withWidth/index.js");
 /* harmony import */ var _material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _helpers_application__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/helpers/application */ "./resources/js/helpers/application.js");
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _helpers_application__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/helpers/application */ "./resources/js/helpers/application.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -93217,6 +93220,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
+
 var styles = function styles(theme) {
   return {
     inputLabel: _defineProperty({
@@ -93229,44 +93234,100 @@ var styles = function styles(theme) {
       backgroundColor: "#fff"
     }
   };
-};
+}; // Don't pass formProps if validation not needed
+
 
 var Input =
 /*#__PURE__*/
 function (_Component) {
   _inherits(Input, _Component);
 
-  function Input() {
+  function Input(props) {
+    var _this;
+
     _classCallCheck(this, Input);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Input).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Input).call(this, props));
+    _this.state = {
+      error: _this.getError(),
+      valid: _this.getValid()
+    };
+    return _this;
   }
 
   _createClass(Input, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      if (this.props.formProps) {
+        var prevError = prevState.error;
+        var error = this.getError();
+
+        if (prevError !== error) {
+          this.setState({
+            error: error
+          });
+        }
+
+        var prevValid = prevState.valid;
+        var valid = this.getValid();
+
+        if (prevValid !== valid) {
+          this.setState({
+            valid: valid
+          });
+        }
+      }
+    }
+  }, {
+    key: "getError",
+    value: function getError() {
+      if (this.props.formProps) {
+        var error = Object(formik__WEBPACK_IMPORTED_MODULE_5__["getIn"])(this.props.formProps.errors, this.props.name);
+        var touch = Object(formik__WEBPACK_IMPORTED_MODULE_5__["getIn"])(this.props.formProps.touched, this.props.name); // console.log("NAME: ", this.props.name, "TOUCH: ", touch, " ERR: ", error)
+
+        return touch && error ? error : false;
+      }
+
+      return false;
+    }
+  }, {
+    key: "getValid",
+    value: function getValid() {
+      if (this.props.formProps) {
+        var error = Object(formik__WEBPACK_IMPORTED_MODULE_5__["getIn"])(this.props.formProps.errors, this.props.name);
+        var touch = Object(formik__WEBPACK_IMPORTED_MODULE_5__["getIn"])(this.props.formProps.touched, this.props.name);
+        return !!touch && typeof error === "undefined" && !!!error;
+      }
+
+      return false;
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this$props = this.props,
           autoComplete = _this$props.autoComplete,
           classes = _this$props.classes,
-          error = _this$props.error,
+          formProps = _this$props.formProps,
           label = _this$props.label,
           name = _this$props.name,
-          touched = _this$props.touched,
           value = _this$props.value,
           width = _this$props.width,
-          props = _objectWithoutProperties(_this$props, ["autoComplete", "classes", "error", "label", "name", "touched", "value", "width"]);
+          props = _objectWithoutProperties(_this$props, ["autoComplete", "classes", "formProps", "label", "name", "value", "width"]);
 
-      return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_2___default.a, _extends({
+      var _this$state = this.state,
+          error = _this$state.error,
+          valid = _this$state.valid;
+      return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_2___default.a, _extends({
         label: label,
-        variant: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_6__["isMobile"])(width) ? "standard" : "outlined",
+        variant: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_8__["isMobile"])(width) ? "standard" : "outlined",
         InputLabelProps: {
           className: classes.inputLabel
         },
         InputProps: {
-          className: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_6__["isMobile"])(width) ? "" : classes.input,
-          endAdornment: touched && !error ? react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_material_ui_core_InputAdornment__WEBPACK_IMPORTED_MODULE_1___default.a, {
+          className: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_8__["isMobile"])(width) ? "" : classes.input,
+          endAdornment: valid ? react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core_InputAdornment__WEBPACK_IMPORTED_MODULE_1___default.a, {
             position: "end"
-          }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_material_ui_icons_Check__WEBPACK_IMPORTED_MODULE_0___default.a, {
+          }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_icons_Check__WEBPACK_IMPORTED_MODULE_0___default.a, {
             color: "primary"
           })) : null
         },
@@ -93284,8 +93345,9 @@ function (_Component) {
   }]);
 
   return Input;
-}(react__WEBPACK_IMPORTED_MODULE_5__["Component"]);
+}(react__WEBPACK_IMPORTED_MODULE_6__["Component"]);
 
+Input.propTypes = {};
 /* harmony default export */ __webpack_exports__["default"] = (Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__["withStyles"])(styles)(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_4___default()()(Input)));
 
 /***/ }),

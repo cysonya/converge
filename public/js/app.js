@@ -22660,6 +22660,40 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "./node_modules/@material-ui/icons/FileCopyOutlined.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/@material-ui/icons/FileCopyOutlined.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@material-ui/icons/utils/createSvgIcon.js"));
+
+var _default = (0, _createSvgIcon.default)(_react.default.createElement(_react.default.Fragment, null, _react.default.createElement("path", {
+  fill: "none",
+  d: "M0 0h24v24H0V0z"
+}), _react.default.createElement("path", {
+  d: "M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1z"
+}), _react.default.createElement("path", {
+  d: "M15 5H8c-1.1 0-1.99.9-1.99 2L6 21c0 1.1.89 2 1.99 2H19c1.1 0 2-.9 2-2V11l-6-6zM8 21V7h6v5h5v9H8z"
+})), 'FileCopyOutlined');
+
+exports.default = _default;
+
+/***/ }),
+
 /***/ "./node_modules/@material-ui/icons/Lock.js":
 /*!*************************************************!*\
   !*** ./node_modules/@material-ui/icons/Lock.js ***!
@@ -99459,9 +99493,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/withWidth */ "./node_modules/@material-ui/core/withWidth/index.js");
 /* harmony import */ var _material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _helpers_application__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/helpers/application */ "./resources/js/helpers/application.js");
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _helpers_application__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/helpers/application */ "./resources/js/helpers/application.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -99496,6 +99533,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
+
 var styles = function styles(theme) {
   return {
     inputLabel: _defineProperty({
@@ -99508,44 +99547,100 @@ var styles = function styles(theme) {
       backgroundColor: "#fff"
     }
   };
-};
+}; // Don't pass formProps if validation not needed
+
 
 var Input =
 /*#__PURE__*/
 function (_Component) {
   _inherits(Input, _Component);
 
-  function Input() {
+  function Input(props) {
+    var _this;
+
     _classCallCheck(this, Input);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Input).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Input).call(this, props));
+    _this.state = {
+      error: _this.getError(),
+      valid: _this.getValid()
+    };
+    return _this;
   }
 
   _createClass(Input, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      if (this.props.formProps) {
+        var prevError = prevState.error;
+        var error = this.getError();
+
+        if (prevError !== error) {
+          this.setState({
+            error: error
+          });
+        }
+
+        var prevValid = prevState.valid;
+        var valid = this.getValid();
+
+        if (prevValid !== valid) {
+          this.setState({
+            valid: valid
+          });
+        }
+      }
+    }
+  }, {
+    key: "getError",
+    value: function getError() {
+      if (this.props.formProps) {
+        var error = Object(formik__WEBPACK_IMPORTED_MODULE_5__["getIn"])(this.props.formProps.errors, this.props.name);
+        var touch = Object(formik__WEBPACK_IMPORTED_MODULE_5__["getIn"])(this.props.formProps.touched, this.props.name); // console.log("NAME: ", this.props.name, "TOUCH: ", touch, " ERR: ", error)
+
+        return touch && error ? error : false;
+      }
+
+      return false;
+    }
+  }, {
+    key: "getValid",
+    value: function getValid() {
+      if (this.props.formProps) {
+        var error = Object(formik__WEBPACK_IMPORTED_MODULE_5__["getIn"])(this.props.formProps.errors, this.props.name);
+        var touch = Object(formik__WEBPACK_IMPORTED_MODULE_5__["getIn"])(this.props.formProps.touched, this.props.name);
+        return !!touch && typeof error === "undefined" && !!!error;
+      }
+
+      return false;
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this$props = this.props,
           autoComplete = _this$props.autoComplete,
           classes = _this$props.classes,
-          error = _this$props.error,
+          formProps = _this$props.formProps,
           label = _this$props.label,
           name = _this$props.name,
-          touched = _this$props.touched,
           value = _this$props.value,
           width = _this$props.width,
-          props = _objectWithoutProperties(_this$props, ["autoComplete", "classes", "error", "label", "name", "touched", "value", "width"]);
+          props = _objectWithoutProperties(_this$props, ["autoComplete", "classes", "formProps", "label", "name", "value", "width"]);
 
-      return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_2___default.a, _extends({
+      var _this$state = this.state,
+          error = _this$state.error,
+          valid = _this$state.valid;
+      return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_2___default.a, _extends({
         label: label,
-        variant: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_6__["isMobile"])(width) ? "standard" : "outlined",
+        variant: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_8__["isMobile"])(width) ? "standard" : "outlined",
         InputLabelProps: {
           className: classes.inputLabel
         },
         InputProps: {
-          className: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_6__["isMobile"])(width) ? "" : classes.input,
-          endAdornment: touched && !error ? react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_material_ui_core_InputAdornment__WEBPACK_IMPORTED_MODULE_1___default.a, {
+          className: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_8__["isMobile"])(width) ? "" : classes.input,
+          endAdornment: valid ? react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core_InputAdornment__WEBPACK_IMPORTED_MODULE_1___default.a, {
             position: "end"
-          }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_material_ui_icons_Check__WEBPACK_IMPORTED_MODULE_0___default.a, {
+          }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_icons_Check__WEBPACK_IMPORTED_MODULE_0___default.a, {
             color: "primary"
           })) : null
         },
@@ -99563,8 +99658,9 @@ function (_Component) {
   }]);
 
   return Input;
-}(react__WEBPACK_IMPORTED_MODULE_5__["Component"]);
+}(react__WEBPACK_IMPORTED_MODULE_6__["Component"]);
 
+Input.propTypes = {};
 /* harmony default export */ __webpack_exports__["default"] = (Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__["withStyles"])(styles)(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_4___default()()(Input)));
 
 /***/ }),
@@ -100254,9 +100350,9 @@ var RemoveIcon = Object(styled_components__WEBPACK_IMPORTED_MODULE_15__["default
 });
 
 var InternalAttendantForm = function InternalAttendantForm(_ref) {
-  var affiliates = _ref.affiliates,
+  var addParticipant = _ref.addParticipant,
+      affiliates = _ref.affiliates,
       classes = _ref.classes,
-      copyEmail = _ref.copyEmail,
       formProps = _ref.formProps,
       groups = _ref.groups,
       touched = _ref.touched;
@@ -100291,12 +100387,10 @@ var InternalAttendantForm = function InternalAttendantForm(_ref) {
         }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_10__["Field"], {
           name: "registrants[".concat(index, "].first_name"),
           render: function render(_ref2) {
-            var field = _ref2.field,
-                form = _ref2.form;
+            var field = _ref2.field;
             return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_17__["Input"], _extends({
+              formProps: formProps,
               label: "First name",
-              error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_17__["inputError"])(form, "registrants[".concat(index, "].first_name")),
-              touched: Object(formik__WEBPACK_IMPORTED_MODULE_10__["getIn"])(form.touched, "registrants[".concat(index, "].first_name")),
               autoComplete: "given-name"
             }, field));
           }
@@ -100306,12 +100400,10 @@ var InternalAttendantForm = function InternalAttendantForm(_ref) {
         }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_10__["Field"], {
           name: "registrants[".concat(index, "].last_name"),
           render: function render(_ref3) {
-            var field = _ref3.field,
-                form = _ref3.form;
+            var field = _ref3.field;
             return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_17__["Input"], _extends({
+              formProps: formProps,
               label: "Last name",
-              error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_17__["inputError"])(form, "registrants[".concat(index, "].last_name")),
-              touched: Object(formik__WEBPACK_IMPORTED_MODULE_10__["getIn"])(form.touched, "registrants[".concat(index, "].last_name")),
               autoComplete: "family-name"
             }, field));
           }
@@ -100321,13 +100413,11 @@ var InternalAttendantForm = function InternalAttendantForm(_ref) {
         }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_10__["Field"], {
           name: "customer_email",
           render: function render(_ref4) {
-            var field = _ref4.field,
-                form = _ref4.form;
+            var field = _ref4.field;
             return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_17__["Input"], _extends({
+              formProps: formProps,
               label: "Email",
               type: "email",
-              error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_17__["inputError"])(form, "customer_email"),
-              touched: Object(formik__WEBPACK_IMPORTED_MODULE_10__["getIn"])(form.touched, "customer_email"),
               autoComplete: "email"
             }, field));
           }
@@ -100337,12 +100427,11 @@ var InternalAttendantForm = function InternalAttendantForm(_ref) {
         }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_10__["Field"], {
           name: "registrants[".concat(index, "].group"),
           render: function render(_ref5) {
-            var field = _ref5.field,
-                form = _ref5.form;
+            var field = _ref5.field;
             return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_17__["Input"], _extends({
               select: true,
-              label: "Age Group",
-              error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_17__["inputError"])(form, "registrants[".concat(index, "].group"))
+              formProps: formProps,
+              label: "Age Group"
             }, field), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_6___default.a, {
               value: ""
             }), groups.map(function (group, i) {
@@ -100358,12 +100447,11 @@ var InternalAttendantForm = function InternalAttendantForm(_ref) {
         }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_10__["Field"], {
           name: "registrants[".concat(index, "].affiliate"),
           render: function render(_ref6) {
-            var field = _ref6.field,
-                form = _ref6.form;
+            var field = _ref6.field;
             return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_17__["Input"], _extends({
               select: true,
-              label: "Affiliation",
-              error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_17__["inputError"])(form, "registrants[".concat(index, "].affiliate"))
+              formProps: formProps,
+              label: "Affiliation"
             }, field), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_6___default.a, {
               value: ""
             }), affiliates.map(function (a, i) {
@@ -100384,12 +100472,10 @@ var InternalAttendantForm = function InternalAttendantForm(_ref) {
         }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_10__["Field"], {
           name: "registrants[".concat(index, "].affiliate_other"),
           render: function render(_ref7) {
-            var field = _ref7.field,
-                form = _ref7.form;
+            var field = _ref7.field;
             return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_17__["Input"], _extends({
-              label: "Please specify affiliation",
-              error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_17__["inputError"])(form, "registrants[".concat(index, "].affiliate_other")),
-              touched: Object(formik__WEBPACK_IMPORTED_MODULE_10__["getIn"])(form.touched, "registrants[".concat(index, "].affiliate_other"))
+              formProps: formProps,
+              label: "Please specify affiliation"
             }, field));
           }
         }))));
@@ -100401,18 +100487,7 @@ var InternalAttendantForm = function InternalAttendantForm(_ref) {
           marginBottom: "20px"
         },
         onClick: function onClick() {
-          return arrayHelpers.push({
-            color: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_16__["getRandomColor"])(),
-            first_name: "",
-            last_name: "",
-            email: "",
-            group: "",
-            package: "",
-            roommates: "",
-            dietary: "",
-            affiliate: "",
-            affiliate_other: ""
-          });
+          return addParticipant(arrayHelpers);
         }
       }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_material_ui_icons_AddCircle__WEBPACK_IMPORTED_MODULE_0___default.a, {
         className: "pr-5",
@@ -100432,7 +100507,23 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
-  return {};
+  var formProps = ownProps.formProps;
+  return {
+    addParticipant: function addParticipant(arrayHelpers) {
+      var registrant = formProps.values.registrants[0];
+      arrayHelpers.push({
+        color: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_16__["getRandomColor"])(),
+        first_name: "",
+        last_name: registrant.last_name,
+        group: "",
+        package: "",
+        roommates: "",
+        dietary: "",
+        affiliate: registrant.affiliate,
+        affiliate_other: registrant.affiliate_other
+      });
+    }
+  };
 };
 
 var AttendantForm = Object(react_redux__WEBPACK_IMPORTED_MODULE_13__["connect"])(mapStateToProps, mapDispatchToProps)(Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_9__["withStyles"])(_components__WEBPACK_IMPORTED_MODULE_18__["styles"])(InternalAttendantForm));
@@ -101290,8 +101381,7 @@ var mergeProps = function mergeProps(stateProps, dispatchProps, ownProps) {
 
               return err;
             });
-          });
-          console.log("ERROR?! ", hasErrors); // Check for errors in regular fields
+          }); // Check for errors in regular fields
 
           if (!hasErrors) {
             hasErrors = panel.fields.some(function (field) {
@@ -101335,38 +101425,44 @@ var EventForm = Object(react_redux__WEBPACK_IMPORTED_MODULE_10__["connect"])(map
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _material_ui_core_Card__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @material-ui/core/Card */ "./node_modules/@material-ui/core/Card/index.js");
-/* harmony import */ var _material_ui_core_Card__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Card__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _material_ui_core_CardContent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material-ui/core/CardContent */ "./node_modules/@material-ui/core/CardContent/index.js");
-/* harmony import */ var _material_ui_core_CardContent__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_CardContent__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _material_ui_icons_CheckCircle__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/icons/CheckCircle */ "./node_modules/@material-ui/icons/CheckCircle.js");
-/* harmony import */ var _material_ui_icons_CheckCircle__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_CheckCircle__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/Grid */ "./node_modules/@material-ui/core/Grid/index.js");
-/* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/MenuItem */ "./node_modules/@material-ui/core/MenuItem/index.js");
-/* harmony import */ var _material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/TextField */ "./node_modules/@material-ui/core/TextField/index.js");
-/* harmony import */ var _material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/core/Typography */ "./node_modules/@material-ui/core/Typography/index.js");
-/* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/styles/index.js");
-/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material-ui/core/withWidth */ "./node_modules/@material-ui/core/withWidth/index.js");
-/* harmony import */ var _material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _app_components_form_index__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/app/components/form/index */ "./resources/js/app/components/form/index.js");
-/* harmony import */ var _app_store_actions__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/app-store/actions */ "./resources/js/app-store/actions.js");
-/* harmony import */ var _helpers_application__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/helpers/application */ "./resources/js/helpers/application.js");
-/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components */ "./resources/js/app/event/components.jsx");
+/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @material-ui/core/Button */ "./node_modules/@material-ui/core/Button/index.js");
+/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _material_ui_core_Card__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material-ui/core/Card */ "./node_modules/@material-ui/core/Card/index.js");
+/* harmony import */ var _material_ui_core_Card__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Card__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _material_ui_core_CardContent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/core/CardContent */ "./node_modules/@material-ui/core/CardContent/index.js");
+/* harmony import */ var _material_ui_core_CardContent__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_CardContent__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _material_ui_icons_CheckCircle__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/icons/CheckCircle */ "./node_modules/@material-ui/icons/CheckCircle.js");
+/* harmony import */ var _material_ui_icons_CheckCircle__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_CheckCircle__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _material_ui_icons_FileCopyOutlined__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/icons/FileCopyOutlined */ "./node_modules/@material-ui/icons/FileCopyOutlined.js");
+/* harmony import */ var _material_ui_icons_FileCopyOutlined__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_FileCopyOutlined__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/Grid */ "./node_modules/@material-ui/core/Grid/index.js");
+/* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/core/MenuItem */ "./node_modules/@material-ui/core/MenuItem/index.js");
+/* harmony import */ var _material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material-ui/core/TextField */ "./node_modules/@material-ui/core/TextField/index.js");
+/* harmony import */ var _material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material-ui/core/Typography */ "./node_modules/@material-ui/core/Typography/index.js");
+/* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/styles/index.js");
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @material-ui/core/withWidth */ "./node_modules/@material-ui/core/withWidth/index.js");
+/* harmony import */ var _material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _app_components_form_index__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/app/components/form/index */ "./resources/js/app/components/form/index.js");
+/* harmony import */ var _app_store_actions__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/app-store/actions */ "./resources/js/app-store/actions.js");
+/* harmony import */ var _helpers_application__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @/helpers/application */ "./resources/js/helpers/application.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components */ "./resources/js/app/event/components.jsx");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+
 
 
 
@@ -101390,86 +101486,97 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 var InternalHousingForm = function InternalHousingForm(_ref) {
   var classes = _ref.classes,
+      copyPackage = _ref.copyPackage,
       formProps = _ref.formProps,
       packages = _ref.packages,
       setChoice = _ref.setChoice,
       width = _ref.width;
-  return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["FieldArray"], {
+  return react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_11__["FieldArray"], {
     name: "registrants",
     render: function render(arrayHelpers) {
       return formProps.values.registrants.map(function (registrant, index) {
-        return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Card__WEBPACK_IMPORTED_MODULE_0___default.a, {
+        return react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_material_ui_core_Card__WEBPACK_IMPORTED_MODULE_1___default.a, {
           key: index,
           className: classes.card,
           style: {
             borderColor: registrant.color
           }
-        }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6___default.a, {
+        }, react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_8___default.a, {
           variant: "h6",
           className: classes.cardName
-        }, index === 0 ? "Your Details" : "".concat(registrant.first_name, " ").concat(registrant.last_name, " Details")), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+        }, index === 0 ? "Your Details" : "".concat(registrant.first_name, " ").concat(registrant.last_name, " Details")), react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_5___default.a, {
+          alignItems: "center",
           container: true,
           spacing: 8,
           style: {
             marginBottom: "10px"
           }
-        }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+        }, react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_5___default.a, {
           item: true,
           xs: 12,
           md: 6
-        }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
+        }, react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_11__["Field"], {
           name: "registrants[".concat(index, "].package"),
           render: function render(_ref2) {
-            var field = _ref2.field,
-                form = _ref2.form;
-            return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["Input"], _extends({
-              className: classes.pkgSelect,
+            var field = _ref2.field;
+            return react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_17__["Input"], _extends({
               select: true,
+              formprops: formProps,
+              className: classes.pkgSelect,
               label: "Housing option",
-              error: Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["inputError"])(form, "registrants[".concat(index, "].package")),
               onClick: function onClick(e) {
                 return setChoice(e, index);
               }
-            }, field), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_4___default.a, {
+            }, field), react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_6___default.a, {
               value: ""
             }), packages.map(function (p, i) {
-              return (p.remain > 0 || registrant.package === p.id) && react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_4___default.a, {
+              return (p.remain > 0 || registrant.package === p.id) && react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_6___default.a, {
                 key: i,
                 value: p.id
-              }, p.title, " -\xA0", Object(_helpers_application__WEBPACK_IMPORTED_MODULE_17__["currency"])(p.groups.find(function (g) {
+              }, p.title, " -\xA0", Object(_helpers_application__WEBPACK_IMPORTED_MODULE_19__["currency"])(p.groups.find(function (g) {
                 return g.id === registrant.group;
-              }).price), "\xA0", p.remain < 6 && react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("span", {
+              }).price), "\xA0", p.remain < 6 && react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement("span", {
                 className: "text-alert"
               }, "(".concat(p.remain, " spots left)")));
             }));
           }
-        })), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+        })), react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_5___default.a, {
           item: true,
           xs: 12,
           md: 6
-        }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+        }, formProps.values.registrants.length > 1 && index === 0 && !!formProps.values.registrants[0].package && react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0___default.a, {
+          color: "secondary",
+          onClick: function onClick(e) {
+            return copyPackage(e);
+          },
+          size: "small",
+          variant: "contained"
+        }, react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_material_ui_icons_FileCopyOutlined__WEBPACK_IMPORTED_MODULE_4___default.a, {
+          className: "pr-5",
+          fontSize: "small"
+        }), "Copy housing option")), react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_5___default.a, {
           item: true,
           xs: 12,
           md: 6
-        }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
+        }, react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_11__["Field"], {
           name: "registrants[".concat(index, "].roommates"),
           render: function render(_ref3) {
             var field = _ref3.field,
                 form = _ref3.form;
-            return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["Input"], _extends({
+            return react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_17__["Input"], _extends({
               label: "Roommate preference"
             }, field));
           }
-        })), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+        })), react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_5___default.a, {
           item: true,
           xs: 12,
           md: 6
-        }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_9__["Field"], {
+        }, react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_11__["Field"], {
           name: "registrants[".concat(index, "].dietary"),
           render: function render(_ref4) {
             var field = _ref4.field,
                 form = _ref4.form;
-            return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_15__["Input"], _extends({
+            return react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_app_components_form_index__WEBPACK_IMPORTED_MODULE_17__["Input"], _extends({
               label: "Dietary restrictions"
             }, field));
           }
@@ -101511,11 +101618,21 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+  var formProps = ownProps.formProps;
   return {
+    copyPackage: function copyPackage(e) {
+      e.preventDefault();
+      var firstRegistrant = formProps.values.registrants[0]; // Copy first registrant package to all other participants
+
+      formProps.values.registrants.slice(1).forEach(function (reg, index) {
+        formProps.setFieldValue("registrants[".concat(index + 1, "].package"), firstRegistrant.package);
+      });
+    },
     setChoice: function setChoice(e, regIndex) {
       var value = e.target.value;
 
       if (!!value) {
+        // Copy registrants object with selected package
         var registrants = ownProps.formProps.values.registrants.map(function (reg, i) {
           if (i === regIndex) {
             return Object.assign({}, reg, {
@@ -101524,14 +101641,15 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
           }
 
           return reg;
-        });
-        dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_16__["filterPackages"])(registrants));
+        }); // Set remaining package qty
+
+        dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_18__["filterPackages"])(registrants));
       }
     }
   };
 };
 
-var HousingForm = Object(react_redux__WEBPACK_IMPORTED_MODULE_13__["connect"])(mapStateToProps, mapDispatchToProps)(Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_7__["withStyles"])(_components__WEBPACK_IMPORTED_MODULE_18__["styles"])(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_8___default()()(InternalHousingForm)));
+var HousingForm = Object(react_redux__WEBPACK_IMPORTED_MODULE_15__["connect"])(mapStateToProps, mapDispatchToProps)(Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_9__["withStyles"])(_components__WEBPACK_IMPORTED_MODULE_20__["styles"])(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_10___default()()(InternalHousingForm)));
 /* harmony default export */ __webpack_exports__["default"] = (HousingForm);
 
 /***/ }),
@@ -101979,13 +102097,12 @@ var InternalOrderReview = function InternalOrderReview(_ref) {
   }, react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_16__["Field"], {
     name: "donation",
     render: function render(_ref2) {
-      var field = _ref2.field,
-          form = _ref2.form;
+      var field = _ref2.field;
       return react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(_material_ui_core_Input__WEBPACK_IMPORTED_MODULE_4___default.a, _extends({
         id: "adornment-amount",
         type: "number",
         placeholder: "Other",
-        error: !!Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_24__["inputError"])(form, "donation"),
+        formProps: formProps,
         startAdornment: react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(_material_ui_core_InputAdornment__WEBPACK_IMPORTED_MODULE_5___default.a, {
           position: "start"
         }, "$")

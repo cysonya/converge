@@ -183,12 +183,12 @@ const InternalOrderReview = ({
 						<FormControl className={classes.donateInput}>
 							<Field
 								name="donation"
-								render={({ field, form }) => (
+								render={({ field }) => (
 									<Input
 										id="adornment-amount"
 										type="number"
 										placeholder="Other"
-										error={!!inputError(form, "donation")}
+										formProps={formProps}
 										startAdornment={
 											<InputAdornment position="start">$</InputAdornment>
 										}

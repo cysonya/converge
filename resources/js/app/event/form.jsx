@@ -380,7 +380,6 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
 							return err
 						})
 					})
-					console.log("ERROR?! ", hasErrors)
 					// Check for errors in regular fields
 					if (!hasErrors) {
 						hasErrors = panel.fields.some(field => {

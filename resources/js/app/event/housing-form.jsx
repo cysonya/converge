@@ -1,6 +1,8 @@
+import Button from "@material-ui/core/Button"
 import Card from "@material-ui/core/Card"
 import CardContent from "@material-ui/core/CardContent"
 import CheckCircleIcon from "@material-ui/icons/CheckCircle"
+import FileCopyOutlined from "@material-ui/icons/FileCopyOutlined"
 import Grid from "@material-ui/core/Grid"
 import MenuItem from "@material-ui/core/MenuItem"
 import TextField from "@material-ui/core/TextField"
@@ -22,6 +24,7 @@ import { Divider, styles } from "./components"
 
 const InternalHousingForm = ({
 	classes,
+	copyPackage,
 	formProps,
 	packages,
 	setChoice,
@@ -43,20 +46,22 @@ const InternalHousingForm = ({
 								: `${registrant.first_name} ${registrant.last_name} Details`}
 						</Typography>
 
-						<Grid container spacing={8} style={{ marginBottom: "10px" }}>
+						<Grid
+							alignItems="center"
+							container
+							spacing={8}
+							style={{ marginBottom: "10px" }}
+						>
 							<Grid item xs={12} md={6}>
 								<Field
 									name={`registrants[${index}].package`}
-									render={({ field, form }) => {
+									render={({ field }) => {
 										return (
 											<Input
-												className={classes.pkgSelect}
 												select
+												formprops={formProps}
+												className={classes.pkgSelect}
 												label="Housing option"
-												error={inputError(
-													form,
-													`registrants[${index}].package`
-												)}
 												onClick={e => setChoice(e, index)}
 												{...field}
 											>
@@ -84,7 +89,21 @@ const InternalHousingForm = ({
 									}}
 								/>
 							</Grid>
-							<Grid item xs={12} md={6} />
+							<Grid item xs={12} md={6}>
+								{formProps.values.registrants.length > 1 &&
+									index === 0 &&
+									!!formProps.values.registrants[0].package && (
+										<Button
+											color="secondary"
+											onClick={e => copyPackage(e)}
+											size="small"
+											variant="contained"
+										>
+											<FileCopyOutlined className="pr-5" fontSize="small" />
+											Copy housing option
+										</Button>
+									)}
+							</Grid>
 							<Grid item xs={12} md={6}>
 								<Field
 									name={`registrants[${index}].roommates`}
@@ -142,10 +161,24 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
+	const { formProps } = ownProps
 	return {
+		copyPackage: e => {
+			e.preventDefault()
+			const firstRegistrant = formProps.values.registrants[0]
+
+			// Copy first registrant package to all other participants
+			formProps.values.registrants.slice(1).forEach((reg, index) => {
+				formProps.setFieldValue(
+					`registrants[${index + 1}].package`,
+					firstRegistrant.package
+				)
+			})
+		},
 		setChoice: (e, regIndex) => {
 			let value = e.target.value
 			if (!!value) {
+				// Copy registrants object with selected package
 				let registrants = ownProps.formProps.values.registrants.map(
 					(reg, i) => {
 						if (i === regIndex) {
@@ -154,6 +187,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 						return reg
 					}
 				)
+				// Set remaining package qty
 				dispatch(filterPackages(registrants))
 			}
 		}

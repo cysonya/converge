@@ -29,9 +29,9 @@ const RemoveIcon = styled(CloseIcon)`
 `
 
 const InternalAttendantForm = ({
+	addParticipant,
 	affiliates,
 	classes,
-	copyEmail,
 	formProps,
 	groups,
 	touched
@@ -69,18 +69,11 @@ const InternalAttendantForm = ({
 									<Grid item xs={6}>
 										<Field
 											name={`registrants[${index}].first_name`}
-											render={({ field, form }) => {
+											render={({ field }) => {
 												return (
 													<Input
+														formProps={formProps}
 														label="First name"
-														error={inputError(
-															form,
-															`registrants[${index}].first_name`
-														)}
-														touched={getIn(
-															form.touched,
-															`registrants[${index}].first_name`
-														)}
 														autoComplete="given-name"
 														{...field}
 													/>
@@ -91,18 +84,11 @@ const InternalAttendantForm = ({
 									<Grid item xs={6}>
 										<Field
 											name={`registrants[${index}].last_name`}
-											render={({ field, form }) => {
+											render={({ field }) => {
 												return (
 													<Input
+														formProps={formProps}
 														label="Last name"
-														error={inputError(
-															form,
-															`registrants[${index}].last_name`
-														)}
-														touched={getIn(
-															form.touched,
-															`registrants[${index}].last_name`
-														)}
 														autoComplete="family-name"
 														{...field}
 													/>
@@ -114,13 +100,12 @@ const InternalAttendantForm = ({
 										<Grid item xs={6}>
 											<Field
 												name={`customer_email`}
-												render={({ field, form }) => {
+												render={({ field }) => {
 													return (
 														<Input
+															formProps={formProps}
 															label="Email"
 															type="email"
-															error={inputError(form, `customer_email`)}
-															touched={getIn(form.touched, `customer_email`)}
 															autoComplete="email"
 															{...field}
 														/>
@@ -132,15 +117,12 @@ const InternalAttendantForm = ({
 									<Grid item xs={6}>
 										<Field
 											name={`registrants[${index}].group`}
-											render={({ field, form }) => {
+											render={({ field }) => {
 												return (
 													<Input
 														select
+														formProps={formProps}
 														label="Age Group"
-														error={inputError(
-															form,
-															`registrants[${index}].group`
-														)}
 														{...field}
 													>
 														<MenuItem value="" />
@@ -158,15 +140,12 @@ const InternalAttendantForm = ({
 									<Grid item xs={6}>
 										<Field
 											name={`registrants[${index}].affiliate`}
-											render={({ field, form }) => {
+											render={({ field }) => {
 												return (
 													<Input
 														select
+														formProps={formProps}
 														label="Affiliation"
-														error={inputError(
-															form,
-															`registrants[${index}].affiliate`
-														)}
 														{...field}
 													>
 														<MenuItem value="" />
@@ -188,18 +167,11 @@ const InternalAttendantForm = ({
 										<Grid item xs={12} md={6}>
 											<Field
 												name={`registrants[${index}].affiliate_other`}
-												render={({ field, form }) => {
+												render={({ field }) => {
 													return (
 														<Input
+															formProps={formProps}
 															label="Please specify affiliation"
-															error={inputError(
-																form,
-																`registrants[${index}].affiliate_other`
-															)}
-															touched={getIn(
-																form.touched,
-																`registrants[${index}].affiliate_other`
-															)}
 															{...field}
 														/>
 													)
@@ -215,20 +187,7 @@ const InternalAttendantForm = ({
 							color="secondary"
 							size="small"
 							style={{ marginBottom: "20px" }}
-							onClick={() =>
-								arrayHelpers.push({
-									color: getRandomColor(),
-									first_name: "",
-									last_name: "",
-									email: "",
-									group: "",
-									package: "",
-									roommates: "",
-									dietary: "",
-									affiliate: "",
-									affiliate_other: ""
-								})
-							}
+							onClick={() => addParticipant(arrayHelpers)}
 						>
 							<AddCircleIcon className="pr-5" fontSize="small">
 								Add
@@ -261,7 +220,23 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-	return {}
+	const { formProps } = ownProps
+	return {
+		addParticipant: arrayHelpers => {
+			const registrant = formProps.values.registrants[0]
+			arrayHelpers.push({
+				color: getRandomColor(),
+				first_name: "",
+				last_name: registrant.last_name,
+				group: "",
+				package: "",
+				roommates: "",
+				dietary: "",
+				affiliate: registrant.affiliate,
+				affiliate_other: registrant.affiliate_other
+			})
+		}
+	}
 }
 
 const AttendantForm = connect(
