@@ -59,7 +59,7 @@ const InternalHousingForm = ({
 										return (
 											<Input
 												select
-												formprops={formProps}
+												formProps={formProps}
 												className={classes.pkgSelect}
 												label="Housing option"
 												onClick={e => setChoice(e, index)}
