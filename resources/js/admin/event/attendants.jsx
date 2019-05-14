@@ -29,6 +29,7 @@ const InternalAttendants = ({ attendants, classes }) => {
 
 	return (
 		<Paper className={classes.paper}>
+			<h1>stesting</h1>
 			<TableWrapper>
 				<Table>
 					<TableHead>
@@ -67,7 +68,7 @@ InternalAttendants.propTypes = {}
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		attendants: state.dashboard.attendants
+		attendants: ownProps.attendants || state.dashboard.attendants
 	}
 }
 
