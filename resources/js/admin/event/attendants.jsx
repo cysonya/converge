@@ -1,66 +1,41 @@
+import AddIcon from "@material-ui/icons/Add"
+import Button from "@material-ui/core/Button"
 import Paper from "@material-ui/core/Paper"
-import Table from "@material-ui/core/Table"
-import TableBody from "@material-ui/core/TableBody"
-import TableCell from "@material-ui/core/TableCell"
-import TableHead from "@material-ui/core/TableHead"
-import TableRow from "@material-ui/core/TableRow"
-import { withStyles } from "@material-ui/core/styles"
 
 import React from "react"
 import ReactDOM from "react-dom"
 import PropTypes from "prop-types"
+import { NavLink } from "react-router-dom"
 import { connect } from "react-redux"
 import styled from "styled-components"
 
-const TableWrapper = styled.div`
-	margin-bottom: 10px;
-	width: 100%;
-	overflow-x: auto;
-	white-space: nowrap;
-`
-const styles = {
-	paper: {
-		margin: "0 10px"
-	}
-}
+import AttendantsTable from "./attendants-table"
 
-const InternalAttendants = ({ attendants, classes }) => {
+const ActionBar = styled.div`
+	display: flex;
+	margin: 0 0 20px;
+`
+
+const InternalAttendants = ({ attendants, eventId }) => {
 	if (!attendants) return null
 
 	return (
-		<Paper className={classes.paper}>
-			<h1>stesting</h1>
-			<TableWrapper>
-				<Table>
-					<TableHead>
-						<TableRow>
-							<TableCell>Name</TableCell>
-							<TableCell>Age Group</TableCell>
-							<TableCell>Package</TableCell>
-							<TableCell>Affiliate</TableCell>
-							<TableCell>Roommates</TableCell>
-							<TableCell>Dietary</TableCell>
-							<TableCell>Actions</TableCell>
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						{attendants.map((attendant, i) => (
-							<TableRow key={i}>
-								<TableCell>
-									{attendant.first_name} {attendant.last_name}
-								</TableCell>
-								<TableCell>{attendant.group.description}</TableCell>
-								<TableCell>{attendant.package.title}</TableCell>
-								<TableCell>{attendant.custom_properties.affiliate}</TableCell>
-								<TableCell>{attendant.custom_properties.roommates}</TableCell>
-								<TableCell>{attendant.custom_properties.dietary}</TableCell>
-								<TableCell>...</TableCell>
-							</TableRow>
-						))}
-					</TableBody>
-				</Table>
-			</TableWrapper>
-		</Paper>
+		<div>
+			<ActionBar>
+				<Button
+					component={NavLink}
+					to={`/admin/events/${eventId}/attendants/create`}
+					size="small"
+					variant="contained"
+					color="primary"
+				>
+					<AddIcon className="pr-5" fontSize="small" /> Add Participants
+				</Button>
+			</ActionBar>
+			<Paper>
+				<AttendantsTable attendants={attendants} />
+			</Paper>
+		</div>
 	)
 }
 
@@ -68,7 +43,8 @@ InternalAttendants.propTypes = {}
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		attendants: ownProps.attendants || state.dashboard.attendants
+		attendants: ownProps.attendants || state.dashboard.attendants,
+		eventId: state.dashboard.event.id
 	}
 }
 
@@ -81,4 +57,4 @@ const Attendants = connect(
 	mapDispatchToProps
 )(InternalAttendants)
 
-export default withStyles(styles)(Attendants)
+export default Attendants

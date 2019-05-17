@@ -8,6 +8,7 @@ import { withStyles } from "@material-ui/core/styles"
 import React, { Component } from "react"
 import styled from "styled-components"
 
+import AttendantsCreate from "./event/attendants-create"
 import PackageEdit from "./event/package-edit"
 
 const ModalHeading = styled.div`
@@ -42,6 +43,10 @@ class ModalConductor extends Component {
 		let content = null
 		let title = null
 		switch (model) {
+			case "attendants-create":
+				title = "Add Participants"
+				content = <AttendantsCreate />
+				break
 			case "package-edit":
 				let pkgId = match.params.packageId
 				let pkg = adminStore

@@ -49,6 +49,12 @@ const InternalAdmin = ({ history }) => {
 							component={LoadEvent}
 						/>
 						<Route
+							path="/admin/events/:eventId/attendants/create"
+							render={props => (
+								<ModalConductor model="attendants-create" {...props} />
+							)}
+						/>
+						<Route
 							path="/admin/events/:eventId/settings"
 							component={LoadEvent}
 						/>

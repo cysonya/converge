@@ -30,8 +30,6 @@ const styles = theme => ({
 })
 
 const InternalDashboard = ({ classes, event }) => {
-	if (!event) return null
-
 	return (
 		<div>
 			<Grid container spacing={16}>

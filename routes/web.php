@@ -32,35 +32,10 @@ Route::post('contact', 'EventsController@contact');
 
 
 /*
- * Admin routes
+ * Admin routes - set all to React view
  */
 Route::group(['prefix' => 'admin', 'middleware' => 'is_admin'], function() {
-	Route::get('/', 'AdminEventsController@react');
-	Route::get('/events/{id}/dashboard', 'AdminEventsController@react');
-	Route::get('/events/{id}/attendants', 'AdminEventsController@react');
-	Route::get('/events/{id}/packages', 'AdminEventsController@react');
-	Route::get('/events/{id}/settings', 'AdminEventsController@react');
-
-	// OLD NON REACT
-	// Events dashboard
-	Route::group(['prefix' => 'events'], function() {
-		Route::get('create', 'AdminEventsController@create');
-		Route::post('store', [
-			'as' => 'postCreateEvent',
-			'uses' => 'AdminEventsController@store'
-		]);
-	});
-
-	// Event Packages dashboard
-	Route::group(['prefix' => 'events/{event_id}/packages'], function() {
-		Route::get('/', [
-			'as' => 'showEventPackages',
-			'uses' => 'AdminPackagesController@index'
-		]);
-		Route::get('create', 'AdminPackagesController@create');
-		Route::post('/', [
-			'as' => 'postCreateEventPackage',
-			'uses' => 'AdminPackagesController@store'
-		]);
-	});
+	Route::view('/{path?}', 'admin_react')
+		->where('path', '.*')
+		->name('react');
 });
