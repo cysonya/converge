@@ -10,6 +10,7 @@ use Stripe\Customer;
 use Stripe\Stripe;
 
 use App\Attendant;
+use App\Events\UserSignedUp;
 use Carbon\Carbon;
 use App\Event;
 use App\Order;
@@ -204,6 +205,8 @@ class CheckoutsController extends Controller
 
         $emailJob = (new \App\Jobs\ConfirmOrderJob($order));
         dispatch($emailJob);
+        // Subscribe to mailchimp list
+        event(new UserSignedUp($order));
 
         DB::commit();
 

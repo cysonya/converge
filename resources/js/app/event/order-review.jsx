@@ -188,7 +188,6 @@ const InternalOrderReview = ({
 										id="adornment-amount"
 										type="number"
 										placeholder="Other"
-										formProps={formProps}
 										startAdornment={
 											<InputAdornment position="start">$</InputAdornment>
 										}

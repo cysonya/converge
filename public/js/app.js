@@ -102102,7 +102102,6 @@ var InternalOrderReview = function InternalOrderReview(_ref) {
         id: "adornment-amount",
         type: "number",
         placeholder: "Other",
-        formProps: formProps,
         startAdornment: react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(_material_ui_core_InputAdornment__WEBPACK_IMPORTED_MODULE_5___default.a, {
           position: "start"
         }, "$")
