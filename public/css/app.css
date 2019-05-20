@@ -1,1 +1,129 @@
-.p-10{padding:10px!important}.pr-5{padding-right:5px!important}.pr-10{padding-right:10px!important}.p-rm{padding:0!important}.pb-rm{padding-bottom:0!important}.mr-5{margin-right:5px!important}.mr-10{margin-right:10px!important}.mb-20{margin-bottom:20px!important}.text-alert{color:#d32f2f}.text-error{color:#f44336}.text-left{text-align:left!important}.text-right{text-align:right!important}.center-block,.image-center{margin-left:auto;margin-right:auto}.nowrap{white-space:nowrap}@media (max-width:767px){.hidden-sm-down{display:none!important}}@media (min-width:768px){.hidden-md-up{display:none!important}}*{box-sizing:border-box}html{height:100%}body,html{padding:0;margin:0}body{padding-right:0!important;font-family:Roboto,Helvetica,sans-serif;background-color:#fff}@media (min-width:600px){body{background:url(/images/event_bg.jpg?ea8961a770ac57fd2fbf1222dd7ca983) no-repeat 50% fixed;background-size:cover;background-color:#eee}}strong{font-weight:500}.StripeElement{background-color:#fff;height:40px;padding:10px 12px;border-radius:4px;border:1px solid transparent;box-shadow:0 1px 3px 0 #e6ebf1;transition:box-shadow .15s ease}.StripeElement--focus{border-color:#8bc53f}.StripeElement--invalid{border-color:#fa755a}.StripeElement--webkit-autofill{background-color:#fefde5!important}
+.p-10 {
+  padding: 10px !important;
+}
+
+.pr-5 {
+  padding-right: 5px !important;
+}
+
+.pr-10 {
+  padding-right: 10px !important;
+}
+
+.p-rm {
+  padding: 0 !important;
+}
+
+.pb-rm {
+  padding-bottom: 0 !important;
+}
+
+.mr-5 {
+  margin-right: 5px !important;
+}
+
+.mr-10 {
+  margin-right: 10px !important;
+}
+
+.mb-20 {
+  margin-bottom: 20px !important;
+}
+
+.text-alert {
+  color: #d32f2f;
+}
+
+.text-error {
+  color: #f44336;
+}
+
+.text-left {
+  text-align: left !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.center-block,
+.image-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  .hidden-sm-down {
+    display: none !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .hidden-md-up {
+    display: none !important;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  padding-right: 0 !important;
+  font-family: "Roboto", Helvetica, sans-serif;
+  background-color: #fff;
+}
+
+@media (min-width: 600px) {
+  body {
+    background: url(/images/event_bg.jpg?ea8961a770ac57fd2fbf1222dd7ca983) no-repeat center center fixed;
+    background-size: cover;
+    background-color: #eee;
+  }
+}
+
+strong {
+  font-weight: 500;
+}
+
+/**
+ * The CSS shown here will not be introduced in the Quickstart guide, but shows
+ * how you can use CSS to style your Element's container.
+ */
+
+.StripeElement {
+  background-color: white;
+  height: 40px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+  border-color: #8bc53f;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+

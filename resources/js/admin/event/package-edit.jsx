@@ -13,7 +13,7 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import { Formik, Form, Field } from "formik"
 
-import { Input, inputError } from "@/app/components/form/index"
+import { Input } from "@/app/components/form/index"
 import { updatePackage } from "@/admin-store/actions"
 
 const InternalPackageEdit = ({ pkg, postUpdate }) => {
