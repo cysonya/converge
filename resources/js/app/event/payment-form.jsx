@@ -5,7 +5,6 @@ import DialogContent from "@material-ui/core/DialogContent"
 import LockIcon from "@material-ui/icons/Lock"
 import Divider from "@material-ui/core/Divider"
 import Grid from "@material-ui/core/Grid"
-import Input from "@material-ui/core/Input"
 import MenuItem from "@material-ui/core/MenuItem"
 import Slide from "@material-ui/core/Slide"
 import TextField from "@material-ui/core/TextField"
@@ -160,6 +159,10 @@ const InternalPaymentForm = ({
 						<strong>Total</strong>
 						<strong>{currency(orderTotal)} USD</strong>
 					</TotalAmount>
+					<TextField
+						label="Enter coupon code"
+						helperText="Coupon code applied!"
+					/>
 				</Grid>
 
 				<Grid item xs={12} md={7} style={isMobile(width) ? {} : { order: 1 }}>
