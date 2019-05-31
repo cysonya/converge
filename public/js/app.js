@@ -100643,6 +100643,70 @@ var getTotal = function getTotal(state, ownProps) {
 
 /***/ }),
 
+/***/ "./resources/js/app/event/coupon-field.jsx":
+/*!*************************************************!*\
+  !*** ./resources/js/app/event/coupon-field.jsx ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @material-ui/core/Button */ "./node_modules/@material-ui/core/Button/index.js");
+/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _material_ui_core_InputAdornment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material-ui/core/InputAdornment */ "./node_modules/@material-ui/core/InputAdornment/index.js");
+/* harmony import */ var _material_ui_core_InputAdornment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_InputAdornment__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/core/TextField */ "./node_modules/@material-ui/core/TextField/index.js");
+/* harmony import */ var _material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+
+
+
+
+
+
+
+
+
+var InternalCouponField = function InternalCouponField(_ref) {
+  _objectDestructuringEmpty(_ref);
+
+  return react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    label: "Enter coupon code",
+    helperText: "Coupon code applied!",
+    fullWidth: true,
+    InputProps: {
+      endAdornment: react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_material_ui_core_InputAdornment__WEBPACK_IMPORTED_MODULE_1___default.a, {
+        position: "end"
+      }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0___default.a, {
+        color: "primary"
+      }, "APPLY"))
+    }
+  });
+};
+
+InternalCouponField.propTypes = {};
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {};
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+  return {};
+};
+
+var CouponField = Object(react_redux__WEBPACK_IMPORTED_MODULE_6__["connect"])(mapStateToProps, mapDispatchToProps)(InternalCouponField);
+/* harmony default export */ __webpack_exports__["default"] = (CouponField);
+
+/***/ }),
+
 /***/ "./resources/js/app/event/error-alert.jsx":
 /*!************************************************!*\
   !*** ./resources/js/app/event/error-alert.jsx ***!
@@ -102149,12 +102213,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_Dialog__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Dialog__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _material_ui_core_DialogContent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/DialogContent */ "./node_modules/@material-ui/core/DialogContent/index.js");
 /* harmony import */ var _material_ui_core_DialogContent__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_DialogContent__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _material_ui_icons_Lock__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/icons/Lock */ "./node_modules/@material-ui/icons/Lock.js");
-/* harmony import */ var _material_ui_icons_Lock__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_Lock__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/Divider */ "./node_modules/@material-ui/core/Divider/index.js");
-/* harmony import */ var _material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/core/Grid */ "./node_modules/@material-ui/core/Grid/index.js");
-/* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/Divider */ "./node_modules/@material-ui/core/Divider/index.js");
+/* harmony import */ var _material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/Grid */ "./node_modules/@material-ui/core/Grid/index.js");
+/* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _material_ui_icons_Lock__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/icons/Lock */ "./node_modules/@material-ui/icons/Lock.js");
+/* harmony import */ var _material_ui_icons_Lock__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_Lock__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material-ui/core/MenuItem */ "./node_modules/@material-ui/core/MenuItem/index.js");
 /* harmony import */ var _material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _material_ui_core_Slide__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material-ui/core/Slide */ "./node_modules/@material-ui/core/Slide/index.js");
@@ -102182,6 +102246,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers_application__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @/helpers/application */ "./resources/js/helpers/application.js");
 /* harmony import */ var _styles_utils__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @/styles/utils */ "./resources/js/styles/utils.js");
 /* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components */ "./resources/js/app/event/components.jsx");
+/* harmony import */ var _coupon_field__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./coupon-field */ "./resources/js/app/event/coupon-field.jsx");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _templateObject9() {
@@ -102300,6 +102365,7 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 
+
 var SectionTitle = styled_components__WEBPACK_IMPORTED_MODULE_18__["default"].div(_templateObject(), function (props) {
   return props.theme.grey[300];
 }, _styles_utils__WEBPACK_IMPORTED_MODULE_22__["media"].md(_templateObject2()));
@@ -102349,14 +102415,14 @@ var InternalPaymentForm = function InternalPaymentForm(_ref) {
       pkgSummary = _ref.pkgSummary,
       status = _ref.status,
       width = _ref.width;
-  return react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_6___default.a, {
+  return react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_5___default.a, {
     container: true,
     spacing: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_21__["isMobile"])(width) ? 16 : 40,
     justify: "space-between",
     style: {
       marginBottom: "10px"
     }
-  }, react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_6___default.a, {
+  }, react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_5___default.a, {
     item: true,
     xs: 12,
     md: 5,
@@ -102365,7 +102431,7 @@ var InternalPaymentForm = function InternalPaymentForm(_ref) {
     } : {
       order: 2
     }
-  }, react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(SectionTitle, null, react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(_material_ui_icons_Lock__WEBPACK_IMPORTED_MODULE_4___default.a, {
+  }, react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(SectionTitle, null, react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(_material_ui_icons_Lock__WEBPACK_IMPORTED_MODULE_6___default.a, {
     className: "pr-5"
   }), " Order Summary"), Object.keys(pkgSummary).map(function (pkg, i) {
     return react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_23__["TotalAmount"], {
@@ -102379,12 +102445,11 @@ var InternalPaymentForm = function InternalPaymentForm(_ref) {
     variant: "body2"
   }, "Donation"), react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_10___default.a, {
     variant: "body2"
-  }, "$", formProps.values.donation)), react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(_material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_5___default.a, {
+  }, "$", formProps.values.donation)), react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(_material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_4___default.a, {
     className: classes.divider
-  }), react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_23__["TotalAmount"], null, react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement("strong", null, "Total"), react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement("strong", null, Object(_helpers_application__WEBPACK_IMPORTED_MODULE_21__["currency"])(orderTotal), " USD")), react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_9___default.a, {
-    label: "Enter coupon code",
-    helperText: "Coupon code applied!"
-  })), react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_6___default.a, {
+  }), react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_23__["TotalAmount"], {
+    className: "mb-10"
+  }, react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement("strong", null, "Total"), react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement("strong", null, Object(_helpers_application__WEBPACK_IMPORTED_MODULE_21__["currency"])(orderTotal), " USD")), react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(_coupon_field__WEBPACK_IMPORTED_MODULE_24__["default"], null)), react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_5___default.a, {
     item: true,
     xs: 12,
     md: 7,

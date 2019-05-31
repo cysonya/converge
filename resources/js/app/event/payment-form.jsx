@@ -2,9 +2,9 @@ import Button from "@material-ui/core/Button"
 import CircularProgress from "@material-ui/core/CircularProgress"
 import Dialog from "@material-ui/core/Dialog"
 import DialogContent from "@material-ui/core/DialogContent"
-import LockIcon from "@material-ui/icons/Lock"
 import Divider from "@material-ui/core/Divider"
 import Grid from "@material-ui/core/Grid"
+import LockIcon from "@material-ui/icons/Lock"
 import MenuItem from "@material-ui/core/MenuItem"
 import Slide from "@material-ui/core/Slide"
 import TextField from "@material-ui/core/TextField"
@@ -31,6 +31,7 @@ import { currency, isMobile } from "@/helpers/application"
 import { media } from "@/styles/utils"
 
 import { getTotal, styles, TotalAmount } from "./components"
+import CouponField from "./coupon-field"
 
 const SectionTitle = styled.div`
 	display: flex;
@@ -155,14 +156,11 @@ const InternalPaymentForm = ({
 						</TotalAmount>
 					)}
 					<Divider className={classes.divider} />
-					<TotalAmount>
+					<TotalAmount className="mb-10">
 						<strong>Total</strong>
 						<strong>{currency(orderTotal)} USD</strong>
 					</TotalAmount>
-					<TextField
-						label="Enter coupon code"
-						helperText="Coupon code applied!"
-					/>
+					<CouponField />
 				</Grid>
 
 				<Grid item xs={12} md={7} style={isMobile(width) ? {} : { order: 1 }}>
