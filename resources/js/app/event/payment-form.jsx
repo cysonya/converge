@@ -160,7 +160,7 @@ const InternalPaymentForm = ({
 						<strong>Total</strong>
 						<strong>{currency(orderTotal)} USD</strong>
 					</TotalAmount>
-					<CouponField />
+					<CouponField formProps={formProps} />
 				</Grid>
 
 				<Grid item xs={12} md={7} style={isMobile(width) ? {} : { order: 1 }}>

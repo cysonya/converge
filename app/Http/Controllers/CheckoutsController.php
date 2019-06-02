@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DB;
 use Log;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Stripe\Charge;
 use Stripe\Customer;
 use Stripe\Stripe;
@@ -213,5 +214,23 @@ class CheckoutsController extends Controller
         return response()
                 ->json(['status' => 'complete', 'data' => $order]);
 
+    }
+    public function checkCoupon(Request $request) 
+    {
+        $code = Str::lower($request->code);
+        $coupon = \App\Coupon::where('code', '=', $code)->first();
+
+        if ($coupon) {
+            if ($coupon->isValid())
+            {
+                $message = ['status' => 'ok'];
+            } else {
+                $message = ['error' => 'Coupon code has expired'];
+            }
+        } else {
+            $message = ['error' => 'Invalid coupon code'];
+        }
+        return response()
+                ->json($message);
     }
 }

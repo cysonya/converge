@@ -255,7 +255,7 @@ const InternalEventForm = ({
 						return content
 					}
 
-					// console.log("VALUES: ", props.values)
+					console.log("VALUES: ", props.values)
 					// console.log("ERRORS: ", props.errors)
 					// console.log("TOUCHED: ", props.touched)
 					return (
@@ -327,7 +327,12 @@ const mapStateToProps = (state, ownProps) => {
 		customer_first_name: "",
 		customer_last_name: "",
 		customer_email: "",
-		donation: 0
+		donation: 0,
+		coupon: {
+			code: "",
+			discount: 0,
+			registrantIndex: ""
+		}
 	}
 	return {
 		initialValues,

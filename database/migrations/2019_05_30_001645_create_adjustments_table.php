@@ -26,7 +26,7 @@ class CreateAdjustmentsTable extends Migration
         });
         Schema::create('coupons', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code', 32);
+            $table->string('code', 32)->unique()->index();
             $table->string('description', 255)->nullable();
             $table->enum('type', ['percent', 'amount', 'package_off']);
             $table->smallInteger('discount_amount')->nullable();

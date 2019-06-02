@@ -105,7 +105,7 @@ const InternalOrderReview = ({
 						<TableBody>
 							{formProps.values.registrants.map((registrant, index) => {
 								let group = groups.find(g => g.id === registrant.group)
-								let pkg = packages.find(g => g.id === registrant.package)
+								let pkg = packages.find(p => p.id === registrant.package)
 								return (
 									<TableRow key={index}>
 										<TableCell className={classes.tableData} align="left">

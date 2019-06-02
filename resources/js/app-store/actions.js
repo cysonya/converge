@@ -1,3 +1,4 @@
+export const APPLY_COUPON = "APPLY_COUPON"
 export const FETCH_EVENT = "FETCH_EVENT"
 export const FILTER_PACKAGES = "FILTER_PACKAGES"
 export const PLACE_ORDER = "PLACE_ORDER"
@@ -42,4 +43,8 @@ export function updateOrder(data) {
 // Remove order error
 export function removeOrderError() {
 	return { type: REMOVE_ORDER_ERROR }
+}
+
+export function applyCoupon(formProps, discount) {
+  return { type: APPLY_COUPON, formProps,  discount }
 }
