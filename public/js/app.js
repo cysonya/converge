@@ -104885,40 +104885,44 @@ var InternalEventForm = function InternalEventForm(_ref) {
   var handleValidate = function handleValidate(values) {
     var errors = {};
 
-    if (!values.payment.cardNumber) {
-      errors.payment = Object.assign({
-        cardNumber: "Provide valid card details"
-      }, errors.payment);
-    }
+    if (values.coupon.discount < 0 && values.registrants.length === 1) {
+      delete errors.payment; // Coupon applied with full discount. Order total is 0, no need to charge payment
+    } else {
+      if (!values.payment.cardNumber) {
+        errors.payment = Object.assign({
+          cardNumber: "Provide valid card details"
+        }, errors.payment);
+      }
 
-    if (!values.payment.cardExpiry) {
-      errors.payment = Object.assign({
-        cardExpiry: "Provide valid card details"
-      }, errors.payment);
-    }
+      if (!values.payment.cardExpiry) {
+        errors.payment = Object.assign({
+          cardExpiry: "Provide valid card details"
+        }, errors.payment);
+      }
 
-    if (!values.payment.cardCvc) {
-      errors.payment = Object.assign({
-        cardCvc: "Provide valid card details"
-      }, errors.payment);
-    }
+      if (!values.payment.cardCvc) {
+        errors.payment = Object.assign({
+          cardCvc: "Provide valid card details"
+        }, errors.payment);
+      }
 
-    if (!values.payment.postalCode) {
-      errors.payment = Object.assign({
-        postalCode: "Provide valid card details"
-      }, errors.payment);
-    } // Validate payment errors for stripe element
+      if (!values.payment.postalCode) {
+        errors.payment = Object.assign({
+          postalCode: "Provide valid card details"
+        }, errors.payment);
+      } // Validate payment errors for stripe element
 
 
-    for (var field in values.payment) {
-      if (values.payment[field] === "complete") {
-        if (errors.payment) {
-          delete errors.payment[field];
+      for (var field in values.payment) {
+        if (values.payment[field] === "complete") {
+          if (errors.payment) {
+            delete errors.payment[field];
+          }
+        } else {
+          var err = {};
+          err[field] = values.payment[field];
+          errors.payment = Object.assign(err, errors.payment);
         }
-      } else {
-        var err = {};
-        err[field] = values.payment[field];
-        errors.payment = Object.assign(err, errors.payment);
       }
     } // Only validate donation if amount is entered
 
@@ -105052,10 +105056,10 @@ var InternalEventForm = function InternalEventForm(_ref) {
         }
 
         return content;
-      };
-
-      console.log("VALUES: ", props.values); // console.log("ERRORS: ", props.errors)
+      }; // console.log("VALUES: ", props.values)
+      // console.log("ERRORS: ", props.errors)
       // console.log("TOUCHED: ", props.touched)
+
 
       return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["Form"], null, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_material_ui_core_Stepper__WEBPACK_IMPORTED_MODULE_1___default.a, {
         activeStep: currentStep,
@@ -106249,7 +106253,6 @@ var InternalPaymentForm = function InternalPaymentForm(_ref) {
       doBlur = _ref.doBlur,
       formProps = _ref.formProps,
       orderTotal = _ref.orderTotal,
-      pkgSummary = _ref.pkgSummary,
       status = _ref.status,
       width = _ref.width;
   return react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_4___default.a, {
@@ -106277,7 +106280,7 @@ var InternalPaymentForm = function InternalPaymentForm(_ref) {
     style: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_19__["isMobile"])(width) ? {} : {
       order: 1
     }
-  }, react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(PaymentContainer, null, react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_11__["Field"], {
+  }, react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(PaymentContainer, null, orderTotal !== 0 && react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_11__["Field"], {
     name: "payment.cardNumber",
     render: function render(_ref2) {
       var form = _ref2.form;
@@ -106329,7 +106332,7 @@ var InternalPaymentForm = function InternalPaymentForm(_ref) {
         }
       }), !!Object(_app_components_form_index__WEBPACK_IMPORTED_MODULE_18__["inputError"])(form, "payment.postalCode") && react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(ErrorText, null, formProps.errors.payment.postalCode));
     }
-  }), react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0___default.a, {
+  })), react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0___default.a, {
     type: "submit",
     variant: "contained",
     color: "primary",
@@ -106350,6 +106353,7 @@ InternalPaymentForm.propTypes = {};
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
+    orderTotal: Object(_components__WEBPACK_IMPORTED_MODULE_20__["getOrderTotal"])(state, ownProps),
     status: state.order.status
   };
 };

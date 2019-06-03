@@ -94,41 +94,46 @@ const InternalEventForm = ({
 	const handleValidate = values => {
 		let errors = {}
 
-		if (!values.payment.cardNumber) {
-			errors.payment = Object.assign(
-				{ cardNumber: "Provide valid card details" },
-				errors.payment
-			)
-		}
-		if (!values.payment.cardExpiry) {
-			errors.payment = Object.assign(
-				{ cardExpiry: "Provide valid card details" },
-				errors.payment
-			)
-		}
-		if (!values.payment.cardCvc) {
-			errors.payment = Object.assign(
-				{ cardCvc: "Provide valid card details" },
-				errors.payment
-			)
-		}
-		if (!values.payment.postalCode) {
-			errors.payment = Object.assign(
-				{ postalCode: "Provide valid card details" },
-				errors.payment
-			)
-		}
+		if (values.coupon.discount < 0 && values.registrants.length === 1) {
+			delete errors.payment
+			// Coupon applied with full discount. Order total is 0, no need to charge payment
+		} else {
+			if (!values.payment.cardNumber) {
+				errors.payment = Object.assign(
+					{ cardNumber: "Provide valid card details" },
+					errors.payment
+				)
+			}
+			if (!values.payment.cardExpiry) {
+				errors.payment = Object.assign(
+					{ cardExpiry: "Provide valid card details" },
+					errors.payment
+				)
+			}
+			if (!values.payment.cardCvc) {
+				errors.payment = Object.assign(
+					{ cardCvc: "Provide valid card details" },
+					errors.payment
+				)
+			}
+			if (!values.payment.postalCode) {
+				errors.payment = Object.assign(
+					{ postalCode: "Provide valid card details" },
+					errors.payment
+				)
+			}
 
-		// Validate payment errors for stripe element
-		for (let field in values.payment) {
-			if (values.payment[field] === "complete") {
-				if (errors.payment) {
-					delete errors.payment[field]
+			// Validate payment errors for stripe element
+			for (let field in values.payment) {
+				if (values.payment[field] === "complete") {
+					if (errors.payment) {
+						delete errors.payment[field]
+					}
+				} else {
+					let err = {}
+					err[field] = values.payment[field]
+					errors.payment = Object.assign(err, errors.payment)
 				}
-			} else {
-				let err = {}
-				err[field] = values.payment[field]
-				errors.payment = Object.assign(err, errors.payment)
 			}
 		}
 
@@ -249,7 +254,7 @@ const InternalEventForm = ({
 						return content
 					}
 
-					console.log("VALUES: ", props.values)
+					// console.log("VALUES: ", props.values)
 					// console.log("ERRORS: ", props.errors)
 					// console.log("TOUCHED: ", props.touched)
 					return (

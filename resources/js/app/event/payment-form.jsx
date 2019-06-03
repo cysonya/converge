@@ -27,7 +27,7 @@ import {
 import { inputError } from "@/app/components/form/index"
 import { isMobile } from "@/helpers/application"
 
-import { styles } from "./components"
+import { getOrderTotal, styles } from "./components"
 import OrderSummary from "./order-summary"
 
 const PaymentContainer = styled.div`
@@ -100,7 +100,6 @@ const InternalPaymentForm = ({
 	doBlur,
 	formProps,
 	orderTotal,
-	pkgSummary,
 	status,
 	width
 }) => {
@@ -123,66 +122,78 @@ const InternalPaymentForm = ({
 
 				<Grid item xs={12} md={7} style={isMobile(width) ? {} : { order: 1 }}>
 					<PaymentContainer>
-						<Field
-							name="payment.cardNumber"
-							render={({ form }) => (
-								<FormControl>
-									<FormLabel>Card Number</FormLabel>
-									<CardNumberElement
-										onChange={e => doChange(e)}
-										onBlur={e => doBlur(e)}
-									/>
-									{!!inputError(form, "payment.cardNumber") && (
-										<ErrorText>{formProps.errors.payment.cardNumber}</ErrorText>
+						{orderTotal !== 0 && (
+							<div>
+								<Field
+									name="payment.cardNumber"
+									render={({ form }) => (
+										<FormControl>
+											<FormLabel>Card Number</FormLabel>
+											<CardNumberElement
+												onChange={e => doChange(e)}
+												onBlur={e => doBlur(e)}
+											/>
+											{!!inputError(form, "payment.cardNumber") && (
+												<ErrorText>
+													{formProps.errors.payment.cardNumber}
+												</ErrorText>
+											)}
+										</FormControl>
 									)}
-								</FormControl>
-							)}
-						/>
-						<Field
-							name="payment.cardExpiry"
-							render={({ form }) => (
-								<FormControl>
-									<FormLabel>Expiry</FormLabel>
-									<CardExpiryElement
-										onChange={e => doChange(e)}
-										onBlur={e => doBlur(e)}
-									/>
-									{!!inputError(form, "payment.cardExpiry") && (
-										<ErrorText>{formProps.errors.payment.cardExpiry}</ErrorText>
+								/>
+								<Field
+									name="payment.cardExpiry"
+									render={({ form }) => (
+										<FormControl>
+											<FormLabel>Expiry</FormLabel>
+											<CardExpiryElement
+												onChange={e => doChange(e)}
+												onBlur={e => doBlur(e)}
+											/>
+											{!!inputError(form, "payment.cardExpiry") && (
+												<ErrorText>
+													{formProps.errors.payment.cardExpiry}
+												</ErrorText>
+											)}
+										</FormControl>
 									)}
-								</FormControl>
-							)}
-						/>
-						<Field
-							name="payment.cardCvc"
-							render={({ form }) => (
-								<FormControl>
-									<FormLabel>Secure Code</FormLabel>
-									<CardCVCElement
-										onChange={e => doChange(e)}
-										onBlur={e => doBlur(e)}
-									/>
-									{!!inputError(form, "payment.cardCvc") && (
-										<ErrorText>{formProps.errors.payment.cardCvc}</ErrorText>
+								/>
+								<Field
+									name="payment.cardCvc"
+									render={({ form }) => (
+										<FormControl>
+											<FormLabel>Secure Code</FormLabel>
+											<CardCVCElement
+												onChange={e => doChange(e)}
+												onBlur={e => doBlur(e)}
+											/>
+											{!!inputError(form, "payment.cardCvc") && (
+												<ErrorText>
+													{formProps.errors.payment.cardCvc}
+												</ErrorText>
+											)}
+										</FormControl>
 									)}
-								</FormControl>
-							)}
-						/>
-						<Field
-							name="payment.postalCode"
-							render={({ form }) => (
-								<FormControl>
-									<FormLabel>Zip</FormLabel>
-									<PostalCodeElement
-										onChange={e => doChange(e)}
-										onBlur={e => doBlur(e)}
-									/>
-									{!!inputError(form, "payment.postalCode") && (
-										<ErrorText>{formProps.errors.payment.postalCode}</ErrorText>
+								/>
+								<Field
+									name="payment.postalCode"
+									render={({ form }) => (
+										<FormControl>
+											<FormLabel>Zip</FormLabel>
+											<PostalCodeElement
+												onChange={e => doChange(e)}
+												onBlur={e => doBlur(e)}
+											/>
+											{!!inputError(form, "payment.postalCode") && (
+												<ErrorText>
+													{formProps.errors.payment.postalCode}
+												</ErrorText>
+											)}
+										</FormControl>
 									)}
-								</FormControl>
-							)}
-						/>
+								/>
+							</div>
+						)}
 
 						<Button
 							type="submit"
@@ -216,6 +227,7 @@ InternalPaymentForm.propTypes = {}
 
 const mapStateToProps = (state, ownProps) => {
 	return {
+		orderTotal: getOrderTotal(state, ownProps),
 		status: state.order.status
 	}
 }
