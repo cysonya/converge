@@ -1,5 +1,5 @@
 import Button from "@material-ui/core/Button"
-import Collapse from '@material-ui/core/Collapse'
+import Collapse from "@material-ui/core/Collapse"
 import InputAdornment from "@material-ui/core/InputAdornment"
 import MenuItem from "@material-ui/core/MenuItem"
 import TextField from "@material-ui/core/TextField"
@@ -19,16 +19,16 @@ const styles = {
     textTransform: "none"
   }
 }
-const InternalCouponField = ({ apply, classes, formProps }) => {
-
+const InternalCouponField = ({ apply, classes, couponApplied, formProps }) => {
   const [showCouponField, setShowCouponField] = useState(false)
 
   return (
     <div>
       {!showCouponField && (
-        <Button 
-          className={classes.couponBtn} 
-          color="primary" size="small" 
+        <Button
+          className={classes.couponBtn}
+          color="primary"
+          size="small"
           onClick={() => setShowCouponField(true)}
         >
           Have a coupon code?
@@ -41,14 +41,15 @@ const InternalCouponField = ({ apply, classes, formProps }) => {
             render={({ field }) => (
               <TextField
                 className="mb-5"
-                label="Select speaker"
+                label={couponApplied ? "" : "Select speaker"}
                 fullWidth
                 select
+                disabled={couponApplied}
                 {...field}
               >
-                <MenuItem value=""/>
+                <MenuItem value="" />
                 {formProps.values.registrants.map((reg, i) => (
-                  <MenuItem key={'cr'+i} value={i}>
+                  <MenuItem key={"cr" + i} value={i}>
                     {reg.first_name} {reg.last_name}
                   </MenuItem>
                 ))}
@@ -56,11 +57,16 @@ const InternalCouponField = ({ apply, classes, formProps }) => {
             )}
           />
         )}
-        <Collapse in={formProps.values.registrants.length === 1 || formProps.values.coupon.registrantIndex !== ""}>
+        <Collapse
+          in={
+            formProps.values.registrants.length === 1 ||
+            formProps.values.coupon.registrantIndex !== ""
+          }
+        >
           <Field
             name="coupon.code"
             render={({ field }) => {
-              const couponError = getIn(formProps.errors, 'coupon.code')
+              const couponError = getIn(formProps.errors, "coupon.code")
               let helperText = ""
               if (formProps.values.coupon.discount < 0) {
                 helperText = "Coupon applied!"
@@ -69,16 +75,16 @@ const InternalCouponField = ({ apply, classes, formProps }) => {
               }
               return (
                 <TextField
-                  label="Enter coupon code"
+                  label={couponApplied ? "" : "Enter coupon code"}
                   helperText={helperText}
                   error={!!couponError}
                   fullWidth
                   InputProps={{
-                    endAdornment: (
+                    endAdornment: couponApplied ? null : (
                       <InputAdornment position="end">
-                        <Button 
-                          color="primary" 
-                          size="small" 
+                        <Button
+                          color="primary"
+                          size="small"
                           onClick={() => apply()}
                         >
                           APPLY
@@ -86,6 +92,7 @@ const InternalCouponField = ({ apply, classes, formProps }) => {
                       </InputAdornment>
                     )
                   }}
+                  disabled={couponApplied}
                   {...field}
                 />
               )
@@ -101,6 +108,7 @@ InternalCouponField.propTypes = {}
 
 const mapStateToProps = (state, ownProps) => {
   return {
+    couponApplied: ownProps.formProps.values.coupon.discount < 0,
     groups: state.event.groups,
     packages: state.event.packages
   }
@@ -120,14 +128,18 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
     ...stateProps,
     ...dispatchProps,
     apply: () => {
-      const speaker = values.registrants[values.coupon.registrantIndex] || values.registrants[0]
+      const speaker =
+        values.registrants[values.coupon.registrantIndex] ||
+        values.registrants[0]
       const group = groups.find(g => g.id === speaker.group)
       const pkg = packages.find(p => p.id === speaker.package)
-      const discount = -Math.round(pkg.groups.find(g => g.id === speaker.group).price)
+      const discount = -Math.round(
+        pkg.groups.find(g => g.id === speaker.group).price
+      )
       console.log("DISCOUNT: ", discount)
 
       dispatch(applyCoupon(formProps, discount))
-    } 
+    }
   }
 }
 

@@ -94,12 +94,6 @@ const InternalEventForm = ({
 	const handleValidate = values => {
 		let errors = {}
 
-		// if (!values.payment.cardName) {
-		// 	errors.payment = Object.assign(
-		// 		{ cardName: "Provide valid card details" },
-		// 		errors.payment
-		// 	)
-		// }
 		if (!values.payment.cardNumber) {
 			errors.payment = Object.assign(
 				{ cardNumber: "Provide valid card details" },

@@ -2,9 +2,7 @@ import Button from "@material-ui/core/Button"
 import CircularProgress from "@material-ui/core/CircularProgress"
 import Dialog from "@material-ui/core/Dialog"
 import DialogContent from "@material-ui/core/DialogContent"
-import Divider from "@material-ui/core/Divider"
 import Grid from "@material-ui/core/Grid"
-import LockIcon from "@material-ui/icons/Lock"
 import MenuItem from "@material-ui/core/MenuItem"
 import Slide from "@material-ui/core/Slide"
 import TextField from "@material-ui/core/TextField"
@@ -27,22 +25,11 @@ import {
 } from "react-stripe-elements"
 
 import { inputError } from "@/app/components/form/index"
-import { currency, isMobile } from "@/helpers/application"
-import { media } from "@/styles/utils"
+import { isMobile } from "@/helpers/application"
 
-import { getTotal, styles, TotalAmount } from "./components"
-import CouponField from "./coupon-field"
+import { styles } from "./components"
+import OrderSummary from "./order-summary"
 
-const SectionTitle = styled.div`
-	display: flex;
-	align-items: center;
-	padding-bottom: 4px;
-	margin-bottom: 10px;
-	border-bottom: 1px solid ${props => props.theme.grey[300]};
-	${media.md`
-		margin-bottom: 8px;
-	`}
-`
 const PaymentContainer = styled.div`
 	padding: 10px;
 	background-color: ${props => props.theme.grey[200]};
@@ -131,58 +118,11 @@ const InternalPaymentForm = ({
 					md={5}
 					style={isMobile(width) ? { marginTop: "10px" } : { order: 2 }}
 				>
-					<SectionTitle>
-						<LockIcon className="pr-5" /> Order Summary
-					</SectionTitle>
-					{Object.keys(pkgSummary).map((pkg, i) => (
-						<TotalAmount key={i}>
-							<Typography variant="body2">
-								{pkgSummary[pkg].title}{" "}
-								{pkgSummary[pkg].quantity > 0 && (
-									<strong>x {pkgSummary[pkg].quantity}</strong>
-								)}
-							</Typography>
-							<Typography variant="body2">
-								{currency(pkgSummary[pkg].price)}
-							</Typography>
-						</TotalAmount>
-					))}
-					{parseInt(formProps.values.donation) > 0 && (
-						<TotalAmount>
-							<Typography variant="body2">Donation</Typography>
-							<Typography variant="body2">
-								${formProps.values.donation}
-							</Typography>
-						</TotalAmount>
-					)}
-					<Divider className={classes.divider} />
-					<TotalAmount className="mb-10">
-						<strong>Total</strong>
-						<strong>{currency(orderTotal)} USD</strong>
-					</TotalAmount>
-					<CouponField formProps={formProps} />
+					<OrderSummary formProps={formProps} />
 				</Grid>
 
 				<Grid item xs={12} md={7} style={isMobile(width) ? {} : { order: 1 }}>
 					<PaymentContainer>
-						{false && (
-							<Field
-								name="payment.cardName"
-								render={({ field, form }) => (
-									<FormControl>
-										<FormLabel>Cardholder Name</FormLabel>
-										<NameInput
-											error={!!inputError(form, "payment.cardName")}
-											autocomplete="cc-name"
-											{...field}
-										/>
-										{!!inputError(form, "payment.cardName") && (
-											<ErrorText>{formProps.errors.payment.cardName}</ErrorText>
-										)}
-									</FormControl>
-								)}
-							/>
-						)}
 						<Field
 							name="payment.cardNumber"
 							render={({ form }) => (
@@ -274,35 +214,8 @@ const InternalPaymentForm = ({
 
 InternalPaymentForm.propTypes = {}
 
-const getPkgSummary = (state, ownProps) => {
-	const pkgs = state.event.packages
-	let summary = {}
-
-	// Get quantity for each package ordered with cost per package
-	// ex: {2: {quantity: 2, price: 110}}
-	ownProps.formProps.values.registrants.forEach(registrant => {
-		if (summary.hasOwnProperty(registrant.package)) {
-			let pkg = pkgs.find(p => p.id === registrant.package)
-			summary[registrant.package].quantity += 1
-			summary[registrant.package].price += parseInt(
-				pkg.groups.find(g => g.id === registrant.group).price
-			)
-		} else {
-			let pkg = pkgs.find(p => p.id === registrant.package)
-			summary[registrant.package] = {
-				quantity: 1,
-				price: parseInt(pkg.groups.find(g => g.id === registrant.group).price),
-				title: pkg.title
-			}
-		}
-	})
-	return summary
-}
-
 const mapStateToProps = (state, ownProps) => {
 	return {
-		orderTotal: getTotal(state, ownProps) + ownProps.formProps.values.donation,
-		pkgSummary: getPkgSummary(state, ownProps),
 		status: state.order.status
 	}
 }

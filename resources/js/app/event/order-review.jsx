@@ -26,7 +26,7 @@ import { currency, isMobile } from "@/helpers/application"
 import { media } from "@/styles/utils"
 import { inputError } from "@/app/components/form/index"
 
-import { getTotal, TotalAmount } from "./components"
+import { getPkgTotal, TotalAmount } from "./components"
 
 const styles = theme => ({
 	summaryWrapper: {
@@ -214,7 +214,7 @@ const mapStateToProps = (state, ownProps) => {
 	return {
 		donationSelect: [0, 5, 10, 20, 50, 100],
 		groups: state.event.groups,
-		orderTotal: getTotal(state, ownProps),
+		orderTotal: getPkgTotal(state, ownProps),
 		packages: state.event.packages
 	}
 }
