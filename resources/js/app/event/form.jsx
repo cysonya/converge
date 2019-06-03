@@ -15,17 +15,18 @@ import { Elements, injectStripe } from "react-stripe-elements"
 import styled from "styled-components"
 
 import ContactSupport from "@/app/contact-support"
+import { getOrderTotal } from "@/app/helpers"
 import { placeOrder, setStep, updateOrder } from "@/app-store/actions"
 import { isMobile } from "@/helpers/application"
 import theme from "@/styles/theme"
 import { media } from "@/styles/utils"
 import AttendantForm from "./attendant-form"
 import ErrorAlert from "./error-alert"
-import PaymentForm from "./payment-form"
 import FormNav from "./form-nav"
 import HousingForm from "./housing-form"
 import OrderComplete from "./order-complete"
 import OrderReview from "./order-review"
+import PaymentForm from "./payment-form"
 
 const styles = theme => ({
 	stepper: {
@@ -81,10 +82,10 @@ const InternalEventForm = ({
 	handlePanelClick,
 	initialValues,
 	panels,
+	setProcessingOrder,
 	showError,
 	status,
 	stripe,
-	updateOrderStatus,
 	width
 }) => {
 	if (!event.id) {
@@ -205,32 +206,32 @@ const InternalEventForm = ({
 					return handleValidate(values)
 				}}
 				onSubmit={(values, { setSubmitting }) => {
-					updateOrderStatus()
-					stripe.createToken().then(({ error, token }) => {
-						console.log("Stripe TOKEN: ", token)
-						console.log("Stripe ERRORS: ", error)
-						if (!!error) {
-							showError(error.message)
-							setSubmitting(false)
-						}
-						if (!!token) {
-							values.stripeToken = token.id
-							values.customer_first_name = values.registrants[0].first_name
-							values.customer_last_name = values.registrants[0].last_name
+					setProcessingOrder()
+					values.customer_first_name = values.registrants[0].first_name
+					values.customer_last_name = values.registrants[0].last_name
 
-							// Set fullstory names
-							if (typeof FS !== "undefined") {
-								FS.setUserVars({
-									displayName: `${values.customer_first_name} ${
-										values.customer_last_name
-									}`,
-									email: values.customer_email
-								})
+					const orderTotal = getOrderTotal(
+						{ event: event },
+						{ formProps: { values: values } }
+					)
+
+					if (orderTotal === 0) {
+						console.log("ZERO!")
+						doPlaceOrder(values, setSubmitting)
+					} else {
+						stripe.createToken().then(({ error, token }) => {
+							console.log("Stripe TOKEN: ", token)
+							console.log("Stripe ERRORS: ", error)
+							if (!!error) {
+								showError(error.message)
+								setSubmitting(false)
 							}
-
-							doPlaceOrder(values, setSubmitting)
-						}
-					})
+							if (!!token) {
+								values.stripeToken = token.id
+								doPlaceOrder(values, setSubmitting)
+							}
+						})
+					}
 				}}
 				render={props => {
 					if (status === "complete") {
@@ -338,8 +339,8 @@ const mapStateToProps = (state, ownProps) => {
 		currentStep: state.event.step,
 		error: state.order.error,
 		event: state.event,
-		status: state.order.status,
-		panels: state.panels
+		panels: state.panels,
+		status: state.order.status
 	}
 }
 
@@ -352,7 +353,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		showError: error => {
 			dispatch(updateOrder({ status: "incomplete", error: error }))
 		},
-		updateOrderStatus: () => {
+		setProcessingOrder: () => {
 			dispatch(updateOrder({ status: "processing" }))
 		}
 	}

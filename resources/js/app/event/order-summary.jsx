@@ -9,10 +9,11 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import styled from "styled-components"
 
+import { getOrderTotal } from "@/app/helpers"
 import { media } from "@/styles/utils"
 import { currency } from "@/helpers/application"
 
-import { getOrderTotal, styles, TotalAmount } from "./components"
+import { styles, TotalAmount } from "./components"
 import CouponField from "./coupon-field"
 
 const SectionTitle = styled.div`

@@ -10,41 +10,41 @@ export const UPDATE_PACKAGE = "UPDATE_PACKAGE"
 
 // Triggers submit-order saga to register attendants and pay for order
 export function placeOrder(values, setSubmitting) {
-	return { type: PLACE_ORDER, values, setSubmitting }
+  return { type: PLACE_ORDER, values, setSubmitting }
 }
 
 // Triggers fetch-event saga
 export function fetchEvent(id) {
-	return { type: FETCH_EVENT, id }
+  return { type: FETCH_EVENT, id }
 }
 
 // Triggers filter-packages saga
 export function filterPackages(registrants) {
-	return { type: FILTER_PACKAGES, registrants }
+  return { type: FILTER_PACKAGES, registrants }
 }
 export function updatePackage(index, value) {
-	return { type: UPDATE_PACKAGE, index, value }
+  return { type: UPDATE_PACKAGE, index, value }
 }
 
 // Sets event data store
 export function setEventData(data) {
-	return { type: SET_EVENT_DATA, data }
+  return { type: SET_EVENT_DATA, data }
 }
 
 // Sets step index
 export function setStep(index) {
-	return { type: SET_STEP, index }
+  return { type: SET_STEP, index }
 }
 
 // Set order status
 export function updateOrder(data) {
-	return { type: UPDATE_ORDER, data }
+  return { type: UPDATE_ORDER, data }
 }
 // Remove order error
 export function removeOrderError() {
-	return { type: REMOVE_ORDER_ERROR }
+  return { type: REMOVE_ORDER_ERROR }
 }
 
-export function applyCoupon(formProps, discount) {
-  return { type: APPLY_COUPON, formProps,  discount }
+export function applyCoupon(formProps) {
+  return { type: APPLY_COUPON, formProps }
 }

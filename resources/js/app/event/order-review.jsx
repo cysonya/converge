@@ -22,11 +22,12 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import styled from "styled-components"
 
+import { getPkgTotal } from "@/app/helpers"
 import { currency, isMobile } from "@/helpers/application"
 import { media } from "@/styles/utils"
 import { inputError } from "@/app/components/form/index"
 
-import { getPkgTotal, TotalAmount } from "./components"
+import { TotalAmount } from "./components"
 
 const styles = theme => ({
 	summaryWrapper: {

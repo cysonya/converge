@@ -102477,11 +102477,10 @@ function removeOrderError() {
     type: REMOVE_ORDER_ERROR
   };
 }
-function applyCoupon(formProps, discount) {
+function applyCoupon(formProps) {
   return {
     type: APPLY_COUPON,
-    formProps: formProps,
-    discount: discount
+    formProps: formProps
   };
 }
 
@@ -102712,6 +102711,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux-saga/effects */ "./node_modules/redux-saga/es/effects.js");
 /* harmony import */ var _apis__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/apis */ "./resources/js/apis.js");
+/* harmony import */ var _app_helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/app/helpers */ "./resources/js/app/helpers.js");
 
 
 var _marked =
@@ -102720,30 +102720,61 @@ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(applyCoup
 
 
 
+
 function applyCoupon(action) {
-  var code, result;
+  var state, values, code, result, discount, coupon, speaker, group, pkg, orderTotal;
   return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function applyCoupon$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
-          code = action.formProps.values.coupon.code;
-          _context.next = 3;
+          _context.next = 2;
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["select"])();
+
+        case 2:
+          state = _context.sent;
+          values = action.formProps.values;
+          code = values.coupon.code;
+          _context.next = 7;
           return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["call"])(_apis__WEBPACK_IMPORTED_MODULE_2__["default"].post, "/check_coupon", {
             code: code
           });
 
-        case 3:
+        case 7:
           result = _context.sent;
-
-          if (result.error) {
-            action.formProps.setFieldError('coupon.code', result.error);
-          } else {
-            action.formProps.setFieldValue('coupon.discount', action.discount);
-          }
-
           console.log("RESULT: ", result);
 
-        case 6:
+          if (result.error) {
+            action.formProps.setFieldError("coupon.code", result.error);
+          } else {
+            // Valid coupon - Calculate discount
+            discount = 0;
+            coupon = result.coupon;
+
+            if (result.coupon.type === "package_off") {
+              speaker = values.registrants[values.coupon.registrantIndex] || values.registrants[0];
+              group = state.event.groups.find(function (g) {
+                return g.id === speaker.group;
+              });
+              pkg = state.event.packages.find(function (p) {
+                return p.id === speaker.package;
+              });
+              discount = Math.round(pkg.groups.find(function (g) {
+                return g.id === speaker.group;
+              }).price);
+              console.log("DISCOUNT: ", discount);
+            } else if (result.oupon.type === "percent") {
+              orderTotal = Object(_app_helpers__WEBPACK_IMPORTED_MODULE_3__["getOrderTotal"])(state, {
+                formProps: action.formProps
+              });
+              discount = Math.round(orderTotal * (coupon.discount_rate / 100));
+            } else if (coupon.type === "amount") {
+              discount = coupon.discount_amount;
+            }
+
+            action.formProps.setFieldValue("coupon.discount", -discount);
+          }
+
+        case 10:
         case "end":
           return _context.stop();
       }
@@ -104131,7 +104162,7 @@ var AttendantForm = Object(react_redux__WEBPACK_IMPORTED_MODULE_13__["connect"])
 /*!***********************************************!*\
   !*** ./resources/js/app/event/components.jsx ***!
   \***********************************************/
-/*! exports provided: styles, TotalAmount, Divider, getPkgTotal, getOrderTotal */
+/*! exports provided: styles, TotalAmount, Divider */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -104139,8 +104170,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "styles", function() { return styles; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TotalAmount", function() { return TotalAmount; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Divider", function() { return Divider; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPkgTotal", function() { return getPkgTotal; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOrderTotal", function() { return getOrderTotal; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
@@ -104226,19 +104255,6 @@ var Divider = function Divider(props) {
     return props.theme.primary.main;
   });
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Line, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Text, null, props.text));
-};
-var getPkgTotal = function getPkgTotal(state, ownProps) {
-  return ownProps.formProps.values.registrants.reduce(function (acc, registrant) {
-    var pkg = state.event.packages.find(function (p) {
-      return p.id === registrant.package;
-    });
-    return acc + Math.round(pkg.groups.find(function (g) {
-      return g.id === registrant.group;
-    }).price);
-  }, 0);
-};
-var getOrderTotal = function getOrderTotal(state, ownProps) {
-  return getPkgTotal(state, ownProps) + ownProps.formProps.values.donation + ownProps.formProps.values.coupon.discount;
 };
 
 /***/ }),
@@ -104406,18 +104422,7 @@ var mergeProps = function mergeProps(stateProps, dispatchProps, ownProps) {
   var values = formProps.values;
   return _objectSpread({}, ownProps, stateProps, dispatchProps, {
     apply: function apply() {
-      var speaker = values.registrants[values.coupon.registrantIndex] || values.registrants[0];
-      var group = groups.find(function (g) {
-        return g.id === speaker.group;
-      });
-      var pkg = packages.find(function (p) {
-        return p.id === speaker.package;
-      });
-      var discount = -Math.round(pkg.groups.find(function (g) {
-        return g.id === speaker.group;
-      }).price);
-      console.log("DISCOUNT: ", discount);
-      dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_11__["applyCoupon"])(formProps, discount));
+      dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_11__["applyCoupon"])(formProps));
     }
   });
 };
@@ -104746,17 +104751,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_stripe_elements__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(react_stripe_elements__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 /* harmony import */ var _app_contact_support__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/app/contact-support */ "./resources/js/app/contact-support.jsx");
-/* harmony import */ var _app_store_actions__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/app-store/actions */ "./resources/js/app-store/actions.js");
-/* harmony import */ var _helpers_application__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/helpers/application */ "./resources/js/helpers/application.js");
-/* harmony import */ var _styles_theme__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/styles/theme */ "./resources/js/styles/theme.js");
-/* harmony import */ var _styles_utils__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/styles/utils */ "./resources/js/styles/utils.js");
-/* harmony import */ var _attendant_form__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./attendant-form */ "./resources/js/app/event/attendant-form.jsx");
-/* harmony import */ var _error_alert__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./error-alert */ "./resources/js/app/event/error-alert.jsx");
-/* harmony import */ var _payment_form__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./payment-form */ "./resources/js/app/event/payment-form.jsx");
+/* harmony import */ var _app_helpers__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/app/helpers */ "./resources/js/app/helpers.js");
+/* harmony import */ var _app_store_actions__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/app-store/actions */ "./resources/js/app-store/actions.js");
+/* harmony import */ var _helpers_application__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/helpers/application */ "./resources/js/helpers/application.js");
+/* harmony import */ var _styles_theme__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/styles/theme */ "./resources/js/styles/theme.js");
+/* harmony import */ var _styles_utils__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/styles/utils */ "./resources/js/styles/utils.js");
+/* harmony import */ var _attendant_form__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./attendant-form */ "./resources/js/app/event/attendant-form.jsx");
+/* harmony import */ var _error_alert__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./error-alert */ "./resources/js/app/event/error-alert.jsx");
 /* harmony import */ var _form_nav__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./form-nav */ "./resources/js/app/event/form-nav.jsx");
 /* harmony import */ var _housing_form__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./housing-form */ "./resources/js/app/event/housing-form.jsx");
 /* harmony import */ var _order_complete__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./order-complete */ "./resources/js/app/event/order-complete.jsx");
 /* harmony import */ var _order_review__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./order-review */ "./resources/js/app/event/order-review.jsx");
+/* harmony import */ var _payment_form__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./payment-form */ "./resources/js/app/event/payment-form.jsx");
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _templateObject5() {
@@ -104839,6 +104845,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 var styles = function styles(theme) {
   return {
     stepper: _defineProperty({
@@ -104854,10 +104861,10 @@ var styles = function styles(theme) {
   };
 };
 
-var FormWrapper = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div(_templateObject(), _styles_theme__WEBPACK_IMPORTED_MODULE_16__["default"].shadows[3], _styles_utils__WEBPACK_IMPORTED_MODULE_17__["media"].md(_templateObject2()));
+var FormWrapper = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div(_templateObject(), _styles_theme__WEBPACK_IMPORTED_MODULE_17__["default"].shadows[3], _styles_utils__WEBPACK_IMPORTED_MODULE_18__["media"].md(_templateObject2()));
 var FormHeading = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].h4(_templateObject3(), function (props) {
   return props.complete ? "0 0 20px" : "0";
-}, _styles_utils__WEBPACK_IMPORTED_MODULE_17__["media"].md(_templateObject4(), function (props) {
+}, _styles_utils__WEBPACK_IMPORTED_MODULE_18__["media"].md(_templateObject4(), function (props) {
   return props.theme.grey[900];
 }));
 var FormContent = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div(_templateObject5());
@@ -104872,10 +104879,10 @@ var InternalEventForm = function InternalEventForm(_ref) {
       handlePanelClick = _ref.handlePanelClick,
       initialValues = _ref.initialValues,
       panels = _ref.panels,
+      setProcessingOrder = _ref.setProcessingOrder,
       showError = _ref.showError,
       status = _ref.status,
       stripe = _ref.stripe,
-      updateOrderStatus = _ref.updateOrderStatus,
       width = _ref.width;
 
   if (!event.id) {
@@ -104997,40 +105004,45 @@ var InternalEventForm = function InternalEventForm(_ref) {
     },
     onSubmit: function onSubmit(values, _ref2) {
       var setSubmitting = _ref2.setSubmitting;
-      updateOrderStatus();
-      stripe.createToken().then(function (_ref3) {
-        var error = _ref3.error,
-            token = _ref3.token;
-        console.log("Stripe TOKEN: ", token);
-        console.log("Stripe ERRORS: ", error);
-
-        if (!!error) {
-          showError(error.message);
-          setSubmitting(false);
-        }
-
-        if (!!token) {
-          values.stripeToken = token.id;
-          values.customer_first_name = values.registrants[0].first_name;
-          values.customer_last_name = values.registrants[0].last_name; // Set fullstory names
-
-          if (typeof FS !== "undefined") {
-            FS.setUserVars({
-              displayName: "".concat(values.customer_first_name, " ").concat(values.customer_last_name),
-              email: values.customer_email
-            });
-          }
-
-          doPlaceOrder(values, setSubmitting);
+      setProcessingOrder();
+      values.customer_first_name = values.registrants[0].first_name;
+      values.customer_last_name = values.registrants[0].last_name;
+      var orderTotal = Object(_app_helpers__WEBPACK_IMPORTED_MODULE_14__["getOrderTotal"])({
+        event: event
+      }, {
+        formProps: {
+          values: values
         }
       });
+
+      if (orderTotal === 0) {
+        console.log("ZERO!");
+        doPlaceOrder(values, setSubmitting);
+      } else {
+        stripe.createToken().then(function (_ref3) {
+          var error = _ref3.error,
+              token = _ref3.token;
+          console.log("Stripe TOKEN: ", token);
+          console.log("Stripe ERRORS: ", error);
+
+          if (!!error) {
+            showError(error.message);
+            setSubmitting(false);
+          }
+
+          if (!!token) {
+            values.stripeToken = token.id;
+            doPlaceOrder(values, setSubmitting);
+          }
+        });
+      }
     },
     render: function render(props) {
       if (status === "complete") {
         return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_order_complete__WEBPACK_IMPORTED_MODULE_23__["default"], null);
       }
 
-      var content = react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_attendant_form__WEBPACK_IMPORTED_MODULE_18__["default"], {
+      var content = react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_attendant_form__WEBPACK_IMPORTED_MODULE_19__["default"], {
         formProps: props
       });
 
@@ -105049,7 +105061,7 @@ var InternalEventForm = function InternalEventForm(_ref) {
             break;
 
           case 3:
-            content = react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_payment_form__WEBPACK_IMPORTED_MODULE_20__["default"], {
+            content = react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_payment_form__WEBPACK_IMPORTED_MODULE_25__["default"], {
               formProps: props
             });
             break;
@@ -105063,9 +105075,9 @@ var InternalEventForm = function InternalEventForm(_ref) {
 
       return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["Form"], null, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_material_ui_core_Stepper__WEBPACK_IMPORTED_MODULE_1___default.a, {
         activeStep: currentStep,
-        alternativeLabel: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_15__["isMobile"])(width) ? false : true,
+        alternativeLabel: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_16__["isMobile"])(width) ? false : true,
         className: classes.stepper,
-        orientation: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_15__["isMobile"])(width) ? "vertical" : "horizontal"
+        orientation: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_16__["isMobile"])(width) ? "vertical" : "horizontal"
       }, panels.map(function (panel, index) {
         return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_material_ui_core_Step__WEBPACK_IMPORTED_MODULE_0___default.a, {
           key: index
@@ -105073,12 +105085,12 @@ var InternalEventForm = function InternalEventForm(_ref) {
           onClick: function onClick(e) {
             return handlePanelClick(e, props, index);
           }
-        }, panel.title), Object(_helpers_application__WEBPACK_IMPORTED_MODULE_15__["isMobile"])(width) ? react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_material_ui_core_StepContent__WEBPACK_IMPORTED_MODULE_2___default.a, {
+        }, panel.title), Object(_helpers_application__WEBPACK_IMPORTED_MODULE_16__["isMobile"])(width) ? react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_material_ui_core_StepContent__WEBPACK_IMPORTED_MODULE_2___default.a, {
           className: classes.stepContent
         }, getContent(index), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_form_nav__WEBPACK_IMPORTED_MODULE_21__["default"], {
           formProps: props
         })) : null);
-      })), !!error && react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_error_alert__WEBPACK_IMPORTED_MODULE_19__["default"], null), !Object(_helpers_application__WEBPACK_IMPORTED_MODULE_15__["isMobile"])(width) && react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(FormContent, null, getContent(currentStep)), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_form_nav__WEBPACK_IMPORTED_MODULE_21__["default"], {
+      })), !!error && react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_error_alert__WEBPACK_IMPORTED_MODULE_20__["default"], null), !Object(_helpers_application__WEBPACK_IMPORTED_MODULE_16__["isMobile"])(width) && react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(FormContent, null, getContent(currentStep)), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_form_nav__WEBPACK_IMPORTED_MODULE_21__["default"], {
         formProps: props
       })));
     }
@@ -105123,8 +105135,8 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
     currentStep: state.event.step,
     error: state.order.error,
     event: state.event,
-    status: state.order.status,
-    panels: state.panels
+    panels: state.panels,
+    status: state.order.status
   };
 };
 
@@ -105132,16 +105144,16 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
   return {
     dispatch: dispatch,
     doPlaceOrder: function doPlaceOrder(values, setSubmitting) {
-      dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_14__["placeOrder"])(values, setSubmitting));
+      dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_15__["placeOrder"])(values, setSubmitting));
     },
     showError: function showError(error) {
-      dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_14__["updateOrder"])({
+      dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_15__["updateOrder"])({
         status: "incomplete",
         error: error
       }));
     },
-    updateOrderStatus: function updateOrderStatus() {
-      dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_14__["updateOrder"])({
+    setProcessingOrder: function setProcessingOrder() {
+      dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_15__["updateOrder"])({
         status: "processing"
       }));
     }
@@ -105185,14 +105197,14 @@ var mergeProps = function mergeProps(stateProps, dispatchProps, ownProps) {
 
 
           if (hasErrors) {
-            dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_14__["setStep"])(index));
+            dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_15__["setStep"])(index));
           }
 
           return hasErrors;
         });
 
         if (!invalid) {
-          dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_14__["setStep"])(stepIndex));
+          dispatch(Object(_app_store_actions__WEBPACK_IMPORTED_MODULE_15__["setStep"])(stepIndex));
         }
       });
     }
@@ -105686,10 +105698,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_19__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _helpers_application__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @/helpers/application */ "./resources/js/helpers/application.js");
-/* harmony import */ var _styles_utils__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @/styles/utils */ "./resources/js/styles/utils.js");
-/* harmony import */ var _app_components_form_index__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @/app/components/form/index */ "./resources/js/app/components/form/index.js");
-/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components */ "./resources/js/app/event/components.jsx");
+/* harmony import */ var _app_helpers__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @/app/helpers */ "./resources/js/app/helpers.js");
+/* harmony import */ var _helpers_application__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @/helpers/application */ "./resources/js/helpers/application.js");
+/* harmony import */ var _styles_utils__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @/styles/utils */ "./resources/js/styles/utils.js");
+/* harmony import */ var _app_components_form_index__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @/app/components/form/index */ "./resources/js/app/components/form/index.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components */ "./resources/js/app/event/components.jsx");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _templateObject5() {
@@ -105771,6 +105784,7 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 
+
 var styles = function styles(theme) {
   return {
     summaryWrapper: {
@@ -105797,7 +105811,7 @@ var styles = function styles(theme) {
 var TableWrapper = styled_components__WEBPACK_IMPORTED_MODULE_21__["default"].div(_templateObject());
 var TotalContainer = styled_components__WEBPACK_IMPORTED_MODULE_21__["default"].div(_templateObject2(), function (props) {
   return props.theme.grey[200];
-}, _styles_utils__WEBPACK_IMPORTED_MODULE_23__["media"].md(_templateObject3()));
+}, _styles_utils__WEBPACK_IMPORTED_MODULE_24__["media"].md(_templateObject3()));
 var ButtonGroup = styled_components__WEBPACK_IMPORTED_MODULE_21__["default"].div(_templateObject4());
 var DonateButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_21__["default"])(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_0___default.a)(_templateObject5());
 
@@ -105843,10 +105857,10 @@ var InternalOrderReview = function InternalOrderReview(_ref) {
     }, pkg.title), react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_10___default.a, {
       className: classes.tableData,
       align: "right"
-    }, Object(_helpers_application__WEBPACK_IMPORTED_MODULE_22__["currency"])(Math.round(pkg.groups.find(function (g) {
+    }, Object(_helpers_application__WEBPACK_IMPORTED_MODULE_23__["currency"])(Math.round(pkg.groups.find(function (g) {
       return g.id === registrant.group;
     }).price))));
-  })))), react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(TotalContainer, null, react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_25__["TotalAmount"], null, react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement("strong", null, "Total"), react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement("strong", null, Object(_helpers_application__WEBPACK_IMPORTED_MODULE_22__["currency"])(orderTotal), " USD")))), react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
+  })))), react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(TotalContainer, null, react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_26__["TotalAmount"], null, react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement("strong", null, "Total"), react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement("strong", null, Object(_helpers_application__WEBPACK_IMPORTED_MODULE_23__["currency"])(orderTotal), " USD")))), react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3___default.a, {
     container: true,
     spacing: 16,
     alignItems: "flex-end",
@@ -105856,7 +105870,7 @@ var InternalOrderReview = function InternalOrderReview(_ref) {
     xs: 12,
     md: 6,
     style: {
-      marginBottom: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_22__["isMobile"])(width) ? "10px" : ""
+      marginBottom: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_23__["isMobile"])(width) ? "10px" : ""
     }
   }, react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_13___default.a, {
     style: {
@@ -105903,7 +105917,7 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     donationSelect: [0, 5, 10, 20, 50, 100],
     groups: state.event.groups,
-    orderTotal: Object(_components__WEBPACK_IMPORTED_MODULE_25__["getPkgTotal"])(state, ownProps),
+    orderTotal: Object(_app_helpers__WEBPACK_IMPORTED_MODULE_22__["getPkgTotal"])(state, ownProps),
     packages: state.event.packages
   };
 };
@@ -105942,10 +105956,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _styles_utils__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/styles/utils */ "./resources/js/styles/utils.js");
-/* harmony import */ var _helpers_application__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/helpers/application */ "./resources/js/helpers/application.js");
-/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components */ "./resources/js/app/event/components.jsx");
-/* harmony import */ var _coupon_field__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./coupon-field */ "./resources/js/app/event/coupon-field.jsx");
+/* harmony import */ var _app_helpers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/app/helpers */ "./resources/js/app/helpers.js");
+/* harmony import */ var _styles_utils__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/styles/utils */ "./resources/js/styles/utils.js");
+/* harmony import */ var _helpers_application__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/helpers/application */ "./resources/js/helpers/application.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components */ "./resources/js/app/event/components.jsx");
+/* harmony import */ var _coupon_field__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./coupon-field */ "./resources/js/app/event/coupon-field.jsx");
 function _templateObject2() {
   var data = _taggedTemplateLiteral(["\n    margin-bottom: 8px;\n  "]);
 
@@ -105981,9 +105996,10 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 
+
 var SectionTitle = styled_components__WEBPACK_IMPORTED_MODULE_8__["default"].div(_templateObject(), function (props) {
   return props.theme.grey[300];
-}, _styles_utils__WEBPACK_IMPORTED_MODULE_9__["media"].md(_templateObject2()));
+}, _styles_utils__WEBPACK_IMPORTED_MODULE_10__["media"].md(_templateObject2()));
 
 var InternalOrderSummary = function InternalOrderSummary(_ref) {
   var classes = _ref.classes,
@@ -105993,28 +106009,28 @@ var InternalOrderSummary = function InternalOrderSummary(_ref) {
   return react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(SectionTitle, null, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_material_ui_icons_Lock__WEBPACK_IMPORTED_MODULE_1___default.a, {
     className: "pr-5"
   }), " Order Summary"), Object.keys(pkgSummary).map(function (pkg, i) {
-    return react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_11__["TotalAmount"], {
+    return react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_12__["TotalAmount"], {
       key: i
     }, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_2___default.a, {
       variant: "body2"
     }, pkgSummary[pkg].title, " ", pkgSummary[pkg].quantity > 0 && react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("strong", null, "x ", pkgSummary[pkg].quantity)), react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_2___default.a, {
       variant: "body2"
-    }, Object(_helpers_application__WEBPACK_IMPORTED_MODULE_10__["currency"])(pkgSummary[pkg].price)));
-  }), parseInt(formProps.values.donation) > 0 && react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_11__["TotalAmount"], null, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    }, Object(_helpers_application__WEBPACK_IMPORTED_MODULE_11__["currency"])(pkgSummary[pkg].price)));
+  }), parseInt(formProps.values.donation) > 0 && react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_12__["TotalAmount"], null, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_2___default.a, {
     variant: "body2"
   }, "Donation"), react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_2___default.a, {
     variant: "body2"
-  }, Object(_helpers_application__WEBPACK_IMPORTED_MODULE_10__["currency"])(formProps.values.donation))), react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_0___default.a, {
+  }, Object(_helpers_application__WEBPACK_IMPORTED_MODULE_11__["currency"])(formProps.values.donation))), react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_0___default.a, {
     className: classes.divider
-  }), formProps.values.coupon.discount < 0 && react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_11__["TotalAmount"], null, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_2___default.a, {
+  }), formProps.values.coupon.discount < 0 && react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_12__["TotalAmount"], null, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_2___default.a, {
     variant: "body2",
     gutterBottom: true
   }, "Discount: ", formProps.values.coupon.code), react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_2___default.a, {
     variant: "body2",
     gutterBottom: true
-  }, "-", Object(_helpers_application__WEBPACK_IMPORTED_MODULE_10__["currency"])(-formProps.values.coupon.discount))), react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_11__["TotalAmount"], {
+  }, "-", Object(_helpers_application__WEBPACK_IMPORTED_MODULE_11__["currency"])(-formProps.values.coupon.discount))), react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_12__["TotalAmount"], {
     className: "mb-10"
-  }, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("strong", null, "Total"), react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("strong", null, Object(_helpers_application__WEBPACK_IMPORTED_MODULE_10__["currency"])(orderTotal), " USD")), react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_coupon_field__WEBPACK_IMPORTED_MODULE_12__["default"], {
+  }, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("strong", null, "Total"), react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("strong", null, Object(_helpers_application__WEBPACK_IMPORTED_MODULE_11__["currency"])(orderTotal), " USD")), react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_coupon_field__WEBPACK_IMPORTED_MODULE_13__["default"], {
     formProps: formProps
   }));
 };
@@ -106054,7 +106070,7 @@ var getPkgSummary = function getPkgSummary(state, ownProps) {
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
-    orderTotal: Object(_components__WEBPACK_IMPORTED_MODULE_11__["getOrderTotal"])(state, ownProps),
+    orderTotal: Object(_app_helpers__WEBPACK_IMPORTED_MODULE_9__["getOrderTotal"])(state, ownProps),
     pkgSummary: getPkgSummary(state, ownProps)
   };
 };
@@ -106063,7 +106079,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
   return {};
 };
 
-var OrderSummary = Object(react_redux__WEBPACK_IMPORTED_MODULE_7__["connect"])(mapStateToProps, mapDispatchToProps)(Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__["withStyles"])(_components__WEBPACK_IMPORTED_MODULE_11__["styles"])(InternalOrderSummary));
+var OrderSummary = Object(react_redux__WEBPACK_IMPORTED_MODULE_7__["connect"])(mapStateToProps, mapDispatchToProps)(Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__["withStyles"])(_components__WEBPACK_IMPORTED_MODULE_12__["styles"])(InternalOrderSummary));
 /* harmony default export */ __webpack_exports__["default"] = (OrderSummary);
 
 /***/ }),
@@ -106111,9 +106127,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_stripe_elements__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react-stripe-elements */ "./node_modules/react-stripe-elements/es/index.js");
 /* harmony import */ var react_stripe_elements__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(react_stripe_elements__WEBPACK_IMPORTED_MODULE_17__);
 /* harmony import */ var _app_components_form_index__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/app/components/form/index */ "./resources/js/app/components/form/index.js");
-/* harmony import */ var _helpers_application__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @/helpers/application */ "./resources/js/helpers/application.js");
-/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components */ "./resources/js/app/event/components.jsx");
-/* harmony import */ var _order_summary__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./order-summary */ "./resources/js/app/event/order-summary.jsx");
+/* harmony import */ var _app_helpers__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @/app/helpers */ "./resources/js/app/helpers.js");
+/* harmony import */ var _helpers_application__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @/helpers/application */ "./resources/js/helpers/application.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components */ "./resources/js/app/event/components.jsx");
+/* harmony import */ var _order_summary__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./order-summary */ "./resources/js/app/event/order-summary.jsx");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _templateObject7() {
@@ -106210,6 +106227,7 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 
+
 var PaymentContainer = styled_components__WEBPACK_IMPORTED_MODULE_16__["default"].div(_templateObject(), function (props) {
   return props.theme.grey[200];
 }, function (props) {
@@ -106257,7 +106275,7 @@ var InternalPaymentForm = function InternalPaymentForm(_ref) {
       width = _ref.width;
   return react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_4___default.a, {
     container: true,
-    spacing: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_19__["isMobile"])(width) ? 16 : 40,
+    spacing: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_20__["isMobile"])(width) ? 16 : 40,
     justify: "space-between",
     style: {
       marginBottom: "10px"
@@ -106266,18 +106284,18 @@ var InternalPaymentForm = function InternalPaymentForm(_ref) {
     item: true,
     xs: 12,
     md: 5,
-    style: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_19__["isMobile"])(width) ? {
+    style: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_20__["isMobile"])(width) ? {
       marginTop: "10px"
     } : {
       order: 2
     }
-  }, react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_order_summary__WEBPACK_IMPORTED_MODULE_21__["default"], {
+  }, react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_order_summary__WEBPACK_IMPORTED_MODULE_22__["default"], {
     formProps: formProps
   })), react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_4___default.a, {
     item: true,
     xs: 12,
     md: 7,
-    style: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_19__["isMobile"])(width) ? {} : {
+    style: Object(_helpers_application__WEBPACK_IMPORTED_MODULE_20__["isMobile"])(width) ? {} : {
       order: 1
     }
   }, react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(PaymentContainer, null, orderTotal !== 0 && react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_11__["Field"], {
@@ -106353,7 +106371,7 @@ InternalPaymentForm.propTypes = {};
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
-    orderTotal: Object(_components__WEBPACK_IMPORTED_MODULE_20__["getOrderTotal"])(state, ownProps),
+    orderTotal: Object(_app_helpers__WEBPACK_IMPORTED_MODULE_19__["getOrderTotal"])(state, ownProps),
     status: state.order.status
   };
 };
@@ -106376,8 +106394,35 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
   };
 };
 
-var PaymentForm = Object(react_redux__WEBPACK_IMPORTED_MODULE_15__["connect"])(mapStateToProps, mapDispatchToProps)(Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_9__["withStyles"])(_components__WEBPACK_IMPORTED_MODULE_20__["styles"])(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_10___default()()(InternalPaymentForm)));
+var PaymentForm = Object(react_redux__WEBPACK_IMPORTED_MODULE_15__["connect"])(mapStateToProps, mapDispatchToProps)(Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_9__["withStyles"])(_components__WEBPACK_IMPORTED_MODULE_21__["styles"])(_material_ui_core_withWidth__WEBPACK_IMPORTED_MODULE_10___default()()(InternalPaymentForm)));
 /* harmony default export */ __webpack_exports__["default"] = (PaymentForm);
+
+/***/ }),
+
+/***/ "./resources/js/app/helpers.js":
+/*!*************************************!*\
+  !*** ./resources/js/app/helpers.js ***!
+  \*************************************/
+/*! exports provided: getPkgTotal, getOrderTotal */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPkgTotal", function() { return getPkgTotal; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOrderTotal", function() { return getOrderTotal; });
+var getPkgTotal = function getPkgTotal(state, ownProps) {
+  return ownProps.formProps.values.registrants.reduce(function (acc, registrant) {
+    var pkg = state.event.packages.find(function (p) {
+      return p.id === registrant.package;
+    });
+    return acc + Math.round(pkg.groups.find(function (g) {
+      return g.id === registrant.group;
+    }).price);
+  }, 0);
+};
+var getOrderTotal = function getOrderTotal(state, ownProps) {
+  return getPkgTotal(state, ownProps) + ownProps.formProps.values.donation + ownProps.formProps.values.coupon.discount;
+};
 
 /***/ }),
 

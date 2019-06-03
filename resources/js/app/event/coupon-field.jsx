@@ -128,17 +128,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
     ...stateProps,
     ...dispatchProps,
     apply: () => {
-      const speaker =
-        values.registrants[values.coupon.registrantIndex] ||
-        values.registrants[0]
-      const group = groups.find(g => g.id === speaker.group)
-      const pkg = packages.find(p => p.id === speaker.package)
-      const discount = -Math.round(
-        pkg.groups.find(g => g.id === speaker.group).price
-      )
-      console.log("DISCOUNT: ", discount)
-
-      dispatch(applyCoupon(formProps, discount))
+      dispatch(applyCoupon(formProps))
     }
   }
 }

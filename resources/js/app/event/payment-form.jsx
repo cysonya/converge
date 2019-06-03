@@ -25,9 +25,10 @@ import {
 } from "react-stripe-elements"
 
 import { inputError } from "@/app/components/form/index"
+import { getOrderTotal } from "@/app/helpers"
 import { isMobile } from "@/helpers/application"
 
-import { getOrderTotal, styles } from "./components"
+import { styles } from "./components"
 import OrderSummary from "./order-summary"
 
 const PaymentContainer = styled.div`
