@@ -103,6 +103,11 @@ class CheckoutsController extends Controller
                 $package->save();
 
                 $packagesTotal += $package->groups()->where('group_id', $registrant['group'])->first()->pivot->price;
+
+                // Update order total and status
+                $order->order_total = $packagesTotal + $request->donation;
+                $order->status = 'completed';
+                $order->save();
             }
         } catch (Exception $e) {
             DB::rollBack();
@@ -113,12 +118,6 @@ class CheckoutsController extends Controller
 
 
         try {
-            // Update order total and status
-            $order->order_total = $packagesTotal + $request->donation;
-            $order->status = 'completed';
-            $order->save();
-
-
             // Create the attendants
             foreach($request->registrants as $registrant) {
                 $affiliate = strip_tags($registrant['affiliate']) == "Other"

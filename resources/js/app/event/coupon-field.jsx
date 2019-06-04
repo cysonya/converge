@@ -19,12 +19,18 @@ const styles = {
     textTransform: "none"
   }
 }
-const InternalCouponField = ({ apply, classes, couponApplied, formProps }) => {
+const InternalCouponField = ({
+  apply,
+  classes,
+  couponApplied,
+  formProps,
+  remove
+}) => {
   const [showCouponField, setShowCouponField] = useState(false)
 
   return (
     <div>
-      {!showCouponField && (
+      {!showCouponField && !couponApplied && (
         <Button
           className={classes.couponBtn}
           color="primary"
@@ -34,7 +40,7 @@ const InternalCouponField = ({ apply, classes, couponApplied, formProps }) => {
           Have a coupon code?
         </Button>
       )}
-      <Collapse in={showCouponField}>
+      <Collapse in={showCouponField || couponApplied}>
         {formProps.values.registrants.length > 1 && (
           <Field
             name="coupon.registrantIndex"
@@ -80,15 +86,21 @@ const InternalCouponField = ({ apply, classes, couponApplied, formProps }) => {
                   error={!!couponError}
                   fullWidth
                   InputProps={{
-                    endAdornment: couponApplied ? null : (
+                    endAdornment: (
                       <InputAdornment position="end">
-                        <Button
-                          color="primary"
-                          size="small"
-                          onClick={() => apply()}
-                        >
-                          APPLY
-                        </Button>
+                        {couponApplied ? (
+                          <Button size="small" onClick={() => remove()}>
+                            Remove
+                          </Button>
+                        ) : (
+                          <Button
+                            color="primary"
+                            size="small"
+                            onClick={() => apply()}
+                          >
+                            APPLY
+                          </Button>
+                        )}
                       </InputAdornment>
                     )
                   }}
@@ -129,6 +141,10 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
     ...dispatchProps,
     apply: () => {
       dispatch(applyCoupon(formProps))
+    },
+    remove: () => {
+      formProps.setFieldValue("coupon.code", "")
+      formProps.setFieldValue("coupon.discount", "")
     }
   }
 }
