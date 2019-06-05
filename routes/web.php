@@ -24,10 +24,11 @@ Route::get('/events/{event_id}', [
 ]);
 
 Route::post('/events/{event_id}/checkout', [
-	'as' => 'postCreateOrder',
-	'uses' => 'CheckoutsController@store',
+    'as' => 'postCreateOrder',
+    'uses' => 'CheckoutsController@store',
 ]);
 
+Route::post('/check_coupon', 'CheckoutsController@checkCoupon');
 Route::post('contact', 'EventsController@contact');
 
 

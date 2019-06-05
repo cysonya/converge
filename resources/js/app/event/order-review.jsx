@@ -22,11 +22,12 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import styled from "styled-components"
 
+import { getPkgTotal } from "@/app/helpers"
 import { currency, isMobile } from "@/helpers/application"
 import { media } from "@/styles/utils"
 import { inputError } from "@/app/components/form/index"
 
-import { getTotal, TotalAmount } from "./components"
+import { TotalAmount } from "./components"
 
 const styles = theme => ({
 	summaryWrapper: {
@@ -105,7 +106,7 @@ const InternalOrderReview = ({
 						<TableBody>
 							{formProps.values.registrants.map((registrant, index) => {
 								let group = groups.find(g => g.id === registrant.group)
-								let pkg = packages.find(g => g.id === registrant.package)
+								let pkg = packages.find(p => p.id === registrant.package)
 								return (
 									<TableRow key={index}>
 										<TableCell className={classes.tableData} align="left">
@@ -214,7 +215,7 @@ const mapStateToProps = (state, ownProps) => {
 	return {
 		donationSelect: [0, 5, 10, 20, 50, 100],
 		groups: state.event.groups,
-		orderTotal: getTotal(state, ownProps),
+		orderTotal: getPkgTotal(state, ownProps),
 		packages: state.event.packages
 	}
 }

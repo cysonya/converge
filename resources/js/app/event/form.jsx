@@ -15,17 +15,18 @@ import { Elements, injectStripe } from "react-stripe-elements"
 import styled from "styled-components"
 
 import ContactSupport from "@/app/contact-support"
+import { getOrderTotal } from "@/app/helpers"
 import { placeOrder, setStep, updateOrder } from "@/app-store/actions"
 import { isMobile } from "@/helpers/application"
 import theme from "@/styles/theme"
 import { media } from "@/styles/utils"
 import AttendantForm from "./attendant-form"
 import ErrorAlert from "./error-alert"
-import PaymentForm from "./payment-form"
 import FormNav from "./form-nav"
 import HousingForm from "./housing-form"
 import OrderComplete from "./order-complete"
 import OrderReview from "./order-review"
+import PaymentForm from "./payment-form"
 
 const styles = theme => ({
 	stepper: {
@@ -81,10 +82,10 @@ const InternalEventForm = ({
 	handlePanelClick,
 	initialValues,
 	panels,
+	setProcessingOrder,
 	showError,
 	status,
 	stripe,
-	updateOrderStatus,
 	width
 }) => {
 	if (!event.id) {
@@ -94,47 +95,46 @@ const InternalEventForm = ({
 	const handleValidate = values => {
 		let errors = {}
 
-		// if (!values.payment.cardName) {
-		// 	errors.payment = Object.assign(
-		// 		{ cardName: "Provide valid card details" },
-		// 		errors.payment
-		// 	)
-		// }
-		if (!values.payment.cardNumber) {
-			errors.payment = Object.assign(
-				{ cardNumber: "Provide valid card details" },
-				errors.payment
-			)
-		}
-		if (!values.payment.cardExpiry) {
-			errors.payment = Object.assign(
-				{ cardExpiry: "Provide valid card details" },
-				errors.payment
-			)
-		}
-		if (!values.payment.cardCvc) {
-			errors.payment = Object.assign(
-				{ cardCvc: "Provide valid card details" },
-				errors.payment
-			)
-		}
-		if (!values.payment.postalCode) {
-			errors.payment = Object.assign(
-				{ postalCode: "Provide valid card details" },
-				errors.payment
-			)
-		}
+		if (values.coupon.discount < 0 && values.registrants.length === 1) {
+			delete errors.payment
+			// Coupon applied with full discount. Order total is 0, no need to charge payment
+		} else {
+			if (!values.payment.cardNumber) {
+				errors.payment = Object.assign(
+					{ cardNumber: "Provide valid card details" },
+					errors.payment
+				)
+			}
+			if (!values.payment.cardExpiry) {
+				errors.payment = Object.assign(
+					{ cardExpiry: "Provide valid card details" },
+					errors.payment
+				)
+			}
+			if (!values.payment.cardCvc) {
+				errors.payment = Object.assign(
+					{ cardCvc: "Provide valid card details" },
+					errors.payment
+				)
+			}
+			if (!values.payment.postalCode) {
+				errors.payment = Object.assign(
+					{ postalCode: "Provide valid card details" },
+					errors.payment
+				)
+			}
 
-		// Validate payment errors for stripe element
-		for (let field in values.payment) {
-			if (values.payment[field] === "complete") {
-				if (errors.payment) {
-					delete errors.payment[field]
+			// Validate payment errors for stripe element
+			for (let field in values.payment) {
+				if (values.payment[field] === "complete") {
+					if (errors.payment) {
+						delete errors.payment[field]
+					}
+				} else {
+					let err = {}
+					err[field] = values.payment[field]
+					errors.payment = Object.assign(err, errors.payment)
 				}
-			} else {
-				let err = {}
-				err[field] = values.payment[field]
-				errors.payment = Object.assign(err, errors.payment)
 			}
 		}
 
@@ -206,32 +206,32 @@ const InternalEventForm = ({
 					return handleValidate(values)
 				}}
 				onSubmit={(values, { setSubmitting }) => {
-					updateOrderStatus()
-					stripe.createToken().then(({ error, token }) => {
-						console.log("Stripe TOKEN: ", token)
-						console.log("Stripe ERRORS: ", error)
-						if (!!error) {
-							showError(error.message)
-							setSubmitting(false)
-						}
-						if (!!token) {
-							values.stripeToken = token.id
-							values.customer_first_name = values.registrants[0].first_name
-							values.customer_last_name = values.registrants[0].last_name
+					setProcessingOrder()
+					values.customer_first_name = values.registrants[0].first_name
+					values.customer_last_name = values.registrants[0].last_name
 
-							// Set fullstory names
-							if (typeof FS !== "undefined") {
-								FS.setUserVars({
-									displayName: `${values.customer_first_name} ${
-										values.customer_last_name
-									}`,
-									email: values.customer_email
-								})
+					const orderTotal = getOrderTotal(
+						{ event: event },
+						{ formProps: { values: values } }
+					)
+
+					if (orderTotal === 0) {
+						console.log("ZERO!")
+						doPlaceOrder(values, setSubmitting)
+					} else {
+						stripe.createToken().then(({ error, token }) => {
+							console.log("Stripe TOKEN: ", token)
+							console.log("Stripe ERRORS: ", error)
+							if (!!error) {
+								showError(error.message)
+								setSubmitting(false)
 							}
-
-							doPlaceOrder(values, setSubmitting)
-						}
-					})
+							if (!!token) {
+								values.stripeToken = token.id
+								doPlaceOrder(values, setSubmitting)
+							}
+						})
+					}
 				}}
 				render={props => {
 					if (status === "complete") {
@@ -327,15 +327,20 @@ const mapStateToProps = (state, ownProps) => {
 		customer_first_name: "",
 		customer_last_name: "",
 		customer_email: "",
-		donation: 0
+		donation: 0,
+		coupon: {
+			code: "",
+			discount: 0,
+			registrantIndex: ""
+		}
 	}
 	return {
 		initialValues,
 		currentStep: state.event.step,
 		error: state.order.error,
 		event: state.event,
-		status: state.order.status,
-		panels: state.panels
+		panels: state.panels,
+		status: state.order.status
 	}
 }
 
@@ -348,7 +353,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		showError: error => {
 			dispatch(updateOrder({ status: "incomplete", error: error }))
 		},
-		updateOrderStatus: () => {
+		setProcessingOrder: () => {
 			dispatch(updateOrder({ status: "processing" }))
 		}
 	}

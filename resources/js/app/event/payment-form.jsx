@@ -2,10 +2,7 @@ import Button from "@material-ui/core/Button"
 import CircularProgress from "@material-ui/core/CircularProgress"
 import Dialog from "@material-ui/core/Dialog"
 import DialogContent from "@material-ui/core/DialogContent"
-import LockIcon from "@material-ui/icons/Lock"
-import Divider from "@material-ui/core/Divider"
 import Grid from "@material-ui/core/Grid"
-import Input from "@material-ui/core/Input"
 import MenuItem from "@material-ui/core/MenuItem"
 import Slide from "@material-ui/core/Slide"
 import TextField from "@material-ui/core/TextField"
@@ -28,21 +25,12 @@ import {
 } from "react-stripe-elements"
 
 import { inputError } from "@/app/components/form/index"
-import { currency, isMobile } from "@/helpers/application"
-import { media } from "@/styles/utils"
+import { getOrderTotal } from "@/app/helpers"
+import { isMobile } from "@/helpers/application"
 
-import { getTotal, styles, TotalAmount } from "./components"
+import { styles } from "./components"
+import OrderSummary from "./order-summary"
 
-const SectionTitle = styled.div`
-	display: flex;
-	align-items: center;
-	padding-bottom: 4px;
-	margin-bottom: 10px;
-	border-bottom: 1px solid ${props => props.theme.grey[300]};
-	${media.md`
-		margin-bottom: 8px;
-	`}
-`
 const PaymentContainer = styled.div`
 	padding: 10px;
 	background-color: ${props => props.theme.grey[200]};
@@ -113,7 +101,6 @@ const InternalPaymentForm = ({
 	doBlur,
 	formProps,
 	orderTotal,
-	pkgSummary,
 	status,
 	width
 }) => {
@@ -131,117 +118,83 @@ const InternalPaymentForm = ({
 					md={5}
 					style={isMobile(width) ? { marginTop: "10px" } : { order: 2 }}
 				>
-					<SectionTitle>
-						<LockIcon className="pr-5" /> Order Summary
-					</SectionTitle>
-					{Object.keys(pkgSummary).map((pkg, i) => (
-						<TotalAmount key={i}>
-							<Typography variant="body2">
-								{pkgSummary[pkg].title}{" "}
-								{pkgSummary[pkg].quantity > 0 && (
-									<strong>x {pkgSummary[pkg].quantity}</strong>
-								)}
-							</Typography>
-							<Typography variant="body2">
-								{currency(pkgSummary[pkg].price)}
-							</Typography>
-						</TotalAmount>
-					))}
-					{parseInt(formProps.values.donation) > 0 && (
-						<TotalAmount>
-							<Typography variant="body2">Donation</Typography>
-							<Typography variant="body2">
-								${formProps.values.donation}
-							</Typography>
-						</TotalAmount>
-					)}
-					<Divider className={classes.divider} />
-					<TotalAmount>
-						<strong>Total</strong>
-						<strong>{currency(orderTotal)} USD</strong>
-					</TotalAmount>
+					<OrderSummary formProps={formProps} />
 				</Grid>
 
 				<Grid item xs={12} md={7} style={isMobile(width) ? {} : { order: 1 }}>
 					<PaymentContainer>
-						{false && (
-							<Field
-								name="payment.cardName"
-								render={({ field, form }) => (
-									<FormControl>
-										<FormLabel>Cardholder Name</FormLabel>
-										<NameInput
-											error={!!inputError(form, "payment.cardName")}
-											autocomplete="cc-name"
-											{...field}
-										/>
-										{!!inputError(form, "payment.cardName") && (
-											<ErrorText>{formProps.errors.payment.cardName}</ErrorText>
-										)}
-									</FormControl>
-								)}
-							/>
+						{orderTotal !== 0 && (
+							<div>
+								<Field
+									name="payment.cardNumber"
+									render={({ form }) => (
+										<FormControl>
+											<FormLabel>Card Number</FormLabel>
+											<CardNumberElement
+												onChange={e => doChange(e)}
+												onBlur={e => doBlur(e)}
+											/>
+											{!!inputError(form, "payment.cardNumber") && (
+												<ErrorText>
+													{formProps.errors.payment.cardNumber}
+												</ErrorText>
+											)}
+										</FormControl>
+									)}
+								/>
+								<Field
+									name="payment.cardExpiry"
+									render={({ form }) => (
+										<FormControl>
+											<FormLabel>Expiry</FormLabel>
+											<CardExpiryElement
+												onChange={e => doChange(e)}
+												onBlur={e => doBlur(e)}
+											/>
+											{!!inputError(form, "payment.cardExpiry") && (
+												<ErrorText>
+													{formProps.errors.payment.cardExpiry}
+												</ErrorText>
+											)}
+										</FormControl>
+									)}
+								/>
+								<Field
+									name="payment.cardCvc"
+									render={({ form }) => (
+										<FormControl>
+											<FormLabel>Secure Code</FormLabel>
+											<CardCVCElement
+												onChange={e => doChange(e)}
+												onBlur={e => doBlur(e)}
+											/>
+											{!!inputError(form, "payment.cardCvc") && (
+												<ErrorText>
+													{formProps.errors.payment.cardCvc}
+												</ErrorText>
+											)}
+										</FormControl>
+									)}
+								/>
+								<Field
+									name="payment.postalCode"
+									render={({ form }) => (
+										<FormControl>
+											<FormLabel>Zip</FormLabel>
+											<PostalCodeElement
+												onChange={e => doChange(e)}
+												onBlur={e => doBlur(e)}
+											/>
+											{!!inputError(form, "payment.postalCode") && (
+												<ErrorText>
+													{formProps.errors.payment.postalCode}
+												</ErrorText>
+											)}
+										</FormControl>
+									)}
+								/>
+							</div>
 						)}
-						<Field
-							name="payment.cardNumber"
-							render={({ form }) => (
-								<FormControl>
-									<FormLabel>Card Number</FormLabel>
-									<CardNumberElement
-										onChange={e => doChange(e)}
-										onBlur={e => doBlur(e)}
-									/>
-									{!!inputError(form, "payment.cardNumber") && (
-										<ErrorText>{formProps.errors.payment.cardNumber}</ErrorText>
-									)}
-								</FormControl>
-							)}
-						/>
-						<Field
-							name="payment.cardExpiry"
-							render={({ form }) => (
-								<FormControl>
-									<FormLabel>Expiry</FormLabel>
-									<CardExpiryElement
-										onChange={e => doChange(e)}
-										onBlur={e => doBlur(e)}
-									/>
-									{!!inputError(form, "payment.cardExpiry") && (
-										<ErrorText>{formProps.errors.payment.cardExpiry}</ErrorText>
-									)}
-								</FormControl>
-							)}
-						/>
-						<Field
-							name="payment.cardCvc"
-							render={({ form }) => (
-								<FormControl>
-									<FormLabel>Secure Code</FormLabel>
-									<CardCVCElement
-										onChange={e => doChange(e)}
-										onBlur={e => doBlur(e)}
-									/>
-									{!!inputError(form, "payment.cardCvc") && (
-										<ErrorText>{formProps.errors.payment.cardCvc}</ErrorText>
-									)}
-								</FormControl>
-							)}
-						/>
-						<Field
-							name="payment.postalCode"
-							render={({ form }) => (
-								<FormControl>
-									<FormLabel>Zip</FormLabel>
-									<PostalCodeElement
-										onChange={e => doChange(e)}
-										onBlur={e => doBlur(e)}
-									/>
-									{!!inputError(form, "payment.postalCode") && (
-										<ErrorText>{formProps.errors.payment.postalCode}</ErrorText>
-									)}
-								</FormControl>
-							)}
-						/>
 
 						<Button
 							type="submit"
@@ -273,35 +226,9 @@ const InternalPaymentForm = ({
 
 InternalPaymentForm.propTypes = {}
 
-const getPkgSummary = (state, ownProps) => {
-	const pkgs = state.event.packages
-	let summary = {}
-
-	// Get quantity for each package ordered with cost per package
-	// ex: {2: {quantity: 2, price: 110}}
-	ownProps.formProps.values.registrants.forEach(registrant => {
-		if (summary.hasOwnProperty(registrant.package)) {
-			let pkg = pkgs.find(p => p.id === registrant.package)
-			summary[registrant.package].quantity += 1
-			summary[registrant.package].price += parseInt(
-				pkg.groups.find(g => g.id === registrant.group).price
-			)
-		} else {
-			let pkg = pkgs.find(p => p.id === registrant.package)
-			summary[registrant.package] = {
-				quantity: 1,
-				price: parseInt(pkg.groups.find(g => g.id === registrant.group).price),
-				title: pkg.title
-			}
-		}
-	})
-	return summary
-}
-
 const mapStateToProps = (state, ownProps) => {
 	return {
-		orderTotal: getTotal(state, ownProps) + ownProps.formProps.values.donation,
-		pkgSummary: getPkgSummary(state, ownProps),
+		orderTotal: getOrderTotal(state, ownProps),
 		status: state.order.status
 	}
 }

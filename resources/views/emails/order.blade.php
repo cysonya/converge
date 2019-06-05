@@ -36,11 +36,21 @@ at Hiram College:
 				<td>${{ (int)$donation->amount }}</td>
 			</tr>
 		@endif
+		@if($order->adjustments)
+			@foreach($order->adjustments as $adjustment)
+				<tr>
+					<td class="td-right" colspan="3" align="right">
+						<strong>{{ ucfirst($adjustment->type) }}: {{ $adjustment->label }}</strong>
+					</td>
+					<td>-${{ (int)-$adjustment->amount }}</td>
+				</tr>
+			@endforeach
+		@endif
 		<tr>
 			<td class="td-right" colspan="3" align="right">
 				<strong>Total:</strong>
 			</td>
-			<td>${{(int)$order->order_total}} USD</td>
+			<td>${{(int)$order->getTotalAfterAdjustments() }} USD</td>
 		</tr>
 	</tfoot>
 </table>

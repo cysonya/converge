@@ -65,4 +65,24 @@ class Order extends Model
         return $this->hasMany(\App\Payment::class);
     }
 
+    /**
+    * The adjustments associated with the order.
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\HasMany
+    */
+    public function adjustments()
+    {
+        return $this->hasMany(\App\Adjustment::class);
+    }
+
+    public function totalAdjustments()
+    {
+        return $this->adjustments()->sum('amount');
+    }
+    
+    public function getTotalAfterAdjustments()
+    {
+        return $this->order_total + $this->totalAdjustments();
+    }
+
 }
