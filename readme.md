@@ -12,8 +12,8 @@ Event registration and management application for [Convergefest](https://converg
 
 ## Prerequisite
 
-- (docker)[https://docs.docker.com/install/linux/docker-ce/ubuntu/]
-- (docker-compose)[https://docs.docker.com/compose/install/]
+- [docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+- [docker-compose](https://docs.docker.com/compose/install/)
 
 ## Environment setup
 
@@ -30,7 +30,7 @@ bash vessel init
 
 ## Useful commands
 
-For more commands, go to (Vessel)[https://vessel.shippingdocker.com/docs/everyday-usage/]
+For more commands, go to [Vessel](https://vessel.shippingdocker.com/docs/everyday-usage/)
 ```bash
 # Use composer
 ./vessel composer <cmd>
@@ -47,7 +47,7 @@ For more commands, go to (Vessel)[https://vessel.shippingdocker.com/docs/everyda
 
 
 
-## About Laravel
+## Other commands
 
 `mysqldump -u username -p database_to_backup > backup_name.sql`
 
