@@ -8,7 +8,7 @@
 </p>
 
 # Converge
-Event registration and management application for [Convergefest](https://convergefest.com). Built with Laravel and React.
+Event registration and management application for Convergefest. Built with Laravel and React. View demo at [Converge](https://converge.sonyachan.com/events/1).
 
 ## Prerequisite
 
