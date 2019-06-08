@@ -35,6 +35,7 @@ class SendEmailJob implements ShouldQueue
     public function handle()
     {
         Mail::to('cysonya@gmail.com')
+            ->bcc(explode(',', env('ADMIN_EMAILS')))
             ->send(new ContactSupportMailable($this->request, $this->userAgent));
     }
 }
