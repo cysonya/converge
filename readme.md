@@ -53,3 +53,8 @@ For more commands, go to [Vessel](https://vessel.shippingdocker.com/docs/everyda
 
 `scp -r root@0.0.0.0:/path/on/remote/droplet /path/to/my/files`
 
+
+- Townhouse available for all
+- Late registartion fee - TBD
+- Registration deadline is passed, all registration is now subject to a late fee. Add line item "late fee" at checkout (order summary).
+- CSV with all attendant info

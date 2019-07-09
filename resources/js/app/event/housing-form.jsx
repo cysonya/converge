@@ -133,24 +133,25 @@ const getPackages = (state, ownProps) => {
 	let pkgs = state.event.packages
 
 	// Only show Townhouse option if attandants contain at least two children
-	let childrenIds = []
-	state.event.groups.map(g => {
-		if (!g.description.includes("Adults")) {
-			childrenIds.push(g.id)
-		}
-	})
+	// let childrenIds = []
+	// state.event.groups.map(g => {
+	// 	if (!g.description.includes("Adults")) {
+	// 		childrenIds.push(g.id)
+	// 	}
+	// })
 
-	if (
-		ownProps.formProps.values.registrants.filter(r =>
-			childrenIds.includes(r.group)
-		).length >= 2
-	) {
-		// return all package options if attendant contains at least 2 children
-		return pkgs
-	} else {
-		// Remove 'Townhouse' from package options
-		return pkgs.filter(p => p.title !== "Townhouse")
-	}
+	// if (
+	// 	ownProps.formProps.values.registrants.filter(r =>
+	// 		childrenIds.includes(r.group)
+	// 	).length >= 2
+	// ) {
+	// 	// return all package options if attendant contains at least 2 children
+	// 	return pkgs
+	// } else {
+	// 	// Remove 'Townhouse' from package options
+	// 	return pkgs.filter(p => p.title !== "Townhouse")
+	// }
+	return pkgs
 }
 
 const mapStateToProps = (state, ownProps) => {
