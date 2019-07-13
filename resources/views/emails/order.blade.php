@@ -36,6 +36,14 @@ at Hiram College:
 				<td>${{ (int)$donation->amount }}</td>
 			</tr>
 		@endif
+		@if(\Carbon\Carbon::now('EST')->addHour() > \Carbon\Carbon::parse('2019-07-13 EST'))
+			<tr>
+				<td class="td-right" colspan="3" align="right">
+					<strong>Late Fee:</strong>
+				</td>
+				<td>${{ count($order->attendants) * 20 }}</td>
+			</tr>
+		@endif
 		@if($order->adjustments)
 			@foreach($order->adjustments as $adjustment)
 				<tr>

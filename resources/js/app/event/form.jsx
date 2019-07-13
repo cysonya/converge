@@ -2,7 +2,7 @@ import Step from "@material-ui/core/Step"
 import Stepper from "@material-ui/core/Stepper"
 import StepContent from "@material-ui/core/StepContent"
 import StepLabel from "@material-ui/core/StepLabel"
-
+import Typography from "@material-ui/core/Typography"
 import { withStyles } from "@material-ui/core/styles"
 import withWidth from "@material-ui/core/withWidth"
 
@@ -260,6 +260,18 @@ const InternalEventForm = ({
 					// console.log("TOUCHED: ", props.touched)
 					return (
 						<Form>
+							{pastDeadline && (
+								<Typography
+									align="center"
+									variant="body2"
+									color="error"
+									style={{ marginTop: "20px" }}
+								>
+									Registration deadline is passed, all registration is now
+									subject to a late fee.
+								</Typography>
+							)}
+
 							<Stepper
 								activeStep={currentStep}
 								alternativeLabel={isMobile(width) ? false : true}

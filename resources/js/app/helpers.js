@@ -8,9 +8,14 @@ export const getPkgTotal = (state, ownProps) => {
 }
 
 export const getOrderTotal = (state, ownProps) => {
-  return (
-    getPkgTotal(state, ownProps) +
-    ownProps.formProps.values.donation +
-    ownProps.formProps.values.coupon.discount
-  )
+  const values = ownProps.formProps.values
+  const today = new Date()
+
+  let total =
+    getPkgTotal(state, ownProps) + values.donation + values.coupon.discount
+
+  if (pastDeadline) {
+    total += values.registrants.length * 20
+  }
+  return total
 }

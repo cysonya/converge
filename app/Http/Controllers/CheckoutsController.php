@@ -104,8 +104,15 @@ class CheckoutsController extends Controller
 
                 $packagesTotal += $package->groups()->where('group_id', $registrant['group'])->first()->pivot->price;
 
+
+                $lateFee = 0;
+                if (Carbon::now('EST')->addHour() > Carbon::parse('2019-07-13 EST')) {
+                    $lateFee += count($request->registrants) * 20;
+                }
+                $orderTotal = $packagesTotal + $request->donation + $lateFee;
+
                 // Update order total and status
-                $order->order_total = $packagesTotal + $request->donation;
+                $order->order_total = $orderTotal;
                 $order->status = 'completed';
                 $order->save();
             }
@@ -168,11 +175,13 @@ class CheckoutsController extends Controller
                 ));
 
                 // Create charge with adjustments
-                $orderTotal = $packagesTotal + $order->totalAdjustments();
+                // Order total + coupon adjustments - donation
+                $totalWithoutDonation = $order->order_total + $order->totalAdjustments() - $request->donation;
+                
                 if ($orderTotal > 0) {
                     $charge = Charge::create(array(
                         'customer' => $customer->id,
-                        'amount' => $orderTotal * 100,
+                        'amount' => $totalWithoutDonation * 100,
                         'currency' => 'usd',
                         'description' => "Payment for {$event->title}"
                     ));
@@ -180,7 +189,7 @@ class CheckoutsController extends Controller
                     $order->payments()->create([
                         'event_id' => $event->id,
                         'payment_type' => 'order',
-                        'amount' => $packagesTotal,
+                        'amount' => $packagesTotal + $lateFee,
                         'transaction_id' => $charge->id,
                         'transaction_date' => Carbon::now()
                     ]);

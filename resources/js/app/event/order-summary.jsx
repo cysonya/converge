@@ -32,6 +32,8 @@ const InternalOrderSummary = ({
   orderTotal,
   pkgSummary
 }) => {
+  console.log("FORMPROPS: ", formProps)
+
   return (
     <div>
       <SectionTitle>
@@ -55,6 +57,20 @@ const InternalOrderSummary = ({
           <Typography variant="body2">Donation</Typography>
           <Typography variant="body2">
             {currency(formProps.values.donation)}
+          </Typography>
+        </TotalAmount>
+      )}
+      {/* Late Fee */}
+      {pastDeadline && (
+        <TotalAmount>
+          <Typography variant="body2" gutterBottom>
+            Late Fee{" "}
+            {formProps.values.registrants.length > 1 && (
+              <strong>x {formProps.values.registrants.length}</strong>
+            )}
+          </Typography>
+          <Typography variant="body2" gutterBottom>
+            {currency(formProps.values.registrants.length * 20)}
           </Typography>
         </TotalAmount>
       )}

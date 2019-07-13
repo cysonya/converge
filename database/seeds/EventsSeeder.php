@@ -215,27 +215,36 @@ class EventsSeeder extends Seeder
         DB::table('group_package')->insert($group_package);
 
 
-    //     $event = Event::find(1);
-    //     $registrants = array(
-    //         0 => 
-    //         array (
-    //         'No.' => 1,
-    //         'First Name' => 'Lean',
-    //         'Last Name' => 'Lim',
-    //         'Age group' => 'Adults',
-    //         'Email' => 'leanlim04@gmail.com',
-    //         'Affiliation' => 'Christian Disciples Church',
-    //         ),
-    //         1 => 
-    //         array (
-    //         'No.' => 2,
-    //         'First Name' => 'Ann',
-    //         'Last Name' => 'Leung',
-    //         'Age group' => 'Vu',
-    //         'Email' => 'Ann.vu624@gmail.com',
-    //         'Affiliation' => 'Christian Disciples Church',
-    //         ),
-    //     );
+        // $event = Event::find(1);
+        // $registrants = array(
+        //   0 => 
+        //   array (
+        //   'No.' => 1,
+        //   'First Name' => 'Nathanael',
+        //   'Last Name' => 'Chan',
+        //   'Email' => 'channathanael215@gmail.com',
+        //   'Affiliation' => 'Christian Disciples Church',
+        //   )
+        // )
+        // $registrants = array(
+            
+        //     1 => 
+        //     array (
+        //     'No.' => 2,
+        //     'First Name' => 'Steve',
+        //     'Last Name' => 'An',
+        //     'Email' => 'korean1995@gmail.com',
+        //     'Affiliation' => 'Church of God',
+        //     ),
+        //     2 => 
+        //     array (
+        //     'No.' => 3,
+        //     'First Name' => 'Young',
+        //     'Last Name' => 'An',
+        //     'Email' => 'korean1995@gmail.com',
+        //     'Affiliation' => 'Church of God',
+        //     ),
+        // );
 
     //     // Create order
     //     $order = Order::create([
@@ -254,24 +263,25 @@ class EventsSeeder extends Seeder
     //         'transaction_date' => Carbon::now()
     //     ]);
 
-    //     foreach($registrants as $registrant) {
-    //         $attendant = Attendant::create([
-    //             'event_id' => $event->id,
-    //             'order_id' => $order->id,
-    //             'group_id' => 1,
-    //             'package_id' => 2,
-    //             'first_name' => strip_tags($registrant['First Name']),
-    //             'last_name' => strip_tags($registrant['Last Name']),
-    //             'email' => strip_tags($registrant['Email']),
-    //             'custom_properties' => [
-    //                 'affiliate' => "Christian Disciples Church",
-    //                 'dietary' => "",
-    //                 'roommates' => "",
-    //             ]
-    //         ]);
-    //         $order->packages()->attach(2);
-    //         Newsletter::subscribeOrUpdate($attendant->email, ['FNAME'=>$attendant->first_name, 'LNAME'=>$attendant->last_name]);
-    //     }
+        // $order = Order::find(57); // Stan's order id
+        // foreach($registrants as $registrant) {
+        //     $attendant = Attendant::create([
+        //         'event_id' => $event->id,
+        //         'order_id' => $order->id,
+        //         'group_id' => 1,
+        //         'package_id' => 5,
+        //         'first_name' => strip_tags($registrant['First Name']),
+        //         'last_name' => strip_tags($registrant['Last Name']),
+        //         'email' => strip_tags($registrant['Email']),
+        //         'custom_properties' => [
+        //             'affiliate' => "Church of God",
+        //             'dietary' => "",
+        //             'roommates' => "",
+        //         ]
+        //     ]);
+        //     $order->packages()->attach(2);
+        //     Newsletter::subscribeOrUpdate($attendant->email, ['FNAME'=>$attendant->first_name, 'LNAME'=>$attendant->last_name]);
+        // }
 
     //     $order->payments()->create([
     //         'event_id' => 1,
@@ -280,5 +290,5 @@ class EventsSeeder extends Seeder
     //         'transaction_id' => 'offline_christian_disciples_church_donation',
     //         'transaction_date' => Carbon::now()
     //     ]);
-    // }
+    }
 }
