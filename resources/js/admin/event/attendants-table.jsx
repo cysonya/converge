@@ -30,7 +30,7 @@ const AttendantsTable = ({ attendants, classes }) => {
 					<TableRow>
 						<TableCell>Name</TableCell>
 						<TableCell>Age Group</TableCell>
-						<TableCell>Package</TableCell>
+						<TableCell>Housing</TableCell>
 						<TableCell>Affiliate</TableCell>
 						<TableCell>Roommates</TableCell>
 						<TableCell>Dietary</TableCell>

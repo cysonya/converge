@@ -1,5 +1,7 @@
 import AddIcon from "@material-ui/icons/Add"
+import CloudDownloadIcon from "@material-ui/icons/CloudDownload"
 import Button from "@material-ui/core/Button"
+import Link from "@material-ui/core/Link"
 import Paper from "@material-ui/core/Paper"
 
 import React from "react"
@@ -22,14 +24,25 @@ const InternalAttendants = ({ attendants, eventId }) => {
 	return (
 		<div>
 			<ActionBar>
+				{false && (
+					<Button
+						component={NavLink}
+						to={`/admin/events/${eventId}/attendants/create`}
+						size="small"
+						variant="contained"
+						color="primary"
+					>
+						<AddIcon className="pr-5" fontSize="small" /> Add Participants
+					</Button>
+				)}
 				<Button
-					component={NavLink}
-					to={`/admin/events/${eventId}/attendants/create`}
+					href={`/admin/events/${eventId}/attendants/export`}
+					target="_blank"
 					size="small"
 					variant="contained"
 					color="primary"
 				>
-					<AddIcon className="pr-5" fontSize="small" /> Add Participants
+					<CloudDownloadIcon className="pr-5" fontSize="small" /> Export CSV
 				</Button>
 			</ActionBar>
 			<Paper>

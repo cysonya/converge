@@ -36,6 +36,8 @@ Route::post('contact', 'EventsController@contact');
  * Admin routes - set all to React view
  */
 Route::group(['prefix' => 'admin', 'middleware' => 'is_admin'], function() {
+    Route::get('/events/{event_id}/attendants/export', 'AdminAttendantsController@export');
+
 	Route::view('/{path?}', 'admin_react')
 		->where('path', '.*')
 		->name('react');
