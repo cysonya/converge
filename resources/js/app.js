@@ -25,7 +25,7 @@ import App from "./app/index"
 import theme from "./styles/theme"
 
 window.appStore = store
-window.pastDeadline = true // new Date() > new Date("2019-07-16 00:00:00")
+window.pastDeadline = new Date() > new Date("2019-07-16 00:00:00")
 document.addEventListener("DOMContentLoaded", () => {
 	const appPage = document.getElementById("app_react")
 	console.log("theme: ", theme)

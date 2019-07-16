@@ -36,7 +36,7 @@ at Hiram College:
 				<td>${{ (int)$donation->amount }}</td>
 			</tr>
 		@endif
-		@if(\Carbon\Carbon::now('EST')->addHour() > \Carbon\Carbon::parse('2019-07-13 EST'))
+		@if(\Carbon\Carbon::now('EST')->addHour() > \Carbon\Carbon::parse('2019-07-16 EST'))
 			<tr>
 				<td class="td-right" colspan="3" align="right">
 					<strong>Late Fee:</strong>

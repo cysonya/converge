@@ -106,7 +106,7 @@ class CheckoutsController extends Controller
 
 
                 $lateFee = 0;
-                if (Carbon::now('EST')->addHour() > Carbon::parse('2019-07-13 EST')) {
+                if (Carbon::now('EST')->addHour() > Carbon::parse('2019-07-16 EST')) {
                     $lateFee += count($request->registrants) * 20;
                 }
                 $orderTotal = $packagesTotal + $request->donation + $lateFee;
