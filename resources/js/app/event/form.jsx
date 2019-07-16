@@ -267,8 +267,10 @@ const InternalEventForm = ({
 									color="error"
 									style={{ marginTop: "20px" }}
 								>
-									Registration deadline is passed, all registration is now
-									subject to a late fee.
+									<strong>
+										Registration deadline is passed, all registration is now
+										subject to a late fee.
+									</strong>
 								</Typography>
 							)}
 
