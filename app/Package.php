@@ -42,6 +42,17 @@ class Package extends Model
         return $this->belongsToMany(\App\Order::class);
     }
 
+
+    /**
+    * The attendants associated with the Package.
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\HasMany
+    */
+    public function attendants()
+    {
+        return $this->hasMany(\App\Attendant::class);
+    }
+
     /**
     * The groups associated with the Package.
     *
