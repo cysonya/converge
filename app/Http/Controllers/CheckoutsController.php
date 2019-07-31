@@ -32,6 +32,8 @@ class CheckoutsController extends Controller
     public function store(Request $request, $event_id)
     {
         DB::beginTransaction();
+        return response()
+            ->json(['status' => "error", 'error' => "Registration is closed."]);
 
         // CREATE ORDER 
         try {
