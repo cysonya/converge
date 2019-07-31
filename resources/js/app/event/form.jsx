@@ -259,7 +259,7 @@ const InternalEventForm = ({
 					// console.log("VALUES: ", props.values)
 					// console.log("ERRORS: ", props.errors)
 					// console.log("TOUCHED: ", props.touched)
-					if (new Date() > new Date("2019-07-23 00:00:00")) {
+					if (true) {
 						return (
 							<FormContent
 								style={{
