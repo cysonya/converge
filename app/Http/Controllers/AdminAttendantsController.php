@@ -27,7 +27,6 @@ class AdminAttendantsController extends Controller
         $columns = [
             'First Name', 
             'Last Name', 
-            'Email',
             'Age Group', 
             'Housing', 
             'Affiliate',
@@ -44,7 +43,6 @@ class AdminAttendantsController extends Controller
                 $row = [
                     $attendant->first_name,
                     $attendant->last_name,
-                    $attendant->email,
                     $attendant->group->description,
                     $attendant->package->title,
                     $attendant->custom_properties['affiliate'],
