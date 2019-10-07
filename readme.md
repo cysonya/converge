@@ -46,10 +46,15 @@ For more commands, go to [Vessel](https://vessel.shippingdocker.com/docs/everyda
 ```
 
 
-# TODO
 
-[] Create order API 
-[] Support apply late fee date
-[] Close registration after deadline
-[] Add option to cover processing fee
-[] Add filter and search function in admin panel
+## Other commands
+
+`mysqldump -u username -p database_to_backup > backup_name.sql`
+
+`scp -r root@0.0.0.0:/path/on/remote/droplet /path/to/my/files`
+
+
+- Townhouse available for all
+- Late registartion fee - TBD
+- Registration deadline is passed, all registration is now subject to a late fee. Add line item "late fee" at checkout (order summary).
+- CSV with all attendant info
