@@ -49,12 +49,8 @@ For more commands, go to [Vessel](https://vessel.shippingdocker.com/docs/everyda
 
 ## Other commands
 
-`mysqldump -u username -p database_to_backup > backup_name.sql`
-
-`scp -r root@0.0.0.0:/path/on/remote/droplet /path/to/my/files`
-
-
-- Townhouse available for all
-- Late registartion fee - TBD
-- Registration deadline is passed, all registration is now subject to a late fee. Add line item "late fee" at checkout (order summary).
-- CSV with all attendant info
+- [ ] Order API
+- [ ] Close registration pass deadline, and support apply late fee date
+- [ ] Search and filter attendant data
+- [ ] Refund order
+- [ ] Offline payment

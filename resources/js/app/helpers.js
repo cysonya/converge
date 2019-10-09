@@ -13,9 +13,5 @@ export const getOrderTotal = (state, ownProps) => {
 
   let total =
     getPkgTotal(state, ownProps) + values.donation + values.coupon.discount
-
-  if (pastDeadline) {
-    total += values.registrants.length * 20
-  }
   return total
 }

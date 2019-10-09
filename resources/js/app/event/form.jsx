@@ -259,35 +259,8 @@ const InternalEventForm = ({
 					// console.log("VALUES: ", props.values)
 					// console.log("ERRORS: ", props.errors)
 					// console.log("TOUCHED: ", props.touched)
-					if (true) {
-						return (
-							<FormContent
-								style={{
-									display: "flex",
-									justifyContent: "center",
-									alignItems: "center"
-								}}
-							>
-								<p>Registration Closed.</p>
-							</FormContent>
-						)
-					}
 					return (
 						<Form>
-							{pastDeadline && (
-								<Typography
-									align="center"
-									variant="body2"
-									color="error"
-									style={{ marginTop: "20px" }}
-								>
-									<strong>
-										Registration deadline is passed, all registration is now
-										subject to a late fee.
-									</strong>
-								</Typography>
-							)}
-
 							<Stepper
 								activeStep={currentStep}
 								alternativeLabel={isMobile(width) ? false : true}

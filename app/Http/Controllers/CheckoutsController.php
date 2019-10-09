@@ -32,8 +32,6 @@ class CheckoutsController extends Controller
     public function store(Request $request, $event_id)
     {
         DB::beginTransaction();
-        return response()
-            ->json(['status' => "error", 'error' => "Registration is closed."]);
 
         // CREATE ORDER 
         try {
@@ -106,16 +104,12 @@ class CheckoutsController extends Controller
 
                 $packagesTotal += $package->groups()->where('group_id', $registrant['group'])->first()->pivot->price;
 
-
-                $lateFee = 0;
-                if (Carbon::now('EST')->addHour() > Carbon::parse('2019-07-16 EST')) {
-                    $lateFee += count($request->registrants) * 20;
-                }
-                $orderTotal = $packagesTotal + $request->donation + $lateFee;
+                $orderTotal = $packagesTotal + $request->donation;
 
                 // Update order total and status
                 $order->order_total = $orderTotal;
                 $order->status = 'completed';
+            
                 $order->save();
             }
         } catch (Exception $e) {
@@ -191,7 +185,7 @@ class CheckoutsController extends Controller
                     $order->payments()->create([
                         'event_id' => $event->id,
                         'payment_type' => 'order',
-                        'amount' => $packagesTotal + $lateFee,
+                        'amount' => $packagesTotal,
                         'transaction_id' => $charge->id,
                         'transaction_date' => Carbon::now()
                     ]);
